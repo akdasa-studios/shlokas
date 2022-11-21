@@ -33,7 +33,7 @@ class WordTranslation {
 
 class Verse {
     <<aggregate>>
-    +language
+    +translationLanguage
     +book
     +number
     +text
@@ -41,7 +41,14 @@ class Verse {
     +words
 }
 
-class CartType {
+class InboxCardType {
+    <<enumeration>>
+    Text,
+    Translation,
+    Word
+}
+
+class ReviewCardType {
     <<enumeration>>
     NumberToTranslation,
     NumberToText,
@@ -49,9 +56,18 @@ class CartType {
     TranslationToText
 }
 
-class Card {
-    <<aggregate>>
+class ICard {
     +verse
+}
+
+class InboxCard {
+    <<aggregate>>
+    +type
+    +remember()
+}
+
+class ReviewCard {
+    <<aggregate>>
     +type
     +progress
     +review(mark)
@@ -63,11 +79,19 @@ class CardProgress {
 }
 
 Book --> Language : written in
+
+Verse --> Language : has translation in
 Verse --> VerseNumber : has
 Verse --> Book : belongs to
-Card --> Verse : created from
 Verse --> WordTranslation : has many
-Card "1" <-- "1" CardProgress : keeps
 Verse --> "M" Collection : belongs to
-Card --> CartType : of type
+
+ICard --> Verse : created from
+
+ReviewCard <|-- ICard
+ReviewCard --> ReviewCardType : of type
+ReviewCard "1" <-- "1" CardProgress : keeps
+
+InboxCard <|-- ICard
+InboxCard --> InboxCardType : of type
 ```
