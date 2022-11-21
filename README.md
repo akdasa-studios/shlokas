@@ -2,4 +2,8 @@
 
 Learn Vedic verses to spiritualize your mind!
 
-[![Demo](https://img.youtube.com/vi/pABmYgurXCg/0.jpg)](https://www.youtube.com/watch?v=pABmYgurXCg)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=pABmYgurXCg">
+    <img src="https://img.youtube.com/vi/pABmYgurXCg/0.jpg" width="50%">
+  </a>
+</p>
