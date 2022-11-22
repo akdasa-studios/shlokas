@@ -16,17 +16,18 @@
       </ion-header>
 
       <div>
-        Shlokas
+        Shlokas {{ language.name }}
       </div>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+import { Language } from '@/models/language'
 
-export default defineComponent({
+defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
@@ -36,4 +37,6 @@ export default defineComponent({
     IonToolbar
   }
 });
+
+const language = new Language('EN', 'English')
 </script>

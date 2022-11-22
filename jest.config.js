@@ -12,5 +12,11 @@ module.exports = {
         "outputPath": "./unit-report/report.html"
       }
     ]
-  ]
+  ],
+  "modulePaths": [
+    "<rootDir>"
+  ],
+  // moduleNameMapper: {
+  //   '^@/(.*)$': '<rootDir>/src/$1',
+  // }
 }
