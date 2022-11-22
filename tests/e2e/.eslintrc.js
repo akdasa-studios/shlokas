@@ -1,10 +1,9 @@
 module.exports = {
-  plugins: [
-    'cypress'
+  "extends": [
+    "plugin:playwright/playwright-test"
   ],
   env: {
     mocha: true,
-    'cypress/globals': true
   },
   rules: {
     strict: 'off'
