@@ -22,7 +22,8 @@ class Collection {
 class Book {
     <<entity>>
     +language
-    +name
+    +title
+    +description
 }
 
 class WordTranslation {
@@ -33,10 +34,10 @@ class WordTranslation {
 
 class Verse {
     <<aggregate>>
-    +translationLanguage
+    +language
     +book
     +number
-    +text
+    +transliteration
     +translation
     +words
 }
@@ -74,7 +75,7 @@ class ReviewCard {
 }
 
 class CardProgress {
-    <<entity>>
+    <<value>>
     +due
 }
 
@@ -89,8 +90,8 @@ Verse --> "M" Collection : belongs to
 ICard --> Verse : created from
 
 ReviewCard <|-- ICard
-ReviewCard --> ReviewCardType : of type
 ReviewCard "1" <-- "1" CardProgress : keeps
+ReviewCard --> ReviewCardType : of type
 
 InboxCard <|-- ICard
 InboxCard --> InboxCardType : of type
