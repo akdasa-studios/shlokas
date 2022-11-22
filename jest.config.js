@@ -13,10 +13,7 @@ module.exports = {
       }
     ]
   ],
-  "modulePaths": [
-    "<rootDir>"
-  ],
-  // moduleNameMapper: {
-  //   '^@/(.*)$': '<rootDir>/src/$1',
-  // }
+  "moduleNameMapper": {
+    "@akdasa-studios/framework": "<rootDir>/node_modules/@akdasa-studios/framework/"
+  }
 }
