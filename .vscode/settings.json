@@ -1,0 +1,40 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.exclude": {
+    "**/.git": true,
+    "node_modules/": true,
+    ".stryker-tmp": true,
+    "dist/": true,
+    "ios/": true,
+    "android/": true
+  },
+  /* -------------------------------------------------------------------------- */
+  /*                                   linter                                   */
+  /* -------------------------------------------------------------------------- */
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  /* -------------------------------------------------------------------------- */
+  /*                                    tests                                   */
+  /* -------------------------------------------------------------------------- */
+  "jest.jestCommandLine": "npx jest",
+  /* -------------------------------------------------------------------------- */
+  /*                                 file types                                 */
+  /* -------------------------------------------------------------------------- */
+  "[feature]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+  },
+  "jest.autoRun": "false",
+  /* -------------------------------------------------------------------------- */
+  /*                                   github                                   */
+  /* -------------------------------------------------------------------------- */
+  "githubIssues.issueBranchTitle": "${user}/issue-${issueNumber}"
+}
