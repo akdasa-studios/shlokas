@@ -2,3 +2,5 @@ node_modules/
 playwright-report/
 dist/
 unit-report/
+coverage
+test-results/
