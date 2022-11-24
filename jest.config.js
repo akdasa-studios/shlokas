@@ -14,7 +14,7 @@ module.exports = {
     ]
   ],
   "moduleNameMapper": {
-    "@akdasa-studios/framework/(.*)": "<rootDir>/node_modules/@akdasa-studios/framework/dist/commonjs/$1",
+    "@akdasa-studios/framework/(.*)": "<rootDir>/node_modules/@akdasa-studios/framework/dist/cjs/$1",
   },
   testMatch: [
     '<rootDir>/tests/components/**/*.spec.ts',
