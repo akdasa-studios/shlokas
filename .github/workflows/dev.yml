@@ -95,7 +95,5 @@ jobs:
       if: always()
       with:
         name: e2e
-        path: |
-          playwright-report/
-          test-results/
+        path: playwright-report/
         retention-days: 5
