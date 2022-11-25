@@ -26,7 +26,7 @@ class Book {
     +description
 }
 
-class WordTranslation {
+class Synonym {
     <<value>>
     +word
     +translation
@@ -39,7 +39,16 @@ class Verse {
     +number
     +transliteration
     +translation
-    +words
+    +synonyms
+}
+
+class VerseTransliteration {
+    <<value>>
+    +lines[]
+}
+
+class VerseTranslation {
+    <<value>>
 }
 
 class InboxCardType {
@@ -84,7 +93,9 @@ Book --> Language : written in
 Verse --> Language : has translation in
 Verse --> VerseNumber : has
 Verse --> Book : belongs to
-Verse --> WordTranslation : has many
+Verse --> Synonym : has many
+Verse --> VerseTransliteration : has
+Verse --> VerseTranslation : has
 Verse --> "M" Collection : belongs to
 
 ICard --> Verse : created from
