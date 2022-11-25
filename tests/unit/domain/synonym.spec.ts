@@ -1,4 +1,4 @@
-import { Synonym } from '@/models/synonym'
+import { Synonym } from '@/models/verse'
 
 describe('Synonym', () => {
   describe('constructor', () => {

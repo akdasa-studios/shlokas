@@ -1,8 +1,7 @@
 import { Aggregate, UuidIdentity } from '@akdasa-studios/framework/domain/models'
 
-import { VerseNumber, VerseTransliteration, VerseTranslation } from '@/models/verse'
+import { VerseNumber, Transliteration, Translation, Synonym } from '@/models/verse'
 import { Language } from '@/models/language'
-import { Synonym } from '@/models/synonym'
 
 
 /**
@@ -18,8 +17,8 @@ export class Verse extends Aggregate<VerseId> {
     id: VerseId,
     public readonly number: VerseNumber,
     public readonly language: Language,
-    public readonly transliteration: VerseTransliteration,
-    public readonly translation: VerseTranslation,
+    public readonly transliteration: Transliteration,
+    public readonly translation: Translation,
     public readonly synonyms: Synonym[],
   ) {
     super(id)

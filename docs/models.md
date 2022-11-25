@@ -42,12 +42,12 @@ class Verse {
     +synonyms
 }
 
-class VerseTransliteration {
+class Transliteration {
     <<value>>
     +lines[]
 }
 
-class VerseTranslation {
+class Translation {
     <<value>>
 }
 
@@ -94,8 +94,8 @@ Verse --> Language : has translation in
 Verse --> VerseNumber : has
 Verse --> Book : belongs to
 Verse --> Synonym : has many
-Verse --> VerseTransliteration : has
-Verse --> VerseTranslation : has
+Verse --> Transliteration : has
+Verse --> Translation : has
 Verse --> "M" Collection : belongs to
 
 ICard --> Verse : created from

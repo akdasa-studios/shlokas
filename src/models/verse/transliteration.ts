@@ -3,9 +3,9 @@ import { Value } from '@akdasa-studios/framework/domain/models'
 /**
  * Verse transliteration
  */
-export class VerseTransliteration extends Value<'VerseTransliteration'> {
+export class Transliteration extends Value<'Transliteration'> {
   /**
-   * Initialize a new instance of VerseTransliteration class with the given lines
+   * Initialize a new instance of Transliteration class with the given lines
    */
   constructor (
     public readonly lines: string[],
