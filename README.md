@@ -4,7 +4,7 @@ Learn Vedic verses to spiritualize your mind! This app is a collection of shloka
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=pABmYgurXCg">
-    <img src="https://raw.githubusercontent.com/akdasa-studios/shlokas/main/docs/video.jpeg" width="50%">
+    <img src="https://github.com/akdasa-studios/shlokas/blob/readme/docs/video.jpeg?raw=true" width="50%">
   </a>
 </p>
 
