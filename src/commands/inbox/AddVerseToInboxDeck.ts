@@ -4,10 +4,10 @@ import { ICommand } from '@akdasa-studios/framework/commands'
 import { VerseId } from '@/models/verse';
 import { InboxCard, InboxCardBuilder, InboxCardType } from '@/models/cards'
 
-import { InboxContext } from './inbox-context';
+import { InboxContext } from './InboxContext';
 
 
-export class AddVerseToInbox implements ICommand<InboxContext, Result<InboxCard[], string>> {
+export class AddVerseToInboxDeck implements ICommand<InboxContext, Result<InboxCard[], string>> {
   private _verseId: VerseId
   private _addedCards: InboxCard[] = []
 

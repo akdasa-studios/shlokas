@@ -2,7 +2,7 @@ import { Result } from '@akdasa-studios/framework/core'
 import { Aggregate, UuidIdentity } from '@akdasa-studios/framework/domain/models'
 
 import { VerseNumber, Transliteration, NoTransliteration, Translation, NoTranslation, Synonym, UnknownVerseNumber } from '@/models/verse'
-import { Language, UnknownLanguage } from '@/models/language'
+import { Language, UnknownLanguage } from '@/models/Language'
 
 
 /**

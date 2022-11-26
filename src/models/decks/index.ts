@@ -1,1 +1,1 @@
-export { InboxDeck } from './inbox-deck'
+export { InboxDeck } from './InboxDeck'

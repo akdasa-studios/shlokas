@@ -18,4 +18,4 @@ export class Transliteration extends Value<'Transliteration'> {
   }
 }
 
-export const NoTransliteration = new Transliteration([''])
+export const NoTransliteration = new Transliteration(['No Transliteration', 'No Transliteration'])

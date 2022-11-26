@@ -1,2 +1,2 @@
-export { CardId } from './card'
-export { InboxCard, InboxCardType, InboxCardBuilder } from './inbox-card'
+export { CardId } from './Card'
+export { InboxCard, InboxCardType, InboxCardBuilder } from './InboxCard'

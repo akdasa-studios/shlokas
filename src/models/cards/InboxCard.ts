@@ -1,5 +1,5 @@
 import { VerseId } from '@/models/verse'
-import { Card, CardId } from './card'
+import { Card, CardId } from './Card'
 
 
 export enum InboxCardType {

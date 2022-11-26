@@ -17,4 +17,4 @@ export class Translation extends Value<'Translation'> {
   }
 }
 
-export const NoTranslation = new Translation('')
+export const NoTranslation = new Translation('No Translation')

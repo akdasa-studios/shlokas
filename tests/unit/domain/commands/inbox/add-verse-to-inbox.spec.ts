@@ -1,7 +1,7 @@
 import { InboxDeck } from "@/models/decks"
 import { VerseId } from "@/models/verse"
 import { InboxCardType } from '@/models/cards'
-import { AddVerseToInbox, InboxContext } from "@/commands/inbox"
+import { AddVerseToInboxDeck, InboxContext } from "@/commands/inbox"
 
 
 describe('AddVerseToInbox', () => {
@@ -25,7 +25,7 @@ describe('AddVerseToInbox', () => {
 
   describe('.execute', () => {
     it('adds translation and transliteration cards to the inbox deck', () => {
-      const command = new AddVerseToInbox(verseId)
+      const command = new AddVerseToInboxDeck(verseId)
       const result = command.execute(context)
 
       expect(result.isSuccess).toBe(true)
@@ -45,8 +45,8 @@ describe('AddVerseToInbox', () => {
 
   describe('.revert', () => {
     it('removes added cards', () => {
-      const command1 = new AddVerseToInbox(new VerseId())
-      const command2 = new AddVerseToInbox(new VerseId())
+      const command1 = new AddVerseToInboxDeck(new VerseId())
+      const command2 = new AddVerseToInboxDeck(new VerseId())
 
       const result1 = command1.execute(context)
       const result2 = command2.execute(context)

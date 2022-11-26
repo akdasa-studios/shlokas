@@ -18,9 +18,12 @@
       <div>
         <div
           v-for="card in viewModel.cards.value"
-          :key="card.id"
+          :key="card.id.value"
         >
-          {{ card.verseNumber }} {{ card.type }}
+          {{ card.verseNumber }} {{ card.id.value }}
+          <span @click="card.memorized()">
+            Memorized
+          </span>
         </div>
       </div>
       <div @click="viewModel.addVerse(verseToAdd)">
@@ -33,10 +36,10 @@
 <script lang="ts" setup>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue'
-import { InboxViewModel } from '@/viewModels/inbox-view-model'
+import { InboxViewModel } from '@/viewModels/inbox'
 import { InboxContext } from '@/commands/inbox'
 import { InboxDeck } from '@/models/decks'
-import { VerseId } from '@/models/verse';
+import { VerseId } from '@/models/verse'
 
 defineComponent({
   name: 'HomePage',
