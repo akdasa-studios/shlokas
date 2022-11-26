@@ -16,15 +16,9 @@ export class AddVerseToInbox implements ICommand<InboxContext, Result<InboxCard[
   }
 
   execute(context: InboxContext): Result<InboxCard[], string> {
-    const builder = (
-      new InboxCardBuilder()
-        .ofVerse(this._verseId)
-        .addedAt(new Date())
-    )
-
     // create two cards for the verse
-    const card1 = builder.ofType(InboxCardType.Translation).build()
-    const card2 = builder.ofType(InboxCardType.Transliteration).build()
+    const card1 = this.getCard.ofType(InboxCardType.Translation).build()
+    const card2 = this.getCard.ofType(InboxCardType.Transliteration).build()
 
     // add the cards to the deck
     context.deck.addCard(card1)
@@ -36,9 +30,16 @@ export class AddVerseToInbox implements ICommand<InboxContext, Result<InboxCard[
     // return the added cards
     return Result.ok(this._addedCards) // TODO: make copy
   }
+
   revert(context: InboxContext): void {
     for(const card of this._addedCards) {
       context.deck.removeCard(card)
     }
+  }
+
+  private get getCard(): InboxCardBuilder {
+    return new InboxCardBuilder()
+        .ofVerse(this._verseId)
+        .addedAt(new Date())
   }
 }

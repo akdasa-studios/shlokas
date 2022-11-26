@@ -18,3 +18,5 @@ export class Language extends Value<'Language'> {
     super()
   }
 }
+
+export const UnknownLanguage = new Language('??', 'Unknown')

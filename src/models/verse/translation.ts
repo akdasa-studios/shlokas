@@ -16,3 +16,5 @@ export class Translation extends Value<'Translation'> {
     super()
   }
 }
+
+export const NoTranslation = new Translation('')

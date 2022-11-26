@@ -17,3 +17,5 @@ export class Transliteration extends Value<'Transliteration'> {
     super()
   }
 }
+
+export const NoTransliteration = new Transliteration([''])

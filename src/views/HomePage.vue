@@ -16,7 +16,15 @@
       </ion-header>
 
       <div>
-        Shlokas {{ language.name }}
+        <div
+          v-for="card in viewModel.cards.value"
+          :key="card.id"
+        >
+          {{ card.verseNumber }} {{ card.type }}
+        </div>
+      </div>
+      <div @click="viewModel.addVerse(verseToAdd)">
+        Add
       </div>
     </ion-content>
   </ion-page>
@@ -25,7 +33,10 @@
 <script lang="ts" setup>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue'
-import { Language } from '@/models/language'
+import { InboxViewModel } from '@/viewModels/inbox-view-model'
+import { InboxContext } from '@/commands/inbox'
+import { InboxDeck } from '@/models/decks'
+import { VerseId } from '@/models/verse';
 
 defineComponent({
   name: 'HomePage',
@@ -38,5 +49,6 @@ defineComponent({
   }
 });
 
-const language = new Language('EN', 'English')
+const verseToAdd = new VerseId()
+const viewModel = new InboxViewModel(new InboxContext(new InboxDeck([])))
 </script>

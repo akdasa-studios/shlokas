@@ -33,3 +33,5 @@ export class VerseNumber extends Value<'VerseNumber'> {
     return (textPart + ' ' + numberPart).trim()
   }
 }
+
+export const UnknownVerseNumber = new VerseNumber(['??', '??'])
