@@ -1,0 +1,1 @@
+export { InboxDeck } from './inbox-deck'
