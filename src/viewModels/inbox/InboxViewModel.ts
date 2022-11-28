@@ -1,12 +1,12 @@
 import { ref } from 'vue'
 
-import { VerseBuilder, VerseId, VerseNumber } from '@/models/verse'
-import { InboxContext } from '@/commands/inbox';
-import { AddVerseToInboxDeck } from '@/commands/inbox';
+import { VerseBuilder, VerseId, VerseNumber } from '@akdasa-studios/shlokas-core/models/verse'
+import { InboxContext } from '@akdasa-studios/shlokas-core/commands/inbox'
+import { AddVerseToInboxDeck } from '@akdasa-studios/shlokas-core/commands/inbox'
 
 import { InboxCardVewModel } from './InboxCardVewModel'
-import { InboxCardMemorized } from '@/commands/inbox/InboxCardMemorized';
-import { CardId, InboxCard } from '@/models/cards';
+import { InboxCardMemorized } from '@akdasa-studios/shlokas-core/commands/inbox/InboxCardMemorized'
+import { CardId, InboxCard } from '@akdasa-studios/shlokas-core/models/cards'
 
 
 export class InboxViewModel {
@@ -17,7 +17,7 @@ export class InboxViewModel {
 
   public sync() {
     const verse = new VerseBuilder().withNumber(new VerseNumber(["BG", "1", "1"])).build().value
-    this.cards.value = this.context.deck.cards.map(card => new InboxCardVewModel(this.context, card, verse, () => this.sync()))
+    this.cards.value = this.context.deck.cards.map((card: InboxCard) => new InboxCardVewModel(this.context, card, verse, () => this.sync()))
   }
 
   addVerse(verseId: VerseId) {
@@ -29,7 +29,7 @@ export class InboxViewModel {
 
   cardMemorized(cardId: CardId) {
     console.log("memorized")
-    const card = this.context.deck.cards.find(card => card.id.value === cardId.value)
+    const card = this.context.deck.cards.find((card: { id: { value: string } }) => card.id.value === cardId.value)
 
     const command = new InboxCardMemorized(card as InboxCard)
     console.log("executed", cardId.value)

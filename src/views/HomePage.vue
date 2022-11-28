@@ -37,9 +37,9 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue'
 import { InboxViewModel } from '@/viewModels/inbox'
-import { InboxContext } from '@/commands/inbox'
-import { InboxDeck } from '@/models/decks'
-import { VerseId } from '@/models/verse'
+import { InboxContext } from '@akdasa-studios/shlokas-core/commands/inbox'
+import { InboxDeck } from '@akdasa-studios/shlokas-core/models/decks'
+import { VerseId } from '@akdasa-studios/shlokas-core/models/verse'
 
 defineComponent({
   name: 'HomePage',

@@ -1,5 +1,0 @@
-export * from './Verse'
-export * from './VerseNumber'
-export * from './Transliteration'
-export * from './Translation'
-export * from './Synonym'

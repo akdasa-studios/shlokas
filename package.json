@@ -10,7 +10,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@akdasa-studios/framework": "0.0.6",
+    "@akdasa-studios/framework": "0.0.9",
+    "@akdasa-studios/shlokas-core": "0.0.12",
     "@capacitor/app": "4.1.0",
     "@capacitor/core": "4.4.0",
     "@capacitor/haptics": "4.0.1",

@@ -1,1 +1,0 @@
-export { InboxDeck } from './InboxDeck'

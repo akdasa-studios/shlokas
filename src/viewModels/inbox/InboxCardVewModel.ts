@@ -1,7 +1,7 @@
-import { InboxContext } from '@/commands/inbox'
-import { InboxCardMemorized } from '@/commands/inbox'
-import { CardId, InboxCard } from '@/models/cards'
-import { Verse } from '@/models/verse'
+import { InboxContext } from '@akdasa-studios/shlokas-core/commands/inbox'
+import { InboxCardMemorized } from '@akdasa-studios/shlokas-core/commands/inbox'
+import { CardId, InboxCard } from '@akdasa-studios/shlokas-core/models/cards'
+import { Verse } from '@akdasa-studios/shlokas-core/models/verse'
 
 
 /**
