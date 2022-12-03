@@ -13,10 +13,6 @@ module.exports = {
       }
     ]
   ],
-  "moduleNameMapper": {
-    "@akdasa-studios/framework/(.*)": "<rootDir>/node_modules/@akdasa-studios/framework/dist/$1",
-    "@akdasa-studios/shlokas-core/(.*)": "<rootDir>/node_modules/@akdasa-studios/shlokas-core/dist/$1",
-  },
   testMatch: [
     '<rootDir>/tests/components/**/*.spec.ts',
     '<rootDir>/tests/unit/**/*.spec.ts'

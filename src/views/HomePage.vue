@@ -19,6 +19,7 @@
         <div
           v-for="card in viewModel.cards.value"
           :key="card.id.value"
+          class="verseLine"
         >
           {{ card.verseNumber }} {{ card.id.value }}
           <span @click="card.memorized()">
@@ -26,7 +27,10 @@
           </span>
         </div>
       </div>
-      <div @click="viewModel.addVerse(verseToAdd)">
+      <div
+        id="addVerseButton"
+        @click="viewModel.addVerse(verseToAdd)"
+      >
         Add
       </div>
     </ion-content>
@@ -37,9 +41,9 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue'
 import { InboxViewModel } from '@/viewModels/inbox'
-import { InboxContext } from '@akdasa-studios/shlokas-core/commands/inbox'
-import { InboxDeck } from '@akdasa-studios/shlokas-core/models/decks'
-import { VerseId } from '@akdasa-studios/shlokas-core/models/verse'
+import { InboxContext } from '@akdasa-studios/shlokas-core'
+import { InboxDeck } from '@akdasa-studios/shlokas-core'
+import { VerseId } from '@akdasa-studios/shlokas-core'
 
 defineComponent({
   name: 'HomePage',

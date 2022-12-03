@@ -3,9 +3,12 @@ import { test, expect } from '@playwright/test';
 test('homepage has title and links to intro page', async ({ page }) => {
   await page.goto('/');
 
-  // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Shlokas/)
+  const addButton = page.getByText("Add")
+  await addButton.click()
 
+  const l = await page.getByText("Memorized").first()
+  await expect(await l.innerHTML()).toEqual(" Memorized ")
   // // create a locator
   // const getStarted = page.getByRole('link', { name: 'Get started' });
 
