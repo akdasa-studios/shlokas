@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "detail": "Runs E2E repot server",
+      "icon": {
+        "id": "report",
+        "color": "terminal.ansiGreen"
+      },
+      "label": "E2E Report",
+      "isBackground": true,
+      "type": "npm",
+      "script": "test:e2e:report",
+      "problemMatcher": []
+    }
+  ]
+}

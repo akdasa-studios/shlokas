@@ -53,7 +53,7 @@ class Translation {
 
 class InboxCardType {
     <<enumeration>>
-    Text,
+    Transliteration,
     Translation,
     Word
 }
@@ -73,6 +73,7 @@ class ICard {
 class InboxCard {
     <<aggregate>>
     +type
+    +addedAt
     +remember()
 }
 

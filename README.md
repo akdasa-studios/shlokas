@@ -8,15 +8,21 @@ Learn Vedic verses to spiritualize your mind! This app is a collection of shloka
   </a>
 </p>
 
+
+## Documentation
+1. [Architecture](./docs/architecture.md) – Overall project architecture
+1. [Models](./docs/models.md) – Domain models
+
+
 ## Develop
+`npm run serve` – run the application at `http://localhost:8080`
+
 `npm run test:unit` – run unit tests for logic
 
 `npm run test:component` – run tests for componens
 
 `npm run test:e2e` – run end to end tests
 
-## Documentation
-1. [Models](./docs/models.md) – Domain models
-
 ## Links
 1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application
+2. [Shlokas Core](https://github.com/akdasa-studios/shlokas-core) – Business logic of the application
