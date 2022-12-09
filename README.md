@@ -1,4 +1,7 @@
-# Shlokas
+<p align="center">
+    <img src="docs/logo.svg" height="184px"/>
+</p>
+
 Learn Vedic verses to spiritualize your mind! This app is a collection of shlokas from the Vedas, Upanishads, Bhagavad Gita, and other spiritual texts. The app is designed to help you learn the verses by heart. It is also a great way to learn Sanskrit. Shlokas uses an interval repetition algorithm to help you learn the verses. So you can learn several verses a day.
 
 
