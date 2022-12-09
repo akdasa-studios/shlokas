@@ -18,13 +18,10 @@ Learn Vedic verses to spiritualize your mind! This app is a collection of shloka
 
 
 ## Develop
-`npm run serve` – run the application at `http://localhost:8080`
-
-`npm run test:unit` – run unit tests for logic
-
-`npm run test:component` – run tests for componens
-
-`npm run test:e2e` – run end to end tests
+1. `npm run serve` – run the application at `http://localhost:8080`
+2. `npm run test:unit` – run unit tests for logic
+3. `npm run test:component` – run tests for componens
+4. `npm run test:e2e` – run end to end tests
 
 ## Links
 1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application
