@@ -1,55 +1,34 @@
-name: dev
+name: Tests
 on: push
 
 jobs:
-  linter:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-    steps:
-      - uses: actions/checkout@v2
-
-      # Install node dependencies
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-          cache: npm
-      - run: npm ci --audit=false
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Run linter
-      - name: Linter
-        run: npm run lint
-
   unit:
-    needs: linter
+    name: 🤖 Unit
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v2
+      - name: 📥 Checkout
+        uses: actions/checkout@v2
 
-      # Install node dependencies
-      - uses: actions/setup-node@v2
+      - name: 📦 Install Node
+        uses: actions/setup-node@v2
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           cache: npm
-      - run: npm ci --audit=false
+
+      - name: 📦 Install dependencies
+        run: npm ci --audit=false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Run tests
-      - name: Tests
+      - name: 🔬 Tests
         run: npm run test:unit
 
-      - name: upload artifacts
+      - name: 🚚 Upload artifacts
         uses: actions/upload-artifact@v3
         if: always()
         with:
@@ -57,40 +36,44 @@ jobs:
           path: unit-report/
           retention-days: 30
 
-      # Upload test coverage
-      - name: Upload coverage to Codecov
+      - name: 📜 Upload coverage
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   e2e:
+    name: 🚀 E2E
     needs: unit
     permissions:
       packages: read
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - name: 📥 Checkout
+      uses: actions/checkout@v3
+
+    - name: 📦 Install Node
+      uses: actions/setup-node@v3
       with:
         node-version: 16
-    - name: Install dependencies
+
+    - name: 📦 Install dependencies
       run: npm ci --audit=false
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: run app
+    - name: 🚀 Run app
       run: npm run serve &
       # todo: ^^ wait until app started
 
-    - name: install browsers
+    - name: 📦 Install browsers
       run: npx playwright install --with-deps
 
-    - name: run tests
+    - name: 🔬 run tests
       run: npx playwright test
 
-    - name: upload artifacts
+    - name: 🚚 Upload artifacts
       uses: actions/upload-artifact@v3
       if: always()
       with:

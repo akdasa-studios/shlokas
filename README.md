@@ -2,10 +2,19 @@
     <img src="docs/logo.svg" height="184px"/>
 </p>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c005fb9b-d8a8-410e-ae86-89e3dc213202/deploy-status)](https://app.netlify.com/sites/shlokas-staging/deploys)
+<p align="center">
+  <a href="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml"><img src="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://codecov.io/gh/akdasa-studios/shlokas"><img src="https://codecov.io/gh/akdasa-studios/shlokas/branch/main/graph/badge.svg?token=QUAOR54W17"/></a>
+  <a href="https://www.codacy.com/gh/akdasa-studios/shlokas/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=akdasa-studios/shlokas&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/45de0ace9ee248c9a7b722035dbb4657" alt="Codacy Badge"></a>
+  <a href="https://app.netlify.com/sites/shlokas-staging/deploys"><img src="https://api.netlify.com/api/v1/badges/c005fb9b-d8a8-410e-ae86-89e3dc213202/deploy-status" alt="Netlify Status"></a>
+</p>
+
 
 Learn Vedic verses to spiritualize your mind! This app is a collection of shlokas from the Vedas, Upanishads, Bhagavad Gita, and other spiritual texts. The app is designed to help you learn the verses by heart. It is also a great way to learn Sanskrit. Shlokas uses an interval repetition algorithm to help you learn the verses. So you can learn several verses a day.
 
+
+## Showcase
+You can try _Shlokas_ app at our [staging server](https://shlokas-staging.netlify.app)
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=pABmYgurXCg">

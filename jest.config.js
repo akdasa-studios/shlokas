@@ -17,4 +17,7 @@ module.exports = {
     '<rootDir>/tests/components/**/*.spec.ts',
     '<rootDir>/tests/unit/**/*.spec.ts'
   ],
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
 }
