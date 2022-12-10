@@ -3,6 +3,7 @@ on: push
 
 jobs:
   unit:
+    name: 🤖 Unit
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -41,6 +42,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   e2e:
+    name: 🚀 E2E
     needs: unit
     permissions:
       packages: read
