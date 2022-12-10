@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 1080 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
-    <g transform="matrix(0.554457,0,0,0.554457,247.699,250)">
+<svg width="100%" height="100%" viewBox="0 0 1080 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
+    <g transform="matrix(0.648785,0,0,0.648785,192.428,200)">
         <g transform="matrix(1,0,0,1,-256,-256)">
             <g>
                 <g>
@@ -141,14 +141,16 @@
             </g>
         </g>
     </g>
-    <g transform="matrix(1,0,0,1,492.642,-631.86)">
-        <g transform="matrix(160,0,0,160,490.293,900.091)">
+    <g transform="matrix(1,0,0,1,0,11.5595)">
+        <g transform="matrix(1.17013,0,0,1.17013,445.011,-823.008)">
+            <g transform="matrix(179.468,0,0,179.468,521.029,900.091)">
+            </g>
+            <text x="-45.679px" y="900.091px" style="font-family:'SamarkanNormal', 'Samarkan', sans-serif;font-size:179.468px;">SHLOKAS</text>
         </g>
-        <text x="-14.942px" y="900.091px" style="font-family:'SamarkanNormal', 'Samarkan', sans-serif;font-size:160px;">SHLOKAS</text>
-    </g>
-    <g transform="matrix(1,0,0,1,646.213,-628.963)">
-        <g transform="matrix(54,0,0,54,338.171,989.441)">
+        <g transform="matrix(1.17013,0,0,1.17013,624.071,-840.498)">
+            <g transform="matrix(54,0,0,54,338.171,989.441)">
+            </g>
+            <text x="-167.288px" y="989.441px" style="font-family:'Charter-Italic', 'Charter', serif;font-style:italic;font-size:54px;">spiritualize your mind</text>
         </g>
-        <text x="-167.288px" y="989.441px" style="font-family:'Charter-Italic', 'Charter', serif;font-style:italic;font-size:54px;">spiritualize your mind</text>
     </g>
 </svg>
