@@ -4,3 +4,4 @@ dist/
 unit-report/
 coverage
 test-results/
+coverage/
