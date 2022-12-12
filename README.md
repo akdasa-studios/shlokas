@@ -12,7 +12,7 @@
 Learn Vedic verses to spiritualize your mind! This app is a collection of shlokas from the Vedas, Upanishads, Bhagavad Gita, and other spiritual texts. The app is designed to help you learn the verses by heart. It is also a great way to learn Sanskrit. Shlokas uses an interval repetition algorithm to help you learn the verses. So you can learn several verses a day.
 
 ## Showcase
-You can try _Shlokas_ app at our staging server: [mobile](https://akdasa-studios-staging.netlify.app/shlokas-mobile.html) or [web](https://shlokas-staging.netlify.app) or take a look at the video below.
+You can try _Shlokas_ app at our staging server: [mobile](https://akdasa-studios-staging.netlify.app/shlokas/) or [web](https://shlokas-staging.netlify.app) or take a look at the video below.
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=pABmYgurXCg">
