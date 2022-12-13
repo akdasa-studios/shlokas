@@ -8,7 +8,7 @@ test('homepage has title and links to intro page', async ({ page }) => {
   await addButton.click()
 
   const l = await page.getByText("BG 1.1").first()
-  await expect(await l.innerHTML()).toEqual(" BG 1.1 ")
+  await expect(await l.innerHTML()).toEqual("BG 1.1")
   // // create a locator
   // const getStarted = page.getByRole('link', { name: 'Get started' });
 
