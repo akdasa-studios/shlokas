@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 
 test('homepage has title and links to intro page', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/home/inbox');
 
   await expect(page).toHaveTitle(/Shlokas/)
   const addButton = page.getByText("Add")
   await addButton.click()
 
-  const l = await page.getByText("Memorized").first()
-  await expect(await l.innerHTML()).toEqual(" Memorized ")
+  const l = await page.getByText("BG 1.1").first()
+  await expect(await l.innerHTML()).toEqual("BG 1.1")
   // // create a locator
   // const getStarted = page.getByRole('link', { name: 'Get started' });
 

@@ -1,4 +1,4 @@
-import { InboxContext } from '@akdasa-studios/shlokas-core'
+import { Application } from '@akdasa-studios/shlokas-core'
 import { InboxCardMemorized } from '@akdasa-studios/shlokas-core'
 import { CardId, InboxCard } from '@akdasa-studios/shlokas-core'
 import { Verse } from '@akdasa-studios/shlokas-core'
@@ -18,7 +18,7 @@ export class InboxCardVewModel {
    * @param verse Verse related to the card.
    */
   constructor(
-    private readonly context: InboxContext,
+    private readonly context: Application,
     card: InboxCard,
     verse: Verse,
     updated: () => void
@@ -58,7 +58,7 @@ export class InboxCardVewModel {
 
   memorized() {
     const command = new InboxCardMemorized(this._card)
-    command.execute(this.context)
+    this.context.processor.execute(command)
     this._updated()
   }
 }
