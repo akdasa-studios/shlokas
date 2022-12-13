@@ -51,14 +51,14 @@ import {
 } from '@ionic/vue';
 import { useI18n } from 'vue-i18n'
 import { InboxViewModel } from '@/viewModels/inbox'
-import { useApp, verses } from '@/application'
+import { useApp } from '@/application'
 
 const { t } = useI18n()
 const app = useApp()
 const vm = new InboxViewModel(app)
 
 function onAddClicked() {
-  vm.addVerse(verses[0].id)
+  vm.addVerse(app.library.all[0].id)
 }
 function onRevertClicked() {
   app.processor.revert()
