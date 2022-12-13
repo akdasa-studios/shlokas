@@ -1,61 +1,64 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Shlokas</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">
-            Shlokas
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div>
-        <div
-          v-for="card in viewModel.cards.value"
-          :key="card.id.value"
-          class="verseLine"
+    <ion-tabs>
+      <ion-router-outlet />
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button
+          tab="tab1"
+          href="/home/library"
         >
-          {{ card.verseNumber }} {{ card.id.value }}
-          <span @click="card.memorized()">
-            Memorized
-          </span>
-        </div>
-      </div>
-      <div
-        id="addVerseButton"
-        @click="viewModel.addVerse(verseToAdd)"
-      >
-        Add
-      </div>
-    </ion-content>
+          <ion-icon :icon="libraryOutline" />
+          <ion-label>{{ t('library') }}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="tab2"
+          href="/home/inbox"
+        >
+          <ion-icon :icon="enterOutline" />
+          <ion-label>{{ t('inbox') }}</ion-label>
+          <ion-badge v-if="false">
+            0
+          </ion-badge>
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="tab3"
+          href="/home/review"
+        >
+          <ion-icon :icon="albumsOutline" />
+          <ion-label>{{ t('review') }}</ion-label>
+          <ion-badge v-if="false">
+            0
+          </ion-badge>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
   </ion-page>
 </template>
 
+
 <script lang="ts" setup>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue'
-import { InboxViewModel } from '@/viewModels/inbox'
-import { InboxContext } from '@akdasa-studios/shlokas-core'
-import { InboxDeck } from '@akdasa-studios/shlokas-core'
-import { VerseId } from '@akdasa-studios/shlokas-core'
-
-defineComponent({
-  name: 'HomePage',
-  components: {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar
-  }
-});
-
-const verseToAdd = new VerseId()
-const viewModel = new InboxViewModel(new InboxContext(new InboxDeck([])))
+import {
+  IonTabBar, IonTabButton, IonTabs, IonLabel,
+  IonIcon, IonPage, IonRouterOutlet, IonBadge
+} from '@ionic/vue';
+import { enterOutline, libraryOutline, albumsOutline } from 'ionicons/icons'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 </script>
+
+
+<i18n locale="en" lang="yaml">
+inbox: Inbox
+library: Library
+review: Review
+settings: Settings
+</i18n>
+
+<i18n locale="ru" lang="yaml">
+inbox: Входящие
+library: Library
+review: Изучение
+settings: Настройки
+</i18n>
