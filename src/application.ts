@@ -2,21 +2,35 @@ import { Application, Translation, Verse, VerseBuilder, Text, VerseNumber } from
 import { InMemoryRepository } from '@akdasa-studios/framework'
 
 const versesRepo = new InMemoryRepository<Verse>()
-const verse1 = new VerseBuilder()
-  .withNumber(new VerseNumber('BG 1.1'))
-  .withText(new Text(['1.1']))
-  .withTranslation(new Translation('1.1'))
-  .build().value
-const verse2 = new VerseBuilder()
-  .withNumber(new VerseNumber('BG 1.2'))
-  .withText(new Text(['1.2']))
-  .withTranslation(new Translation('1.2'))
-  .build().value
 
-versesRepo.save(verse1)
-versesRepo.save(verse2)
+versesRepo.save(new VerseBuilder()
+  .withNumber(new VerseNumber('BG 1.1'))
+  .withText(new Text([
+    'dhṛtarāṣṭra uvāca',
+    'dharma-kṣetre kuru-kṣetre',
+    'samavetā yuyutsavaḥ',
+    'māmakāḥ pāṇḍavāś caiva',
+    'kim akurvata sañjaya',
+  ]))
+  .withTranslation(new Translation(
+    'Dhṛtarāṣṭra said: O Sañjaya, after my sons and the sons of Pāṇḍu assembled in the place of pilgrimage at Kurukṣetra, desiring to fight, what did they do?'
+  ))
+  .build().value)
+
+versesRepo.save(new VerseBuilder()
+  .withNumber(new VerseNumber('BG 1.2'))
+  .withText(new Text([
+    'sañjaya uvāca',
+    'dṛṣṭvā tu pāṇḍavānīkaṁ',
+    'vyūḍhaṁ duryodhanas tadā',
+    'ācāryam upasaṅgamya',
+    'rājā vacanam abravīt',
+  ]))
+  .withTranslation(new Translation(
+    'Sañjaya said: O King, after looking over the army arranged in military formation by the sons of Pāṇḍu, King Duryodhana went to his teacher and spoke the following words.'
+  ))
+  .build().value)
 
 const app = new Application(versesRepo)
 
 export function useApp() : Application { return app }
-export const verses: Verse[] = [verse1, verse2]
