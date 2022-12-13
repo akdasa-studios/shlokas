@@ -4,12 +4,12 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="primary">
-          <ion-button
+          <!-- <ion-button
             color="primary"
             @click="onAddClicked"
           >
             {{ t('add') }}
-          </ion-button>
+          </ion-button> -->
         </ion-buttons>
         <ion-title>{{ t('inbox') }}</ion-title>
       </ion-toolbar>
