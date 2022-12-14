@@ -24,6 +24,14 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+try {
+  if (window.location.search.includes("demo")) {
+    require('./theme/demo.css')
+  }
+} catch {
+  console.log("Not a demo build")
+}
+
 /* Localization */
 const i18n = createI18n({
   legacy: false,
