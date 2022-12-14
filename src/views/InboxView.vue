@@ -36,6 +36,12 @@
         Add
       </div>
 
+      <div
+        @click="onSyncClicked"
+      >
+        Sync
+      </div>
+
       <div @click="onRevertClicked">
         revert
       </div>
@@ -55,13 +61,16 @@ import { useApp } from '@/application'
 
 const { t } = useI18n()
 const app = useApp()
-const vm = new InboxViewModel(app)
+const vm = new InboxViewModel(app.app)
 
 function onAddClicked() {
-  vm.addVerse(app.library.all[0].id)
+  vm.addVerse(app.app.library.all[0].id)
 }
 function onRevertClicked() {
-  app.processor.revert()
+  app.app.processor.revert()
+  vm.sync()
+}
+function onSyncClicked() {
   vm.sync()
 }
 </script>

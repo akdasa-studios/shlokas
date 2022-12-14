@@ -38,6 +38,10 @@ test('click on add verse adds verse', async ({ page }) => {
   await verseDialog.waitFor({ state: "detached" })
 
   // Wait for toast
-  const toast = await page.getByText('Verse added').first()
+  const toast = await page.getByText('Verse BG 1.1 added to inbox').first()
   await toast.waitFor({ state: "visible", timeout: 1000 })
+
+  // Counter updated
+  const counterBadge = await page.getByTestId("inboxCounterBadge").first()
+  await expect(counterBadge).toHaveText("2")
 })

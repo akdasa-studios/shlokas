@@ -17,8 +17,11 @@
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ t('inbox') }}</ion-label>
-          <ion-badge v-if="false">
-            0
+          <ion-badge
+            v-if="app.counters.inboxCardsCount.value"
+            data-testid="inboxCounterBadge"
+          >
+            {{ app.counters.inboxCardsCount.value }}
           </ion-badge>
         </ion-tab-button>
 
@@ -45,7 +48,9 @@ import {
 } from '@ionic/vue';
 import { enterOutline, libraryOutline, albumsOutline } from 'ionicons/icons'
 import { useI18n } from 'vue-i18n'
+import { useApp } from '@/application'
 const { t } = useI18n()
+const app = useApp()
 </script>
 
 

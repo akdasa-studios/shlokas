@@ -5,6 +5,15 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button
+          data-testid="addVerseToInbox"
+          @click="addVerseToInbox"
+        >
+          {{ t('add') }}
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="secondary">
+        <ion-button
           data-testid="closeVerseDialog"
           color="medium"
           @click="cancel"
@@ -34,7 +43,7 @@
       {{ props.translation }}
     </div>
 
-    <ion-button
+    <!-- <ion-button
       data-testid="addVerseToInbox"
       color="primary"
       expand="block"
@@ -42,7 +51,7 @@
       @click="addVerseToInbox"
     >
       Add verse to inbox
-    </ion-button>
+    </ion-button> -->
   </ion-content>
 </template>
 
@@ -99,11 +108,11 @@ function addVerseToInbox() {
 <i18n src="@/locale/common.yml" lang="yaml" />
 
 <i18n locale="en" lang="yaml">
-add-verse: Add verse
+add: Add
 number-or-text: Verse number or text
 </i18n>
 
 <i18n locale="ru" lang="yaml">
-add-verse: Добавить новый стих
+add: Добавить
 number-or-text: Номер или текст
 </i18n>

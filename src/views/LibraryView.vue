@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page ref="page">
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
@@ -8,10 +8,9 @@
 
       <ion-toolbar>
         <ion-searchbar
-          v-model="searchQuery"
+          v-model="library.searchQuery.value"
           :placeholder="t('search')"
           animated
-          @ion-cancel="cancel"
         />
       </ion-toolbar>
     </ion-header>
@@ -20,10 +19,10 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item
-          v-for="verse in filteredVerses"
+          v-for="verse in library.filteredVerses.value"
           :key="verse.number.value"
           text-wrap
-          @click="openModal(verse)"
+          @click="library.openModal(verse)"
         >
           <ion-label class="ion-text-wrap">
             <h2>{{ verse.number }}</h2>
@@ -31,58 +30,54 @@
           </ion-label>
         </ion-item>
       </ion-list>
+
+      <!-- Modal -->
+      <ion-modal
+        :is-open="library.isModalOpen.value"
+        :presenting-element="presentingElement"
+        @will-dismiss="(v) => library.closeModal(v)"
+      >
+        <VerseView
+          :verse-id="library.modalVerse.value.verseId"
+          :title="library.modalVerse.value.title"
+          :translation="library.modalVerse.value.translation"
+          :text="library.modalVerse.value.text"
+        />
+      </ion-modal>
+
+      <ion-toast
+        position="top"
+        :message="t('verseAdded', { verseNumber: library.modalVerse.value.title })"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revert() }]"
+        :is-open="library.isToastOpen.value"
+        :duration="2000"
+        @did-dismiss="library.isToastOpen.value = false"
+      />
     </ion-content>
   </ion-page>
 </template>
 
 
 <script lang="ts" setup>
+import {
+  IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
+  IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast
+} from '@ionic/vue'
+import { onMounted, ref } from 'vue'
 import { useApp } from '@/application'
-import VerseView from '@/views/VerseView.vue'
-import { Verse } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonSearchbar, IonTitle, IonToolbar, modalController, toastController } from '@ionic/vue'
-import { computed, ref } from 'vue'
+import { useLibrary } from '@/viewModels/library/LibraryViewModel'
 import { useI18n } from 'vue-i18n'
+import VerseView from '@/views/VerseView.vue'
+
 const { t } = useI18n()
-const app = useApp()
-const searchQuery = ref("")
+const library = useLibrary(useApp())
 
-const filteredVerses = computed(() => {
-  return app.library.finqByString(searchQuery.value)
+const page = ref(null)
+const presentingElement = ref(null)
+onMounted(() => {
+  console.log("onMounted", page.value)
+  presentingElement.value = page.value.$el
 })
-function cancel() { console.log("cancel") }
-
-async function openModal(verse: Verse) {
-  const modal = await modalController.create({
-    component: VerseView,
-    componentProps: {
-      verseId: verse.id.value,
-      title: verse.number.toString(),
-      translation: verse.translation.text,
-      text: verse.text.lines,
-    }
-  })
-  modal.present()
-  const { data, role } = await modal.onWillDismiss()
-  if (role === 'confirm') {
-    const toast = await toastController.create({
-      message: 'Verse added',
-      duration: 1500,
-      position: "bottom",
-      color: "primary",
-      buttons: [
-        {
-          text: 'Revert',
-          role: 'info',
-          handler: () => { console.log("REVERT") }
-        }
-      ],
-    });
-
-    await toast.present();
-    console.log("data", data)
-  }
-}
 </script>
 
 <style scoped>
@@ -94,10 +89,12 @@ async function openModal(verse: Verse) {
 <i18n locale="en" lang="yaml">
 library: Library
 search: Query
+verseAdded: Verse <b>{verseNumber}</b> added to inbox
 </i18n>
 
 
 <i18n locale="ru" lang="yaml">
 library: Library
 search: Query
+verseAdded: Стих {verseNumber} добавлен во входящие
 </i18n>
