@@ -10,7 +10,7 @@ import { defineComponent } from 'vue';
 
 
 console.log(window.location.hostname)
-if (window.location.hostname === 'shlokas-staging.netlify.app') {
+if (window.location.search.includes("demo")) {
   console.log("loading custom.css")
   require('./theme/custom.css')
 }
