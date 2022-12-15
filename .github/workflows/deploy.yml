@@ -20,7 +20,7 @@ jobs:
       - name: 📦 Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://npm.pkg.github.com'
           cache: npm
 
@@ -29,6 +29,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏗️
+        run: npm run build
 
       - name: 🚀 Deploy to Netlify
         uses: jsmrcaga/action-netlify-deploy@v1.1.0
