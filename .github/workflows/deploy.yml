@@ -5,9 +5,10 @@ on:
     branches:
       - main
 
+
 jobs:
   deploy:
-    name: Deploy
+    name: 🚚 Deploy
     runs-on: ubuntu-latest
     environment: Staging
     permissions:
@@ -20,7 +21,7 @@ jobs:
       - name: 📦 Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://npm.pkg.github.com'
           cache: npm
 
@@ -30,10 +31,21 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🏗️ Build
+        run: npm run build
+
       - name: 🚀 Deploy to Netlify
-        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        uses: nwtgck/actions-netlify@v1.2
         with:
+          publish-dir: './dist'
+          production-deploy: true
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
-          build_directory: 'dist'
+        timeout-minutes: 1
