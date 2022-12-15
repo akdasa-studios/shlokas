@@ -113,6 +113,7 @@ versesRepo.save(new VerseBuilder()
 
 
 const app = new Application(versesRepo)
-const appViewModel = new ApplicationViewModel(app)
 
-export function useApp() : ApplicationViewModel { return appViewModel }
+export const root = new ApplicationViewModel(app)
+export const library = root.library
+export const inbox = root.inbox

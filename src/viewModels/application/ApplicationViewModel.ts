@@ -1,20 +1,16 @@
+import { InboxViewModel, LibraryViewModel } from "@/viewModels"
+import { AnyCommand, AnyResult, ProcessorResult } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"
-import { CountersViewModel } from "./CountersViewModel"
+
 
 export class ApplicationViewModel {
-  private _app: Application
-  private _counters: CountersViewModel
+  public readonly library = new LibraryViewModel()
+  public readonly inbox = new InboxViewModel()
 
-  constructor(app: Application) {
-    this._app = app
-    this._counters = new CountersViewModel(app)
+  constructor(public readonly app: Application) {
   }
 
-  public get app() : Application {
-    return this._app
-  }
-
-  public get counters() {
-    return this._counters
+  public execute(command: AnyCommand): ProcessorResult<AnyResult> {
+    return this.app.processor.execute(command)
   }
 }

@@ -38,20 +38,22 @@
         @will-dismiss="(v) => library.closeModal(v)"
       >
         <VerseView
-          :verse-id="library.modalVerse.value.verseId"
-          :title="library.modalVerse.value.title"
-          :translation="library.modalVerse.value.translation"
-          :text="library.modalVerse.value.text"
+          :verse-id="library.openedVerse.value.verseId"
+          :title="library.openedVerse.value.number"
+          :translation="library.openedVerse.value.translation"
+          :text="library.openedVerse.value.text"
         />
       </ion-modal>
 
+      <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('verseAdded', { verseNumber: library.modalVerse.value.title })"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revert() }]"
+        :message="t('verseAdded', { verseNumber: library.openedVerse.value.number })"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revertLastAction() }]"
         :is-open="library.isToastOpen.value"
         :duration="2000"
-        @did-dismiss="library.isToastOpen.value = false"
+        color="dark"
+        @did-dismiss="() => library.closeToast()"
       />
     </ion-content>
   </ion-page>
@@ -63,28 +65,20 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast
 } from '@ionic/vue'
-import { onMounted, ref } from 'vue'
-import { useApp } from '@/application'
-import { useLibrary } from '@/viewModels/library/LibraryViewModel'
-import { useI18n } from 'vue-i18n'
 import VerseView from '@/views/VerseView.vue'
 
+import { onMounted, ref } from 'vue'
+import { library } from '@/application'
+import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
-const library = useLibrary(useApp())
 
 const page = ref(null)
 const presentingElement = ref(null)
-onMounted(() => {
-  console.log("onMounted", page.value)
-  presentingElement.value = page.value.$el
-})
+
+onMounted(() => { presentingElement.value = page.value.$el })
 </script>
 
-<style scoped>
-</style>
-
-
-<i18n src="@/locale/common.yml" lang="yaml" />
 
 <i18n locale="en" lang="yaml">
 library: Library
