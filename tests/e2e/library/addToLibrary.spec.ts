@@ -1,47 +1,28 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { Application } from './pages/Application'
 
 test('tap on verse opens verse dialog', async ({ page }) => {
-  await page.goto('/home/library');
-
-  // Click on the first verse
-  const firstVerse = await page.getByText("BG 1.1").first()
-  await firstVerse.click()
-
-  // Wait dialog to be opened
-  const verseDialog = await page.getByTestId("verseViewDialog").first()
-  await verseDialog.waitFor({ state: "visible" })
-  await expect(verseDialog).toBeVisible()
-
-  // Wait dialog to be closed
-  const closeButton = await page.getByTestId("closeVerseDialog").first()
-  await closeButton.click()
-  await verseDialog.waitFor({ state: "detached" })
+  const app = new Application(page)
+  await app.library.open()
+  const libraryVerseModal = await app.library.openVerse('BG 1.1')
+  await libraryVerseModal.close()
 })
 
 test('click on add verse adds verse', async ({ page }) => {
-  await page.goto('/home/library');
+  const app = new Application(page)
 
-  // Click on the first verse
-  const firstVerse = await page.getByText("BG 1.1").first()
-  await firstVerse.click()
+  await app.library.open()
+  const verseModal = await app.library.openVerse('BG 1.1')
+  await verseModal.addVerse()
+  await app.toasts.waitForToastWithText('Verse BG 1.1 added to inbox')
+  await app.tabsBar.inboxBadgeValueIs("2")
+})
 
-  // Wait dialog to be opened
-  const verseDialog = await page.getByTestId("verseViewDialog").first()
-  await verseDialog.waitFor({ state: "visible" })
-  await expect(verseDialog).toBeVisible()
-
-  // Wait dialog to be opened
-  const addVerseToInbox = await page.getByTestId("addVerseToInbox").first()
-  await addVerseToInbox.click()
-
-  // Wait dialog to be closed
-  await verseDialog.waitFor({ state: "detached" })
-
-  // Wait for toast
-  const toast = await page.getByText('Verse BG 1.1 added to inbox').first()
-  await toast.waitFor({ state: "visible", timeout: 1000 })
-
-  // Counter updated
-  const counterBadge = await page.getByTestId("inboxCounterBadge").first()
-  await expect(counterBadge).toHaveText("2")
+test('revert added verse', async ({ page }) => {
+  const app = new Application(page)
+  await app.library.open()
+  const verseModal = await app.library.openVerse('BG 1.1')
+  await verseModal.addVerse()
+  await app.toasts.clickRevertOnToast()
+  await app.tabsBar.inboxBadgeValueIs("")
 })

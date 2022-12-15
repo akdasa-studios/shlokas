@@ -1,54 +1,60 @@
-import { ApplicationViewModel } from '@/viewModels/application/ApplicationViewModel';
-import { AddVerseToInboxDeck, Verse, VerseId } from '@akdasa-studios/shlokas-core';
-import { OverlayEventDetail } from '@ionic/core/components';
-import { computed, ref } from "vue";
-import { EmptyVerseViewModel, VerseViewModel } from './VerseViewModel';
-
+import { AddVerseToInboxDeck, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { OverlayEventDetail } from '@ionic/core/components'
+import { computed, ref } from "vue"
+import { VerseViewModel } from './VerseViewModel'
+import { root } from '@/application'
 
 export class LibraryViewModel {
-  public readonly app: ApplicationViewModel
+
+  /* ------------------------------ Search verses ----------------------------- */
   public readonly searchQuery = ref("")
-  public readonly modalVerse = ref<VerseViewModel>(EmptyVerseViewModel)
-  public readonly isModalOpen = ref(false)
-  public readonly isToastOpen = ref(false)
   public readonly filteredVerses = computed(() => {
-    return this.app.app.library.finqByString(this.searchQuery.value)
+    const verses = root.app.library.finqByString(this.searchQuery.value)
+    return verses.map(x => new VerseViewModel(x))
   })
 
-  constructor(app: ApplicationViewModel) {
-    this.app = app
+  /* ------------------------------ Modal dialog ------------------------------ */
+  public readonly openedVerse = ref<VerseViewModel>(VerseViewModel.empty)
+  public readonly isModalOpen = ref(false)
+  public readonly isToastOpen = ref(false)
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    Modal                                   */
+  /* -------------------------------------------------------------------------- */
+
+  openModal(verse: Verse) {
+    this.openedVerse.value = new VerseViewModel(verse)
+    this.isModalOpen.value = true
   }
 
-  async closeModal(ev: CustomEvent<OverlayEventDetail>) {
+  closeModal(ev: CustomEvent<OverlayEventDetail>) {
+    const detail = ev.detail
     this.isModalOpen.value = false
-    console.log(ev.detail.data)
 
-    if (ev.detail.role === 'confirm') {
-      this.app.app.processor.execute(new AddVerseToInboxDeck(new VerseId(ev.detail.data.verseId)))
-      this.app.counters.sync()
-      this.isToastOpen.value = true
+    if (detail.role === 'confirm') {
+      const command = new AddVerseToInboxDeck(new VerseId(detail.data.verseId))
+      root.execute(command)
+      root.inbox.sync()
+      this.openToast()
     }
   }
 
-  revert() {
-    console.log("revert")
-    this.app.app.processor.revert();
-    this.app.counters.sync()
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    Toast                                   */
+  /* -------------------------------------------------------------------------- */
+
+  openToast() {
+    this.isToastOpen.value = true
   }
 
-  async openModal(verse: Verse) {
-    this.modalVerse.value = new VerseViewModel()
-    this.modalVerse.value.verseId = verse.id.value
-    this.modalVerse.value.title = verse.number.toString()
-    this.modalVerse.value.translation = verse.translation.text
-    this.modalVerse.value.text = verse.text.lines
-    this.isModalOpen.value = true
-
-
+  closeToast() {
+    this.isToastOpen.value = false
   }
 
-}
-
-export const useLibrary = (applicationViewModel: ApplicationViewModel) => {
-  return new LibraryViewModel(applicationViewModel)
+  revertLastAction() {
+    root.app.processor.revert();
+    root.inbox.sync()
+  }
 }

@@ -14,14 +14,15 @@
         <ion-tab-button
           tab="tab2"
           href="/home/inbox"
+          @click="root.inbox.sync()"
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ t('inbox') }}</ion-label>
           <ion-badge
-            v-if="app.counters.inboxCardsCount.value"
+            v-if="root.inbox.count.value"
             data-testid="inboxCounterBadge"
           >
-            {{ app.counters.inboxCardsCount.value }}
+            {{ root.inbox.count.value }}
           </ion-badge>
         </ion-tab-button>
 
@@ -45,12 +46,11 @@
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel,
   IonIcon, IonPage, IonRouterOutlet, IonBadge
-} from '@ionic/vue';
+} from '@ionic/vue'
 import { enterOutline, libraryOutline, albumsOutline } from 'ionicons/icons'
 import { useI18n } from 'vue-i18n'
-import { useApp } from '@/application'
+import { root } from '@/application'
 const { t } = useI18n()
-const app = useApp()
 </script>
 
 
@@ -63,7 +63,7 @@ settings: Settings
 
 <i18n locale="ru" lang="yaml">
 inbox: Входящие
-library: Library
+library: Библиотека
 review: Изучение
 settings: Настройки
 </i18n>

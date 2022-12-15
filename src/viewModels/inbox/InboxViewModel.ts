@@ -1,28 +1,28 @@
-import { ref } from 'vue'
-import { AddVerseToInboxDeck, Application, VerseId } from '@akdasa-studios/shlokas-core'
-import { InboxCard } from '@akdasa-studios/shlokas-core'
+import { root } from '@/application'
+import { InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
+import { computed, ref } from 'vue'
 import { InboxCardVewModel } from './InboxCardVewModel'
 
 
 export class InboxViewModel {
+
+  /* ---------------------------------- Cards --------------------------------- */
   public cards = ref<InboxCardVewModel[]>([])
+  public count = computed(() => this.cards.value.length)
 
-  constructor(private readonly app: Application) {
-  }
-
-  addVerse(verseId: VerseId) {
-    this.app.processor.execute(new AddVerseToInboxDeck(verseId))
-    this.sync()
-  }
+  /* -------------------------------------------------------------------------- */
+  /*                                    Sync                                    */
+  /* -------------------------------------------------------------------------- */
 
   public sync() {
     const getVerse = (verseId: VerseId) => {
-      const result = this.app.library.getById(verseId)
+      const result = root.app.library.getById(verseId)
       return result.value
     }
-    const inboxCards = this.app.inboxDeck.cards
+    const inboxCards = root.app.inboxDeck.cards
+
     this.cards.value = inboxCards.map(
-      (card: InboxCard) => new InboxCardVewModel(this.app, card, getVerse(card.verseId), () => this.sync())
+      (card: InboxCard) => new InboxCardVewModel(card, getVerse(card.verseId))
     )
   }
 }
