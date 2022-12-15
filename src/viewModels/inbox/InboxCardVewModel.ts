@@ -9,6 +9,8 @@ export class InboxCardVewModel {
   private _card: InboxCard
   private _verse: Verse
 
+  public progress = ""
+
   constructor(
     card: InboxCard,
     verse: Verse,
@@ -27,6 +29,15 @@ export class InboxCardVewModel {
 
   get verseNumber(): string {
     return this._verse.number.toString();
+  }
+
+  get text() { return this._verse.text.lines }
+
+  get synonims() {
+    return this._verse.synonyms.map(x => ({
+      word: x.word,
+      translation: x.translation
+    }))
   }
 
   get translation(): string {
