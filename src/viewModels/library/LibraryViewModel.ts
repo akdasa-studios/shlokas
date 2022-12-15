@@ -9,11 +9,12 @@ export class LibraryViewModel {
   /* ------------------------------ Search verses ----------------------------- */
   public readonly searchQuery = ref("")
   public readonly filteredVerses = computed(() => {
-    return root.app.library.finqByString(this.searchQuery.value)
+    const verses = root.app.library.finqByString(this.searchQuery.value)
+    return verses.map(x => new VerseViewModel(x))
   })
 
   /* ------------------------------ Modal dialog ------------------------------ */
-  public readonly openedVerse = ref<VerseViewModel>(VerseViewModel.empty())
+  public readonly openedVerse = ref<VerseViewModel>(VerseViewModel.empty)
   public readonly isModalOpen = ref(false)
   public readonly isToastOpen = ref(false)
 
@@ -23,7 +24,7 @@ export class LibraryViewModel {
   /* -------------------------------------------------------------------------- */
 
   openModal(verse: Verse) {
-    this.openedVerse.value = VerseViewModel.create(verse)
+    this.openedVerse.value = new VerseViewModel(verse)
     this.isModalOpen.value = true
   }
 

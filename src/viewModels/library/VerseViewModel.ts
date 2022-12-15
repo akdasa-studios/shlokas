@@ -1,21 +1,22 @@
-import { Verse } from "@akdasa-studios/shlokas-core"
+import { Text, Translation, Verse, VerseBuilder, VerseNumber } from "@akdasa-studios/shlokas-core";
+import { markRaw } from 'vue';
 
 export class VerseViewModel {
-  public verseId = ""
-  public number = ""
-  public translation = ""
-  public text: string[] = []
-
-  static create(verse: Verse): VerseViewModel {
-    const vm = new VerseViewModel()
-    vm.verseId = verse.id.value
-    vm.number = verse.number.toString()
-    vm.translation = verse.translation.text
-    vm.text = verse.text.lines
-    return vm
+  constructor(public readonly obj: Verse) {
+    this.obj = markRaw(obj)
   }
 
-  static empty(): VerseViewModel {
-    return new VerseViewModel()
+  get verseId() { return this.obj.id.value }
+  get number() { return this.obj.number.toString() }
+  get translation() { return this.obj.translation.text }
+  get text() { return this.obj.text.lines }
+
+  static get empty() {
+    const dummyVerse= new VerseBuilder()
+      .withNumber(new VerseNumber('????'))
+      .withText(new Text(['????']))
+      .withTranslation(new Translation('????'))
+      .build().value
+    return new VerseViewModel(dummyVerse)
   }
 }

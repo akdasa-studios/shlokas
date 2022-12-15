@@ -20,13 +20,13 @@
       <ion-list>
         <ion-item
           v-for="verse in library.filteredVerses.value"
-          :key="verse.number.value"
+          :key="verse.number"
           text-wrap
-          @click="library.openModal(verse)"
+          @click="library.openModal(verse.obj)"
         >
           <ion-label class="ion-text-wrap">
             <h2>{{ verse.number }}</h2>
-            <p>{{ verse.translation.text }}</p>
+            <p>{{ verse.translation }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
