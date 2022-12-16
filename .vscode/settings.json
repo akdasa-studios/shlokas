@@ -36,5 +36,6 @@
   /* -------------------------------------------------------------------------- */
   /*                                   github                                   */
   /* -------------------------------------------------------------------------- */
-  "githubIssues.issueBranchTitle": "${user}/issue-${issueNumber}"
+  "githubIssues.issueBranchTitle": "${user}/issue-${issueNumber}",
+  "ionic.previewInEditor": true
 }

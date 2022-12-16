@@ -22,10 +22,21 @@
           v-for="verse in library.filteredVerses.value"
           :key="verse.number"
           text-wrap
-          @click="library.openModal(verse.obj)"
+          @click="library.openModal(verse.$verse.object)"
         >
           <ion-label class="ion-text-wrap">
-            <h2>{{ verse.number }}</h2>
+            <div class="header">
+              <h2 class="inline">
+                {{ verse.number }}
+              </h2>
+              <ion-badge
+                v-if="verse.showStatus"
+                class="badge"
+                color="medium"
+              >
+                {{ verse.status }}
+              </ion-badge>
+            </div>
             <p>{{ verse.translation }}</p>
           </ion-label>
         </ion-item>
@@ -38,17 +49,18 @@
         @will-dismiss="(v) => library.closeModal(v)"
       >
         <VerseView
-          :verse-id="library.openedVerse.value.verseId"
-          :title="library.openedVerse.value.number"
-          :translation="library.openedVerse.value.translation"
-          :text="library.openedVerse.value.text"
+          :can-add="!library.openedVerse.isAlreadyAdded"
+          :verse-id="library.openedVerse.$verse.object.id"
+          :title="library.openedVerse.number"
+          :translation="library.openedVerse.translation"
+          :text="library.openedVerse.text"
         />
       </ion-modal>
 
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('verseAdded', { verseNumber: library.openedVerse.value.number })"
+        :message="t('verseAdded', { verseNumber: library.openedVerse.number })"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revertLastAction() }]"
         :is-open="library.isToastOpen.value"
         :duration="2000"
@@ -63,7 +75,7 @@
 <script lang="ts" setup>
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
-  IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast
+  IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
 import VerseView from '@/views/VerseView.vue'
 
@@ -79,6 +91,20 @@ const presentingElement = ref(null)
 onMounted(() => { presentingElement.value = page.value.$el })
 </script>
 
+
+<style scoped>
+.inline {
+  display: inline;
+}
+.header {
+  display: flex;
+  align-items: center;
+}
+.badge {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
 
 <i18n locale="en" lang="yaml">
 library: Library

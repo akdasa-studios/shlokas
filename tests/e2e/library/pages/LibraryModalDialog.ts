@@ -1,4 +1,4 @@
-import { Locator } from '@playwright/test';
+import { Locator, expect } from '@playwright/test';
 
 export class LibraryModalDialog {
   constructor(public readonly locator: Locator) { }
@@ -12,5 +12,10 @@ export class LibraryModalDialog {
   async addVerse() {
     const addVerseToInbox = await this.locator.page().getByTestId("addVerseToInbox").first();
     await addVerseToInbox.click();
+  }
+
+  async expectAddButtonIsHidden() {
+    const addButton = await this.locator.page().getByTestId("addVerseToInbox").first()
+    await expect(addButton).toBeHidden()
   }
 }
