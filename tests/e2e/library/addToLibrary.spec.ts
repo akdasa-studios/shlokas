@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { Application } from './pages/Application'
 
 test('tap on verse opens verse dialog', async ({ page }) => {
@@ -25,4 +25,14 @@ test('revert added verse', async ({ page }) => {
   await verseModal.addVerse()
   await app.toasts.clickRevertOnToast()
   await app.tabsBar.inboxBadgeValueIs("")
+})
+
+test('add button are not shown if already added', async ({ page }) => {
+  const app = new Application(page)
+  await app.library.open()
+  const verseModal1 = await app.library.openVerse('BG 1.1')
+  await verseModal1.addVerse()
+
+  const verseModal2 = await app.library.openVerse('BG 1.1')
+  await verseModal2.expectAddButtonIsHidden()
 })

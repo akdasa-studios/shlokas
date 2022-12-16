@@ -1,4 +1,4 @@
-import { Application, Translation, Verse, VerseBuilder, Text, VerseNumber } from '@akdasa-studios/shlokas-core'
+import { Application, Translation, Verse, VerseBuilder, Text, VerseNumber, Repositories, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { ApplicationViewModel } from '@/viewModels/application/ApplicationViewModel'
 
@@ -111,8 +111,11 @@ versesRepo.save(new VerseBuilder()
   ))
   .build().value)
 
-
-const app = new Application(versesRepo)
+export const repositories = new Repositories(
+  versesRepo,
+  new InMemoryRepository<VerseStatus>()
+)
+const app = new Application(repositories)
 
 export const root = new ApplicationViewModel(app)
 export const library = root.library

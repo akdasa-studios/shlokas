@@ -5,6 +5,7 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button
+          v-if="canAdd"
           data-testid="addVerseToInbox"
           @click="addVerseToInbox"
         >
@@ -42,21 +43,12 @@
     <div class="translation">
       {{ props.translation }}
     </div>
-
-    <!-- <ion-button
-      data-testid="addVerseToInbox"
-      color="primary"
-      expand="block"
-      class="margin"
-      @click="addVerseToInbox"
-    >
-      Add verse to inbox
-    </ion-button> -->
   </ion-content>
 </template>
 
 
 <script lang="ts" setup>
+import { VerseId } from '@akdasa-studios/shlokas-core';
 import {
   IonButton, IonButtons, IonContent, IonHeader,
   IonTitle, IonToolbar, modalController
@@ -65,7 +57,8 @@ import { defineProps } from 'vue'
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
-  verseId: string,
+  canAdd: boolean,
+  verseId: VerseId,
   title: string,
   text: string[],
   translation: string
@@ -80,9 +73,6 @@ function cancel() {
 function addVerseToInbox() {
   return modalController.dismiss({ verseId: props.verseId }, 'confirm');
 }
-// function confirm(number: string) {
-//   return modalController.dismiss(number, 'confirm');
-// }
 </script>
 
 
