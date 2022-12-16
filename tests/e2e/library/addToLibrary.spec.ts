@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { Application } from './pages/Application'
+import { test } from '@playwright/test';
+import { Application } from './pages/Application';
 
 test('tap on verse opens verse dialog', async ({ page }) => {
   const app = new Application(page)

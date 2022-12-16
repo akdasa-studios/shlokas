@@ -64,6 +64,7 @@ export class LibraryViewModel {
   revertLastAction() {
     root.app.processor.revert();
     root.inbox.sync()
+    this.sync()
   }
 
   sync() {
