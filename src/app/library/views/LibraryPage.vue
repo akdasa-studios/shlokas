@@ -22,7 +22,7 @@
           v-for="verse in library.filteredVerses.value"
           :key="verse.number"
           text-wrap
-          @click="library.openModal(verse.$verse.object)"
+          @click="library.openModal(verse.verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -48,9 +48,9 @@
         :presenting-element="presentingElement"
         @will-dismiss="(v) => library.closeModal(v)"
       >
-        <VerseView
+        <VerseDialog
           :can-add="!library.openedVerse.isAlreadyAdded"
-          :verse-id="library.openedVerse.$verse.object.id"
+          :verse-id="library.openedVerse.verseId"
           :title="library.openedVerse.number"
           :translation="library.openedVerse.translation"
           :text="library.openedVerse.text"
@@ -77,7 +77,7 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
-import VerseView from '@/views/VerseView.vue'
+import { VerseDialog } from '@/app/library/views'
 
 import { onMounted, ref } from 'vue'
 import { library } from '@/application'

@@ -12,9 +12,9 @@
       <slot name="back" />
     </div>
 
-    <!-- <div class="face">
+    <div class="face">
       <slot name="overlay" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -38,7 +38,10 @@ const props = defineProps<{
   swipeThreshold: number,
   swipeDirections: string[],
 }>()
-const emit = defineEmits(['swiped', 'swiping'])
+const emit = defineEmits<{
+  (event: 'swiping', direction: string, valiue: number): void,
+  (event: 'swiped', direction: string, valiue: number): void,
+}>()
 
 
 /* -------------------------------------------------------------------------- */
@@ -127,10 +130,7 @@ function onSwiping(dx: number, dy: number) {
   if (angle.value > 15) { angle.value = 15 }
   if (angle.value < -15) { angle.value = -15 }
 
-  emit('swiping', {
-    direction: direction.value,
-    value: distance.value
-  })
+  emit('swiping', direction.value, distance.value)
 }
 
 function onSwiped() {
@@ -143,12 +143,12 @@ function onSwiped() {
     if (direction.value == "top") posY.value *= 8
     if (direction.value == "bottom") posY.value *= 8
 
-    emit('swiped', { direction: direction.value, value: distance.value })
+    emit('swiped', direction.value, distance.value)
   } else {
     posX.value = 0
     posY.value = 0
     angle.value = 0
-    emit('swiping', { direction: "none", value: 0})
+    emit('swiping', "none", 0)
   }
 }
 

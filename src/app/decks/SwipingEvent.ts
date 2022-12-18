@@ -1,0 +1,1 @@
+export interface SwipingEvent { direction: string, value: number, }

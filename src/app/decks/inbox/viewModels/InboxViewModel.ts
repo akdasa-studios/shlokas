@@ -1,10 +1,11 @@
+import { ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
 import { InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
 import { InboxCardVewModel } from './InboxCardVewModel'
 
 
-export class InboxViewModel {
+export class InboxViewModel implements ViewModel {
 
   /* ---------------------------------- Cards --------------------------------- */
   public cards = ref<InboxCardVewModel[]>([])

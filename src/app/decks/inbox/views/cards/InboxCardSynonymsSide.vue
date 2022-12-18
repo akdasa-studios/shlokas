@@ -1,6 +1,5 @@
 <template>
-  <div class="back">
-    words
+  <CardSide>
     <div
       v-for="word in props.words"
       :key="word.word"
@@ -11,42 +10,26 @@
       </span>
       <span>{{ word.translation }}</span>
     </div>
-  </div>
+  </CardSide>
 </template>
 
 
 <script lang="ts" setup>
+import CardSide from '@/app/decks/CardSide.vue'
 import { defineProps } from 'vue';
-interface Word {
+
+interface Synomym {
   word: string
   translation: string
 }
+
 const props = defineProps<{
-  words: Word[]
+  words: Synomym[]
 }>()
 </script>
 
 
 <style scoped>
-.back {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  /* flex-grow: 1; */
-  /* gap: 0px; */
-  /* flex-wrap: wrap; */
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 5vw;
-  text-align: center;
-
-  border-radius: 8px;
-  /* border: 1px solid #ddd; */
-  /* border-bottom: 10px solid #ddd; */
-}
-
 .block {
   margin: 2px;
   padding: 2px;
