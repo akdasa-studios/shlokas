@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import InboxView from '@/views/pages/InboxView.vue'
+import { InboxPage } from '@/app/decks/inbox/views'
 
 
 import { config } from '@vue/test-utils'
@@ -16,7 +16,7 @@ config.global.plugins = [i18n]
 
 describe('InboxDeck.vue', () => {
   it('renders', async () => {
-    const wrapper = mount(InboxView
+    const wrapper = mount(InboxPage
       // ,
       //   {
       //   global: {
