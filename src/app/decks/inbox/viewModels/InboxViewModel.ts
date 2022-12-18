@@ -11,6 +11,24 @@ export class InboxViewModel implements ViewModel {
   public cards = ref<InboxCardVewModel[]>([])
   public count = computed(() => this.cards.value.length)
 
+  public revertLastAction() {
+    root.app.processor.revert()
+    root.inbox.sync()
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                            Card memorized toast                            */
+  /* -------------------------------------------------------------------------- */
+
+  public isCardMemorizedToastOpen = ref<boolean>(false)
+  public openCardMemorizesToast() {
+    this.isCardMemorizedToastOpen.value = true
+  }
+  public closeCardMemorizedToast() {
+    this.isCardMemorizedToastOpen.value = false
+  }
+
+
   /* -------------------------------------------------------------------------- */
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
