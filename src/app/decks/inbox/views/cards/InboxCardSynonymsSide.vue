@@ -1,6 +1,5 @@
 <template>
   <CardSide>
-    words
     <div
       v-for="word in props.words"
       :key="word.word"
@@ -16,14 +15,16 @@
 
 
 <script lang="ts" setup>
-import CardSide from '@/app/CardSide.vue'
+import CardSide from '@/app/decks/CardSide.vue'
 import { defineProps } from 'vue';
-interface Word {
+
+interface Synomym {
   word: string
   translation: string
 }
+
 const props = defineProps<{
-  words: Word[]
+  words: Synomym[]
 }>()
 </script>
 

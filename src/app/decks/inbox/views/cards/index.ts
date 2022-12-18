@@ -1,5 +1,5 @@
 export { default as InboxCard } from './InboxCard.vue'
-export { default as InboxCardProgressSide } from './InboxCardProgressSide.vue'
+export { default as InboxCardSwipeOverlay } from './InboxCardSwipeOverlay.vue'
 export { default as InboxCardSynonymsSide } from './InboxCardSynonymsSide.vue'
 export { default as InboxCardVerseTextSide } from './InboxCardVerseTextSide.vue'
 export { default as InboxCardTranslationSide } from './InboxCardTranslationSide.vue'

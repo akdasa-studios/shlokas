@@ -24,13 +24,4 @@
   border: 1px solid #ddd;
   border-bottom: 10px solid #ddd;
 }
-
-/deep/ .number {
-  text-transform: uppercase;
-  background-color: lightblue;
-  padding: .4em;
-  margin: .4em;
-  border-radius: .2em;
-  font-size: 6vw;
-}
 </style>

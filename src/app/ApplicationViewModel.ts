@@ -1,4 +1,4 @@
-import { InboxViewModel } from '@/app/inbox/viewModels'
+import { InboxViewModel } from '@/app/decks/inbox/viewModels'
 import { LibraryViewModel } from '@/app/library/viewModels'
 import { AnyCommand, AnyResult, ProcessorResult, Transaction } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"

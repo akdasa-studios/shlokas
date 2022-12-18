@@ -18,6 +18,7 @@
         :key="card.id.value"
         :index="idx"
         :card="card"
+        :swipe-directions="swipeDirections"
         @swiped="onCardSwiped"
       />
     </ion-content>
@@ -26,14 +27,27 @@
 
 
 <script lang="ts" setup>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import { InboxCard } from '@/app/inbox/views'
+import { InboxCard } from '@/app/decks/inbox/views'
 import { inbox } from '@/application'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
+const swipeDirections = computed(() => {
+  return inbox.cards.value.length > 1
+    ? ['top', 'bottom', 'left', 'right']
+    : ['top', 'bottom']
+})
 
-function onCardSwiped(direction: string) {
+function onCardSwiped(direction: string, value: number) {
+  if (direction == "left" || direction == "right") {
+    if (inbox.cards.value.length === 1) {
+      console.log("BLOCKED")
+      return false;
+    }
+  }
+
   setTimeout(() => {
     const first = inbox.cards.value.shift()
     if (!first) { return }
@@ -41,20 +55,7 @@ function onCardSwiped(direction: string) {
     if (direction == "left" || direction == "right") {
       inbox.cards.value.push(first)
     } else if (direction == "top" || direction == "bottom") {
-      // inboxStore.mark(first.id)
-      // const verseId = first.verse.number || ""
-      // const allReviewd = inboxStore.isAllReviewdByVerse(verseId)
-      // if (first.type == InboxTypeCard.text) {
-      //   reviewStore.addCard(verseId, "text:number")
-      //   reviewStore.addCard(verseId, "number:text")
-      // } else if (first.type == InboxTypeCard.transaltion) {
-      //   reviewStore.addCard(verseId, "translation:number")
-      //   reviewStore.addCard(verseId, "number:translation")
-      // }
-      // if (allReviewd) {
-      //   reviewStore.addCard(verseId, "translation:text")
-      //   reviewStore.addCard(verseId, "text:translation")
-      // }
+      // pass
     }
   }, 250)
 }

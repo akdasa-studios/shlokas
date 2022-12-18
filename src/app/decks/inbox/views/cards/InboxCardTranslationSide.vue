@@ -1,23 +1,20 @@
 <template>
   <CardSide>
+    <!-- Number -->
     <div class="number">
       {{ props.verseNumber }}
     </div>
 
-    <div
-      v-for="line, idx in props.lines"
-      :key="idx"
-    >
-      {{ line }}
-    </div>
+    <!-- Translation -->
+    <div>{{ props.translation }}</div>
   </CardSide>
 </template>
 
 <script setup lang="ts">
-import CardSide from '@/app/CardSide.vue'
+import CardSide from '@/app/decks/CardSide.vue'
 import { defineProps } from 'vue'
 const props = defineProps<{
-  lines: string[]
+  translation: string,
   verseNumber: string
 }>()
 </script>
