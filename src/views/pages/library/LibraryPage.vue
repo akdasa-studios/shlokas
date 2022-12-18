@@ -77,7 +77,7 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
-import VerseView from '@/views/VerseView.vue'
+import VerseView from '@/views/pages/library/VerseDialog.vue'
 
 import { onMounted, ref } from 'vue'
 import { library } from '@/application'

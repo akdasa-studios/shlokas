@@ -12,9 +12,9 @@
       <slot name="back" />
     </div>
 
-    <!-- <div class="face">
+    <div class="face">
       <slot name="overlay" />
-    </div> -->
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import InboxView from '@/views/InboxView.vue'
+import InboxView from '@/views/pages/InboxView.vue'
 
 
 import { config } from '@vue/test-utils'

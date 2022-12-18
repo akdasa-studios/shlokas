@@ -1,6 +1,6 @@
 import { root } from '@/application'
 import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
-import { markRaw } from 'vue'
+import { markRaw, ref } from 'vue'
 
 /**
  * Represents a card in the inbox created from a verse.
@@ -8,8 +8,7 @@ import { markRaw } from 'vue'
 export class InboxCardVewModel {
   private _card: InboxCard
   private _verse: Verse
-
-  public progress = ""
+  public _progress = ""
 
   constructor(
     card: InboxCard,
@@ -44,8 +43,14 @@ export class InboxCardVewModel {
     return this._verse.translation.text;
   }
 
+  get progress() { return this._progress }
+
   memorized() {
     root.execute(new InboxCardMemorized(this._card))
     root.inbox.sync()
+  }
+
+  setProgress(value: string) {
+    this._progress = value
   }
 }

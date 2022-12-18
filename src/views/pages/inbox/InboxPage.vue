@@ -23,8 +23,7 @@
         @swiping="onTopCardSwiping"
       >
         <template #overlay>
-          <!-- Overlay -->
-          <!-- <InboxCardProgressOverlay :state="card.progress" /> -->
+          <InboxCardProgressSide :state="card.progress" />
         </template>
 
         <template #front>
@@ -65,9 +64,10 @@ import {
   IonPage, IonHeader, IonToolbar, IonContent, IonTitle,
 } from '@ionic/vue';
 import { computed } from 'vue'
-import FlipCard from '@/views/FlipCard.vue'
-import VerseLines from '@/views/VerseLines.vue'
-import SynonymsSide from '@/views/SynonymsSide.vue'
+import FlipCard from '@/views/cards/FlipCard.vue'
+import VerseLines from '@/views/cards/inbox/InboxCardVerseTextSide.vue'
+import SynonymsSide from '@/views/cards/inbox/InboxCardSynonymsSide.vue'
+import InboxCardProgressSide from '@/views/cards/inbox/InboxCardProgressSide.vue'
 import { useI18n } from 'vue-i18n'
 import { inbox } from '@/application'
 
@@ -79,15 +79,16 @@ const swipeDirections = computed(() => {
 
 function onTopCardSwiping({ direction, value }) {
   const first = inbox.cards.value[0]
-  first.progress =
+  const progress =
     (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
     (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+  first.setProgress(progress)
 }
 function onTopCardSwiped({ direction }) {
   setTimeout(() => {
     const first = inbox.cards.value.shift()
     if (!first) { return }
-    first.progress = ""
+    // first.progress = ""
     if (direction == "left" || direction == "right") {
       inbox.cards.value.push(first)
     } else if (direction == "top" || direction == "bottom") {
