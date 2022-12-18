@@ -1,5 +1,5 @@
+import { SyncableViewModel } from '@/app/SyncableViewModel'
 import { Decks, Text, Translation, Verse, VerseBuilder, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
-import { SyncableViewModel } from '@/viewModels/SyncableViewModel'
 
 export class VerseViewModel {
   public readonly $verse: SyncableViewModel<Verse>

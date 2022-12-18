@@ -1,6 +1,6 @@
 import { root } from '@/application'
 import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
-import { markRaw, ref } from 'vue'
+import { markRaw } from 'vue'
 
 /**
  * Represents a card in the inbox created from a verse.

@@ -47,7 +47,10 @@ import {
   IonTabBar, IonTabButton, IonTabs, IonLabel,
   IonIcon, IonPage, IonRouterOutlet, IonBadge
 } from '@ionic/vue'
-import { enterOutline, libraryOutline, albumsOutline } from 'ionicons/icons'
+import {
+  enterOutline, libraryOutline, albumsOutline
+} from 'ionicons/icons'
+
 import { useI18n } from 'vue-i18n'
 import { root } from '@/application'
 const { t } = useI18n()

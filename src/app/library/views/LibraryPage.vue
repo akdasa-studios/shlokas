@@ -48,7 +48,7 @@
         :presenting-element="presentingElement"
         @will-dismiss="(v) => library.closeModal(v)"
       >
-        <VerseView
+        <VerseDialog
           :can-add="!library.openedVerse.isAlreadyAdded"
           :verse-id="library.openedVerse.$verse.object.id"
           :title="library.openedVerse.number"
@@ -77,7 +77,7 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
-import VerseView from '@/views/pages/library/VerseDialog.vue'
+import { VerseDialog } from '@/app/library/views'
 
 import { onMounted, ref } from 'vue'
 import { library } from '@/application'

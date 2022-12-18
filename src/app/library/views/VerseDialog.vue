@@ -1,7 +1,5 @@
 <template>
-  <ion-header
-    translucent
-  >
+  <ion-header>
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button

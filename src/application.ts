@@ -1,6 +1,6 @@
 import { Application, Translation, Verse, VerseBuilder, Text, VerseNumber, Repositories, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { InMemoryRepository } from '@akdasa-studios/framework'
-import { ApplicationViewModel } from '@/viewModels/application/ApplicationViewModel'
+import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 
 const versesRepo = new InMemoryRepository<Verse>()
 
