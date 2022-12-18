@@ -1,11 +1,17 @@
+import { ViewModel } from '@/app/DomainViewModel'
+import { root } from '@/application'
 import { Transaction } from '@akdasa-studios/framework'
 import { AddVerseToInboxDeck, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from "vue"
 import { VerseViewModel } from './VerseViewModel'
-import { root } from '@/application'
 
-export class LibraryViewModel {
+
+export class LibraryViewModel implements ViewModel {
+
+  sync() {
+    this.filteredVerses.value.forEach(x => x.sync())
+  }
 
   /* ------------------------------ Search verses ----------------------------- */
   public readonly searchQuery = ref("")
@@ -29,7 +35,6 @@ export class LibraryViewModel {
   /* -------------------------------------------------------------------------- */
 
   openModal(verse: Verse) {
-    console.log(verse)
     const status = root.app.library.getStatusById(verse.id).value
     this.openedVerse = new VerseViewModel(verse, status)
     this.isModalOpen.value = true
@@ -67,7 +72,4 @@ export class LibraryViewModel {
     this.sync()
   }
 
-  sync() {
-    this.filteredVerses.value.forEach(x => x.sync())
-  }
 }

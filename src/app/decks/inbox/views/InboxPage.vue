@@ -40,14 +40,7 @@ const swipeDirections = computed(() => {
     : ['top', 'bottom']
 })
 
-function onCardSwiped(direction: string, value: number) {
-  if (direction == "left" || direction == "right") {
-    if (inbox.cards.value.length === 1) {
-      console.log("BLOCKED")
-      return false;
-    }
-  }
-
+function onCardSwiped(direction: string) {
   setTimeout(() => {
     const first = inbox.cards.value.shift()
     if (!first) { return }

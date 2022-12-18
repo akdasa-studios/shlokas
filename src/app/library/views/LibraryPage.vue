@@ -22,7 +22,7 @@
           v-for="verse in library.filteredVerses.value"
           :key="verse.number"
           text-wrap
-          @click="library.openModal(verse.$verse.object)"
+          @click="library.openModal(verse.verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -50,7 +50,7 @@
       >
         <VerseDialog
           :can-add="!library.openedVerse.isAlreadyAdded"
-          :verse-id="library.openedVerse.$verse.object.id"
+          :verse-id="library.openedVerse.verseId"
           :title="library.openedVerse.number"
           :translation="library.openedVerse.translation"
           :text="library.openedVerse.text"

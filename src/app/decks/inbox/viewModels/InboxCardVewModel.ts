@@ -1,49 +1,41 @@
+import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
 import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
-import { markRaw } from 'vue'
 
 /**
  * Represents a card in the inbox created from a verse.
  */
-export class InboxCardVewModel {
-  private _card: InboxCard
-  private _verse: Verse
+export class InboxCardVewModel implements ViewModel {
+  private readonly _card: DomainViewModel<InboxCard>
+  private readonly _verse: DomainViewModel<Verse>
 
   constructor(
     card: InboxCard,
     verse: Verse,
   ) {
-    this._card = markRaw(card)
-    this._verse = markRaw(verse)
+    this._card = new DomainViewModel(card)
+    this._verse = new DomainViewModel(verse)
   }
 
-  get id(): CardId {
-    return this._card.id;
+  sync(): void {
+    this._card.sync()
+    this._verse.sync()
   }
 
-  get type(): string {
-    return this._card.type;
-  }
-
-  get verseNumber(): string {
-    return this._verse.number.toString();
-  }
-
-  get text() { return this._verse.text.lines }
-
+  get id(): CardId { return this._card.object.id; }
+  get type(): string { return this._card.object.type; }
+  get verseNumber(): string { return this._verse.object.number.toString() }
+  get text() { return this._verse.object.text.lines }
+  get translation(): string { return this._verse.object.translation.text; }
   get synonyms() : {word:string, translation:string}[] {
-    return this._verse.synonyms.map(x => ({
+    return this._verse.object.synonyms.map(x => ({
       word: x.word,
       translation: x.translation
     }))
   }
 
-  get translation(): string {
-    return this._verse.translation.text;
-  }
-
   memorized() {
-    root.execute(new InboxCardMemorized(this._card))
+    root.execute(new InboxCardMemorized(this._card.object))
     root.inbox.sync()
   }
 }
