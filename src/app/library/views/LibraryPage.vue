@@ -116,5 +116,5 @@ verseAdded: Verse <b>{verseNumber}</b> added to inbox
 <i18n locale="ru" lang="yaml">
 library: Library
 search: Query
-verseAdded: Стих {verseNumber} добавлен во входящие
+verseAdded: Стих <b>{verseNumber}</b> добавлен во входящие
 </i18n>

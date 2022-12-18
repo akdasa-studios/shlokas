@@ -37,5 +37,8 @@
   /*                                   github                                   */
   /* -------------------------------------------------------------------------- */
   "githubIssues.issueBranchTitle": "${user}/issue-${issueNumber}",
-  "ionic.previewInEditor": true
+  "ionic.previewInEditor": true,
+  "i18n-ally.localesPaths": [
+    "src/locale"
+  ]
 }

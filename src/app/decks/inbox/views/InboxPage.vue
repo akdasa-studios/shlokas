@@ -21,13 +21,18 @@
         :swipe-directions="swipeDirections"
         @swiped="onCardSwiped"
       />
+
+      <!-- Inbox deck is empty -->
+      <InboxEmpty
+        v-if="inbox.count.value === 0"
+      />
     </ion-content>
   </ion-page>
 </template>
 
 
 <script lang="ts" setup>
-import { InboxCard } from '@/app/decks/inbox/views'
+import { InboxCard, InboxEmpty } from '@/app/decks/inbox/views'
 import { inbox } from '@/application'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { useI18n } from 'vue-i18n'
