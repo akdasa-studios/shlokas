@@ -26,6 +26,17 @@
       <InboxEmpty
         v-if="inbox.count.value === 0"
       />
+
+      <!-- Toast -->
+      <ion-toast
+        position="top"
+        :message="t('cardMemorized')"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => inbox.revertLastAction() }]"
+        :is-open="inbox.isCardMemorizedToastOpen.value"
+        :duration="2000"
+        color="dark"
+        @did-dismiss="() => inbox.closeCardMemorizedToast()"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -34,7 +45,7 @@
 <script lang="ts" setup>
 import { InboxCard, InboxEmpty } from '@/app/decks/inbox/views'
 import { inbox } from '@/application'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 
@@ -46,14 +57,18 @@ const swipeDirections = computed(() => {
 })
 
 function onCardSwiped(direction: string) {
+  // const topCard = inbox.cards.value[0]
+
   setTimeout(() => {
-    const first = inbox.cards.value.shift()
-    if (!first) { return }
+    // if (!first) { return }
     // first.progress = ""
     if (direction == "left" || direction == "right") {
+      const first = inbox.cards.value.shift()
       inbox.cards.value.push(first)
     } else if (direction == "top" || direction == "bottom") {
-      // pass
+      inbox.openCardMemorizesToast()
+      // inbox.cards.value.push(first)
+      inbox.cards.value[0].memorized()
     }
   }, 250)
 }
@@ -63,9 +78,11 @@ function onCardSwiped(direction: string) {
 
 <i18n locale="en" lang="yaml">
 inbox: Inbox
+cardMemorized: Card marked as <b>Memorized</b>
 </i18n>
 
 
 <i18n locale="ru" lang="yaml">
 inbox: Входящие
+cardMemorized: Карточказапомнена
 </i18n>
