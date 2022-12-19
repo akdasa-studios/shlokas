@@ -3,7 +3,7 @@ import { Application } from './pages/Application';
 
 let app: Application
 
-test.beforeEach(async ({ page }, testInfo) => {
+test.beforeEach(async ({ page }) => {
   app = new Application(page)
   await app.library.open()
 })
