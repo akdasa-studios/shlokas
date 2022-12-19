@@ -3,7 +3,7 @@ import { Page } from '@playwright/test';
 export class Toasts {
   constructor(public readonly page: Page) { }
 
-  async waitForToastWithText(text: string) {
+  async expectToastWithText(text: string) {
     const toast = await this.page.getByText(text).first();
     await toast.waitFor({ state: "visible", timeout: 1000 });
   }
