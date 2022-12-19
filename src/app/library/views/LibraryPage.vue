@@ -9,6 +9,7 @@
       <ion-toolbar>
         <ion-searchbar
           v-model="library.searchQuery.value"
+          data-testid="searchbar"
           :placeholder="t('search')"
           animated
         />
@@ -21,7 +22,9 @@
         <ion-item
           v-for="verse in library.filteredVerses.value"
           :key="verse.number"
+          :data-testid="testId(verse.number)"
           text-wrap
+          role="listitem"
           @click="library.openModal(verse.verse)"
         >
           <ion-label class="ion-text-wrap">
@@ -33,6 +36,7 @@
                 v-if="verse.showStatus"
                 class="badge"
                 color="medium"
+                :data-testid="testId(verse.number, 'badge')"
               >
                 {{ verse.status }}
               </ion-badge>
@@ -46,6 +50,7 @@
       <ion-modal
         :is-open="library.isModalOpen.value"
         :presenting-element="presentingElement"
+        role="dialog"
         @will-dismiss="(v) => library.closeModal(v)"
       >
         <VerseDialog
@@ -78,6 +83,7 @@ import {
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
 import { VerseDialog } from '@/app/library/views'
+import { testId } from '@/app/TestId'
 
 import { onMounted, ref } from 'vue'
 import { library } from '@/application'
