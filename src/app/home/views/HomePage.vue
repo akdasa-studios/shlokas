@@ -32,8 +32,10 @@
         >
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ t('review') }}</ion-label>
-          <ion-badge v-if="false">
-            0
+          <ion-badge
+            v-if="root.review.count.value"
+          >
+            {{ root.review.count.value }}
           </ion-badge>
         </ion-tab-button>
       </ion-tab-bar>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('review') }}</ion-title>
+        <ion-title>{{ t('inbox') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -13,31 +13,62 @@
       :scroll-x="false"
       color="light"
     >
-      Review
+      <ReviewCard
+        v-for="card, idx in review.cards.value"
+        :key="card.id.value"
+        :index="idx"
+        :card="card"
+        :swipe-directions="swipeDirections"
+        @swiped="onCardSwiped"
+      />
+
+      <!-- Inbox deck is empty -->
+      <ReviewEmpty
+        v-if="review.count.value === 0"
+      />
     </ion-content>
   </ion-page>
 </template>
 
 
 <script lang="ts" setup>
-import {
-  IonPage, IonHeader, IonToolbar, IonContent, IonTitle,
-} from '@ionic/vue';
+import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
+import { review } from '@/application'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
+const swipeDirections = computed(() => {
+  return review.cards.value.length > 1
+    ? ['top', 'bottom', 'left', 'right']
+    : ['top', 'bottom']
+})
+
+function onCardSwiped(direction: string) {
+
+  setTimeout(() => {
+    // if (!first) { return }
+    // first.progress = ""
+    if (direction == "left" || direction == "right") {
+      const first = review.cards.value.shift()
+      review.cards.value.push(first)
+    } else if (direction == "top" || direction == "bottom") {
+      console.log("well done")
+    }
+  }, 250)
+}
 </script>
 
-<style scoped>
-</style>
 
-
-<i18n src="@/locale/common.yml" lang="yaml" />
 
 <i18n locale="en" lang="yaml">
-review: Review
+inbox: Inbox
+cardMemorized: Card marked as <b>Memorized</b>
 </i18n>
 
 
 <i18n locale="ru" lang="yaml">
-review: Review
+inbox: Входящие
+cardMemorized: Карточказапомнена
 </i18n>

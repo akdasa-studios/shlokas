@@ -1,4 +1,5 @@
 import { InboxViewModel } from '@/app/decks/inbox/viewModels'
+import { ReviewViewModel } from '@/app/decks/review/viewModels'
 import { LibraryViewModel } from '@/app/library/viewModels'
 import { AnyCommand, AnyResult, ProcessorResult, Transaction } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"
@@ -8,6 +9,7 @@ import { markRaw } from 'vue'
 export class ApplicationViewModel {
   public readonly library = markRaw(new LibraryViewModel())
   public readonly inbox = markRaw(new InboxViewModel())
+  public readonly review = markRaw(new ReviewViewModel())
 
   constructor(public readonly app: Application) {
   }
