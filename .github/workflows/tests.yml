@@ -63,10 +63,6 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 🚀 Run app
-      run: npm run serve &
-      # todo: ^^ wait until app started
-
     - name: 📦 Install browsers
       run: npx playwright install --with-deps
 

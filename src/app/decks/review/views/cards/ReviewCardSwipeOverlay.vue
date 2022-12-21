@@ -3,32 +3,21 @@
     class="overlay"
     :class="{'invisible':!isVisible}"
   >
-    <div v-if="isFinished">
-      <span>😎</span>
-      <div>
-        {{ t('cards.inbox.finished') }}
-      </div>
-    </div>
-
-    <div v-else>
-      <span>⏱</span>
-      <div>
-        {{ t('cards.inbox.inProgress') }}
-      </div>
+    <div v-if="props.grade">
+      {{ t("cards.grade." + props.grade) }}
     </div>
   </div>
 </template>
 
 
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue'
+import { computed, defineProps } from 'vue'
 import { useI18n } from 'vue-i18n'
 const props = defineProps<{
-  state: string,
+  grade: string,
 }>()
 const { t } = useI18n()
-const isVisible = computed(() => !!props.state)
-const isFinished = computed(() => props.state === 'finished')
+const isVisible = computed(() => props.grade)
 </script>
 
 
@@ -45,10 +34,11 @@ const isFinished = computed(() => props.state === 'finished')
   align-items: center;
   justify-content: center;
   font-size: 9vw;
-  background-color: white;
+  background-color: #eee;
   transition: .25s;
   text-align: center;
   border-radius: 8px;
   border: 1px solid #ddd;
+  border-bottom: 10px solid #ddd;
 }
 </style>

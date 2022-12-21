@@ -3,14 +3,14 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('library') }}</ion-title>
+        <ion-title>{{ t('library.title') }}</ion-title>
       </ion-toolbar>
 
       <ion-toolbar>
         <ion-searchbar
           v-model="library.searchQuery.value"
           data-testid="searchbar"
-          :placeholder="t('search')"
+          :placeholder="t('library.search')"
           animated
         />
       </ion-toolbar>
@@ -65,7 +65,7 @@
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('verseAdded', { verseNumber: library.openedVerse.number })"
+        :message="t('decks.inbox.verseAdded', { verseNumber: library.openedVerse.number })"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revertLastAction() }]"
         :is-open="library.isToastOpen.value"
         :duration="2000"
@@ -111,16 +111,3 @@ onMounted(() => { presentingElement.value = page.value.$el })
   margin-right: 10px;
 }
 </style>
-
-<i18n locale="en" lang="yaml">
-library: Library
-search: Query
-verseAdded: Verse <b>{verseNumber}</b> added to inbox
-</i18n>
-
-
-<i18n locale="ru" lang="yaml">
-library: Library
-search: Query
-verseAdded: Стих <b>{verseNumber}</b> добавлен во входящие
-</i18n>

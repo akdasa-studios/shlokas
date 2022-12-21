@@ -1,0 +1,40 @@
+{
+  "cards": {
+    "questions": {
+      "number": "Номер стиха",
+      "text": "Текст",
+      "translation": "Перевод"
+    },
+    "grade": {
+      "easy": "Легко",
+      "forgot": "Забыл",
+      "hard": "Тяжело",
+      "good": "Хорошо"
+    },
+    "inbox": {
+      "finished": "Запомнил",
+      "inProgress": "Учу"
+    },
+    "memorized": "Карта отмечена как <b>Запомнена</b>"
+  },
+  "common": {
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+  "decks": {
+    "inbox": {
+      "empty": "Входящие пусты.",
+      "goToLibrary": "Зайдите в библиотеку и добавьте стих.",
+      "title": "Входящие",
+      "verseAdded": "Стих <b>{verseNumber}</b> добавлен во \"Входящие\""
+    },
+    "review": {
+      "empty": "Пусто.",
+      "title": "Обзор"
+    }
+  },
+  "library": {
+    "title": "Библиотека",
+    "search": "Поиск"
+  }
+}

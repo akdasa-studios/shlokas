@@ -120,3 +120,4 @@ const app = new Application(repositories)
 export const root = new ApplicationViewModel(app)
 export const library = root.library
 export const inbox = root.inbox
+export const review = root.review

@@ -1,0 +1,40 @@
+{
+  "cards": {
+    "grade": {
+      "forgot": "Forgot",
+      "hard": "Hard",
+      "good": "Good",
+      "easy": "Easy"
+    },
+    "questions": {
+      "number": "Verse number",
+      "text": "Text",
+      "translation": "Translation"
+    },
+    "memorized": "Card marked as <b>Memorized</b>",
+    "inbox": {
+      "finished": "Finished",
+      "inProgress": "In Progress"
+    }
+  },
+  "common": {
+    "add": "Add",
+    "cancel": "Cancel"
+  },
+  "decks": {
+    "inbox": {
+      "empty": "Your inbox is empty.",
+      "goToLibrary": "Go to the Library and add a verse.",
+      "title": "Inbox",
+      "verseAdded": "Verse <b>{verseNumber}</b> added to inbox"
+    },
+    "review": {
+      "empty": "Your have nothing to review today.",
+      "title": "Review"
+    }
+  },
+  "library": {
+    "title": "Library",
+    "search": "Search"
+  }
+}

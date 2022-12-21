@@ -5,8 +5,7 @@
       class="img"
     />
     <div class="text">
-      <div>{{ t('decks.inbox.empty') }}</div>
-      <div>{{ t('decks.inbox.goToLibrary') }}</div>
+      <div>{{ t('decks.review.empty') }}</div>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('inbox') }}</ion-title>
+        <ion-title>{{ t('decks.inbox.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -30,7 +30,7 @@
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('cardMemorized')"
+        :message="t('cards.memorized')"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => inbox.revertLastAction() }]"
         :is-open="inbox.isCardMemorizedToastOpen.value"
         :duration="2000"
@@ -73,16 +73,3 @@ function onCardSwiped(direction: string) {
   }, 250)
 }
 </script>
-
-
-
-<i18n locale="en" lang="yaml">
-inbox: Inbox
-cardMemorized: Card marked as <b>Memorized</b>
-</i18n>
-
-
-<i18n locale="ru" lang="yaml">
-inbox: Входящие
-cardMemorized: Карточказапомнена
-</i18n>

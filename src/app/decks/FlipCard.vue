@@ -43,7 +43,6 @@ const emit = defineEmits<{
   (event: 'swiped', direction: string, valiue: number): void,
 }>()
 
-
 /* -------------------------------------------------------------------------- */
 /*                          Component internal state                          */
 /* -------------------------------------------------------------------------- */

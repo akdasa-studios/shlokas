@@ -7,26 +7,26 @@
   "customizations": {
     "vscode": {
       "extensions": [
-		"ionic.ionic",
-		"Vue.volar",
-		"Vue.vscode-typescript-vue-plugin",
-		"dbaeumer.vscode-eslint",
-		"christian-kohler.path-intellisense",
-		"formulahendry.auto-rename-tag",
-		"mikestead.dotenv",
-		"steoates.autoimport",
-		"eamodio.gitlens",
-		"github.vscode-pull-request-github",
-		"orta.vscode-jest",
-		"dbaeumer.vscode-eslint",
-		"howardzuo.vscode-npm-dependency",
-		"eg2.vscode-npm-script",
-		"aaron-bond.better-comments",
-		"stackbreak.comment-divider",
-		"bierner.markdown-mermaid",
-		"yzhang.markdown-all-in-one",
-		"Lokalise.i18n-ally"
-	]
+        "ionic.ionic",
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.path-intellisense",
+        "formulahendry.auto-rename-tag",
+        "mikestead.dotenv",
+        "steoates.autoimport",
+        "eamodio.gitlens",
+        "github.vscode-pull-request-github",
+        "orta.vscode-jest",
+        "dbaeumer.vscode-eslint",
+        "howardzuo.vscode-npm-dependency",
+        "aaron-bond.better-comments",
+        "stackbreak.comment-divider",
+        "bierner.markdown-mermaid",
+        "yzhang.markdown-all-in-one",
+        "Lokalise.i18n-ally",
+        "ms-playwright.playwright"
+      ]
     }
   }
 }
