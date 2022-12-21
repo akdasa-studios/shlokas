@@ -7,7 +7,7 @@
     @swiping="onSwiping"
   >
     <template #overlay>
-      <!-- <InboxCardSwipeOverlay :state="progress" /> -->
+      <ReviewCardSwipeOverlay :state="progress" />
     </template>
 
     <template #front>
@@ -43,7 +43,7 @@ import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
 import {
   ReviewCardVerseNumberSide, ReviewCardTranslationSide,
-  ReviewCardTextSide
+  ReviewCardTextSide, ReviewCardSwipeOverlay
 } from '@/app/decks/review/views'
 import { defineEmits, defineProps, ref } from 'vue'
 
@@ -71,12 +71,12 @@ const emit = defineEmits<{
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const progress = ref<string>("")
+const progress = ref<number>(0)
 
 function onSwiping(direction: string, value: number) {
-  progress.value =
-    (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
-    (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+  progress.value = value
+  //  (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
+  //  (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
 }
 
 function onSwiped(direction: string, value: number) {
