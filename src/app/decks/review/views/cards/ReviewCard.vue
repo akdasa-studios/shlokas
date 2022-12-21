@@ -46,7 +46,6 @@ import {
   ReviewCardTextSide, ReviewCardSwipeOverlay
 } from '@/app/decks/review/views'
 import { defineEmits, defineProps, ref } from 'vue'
-import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
