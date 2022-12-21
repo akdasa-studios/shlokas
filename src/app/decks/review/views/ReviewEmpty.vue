@@ -5,7 +5,7 @@
       class="img"
     />
     <div class="text">
-      <div>{{ t('empty') }}</div>
+      <div>{{ t('decks.review.empty') }}</div>
     </div>
   </div>
 </template>
@@ -35,11 +35,3 @@ const { t } = useI18n()
     max-width: 50%;
 }
 </style>
-
-<i18n locale="en" lang="yaml">
-empty: Your have nothing to review today.
-</i18n>
-
-<i18n locale="ru" lang="yaml">
-empty: Your have nothing to review today.
-</i18n>

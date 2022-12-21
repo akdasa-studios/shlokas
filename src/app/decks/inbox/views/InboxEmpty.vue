@@ -5,8 +5,8 @@
       class="img"
     />
     <div class="text">
-      <div>{{ t('empty') }}</div>
-      <div>{{ t('goToLibrary') }}</div>
+      <div>{{ t('decks.inbox.empty') }}</div>
+      <div>{{ t('decks.inbox.goToLibrary') }}</div>
     </div>
   </div>
 </template>
@@ -36,13 +36,3 @@ const { t } = useI18n()
     max-width: 50%;
 }
 </style>
-
-<i18n locale="en" lang="yaml">
-empty: Your inbox is empty.
-goToLibrary: Go to the Library and add a verse.
-</i18n>
-
-<i18n locale="ru" lang="yaml">
-empty: У вас нет стихов на изучении.
-goToLibrary: Откройте библиотеку тобы добавить.
-</i18n>

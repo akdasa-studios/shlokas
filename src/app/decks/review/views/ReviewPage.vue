@@ -3,7 +3,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('inbox') }}</ion-title>
+        <ion-title>{{ t('decks.review.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -59,16 +59,3 @@ function onCardSwiped(direction: string) {
   }, 250)
 }
 </script>
-
-
-
-<i18n locale="en" lang="yaml">
-inbox: Inbox
-cardMemorized: Card marked as <b>Memorized</b>
-</i18n>
-
-
-<i18n locale="ru" lang="yaml">
-inbox: Входящие
-cardMemorized: Карточказапомнена
-</i18n>

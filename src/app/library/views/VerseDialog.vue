@@ -7,7 +7,7 @@
           data-testid="addVerseToInbox"
           @click="addVerseToInbox"
         >
-          {{ t('add') }}
+          {{ t('common.add') }}
         </ion-button>
       </ion-buttons>
 
@@ -17,7 +17,7 @@
           color="medium"
           @click="cancel"
         >
-          {{ t('cancel') }}
+          {{ t('common.cancel') }}
         </ion-button>
       </ion-buttons>
 
@@ -92,15 +92,3 @@ function addVerseToInbox() {
   margin-top: 1rem;
 }
 </style>
-
-<i18n src="@/locale/common.yml" lang="yaml" />
-
-<i18n locale="en" lang="yaml">
-add: Add
-number-or-text: Verse number or text
-</i18n>
-
-<i18n locale="ru" lang="yaml">
-add: Добавить
-number-or-text: Номер или текст
-</i18n>

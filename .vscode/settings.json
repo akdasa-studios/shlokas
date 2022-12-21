@@ -40,5 +40,10 @@
   "ionic.previewInEditor": true,
   "i18n-ally.localesPaths": [
     "src/locale"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.translate.engines": [
+    // "deepl", "libretranslate",
+    "google"
   ]
 }

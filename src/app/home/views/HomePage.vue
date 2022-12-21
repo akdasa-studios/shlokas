@@ -8,7 +8,7 @@
           href="/home/library"
         >
           <ion-icon :icon="libraryOutline" />
-          <ion-label>{{ t('library') }}</ion-label>
+          <ion-label>{{ t('library.title') }}</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
@@ -17,7 +17,7 @@
           @click="root.inbox.sync()"
         >
           <ion-icon :icon="enterOutline" />
-          <ion-label>{{ t('inbox') }}</ion-label>
+          <ion-label>{{ t('decks.inbox.title') }}</ion-label>
           <ion-badge
             v-if="root.inbox.count.value"
             data-testid="inboxCounterBadge"
@@ -31,7 +31,7 @@
           href="/home/review"
         >
           <ion-icon :icon="albumsOutline" />
-          <ion-label>{{ t('review') }}</ion-label>
+          <ion-label>{{ t('decks.review.title') }}</ion-label>
           <ion-badge
             v-if="root.review.count.value"
           >
@@ -57,18 +57,3 @@ import { useI18n } from 'vue-i18n'
 import { root } from '@/application'
 const { t } = useI18n()
 </script>
-
-
-<i18n locale="en" lang="yaml">
-inbox: Inbox
-library: Library
-review: Review
-settings: Settings
-</i18n>
-
-<i18n locale="ru" lang="yaml">
-inbox: Входящие
-library: Библиотека
-review: Изучение
-settings: Настройки
-</i18n>

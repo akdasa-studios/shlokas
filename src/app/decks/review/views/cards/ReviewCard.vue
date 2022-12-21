@@ -7,7 +7,7 @@
     @swiping="onSwiping"
   >
     <template #overlay>
-      <ReviewCardSwipeOverlay :state="progress" />
+      <ReviewCardSwipeOverlay :grade="grade" />
     </template>
 
     <template #front>
@@ -46,6 +46,10 @@ import {
   ReviewCardTextSide, ReviewCardSwipeOverlay
 } from '@/app/decks/review/views'
 import { defineEmits, defineProps, ref } from 'vue'
+import { ReviewGrade } from '@akdasa-studios/shlokas-core'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -64,24 +68,32 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (event: 'swiped', direction: string, value: number): boolean
+  (event: 'graded', direction: string): boolean
 }>()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const progress = ref<number>(0)
+const grade = ref<string>("")
 
-function onSwiping(direction: string, value: number) {
-  progress.value = value
-  //  (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
-  //  (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+function getGrade(direction: string) : string {
+  return {
+    'top': 'Forgot',
+    'bottom': 'Hard',
+    'left': 'Good',
+    'right': 'Easy'
+  }[direction] || 'Forgot'
 }
 
-function onSwiped(direction: string, value: number) {
-  progress.value = ""
-  return emit('swiped', direction, value)
+function onSwiping(direction: string, value: number) {
+  if (Math.abs(value) < 30) { grade.value = ""; return; }
+  grade.value = getGrade(direction).toString().toLowerCase()
+}
+
+function onSwiped(direction: string) {
+  grade.value = ""
+  return emit('graded', getGrade(direction))
 }
 
 /* -------------------------------------------------------------------------- */
@@ -100,9 +112,9 @@ function getSideComponent(cardType: string, front: boolean) {
 function getQuestion(cardType: string) {
   const name = cardType.split('To')[1]
   return {
-    'Number': 'Number',
-    'Text': 'Text',
-    'Translation': 'Translation'
+    'Number': t('cards.questions.number'),
+    'Text': t('cards.questions.text'),
+    'Translation': t('cards.questions.translation')
   }[name]
 }
 </script>

@@ -6,14 +6,14 @@
     <div v-if="isFinished">
       <span>😎</span>
       <div>
-        {{ t('finished') }}
+        {{ t('cards.inbox.finished') }}
       </div>
     </div>
 
     <div v-else>
       <span>⏱</span>
       <div>
-        {{ t('in-progress') }}
+        {{ t('cards.inbox.inProgress') }}
       </div>
     </div>
   </div>
@@ -52,14 +52,3 @@ const isFinished = computed(() => props.state === 'finished')
   border: 1px solid #ddd;
 }
 </style>
-
-
-<i18n locale="en" lang="yaml">
-in-progress: In progress
-finished: Add
-</i18n>
-
-<i18n locale="ru" lang="yaml">
-in-progress: Ещё учу
-finished: Выучил
-</i18n>

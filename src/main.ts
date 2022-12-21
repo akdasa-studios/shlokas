@@ -25,10 +25,19 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 /* Localization */
+import ru from './locale/ru.json'
+import en from './locale/en.json'
+import rs from './locale/rs.json'
+
 const i18n = createI18n({
   legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
+  messages: {
+    en: en,
+    ru: ru,
+    rs: rs
+  }
 })
 
 const app = createApp(App)
