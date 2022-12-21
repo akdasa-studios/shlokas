@@ -32,4 +32,4 @@ You can try _Shlokas_ app at our staging server: [mobile](https://akdasa-studios
 
 ## Links
 1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application
-2. [Shlokas Core](https://github.com/akdasa-studios/shlokas-core) – Business logic of the application
+2. [Shlokas Core](https://github.com/akdasa-studios/shlokas-core) – Business logic of the Shlokas application
