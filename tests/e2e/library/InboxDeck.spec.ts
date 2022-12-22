@@ -1,5 +1,5 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core';
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { Application } from './pages/Application';
 
 let app: Application

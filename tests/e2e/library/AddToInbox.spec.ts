@@ -1,4 +1,3 @@
-import { InboxCardType } from '@akdasa-studios/shlokas-core';
 import { test } from '@playwright/test';
 import { Application } from './pages/Application';
 
