@@ -11,4 +11,13 @@ export class TabsBar {
       await expect(counterBadge).toBeHidden();
     }
   }
+
+  async expectReviewBadgeValueIs(number: string) {
+    const counterBadge = await this.page.getByTestId("reviewCounterBadge").first();
+    if (number) {
+      await expect(counterBadge).toHaveText(number);
+    } else {
+      await expect(counterBadge).toBeHidden();
+    }
+  }
 }

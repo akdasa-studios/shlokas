@@ -1,3 +1,4 @@
+import { testId } from '@/app/TestId';
 import { expect, Locator, Page } from '@playwright/test';
 import { LibraryModalDialog } from './LibraryModalDialog';
 
@@ -8,7 +9,7 @@ export class LibraryPage {
   }
 
   async search(query: string): Promise<Locator> {
-    const searchbar = this.page.getByTestId("searchbar")
+    const searchbar = this.page.getByTestId(testId("searchbar"))
     await searchbar.click()
     await searchbar.type(query)
     await searchbar.press("Enter")
@@ -17,7 +18,7 @@ export class LibraryPage {
   }
 
   async openVerse(number: string): Promise<LibraryModalDialog> {
-    const firstVerse = await this.page.getByTestId(number).first();
+    const firstVerse = await this.page.getByTestId(testId(number)).first();
     await firstVerse.click();
 
     const verseDialog = await this.page.getByRole("dialog").first();
@@ -29,7 +30,7 @@ export class LibraryPage {
 
 
   async expectStatusBadgeOfVerseToBe(verseNumber: string, value: string | undefined) {
-    const badge = await this.page.getByTestId(verseNumber + " badge")
+    const badge = await this.page.getByTestId(testId(verseNumber, "badge"))
     if (!value) {
       await badge.waitFor({state:"detached"})
       expect(await badge.isVisible()).toBeFalsy()

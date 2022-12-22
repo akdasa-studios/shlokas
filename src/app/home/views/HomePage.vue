@@ -14,6 +14,7 @@
         <ion-tab-button
           tab="tab2"
           href="/home/inbox"
+          data-testid="inbox-tab"
           @click="root.inbox.sync()"
         >
           <ion-icon :icon="enterOutline" />
@@ -34,6 +35,7 @@
           <ion-label>{{ t('decks.review.title') }}</ion-label>
           <ion-badge
             v-if="root.review.count.value"
+            data-testid="reviewCounterBadge"
           >
             {{ root.review.count.value }}
           </ion-badge>
