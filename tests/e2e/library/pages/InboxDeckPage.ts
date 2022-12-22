@@ -5,7 +5,8 @@ import { expect, Page } from '@playwright/test'
 export class InboxDeckPage {
   constructor(public readonly page: Page) { }
   async open() {
-    await this.page.getByTestId("inbox-tab").click()
+    const tab = await this.page.getByTestId("inbox-tab")
+    await tab.click()
   }
 
   async swipeCard(
@@ -22,8 +23,8 @@ export class InboxDeckPage {
 
 
     const sourcePosition = {
-      x: cardBoundingBox?.x as number,
-      y: cardBoundingBox?.y as number
+      x: cardBoundingBox?.x as number + 40,
+      y: cardBoundingBox?.y as number + 80
     }
     const targetPosition = {
       x: sourcePosition.x + dx,
@@ -31,7 +32,7 @@ export class InboxDeckPage {
     }
 
     await card.dragTo(card, {
-      force: true,
+      // force: true,
       sourcePosition, targetPosition
     })
     await this.page.waitForTimeout(500)
@@ -51,7 +52,7 @@ export class InboxDeckPage {
 
   async expectIsEmpty() {
     const inboxEmpty = await this.page.getByTestId('inboxEmpty')
-    const isVisible = await inboxEmpty.isVisible()
-    expect(isVisible).toBeTruthy()
+    await inboxEmpty.waitFor({state:"attached"})
+    // expect(isVisible).toBeTruthy()
   }
 }
