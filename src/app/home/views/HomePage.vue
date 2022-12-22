@@ -14,6 +14,7 @@
         <ion-tab-button
           tab="tab2"
           href="/home/inbox"
+          data-testid="inbox-tab"
           @click="root.inbox.sync()"
         >
           <ion-icon :icon="enterOutline" />

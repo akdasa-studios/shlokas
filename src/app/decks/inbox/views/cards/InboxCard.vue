@@ -3,6 +3,8 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
+    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
+    :data-index="props.index"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
@@ -32,7 +34,7 @@
 
 
 <script lang="ts" setup>
-import FlipCard from '@/app/decks/FlipCard.vue';
+import FlipCard from '@/app/decks/FlipCard.vue'
 import {
   InboxCardSwipeOverlay,
   InboxCardSynonymsSide,
@@ -40,6 +42,7 @@ import {
   InboxCardTranslationSide,
 } from '@/app/decks/inbox/views/cards'
 import { defineEmits, defineProps, ref } from 'vue'
+import { testId } from '@/app/TestId'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
