@@ -52,6 +52,6 @@ export class InboxDeckPage {
   async expectIsEmpty() {
     const inboxEmpty = await this.page.getByTestId('inboxEmpty')
     const isVisible = await inboxEmpty.isVisible()
-    expect(isVisible).toBeFalsy()
+    expect(isVisible).toBeTruthy()
   }
 }
