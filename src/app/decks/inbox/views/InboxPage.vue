@@ -25,6 +25,7 @@
       <!-- Inbox deck is empty -->
       <InboxEmpty
         v-if="inbox.count.value === 0"
+        data-testid="inboxEmpty"
       />
 
       <!-- Toast -->

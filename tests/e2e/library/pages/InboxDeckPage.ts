@@ -47,4 +47,10 @@ export class InboxDeckPage {
     const actualIndex = await card.getAttribute("data-index")
     expect(actualIndex).toEqual(index.toString())
   }
+
+  async expectIsEmpty() {
+    const inboxEmpty = await this.page.getByTestId('inboxEmpty')
+    const isVisible = await inboxEmpty.isVisible()
+    expect(isVisible).toBeFalsy()
+  }
 }

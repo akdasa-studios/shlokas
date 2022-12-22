@@ -1,3 +1,3 @@
 export function testId(...parts: string[]): string {
-  return parts.join(' ')
+  return parts.map(x => x.toLowerCase()).join('-')
 }

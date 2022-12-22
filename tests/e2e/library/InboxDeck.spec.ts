@@ -1,5 +1,5 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core';
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { Application } from './pages/Application';
 
 let app: Application
@@ -10,6 +10,11 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Swipe Cards', () => {
+  test('Inbox is empty', async () => {
+    await app.inboxDeck.open()
+    await app.inboxDeck.expectIsEmpty()
+  })
+
   test('Swipe card right', async () => {
     const verseModal = await app.library.openVerse('BG 1.1')
     await verseModal.clickAddButton()
@@ -32,5 +37,25 @@ test.describe('Swipe Cards', () => {
       'BG 1.1', InboxCardType.Translation, "top"
     )
     await app.tabsBar.expectInboxBadgeValueIs("1")
+  })
+
+  test('Swipe all cards', async () => {
+    const verseModal = await app.library.openVerse('BG 1.1')
+    await verseModal.clickAddButton()
+    await app.inboxDeck.open()
+
+    const cardTypesToSwipe = [
+      InboxCardType.Translation,
+      InboxCardType.Text,
+    ]
+
+    for (const cardTypeToSwipe of cardTypesToSwipe) {
+      await app.inboxDeck.swipeCard(
+        'BG 1.1', cardTypeToSwipe, "top"
+      )
+    }
+    await app.inboxDeck.expectIsEmpty()
+    await app.tabsBar.expectInboxBadgeValueIs("")
+    await app.tabsBar.expectReviewBadgeValueIs("6")
   })
 })

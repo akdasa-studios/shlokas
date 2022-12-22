@@ -35,6 +35,7 @@
           <ion-label>{{ t('decks.review.title') }}</ion-label>
           <ion-badge
             v-if="root.review.count.value"
+            data-testid="reviewCounterBadge"
           >
             {{ root.review.count.value }}
           </ion-badge>
