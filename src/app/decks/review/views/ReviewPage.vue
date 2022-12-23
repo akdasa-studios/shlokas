@@ -34,6 +34,7 @@
 <script lang="ts" setup>
 import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
 import { review } from '@/application'
+import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -42,19 +43,18 @@ const { t } = useI18n()
 const swipeDirections = computed(() => {
   return review.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']
-    : ['top', 'bottom']
+    : ['left', 'right']
 })
 
 function onCardSwiped(direction: string) {
-
   setTimeout(() => {
-    // if (!first) { return }
-    // first.progress = ""
     if (direction == "left" || direction == "right") {
       const first = review.cards.value.shift()
-      review.cards.value.push(first)
-    } else if (direction == "top" || direction == "bottom") {
+      first?.review(direction === "left" ? ReviewGrade.Good : ReviewGrade.Easy)
       console.log("well done")
+    } else if (direction == "top" || direction == "bottom") {
+      const first = review.cards.value.shift()
+      review.cards.value.push(first)
     }
   }, 250)
 }

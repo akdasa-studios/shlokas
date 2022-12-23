@@ -60,7 +60,7 @@ test.describe('Inbox Deck', () => {
       }
       await app.inboxDeck.expectIsEmpty()
       await app.tabsBar.expectInboxBadgeValueIs("")
-      await app.tabsBar.expectReviewBadgeValueIs("6")
+      await app.tabsBar.expectReviewBadgeValueIs("1")
     })
   })
 })

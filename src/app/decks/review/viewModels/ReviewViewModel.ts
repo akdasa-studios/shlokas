@@ -25,7 +25,7 @@ export class ReviewViewModel implements ViewModel {
       const result = root.app.library.getById(verseId)
       return result.value
     }
-    const reviewCards = root.app.reviewDeck.cards
+    const reviewCards = root.app.reviewDeck.dueToCards(root.app.timeMachine.now)
 
     this.cards.value = reviewCards.map(
       (card: ReviewCard) => new ReviewCardVewModel(card, getVerse(card.verseId))

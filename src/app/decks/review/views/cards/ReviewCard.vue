@@ -7,7 +7,10 @@
     @swiping="onSwiping"
   >
     <template #overlay>
-      <ReviewCardSwipeOverlay :grade="grade" />
+      <ReviewCardSwipeOverlay
+        :grade="grade"
+        :interval="interval"
+      />
     </template>
 
     <template #front>
@@ -39,6 +42,7 @@
 
 
 <script lang="ts" setup>
+import { ReviewGrade, Scheduler } from '@akdasa-studios/shlokas-core'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
 import {
@@ -63,6 +67,8 @@ const props = defineProps<{
     text: string[],
     translation: string,
     synonyms: { word: string, translation: string }[],
+    interval: number,
+    ease: number,
   }
 }>()
 
@@ -75,24 +81,29 @@ const emit = defineEmits<{
 /* -------------------------------------------------------------------------- */
 
 const grade = ref<string>("")
+const interval = ref<number>(0)
 
-function getGrade(direction: string) : string {
+function getGrade(direction: string) : ReviewGrade {
   return {
-    'top': 'Forgot',
-    'bottom': 'Hard',
-    'left': 'Good',
-    'right': 'Easy'
-  }[direction] || 'Forgot'
+    'top': ReviewGrade.Forgot,
+    'bottom': ReviewGrade.Hard,
+    'left': ReviewGrade.Good,
+    'right': ReviewGrade.Easy
+  }[direction] || ReviewGrade.Forgot
 }
 
 function onSwiping(direction: string, value: number) {
   if (Math.abs(value) < 30) { grade.value = ""; return; }
-  grade.value = getGrade(direction).toString().toLowerCase()
+  grade.value = ReviewGrade[getGrade(direction)].toLocaleLowerCase()
+
+  interval.value = new Scheduler().getNewInterval(
+    props.card.interval, props.card.ease / 100, getGrade(direction)
+  )
 }
 
 function onSwiped(direction: string) {
   grade.value = ""
-  return emit('graded', getGrade(direction))
+  return emit('graded', ReviewGrade[getGrade(direction)])
 }
 
 /* -------------------------------------------------------------------------- */
