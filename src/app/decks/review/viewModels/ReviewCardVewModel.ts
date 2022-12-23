@@ -25,7 +25,10 @@ export class ReviewCardVewModel implements ViewModel {
   get translation(): string { return this._verse.object.translation.text; }
   get interval(): number { return this._card.object.interval; }
   get ease(): number { return this._card.object.ease; }
-  review(grade: ReviewGrade) { this._card.object.review(grade) }
+  review(grade: ReviewGrade) {
+    // TODO: execure command
+    this._card.object.review(grade)
+  }
   get synonyms() : {word:string, translation:string}[] {
     return this._verse.object.synonyms.map(x => ({
       word: x.word,
