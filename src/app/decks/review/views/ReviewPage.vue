@@ -50,7 +50,7 @@ function onCardSwiped(direction: string) {
   setTimeout(() => {
     if (direction == "left" || direction == "right") {
       const first = review.cards.value.shift()
-      first?.review(ReviewGrade.Good)
+      first?.review(direction === "left" ? ReviewGrade.Good : ReviewGrade.Easy)
       console.log("well done")
     } else if (direction == "top" || direction == "bottom") {
       const first = review.cards.value.shift()
