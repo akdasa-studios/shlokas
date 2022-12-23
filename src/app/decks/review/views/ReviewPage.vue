@@ -2,9 +2,7 @@
   <ion-page>
     <!-- Header -->
     <ion-header>
-      <ion-toolbar
-        @click="onToolbarClicked"
-      >
+      <ion-toolbar>
         <ion-title>{{ t('decks.review.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -59,9 +57,5 @@ function onCardSwiped(direction: string) {
       review.cards.value.push(first)
     }
   }, 250)
-}
-
-function onToolbarClicked() {
-  root.debug.nextDay()
 }
 </script>
