@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
-import { root, review } from '@/application'
+import { review } from '@/application'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
