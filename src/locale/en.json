@@ -15,6 +15,11 @@
     "inbox": {
       "finished": "Finished",
       "inProgress": "In Progress"
+    },
+    "schedule": {
+      "inDays": "today | + {count} day | + {count} days",
+      "inMonths": "+ {count} month | + {count} months",
+      "inYears": "+ {count} year | + {count} years"
     }
   },
   "common": {

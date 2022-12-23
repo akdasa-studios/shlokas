@@ -1,5 +1,5 @@
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-import { CardId, ReviewCard, Verse } from '@akdasa-studios/shlokas-core'
+import { CardId, ReviewCard, ReviewGrade, Verse } from '@akdasa-studios/shlokas-core'
 
 export class ReviewCardVewModel implements ViewModel {
   private readonly _card: DomainViewModel<ReviewCard>
@@ -23,6 +23,9 @@ export class ReviewCardVewModel implements ViewModel {
   get verseNumber(): string { return this._verse.object.number.toString() }
   get text() { return this._verse.object.text.lines }
   get translation(): string { return this._verse.object.translation.text; }
+  get interval(): number { return this._card.object.interval; }
+  get ease(): number { return this._card.object.ease; }
+  review(grade: ReviewGrade) { this._card.object.review(grade) }
   get synonyms() : {word:string, translation:string}[] {
     return this._verse.object.synonyms.map(x => ({
       word: x.word,

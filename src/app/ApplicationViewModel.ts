@@ -1,3 +1,4 @@
+import { DebugController } from './DebugController';
 import { InboxViewModel } from '@/app/decks/inbox/viewModels'
 import { ReviewViewModel } from '@/app/decks/review/viewModels'
 import { LibraryViewModel } from '@/app/library/viewModels'
@@ -10,6 +11,7 @@ export class ApplicationViewModel {
   public readonly library = markRaw(new LibraryViewModel())
   public readonly inbox = markRaw(new InboxViewModel())
   public readonly review = markRaw(new ReviewViewModel())
+  public readonly debug = markRaw(new DebugController())
 
   constructor(public readonly app: Application) {
   }
