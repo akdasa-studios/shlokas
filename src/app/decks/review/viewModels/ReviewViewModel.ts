@@ -1,7 +1,7 @@
-import { ViewModel } from '@/app/DomainViewModel'
-import { root } from '@/application'
 import { ReviewCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
+import { ViewModel } from '@/app/DomainViewModel'
+import { root } from '@/application'
 import { ReviewCardVewModel } from './ReviewCardVewModel'
 
 

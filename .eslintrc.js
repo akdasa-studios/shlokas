@@ -26,13 +26,14 @@ module.exports = {
     'vue/no-deprecated-slot-attribute': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     "import/order": [
-      "warn",
+      "error",
       {
         groups: [
           "builtin", "external", "internal", "parent", "sibling", "index", "object"
         ]
       }
-    ]
+    ],
+    "semi": ["error", "never"]
   },
   ignorePatterns: ["dist/**"],
   overrides: [

@@ -93,7 +93,7 @@ function getGrade(direction: string) : ReviewGrade {
 }
 
 function onSwiping(direction: string, value: number) {
-  if (Math.abs(value) < 30) { grade.value = ""; return; }
+  if (Math.abs(value) < 30) { grade.value = ""; return }
   grade.value = ReviewGrade[getGrade(direction)].toLocaleLowerCase()
 
   interval.value = new Scheduler().getNewInterval(

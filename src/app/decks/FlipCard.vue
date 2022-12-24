@@ -20,13 +20,14 @@
 
 <script lang="ts" setup>
 // Interact
-import interact from 'interactjs';
-import { Target } from '@interactjs/types';
+import interact from 'interactjs'
+import { Target } from '@interactjs/types'
 
 // Vue
-import { ref, watch, computed, defineExpose } from 'vue'
-import { defineProps, defineEmits } from 'vue'
-import { onMounted, onBeforeUnmount } from 'vue'
+import {
+  ref, watch, computed, defineExpose,
+  defineProps, defineEmits, onMounted, onBeforeUnmount
+} from 'vue'
 
 
 /* -------------------------------------------------------------------------- */
@@ -62,7 +63,7 @@ const distance = computed<number>(function () {
   const value = xaxis ? posX.value : posY.value
   if (value > props.swipeThreshold) { return value - props.swipeThreshold }
   if (value < -props.swipeThreshold) { return value + props.swipeThreshold }
-  return 0;
+  return 0
 })
 const direction = computed<string>(function () {
   const xaxis = Math.abs(posX.value) > Math.abs(posY.value)
@@ -125,7 +126,7 @@ function onSwiping(dx: number, dy: number) {
   posX.value += dx
   posY.value += dy
 
-  angle.value = 15 * (posX.value / 300);
+  angle.value = 15 * (posX.value / 300)
   if (angle.value > 15) { angle.value = 15 }
   if (angle.value < -15) { angle.value = -15 }
 

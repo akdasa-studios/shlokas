@@ -1,6 +1,6 @@
+import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
-import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
 
 /**
  * Represents a card in the inbox created from a verse.
@@ -22,11 +22,11 @@ export class InboxCardVewModel implements ViewModel {
     this._verse.sync()
   }
 
-  get id(): CardId { return this._card.object.id; }
-  get type(): string { return this._card.object.type; }
+  get id(): CardId { return this._card.object.id }
+  get type(): string { return this._card.object.type }
   get verseNumber(): string { return this._verse.object.number.toString() }
   get text() { return this._verse.object.text.lines }
-  get translation(): string { return this._verse.object.translation.text; }
+  get translation(): string { return this._verse.object.translation.text }
   get synonyms() : {word:string, translation:string}[] {
     return this._verse.object.synonyms.map(x => ({
       word: x.word,

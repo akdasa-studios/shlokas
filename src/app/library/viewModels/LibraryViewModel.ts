@@ -1,9 +1,9 @@
-import { ViewModel } from '@/app/DomainViewModel'
-import { root } from '@/application'
 import { Transaction } from '@akdasa-studios/framework'
 import { AddVerseToInboxDeck, Language, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from 'vue'
+import { root } from '@/application'
+import { ViewModel } from '@/app/DomainViewModel'
 import { VerseViewModel } from './VerseViewModel'
 
 
@@ -71,7 +71,7 @@ export class LibraryViewModel implements ViewModel {
   }
 
   revertLastAction() {
-    root.app.processor.revert();
+    root.app.processor.revert()
     root.inbox.sync()
     this.sync()
   }

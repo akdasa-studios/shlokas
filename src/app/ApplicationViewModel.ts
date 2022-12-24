@@ -1,11 +1,11 @@
-import { SettingsViewModel } from './settings/viewModels/SettingsViewModel';
-import { DebugController } from './DebugController';
-import { InboxViewModel } from '@/app/decks/inbox/viewModels'
-import { ReviewViewModel } from '@/app/decks/review/viewModels'
-import { LibraryViewModel } from '@/app/library/viewModels'
 import { AnyCommand, AnyResult, ProcessorResult, Transaction } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"
 import { markRaw } from 'vue'
+import { InboxViewModel } from '@/app/decks/inbox/viewModels'
+import { ReviewViewModel } from '@/app/decks/review/viewModels'
+import { LibraryViewModel } from '@/app/library/viewModels'
+import { DebugController } from './DebugController'
+import { SettingsViewModel } from './settings/viewModels/SettingsViewModel'
 
 
 export class ApplicationViewModel {

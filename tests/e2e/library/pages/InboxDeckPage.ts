@@ -1,6 +1,6 @@
-import { testId } from '@/app/TestId'
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, Page } from '@playwright/test'
+import { testId } from '@/app/TestId'
 
 export class InboxDeckPage {
   constructor(public readonly page: Page) { }

@@ -1,9 +1,8 @@
-import { mount } from '@vue/test-utils'
+import { mount , config } from '@vue/test-utils'
+import { createI18n } from 'vue-i18n'
 import { InboxPage } from '@/app/decks/inbox/views'
 
 
-import { config } from '@vue/test-utils'
-import { createI18n } from 'vue-i18n'
 
 const i18n = createI18n({
   legacy: false,

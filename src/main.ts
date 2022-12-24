@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import { IonicVue } from '@ionic/vue';
+import { IonicVue } from '@ionic/vue'
 import { i18n } from './i18n'
 import App from './App.vue'
 import router from './router'
 
 
 /* Core CSS required for Ionic components to work properly */
-import '@ionic/vue/css/core.css';
+import '@ionic/vue/css/core.css'
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/vue/css/normalize.css'
@@ -30,5 +30,5 @@ const app = createApp(App)
   .use(i18n)
 
 router.isReady().then(() => {
-  app.mount('#app');
-});
+  app.mount('#app')
+})

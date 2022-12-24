@@ -1,4 +1,4 @@
-import { root } from "@/application";
+import { root } from "@/application"
 
 export class DebugController{
   nextDay() {

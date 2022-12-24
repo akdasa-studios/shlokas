@@ -46,11 +46,11 @@
 
 
 <script lang="ts" setup>
-import { VerseId } from '@akdasa-studios/shlokas-core';
+import { VerseId } from '@akdasa-studios/shlokas-core'
 import {
   IonButton, IonButtons, IonContent, IonHeader,
   IonTitle, IonToolbar, modalController
-} from '@ionic/vue';
+} from '@ionic/vue'
 import { defineProps } from 'vue'
 
 const props = defineProps<{
@@ -63,11 +63,11 @@ const props = defineProps<{
 
 
 function cancel() {
-  return modalController.dismiss(null, 'cancel');
+  return modalController.dismiss(null, 'cancel')
 }
 
 function addVerseToInbox() {
-  return modalController.dismiss({ verseId: props.verseId }, 'confirm');
+  return modalController.dismiss({ verseId: props.verseId }, 'confirm')
 }
 </script>
 

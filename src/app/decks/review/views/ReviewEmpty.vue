@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IonImg } from '@ionic/vue';
+import { IonImg } from '@ionic/vue'
 </script>
 
 <style scoped>

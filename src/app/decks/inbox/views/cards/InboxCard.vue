@@ -34,6 +34,7 @@
 
 
 <script lang="ts" setup>
+import { defineEmits, defineProps, ref } from 'vue'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import {
   InboxCardSwipeOverlay,
@@ -41,7 +42,6 @@ import {
   InboxCardVerseTextSide,
   InboxCardTranslationSide,
 } from '@/app/decks/inbox/views/cards'
-import { defineEmits, defineProps, ref } from 'vue'
 import { testId } from '@/app/TestId'
 
 /* -------------------------------------------------------------------------- */

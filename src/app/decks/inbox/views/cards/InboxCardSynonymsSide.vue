@@ -15,8 +15,8 @@
 
 
 <script lang="ts" setup>
+import { defineProps } from 'vue'
 import CardSide from '@/app/decks/CardSide.vue'
-import { defineProps } from 'vue';
 
 interface Synomym {
   word: string

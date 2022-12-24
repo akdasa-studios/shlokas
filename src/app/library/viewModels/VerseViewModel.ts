@@ -1,5 +1,5 @@
-import { DomainViewModel, ViewModel } from '@/app/DomainViewModel';
-import { Decks, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core';
+import { Decks, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
+import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 
 export class VerseViewModel implements ViewModel {
   private readonly _verse: DomainViewModel<Verse>

@@ -21,15 +21,15 @@ try {
     }`
     var head = document.head || document.getElementsByTagName('head')[0]
     var style = document.createElement('style')
-    head.appendChild(style);
-    style.appendChild(document.createTextNode(css));
+    head.appendChild(style)
+    style.appendChild(document.createTextNode(css))
   }
 } catch(e) { console.log(e) }
 
 //
 try {
   window.onmessage = function(e) {
-    if (e.data == 'nextDay') { root.debug.nextDay(); }
+    if (e.data == 'nextDay') { root.debug.nextDay() }
     if (e.data == 'lang:en') { locale.value = 'en' }
     if (e.data == 'lang:ru') { locale.value = 'ru' }
     if (e.data == 'lang:rs') { locale.value = 'rs' }

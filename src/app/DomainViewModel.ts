@@ -1,7 +1,7 @@
-import { repositories } from "@/application";
-import { Verse, VerseStatus } from "@akdasa-studios/shlokas-core";
-import { Aggregate, AnyIdentity, Repository } from '@akdasa-studios/framework';
+import { Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
+import { Aggregate, AnyIdentity, Repository } from '@akdasa-studios/framework'
 import { markRaw } from 'vue'
+import { repositories } from "@/application"
 
 export interface ViewModel {
   sync(): void
@@ -9,25 +9,25 @@ export interface ViewModel {
 
 export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements ViewModel
 {
-  private _object: TType;
+  private _object: TType
   constructor(object: TType) {
-    this._object = markRaw(object);
+    this._object = markRaw(object)
   }
-  get object(): TType { return this._object; }
+  get object(): TType { return this._object }
 
   sync() {
-    console.log("sync " + this._object.id.value);
-    const repository: Repository<TType> = this.getRepository();
-    this._object = repository.get(this._object.id).value;
+    console.log("sync " + this._object.id.value)
+    const repository: Repository<TType> = this.getRepository()
+    this._object = repository.get(this._object.id).value
   }
 
   private getRepository(): Repository<TType> {
     if (this._object instanceof VerseStatus) {
-      return repositories.verseStatuses as unknown as Repository<TType>;
+      return repositories.verseStatuses as unknown as Repository<TType>
     }
     if (this._object instanceof Verse) {
-      return repositories.verses as unknown as Repository<TType>;
+      return repositories.verses as unknown as Repository<TType>
     }
-    throw Error("Unknown Object Type");
+    throw Error("Unknown Object Type")
   }
 }
