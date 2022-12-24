@@ -130,4 +130,4 @@ function getQuestion(cardType: string) {
 </script>
 
 
-<style src="@/app/decks/Card.css" />
+<style src="@/app/decks/Card.css" scoped />

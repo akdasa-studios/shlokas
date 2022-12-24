@@ -50,4 +50,4 @@ const intervalHumanReadable = computed(() => {
 }
 </style>
 
-<style src="@/app/decks/Card.css" />
+<style src="@/app/decks/Card.css" scoped />

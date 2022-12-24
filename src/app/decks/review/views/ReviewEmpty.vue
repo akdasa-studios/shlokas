@@ -16,20 +16,20 @@ import { IonImg } from '@ionic/vue'
 
 <style scoped>
 .root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .text {
-    margin: 20px;
-    text-align: center;
+  margin: 20px;
+  text-align: center;
 }
 
 .img {
-    max-width: 50%;
+  max-width: 50%;
 }
 </style>

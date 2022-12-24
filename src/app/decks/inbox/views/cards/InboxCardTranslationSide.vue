@@ -18,3 +18,5 @@ const props = defineProps<{
   verseNumber: string
 }>()
 </script>
+
+<style src="@/app/decks/Card.css" scoped />

@@ -35,4 +35,4 @@ const isFinished = computed(() => props.state === 'finished')
 .transition { transition: .25s; }
 </style>
 
-<style src="@/app/decks/Card.css" />
+<style src="@/app/decks/Card.css" scoped />

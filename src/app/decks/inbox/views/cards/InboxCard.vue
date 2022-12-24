@@ -83,4 +83,4 @@ function onSwiped(direction: string, value: number) {
 </script>
 
 
-<style src="@/app/decks/Card.css" />
+<style src="@/app/decks/Card.css" scoped />

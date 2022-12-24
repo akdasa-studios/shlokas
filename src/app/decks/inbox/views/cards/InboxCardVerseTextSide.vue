@@ -23,3 +23,5 @@ const props = defineProps<{
   lines: string[]
 }>()
 </script>
+
+<style src="@/app/decks/Card.css" scoped />
