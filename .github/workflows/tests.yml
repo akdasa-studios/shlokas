@@ -36,10 +36,10 @@ jobs:
           path: unit-report/
           retention-days: 30
 
-      - name: 📜 Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: 📜 Upload coverage
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
 
   e2e:
     name: 🚀 E2E
@@ -68,6 +68,11 @@ jobs:
 
     - name: 🔬 run tests
       run: npx playwright test
+
+    - name: 📜 Upload coverage
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: 🚚 Upload artifacts
       uses: actions/upload-artifact@v3
