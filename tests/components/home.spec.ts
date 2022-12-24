@@ -1,6 +1,5 @@
-import { mount , config } from '@vue/test-utils'
+import { config } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
-import { InboxDeckPage } from '@/app/decks/inbox'
 
 
 const i18n = createI18n({
@@ -14,14 +13,14 @@ config.global.plugins = [i18n]
 
 describe('InboxDeck.vue', () => {
   it('renders', async () => {
-    const wrapper = mount(InboxDeckPage
-      // ,
-      //   {
-      //   global: {
-      //     plugins: [i18n]
-      //   }
-      // }
-    )
+    // const wrapper = mount(InboxDeckPage
+    //   // ,
+    //   //   {
+    //   //   global: {
+    //   //     plugins: [i18n]
+    //   //   }
+    //   // }
+    // )
     // const savebutton = wrapper.find('#addVerseButton')
     // savebutton.trigger('click')
 
