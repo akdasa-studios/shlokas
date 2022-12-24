@@ -25,7 +25,7 @@ test.afterEach(async ({ page, browserName }) => {
     const converter = v8toIstanbul('', 0, { source: entry.source || '' })
     await converter.load()
     converter.applyCoverage(entry.functions)
-    fs.writeFile("coverage/coverage.json", JSON.stringify(converter.toIstanbul()), () => {
+    fs.writeFile("coverage.json", JSON.stringify(converter.toIstanbul()), () => {
       // pass
     })
     // console.log())
