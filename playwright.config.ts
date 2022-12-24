@@ -1,5 +1,5 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test'
+import { devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
@@ -44,7 +44,7 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    video: 'on-first-retry',
+    video: 'on',
   },
 
   /* Configure projects for major browsers */
@@ -103,10 +103,11 @@ const config: PlaywrightTestConfig = {
   outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npm run serve',
-    port: 8080,
-  },
-};
+  // webServer: {
+  //   command: 'npm run serve',
+  //   port: 8080,
 
-export default config;
+  // },
+}
+
+export default config
