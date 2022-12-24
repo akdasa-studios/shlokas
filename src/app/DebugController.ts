@@ -1,14 +1,14 @@
-import { root } from "@/application"
+import { shlokas } from "@/application"
 
 export class DebugController{
   nextDay() {
-    root.app.timeMachine.set(
-      root.app.timeMachine.add(
-        root.app.timeMachine.now,
+    shlokas.app.timeMachine.set(
+      shlokas.app.timeMachine.add(
+        shlokas.app.timeMachine.now,
         24, "h"
       )
     )
 
-    root.reviewDeck.sync()
+    shlokas.reviewDeck.sync()
   }
 }

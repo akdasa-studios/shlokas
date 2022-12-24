@@ -15,7 +15,7 @@
       :scroll-x="false"
     >
       <InboxCard
-        v-for="card, idx in inbox.cards.value"
+        v-for="card, idx in shlokas.inboxDeck.cards.value"
         :key="card.id.value"
         :index="idx"
         :card="card"
@@ -25,7 +25,7 @@
 
       <!-- Inbox deck is empty -->
       <InboxDeckEmpty
-        v-if="inbox.count.value === 0"
+        v-if="shlokas.inboxDeck.count.value === 0"
         data-testid="inboxEmpty"
       />
 
@@ -33,11 +33,11 @@
       <ion-toast
         position="top"
         :message="$t('cards.memorized')"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => inbox.revertLastAction() }]"
-        :is-open="inbox.isCardMemorizedToastOpen.value"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => shlokas.inboxDeck.revertLastAction() }]"
+        :is-open="shlokas.inboxDeck.isCardMemorizedToastOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="() => inbox.closeCardMemorizedToast()"
+        @did-dismiss="() => shlokas.inboxDeck.closeCardMemorizedToast()"
       />
     </ion-content>
   </ion-page>
@@ -47,12 +47,12 @@
 <script lang="ts" setup>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
 import { computed } from 'vue'
-import { inbox } from '@/application'
+import { shlokas } from '@/application'
 import { InboxCard, InboxDeckEmpty } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
 const swipeDirections = computed(() => {
-  return inbox.cards.value.length > 1
+  return shlokas.inboxDeck.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']
     : ['top', 'bottom']
 })
@@ -64,12 +64,12 @@ function onCardSwiped(direction: string) {
     // if (!first) { return }
     // first.progress = ""
     if (direction == "left" || direction == "right") {
-      const first = inbox.cards.value.shift()
-      inbox.cards.value.push(first)
+      const first = shlokas.inboxDeck.cards.value.shift()
+      shlokas.inboxDeck.cards.value.push(first)
     } else if (direction == "top" || direction == "bottom") {
-      inbox.openCardMemorizesToast()
+      shlokas.inboxDeck.openCardMemorizesToast()
       // inbox.cards.value.push(first)
-      inbox.cards.value[0].memorized()
+      shlokas.inboxDeck.cards.value[0].memorized()
     }
   }, 250)
 }

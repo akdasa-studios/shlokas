@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { IonApp, IonRouterOutlet } from '@ionic/vue'
-import { root } from '@/application'
+import { shlokas } from '@/application'
 
 const { locale } = useI18n()
 
@@ -29,7 +29,7 @@ try {
 //
 try {
   window.onmessage = function(e) {
-    if (e.data == 'nextDay') { root.debug.nextDay() }
+    if (e.data == 'nextDay') { shlokas.debug.nextDay() }
     if (e.data == 'lang:en') { locale.value = 'en' }
     if (e.data == 'lang:ru') { locale.value = 'ru' }
     if (e.data == 'lang:rs') { locale.value = 'rs' }

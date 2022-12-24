@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { Language } from '@akdasa-studios/shlokas-core'
 import { ViewModel } from '@/app/DomainViewModel'
-import { root } from '@/application'
+import { shlokas } from '@/application'
 import { i18n } from '@/i18n'
 
 
@@ -18,13 +18,13 @@ export class SettingsPageViewModel implements ViewModel {
 
   /** Changes language */
   public changeLanguage(lang: Language) {
-    root.app.settings.changeLanguage(lang)
+    shlokas.app.settings.changeLanguage(lang)
     i18n.global.locale.value = lang.code as any
     this.sync()
   }
 
   /** Sync view model with domain */
   sync() {
-    this.language.value = root.app.settings.language
+    this.language.value = shlokas.app.settings.language
   }
 }

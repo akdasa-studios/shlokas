@@ -22,7 +22,7 @@
           @ion-change="languageChanged"
         >
           <ion-select-option
-            v-for="lang in root.settings.availableLanguages"
+            v-for="lang in shlokas.settings.availableLanguages"
             :key="lang.code"
             :value="lang.code"
           >
@@ -42,12 +42,12 @@ import {
   IonTitle, IonToolbar, IonSelect, IonSelectOption
 } from '@ionic/vue'
 import { ref } from 'vue'
-import { root } from '@/application'
+import { shlokas } from '@/application'
 
-const value = ref(root.settings.language.value.code)
+const value = ref(shlokas.settings.language.value.code)
 
 function languageChanged(e: any) {
-  const lang = root.settings.availableLanguages.find(x => x.code === e.detail.value)
-  root.settings.changeLanguage(lang as Language)
+  const lang = shlokas.settings.availableLanguages.find(x => x.code === e.detail.value)
+  shlokas.settings.changeLanguage(lang as Language)
 }
 </script>

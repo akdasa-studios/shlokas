@@ -6,7 +6,7 @@
         <ion-tab-button
           tab="tab1"
           href="/home/library"
-          @click="root.library.sync()"
+          @click="shlokas.library.sync()"
         >
           <ion-icon :icon="libraryOutline" />
           <ion-label>{{ $t('library.title') }}</ion-label>
@@ -16,15 +16,15 @@
           tab="tab2"
           href="/home/inbox"
           data-testid="inbox-tab"
-          @click="root.inboxDeck.sync()"
+          @click="shlokas.inboxDeck.sync()"
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
           <ion-badge
-            v-if="root.inboxDeck.count.value"
+            v-if="shlokas.inboxDeck.count.value"
             data-testid="inboxCounterBadge"
           >
-            {{ root.inboxDeck.count.value }}
+            {{ shlokas.inboxDeck.count.value }}
           </ion-badge>
         </ion-tab-button>
 
@@ -35,10 +35,10 @@
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
-            v-if="root.reviewDeck.count.value"
+            v-if="shlokas.reviewDeck.count.value"
             data-testid="reviewCounterBadge"
           >
-            {{ root.reviewDeck.count.value }}
+            {{ shlokas.reviewDeck.count.value }}
           </ion-badge>
         </ion-tab-button>
 
@@ -65,5 +65,5 @@ import {
   constructOutline
 } from 'ionicons/icons'
 
-import { root } from '@/application'
+import { shlokas } from '@/application'
 </script>

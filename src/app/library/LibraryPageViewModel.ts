@@ -2,7 +2,7 @@ import { Transaction } from '@akdasa-studios/framework'
 import { AddVerseToInboxDeck, Language, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from 'vue'
-import { root } from '@/application'
+import { shlokas } from '@/application'
 import { ViewModel } from '@/app/DomainViewModel'
 import { VerseViewModel } from '@/app/library'
 
@@ -16,14 +16,14 @@ export class LibraryPageViewModel implements ViewModel {
   /* ------------------------------ Search verses ----------------------------- */
   public readonly searchQuery = ref('')
   public readonly filteredVerses = computed(() => {
-    const verses = root.app.library.findByContent(
-      root.settings.language.value as Language,
+    const verses = shlokas.app.library.findByContent(
+      shlokas.settings.language.value as Language,
       this.searchQuery.value
     )
 
     return verses.map(verse => {
       // TODO: N+1 issue
-      const status = root.app.library.getStatus(verse.id).value
+      const status = shlokas.app.library.getStatus(verse.id).value
       return new VerseViewModel(verse, status)
     })
   })
@@ -39,7 +39,7 @@ export class LibraryPageViewModel implements ViewModel {
   /* -------------------------------------------------------------------------- */
 
   openModal(verse: Verse) {
-    const status = root.app.library.getStatus(verse.id).value
+    const status = shlokas.app.library.getStatus(verse.id).value
     this.openedVerse = new VerseViewModel(verse, status)
     this.isModalOpen.value = true
   }
@@ -50,9 +50,9 @@ export class LibraryPageViewModel implements ViewModel {
 
     if (detail.role === 'confirm') {
       const transaction = new Transaction('!!!!')
-      root.execute(new AddVerseToInboxDeck(detail.data.verseId as VerseId), transaction)
-      root.execute(new UpdateVerseStatus(detail.data.verseId as VerseId), transaction)
-      root.inboxDeck.sync()
+      shlokas.execute(new AddVerseToInboxDeck(detail.data.verseId as VerseId), transaction)
+      shlokas.execute(new UpdateVerseStatus(detail.data.verseId as VerseId), transaction)
+      shlokas.inboxDeck.sync()
       this.openToast()
     }
     this.sync()
@@ -71,8 +71,8 @@ export class LibraryPageViewModel implements ViewModel {
   }
 
   revertLastAction() {
-    root.app.processor.revert()
-    root.inboxDeck.sync()
+    shlokas.app.processor.revert()
+    shlokas.inboxDeck.sync()
     this.sync()
   }
 }

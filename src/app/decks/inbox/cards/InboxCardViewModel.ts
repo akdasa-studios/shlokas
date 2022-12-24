@@ -1,6 +1,6 @@
 import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-import { root } from '@/application'
+import { shlokas } from '@/application'
 
 /**
  * Represents a card in the inbox created from a verse.
@@ -35,8 +35,8 @@ export class InboxCardViewModel implements ViewModel {
   }
 
   memorized() {
-    root.execute(new InboxCardMemorized(this._card.object))
-    root.inboxDeck.sync()
-    root.reviewDeck.sync()
+    shlokas.execute(new InboxCardMemorized(this._card.object))
+    shlokas.inboxDeck.sync()
+    shlokas.reviewDeck.sync()
   }
 }
