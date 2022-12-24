@@ -3,7 +3,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('decks.review.title') }}</ion-title>
+        <ion-title>{{ $t('decks.review.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -32,14 +32,12 @@
 
 
 <script lang="ts" setup>
-import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
-import { review } from '@/application'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { review } from '@/application'
+import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
 
-const { t } = useI18n()
 const swipeDirections = computed(() => {
   return review.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']

@@ -1,9 +1,9 @@
 import { ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
 import { Transaction } from '@akdasa-studios/framework'
-import { AddVerseToInboxDeck, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { AddVerseToInboxDeck, Language, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
-import { computed, ref } from "vue"
+import { computed, ref } from 'vue'
 import { VerseViewModel } from './VerseViewModel'
 
 
@@ -14,12 +14,16 @@ export class LibraryViewModel implements ViewModel {
   }
 
   /* ------------------------------ Search verses ----------------------------- */
-  public readonly searchQuery = ref("")
+  public readonly searchQuery = ref('')
   public readonly filteredVerses = computed(() => {
-    const verses = root.app.library.finqByString(this.searchQuery.value)
+    const verses = root.app.library.findByContent(
+      root.settings.language.value as Language,
+      this.searchQuery.value
+    )
+
     return verses.map(verse => {
       // TODO: N+1 issue
-      const status = root.app.library.getStatusById(verse.id).value
+      const status = root.app.library.getStatus(verse.id).value
       return new VerseViewModel(verse, status)
     })
   })
@@ -35,7 +39,7 @@ export class LibraryViewModel implements ViewModel {
   /* -------------------------------------------------------------------------- */
 
   openModal(verse: Verse) {
-    const status = root.app.library.getStatusById(verse.id).value
+    const status = root.app.library.getStatus(verse.id).value
     this.openedVerse = new VerseViewModel(verse, status)
     this.isModalOpen.value = true
   }
@@ -45,7 +49,7 @@ export class LibraryViewModel implements ViewModel {
     this.isModalOpen.value = false
 
     if (detail.role === 'confirm') {
-      const transaction = new Transaction("!!!!")
+      const transaction = new Transaction('!!!!')
       root.execute(new AddVerseToInboxDeck(detail.data.verseId as VerseId), transaction)
       root.execute(new UpdateVerseStatus(detail.data.verseId as VerseId), transaction)
       root.inbox.sync()
@@ -71,5 +75,4 @@ export class LibraryViewModel implements ViewModel {
     root.inbox.sync()
     this.sync()
   }
-
 }

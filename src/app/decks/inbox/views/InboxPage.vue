@@ -3,7 +3,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('decks.inbox.title') }}</ion-title>
+        <ion-title>{{ $t('decks.inbox.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -31,7 +31,7 @@
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('cards.memorized')"
+        :message="$t('cards.memorized')"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => inbox.revertLastAction() }]"
         :is-open="inbox.isCardMemorizedToastOpen.value"
         :duration="2000"
@@ -44,13 +44,11 @@
 
 
 <script lang="ts" setup>
-import { InboxCard, InboxEmpty } from '@/app/decks/inbox/views'
-import { inbox } from '@/application'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
-import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import { inbox } from '@/application'
+import { InboxCard, InboxEmpty } from '@/app/decks/inbox/views'
 
-const { t } = useI18n()
 const swipeDirections = computed(() => {
   return inbox.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']

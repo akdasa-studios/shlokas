@@ -6,10 +6,10 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-const { locale } = useI18n()
-import { root } from './application'
 import { IonApp, IonRouterOutlet } from '@ionic/vue'
+import { root } from '@/application'
 
+const { locale } = useI18n()
 
 
 // Notch!

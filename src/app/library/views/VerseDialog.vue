@@ -7,7 +7,7 @@
           data-testid="addVerseToInbox"
           @click="addVerseToInbox"
         >
-          {{ t('common.add') }}
+          {{ $t('common.add') }}
         </ion-button>
       </ion-buttons>
 
@@ -17,7 +17,7 @@
           color="medium"
           @click="cancel"
         >
-          {{ t('common.cancel') }}
+          {{ $t('common.cancel') }}
         </ion-button>
       </ion-buttons>
 
@@ -52,7 +52,6 @@ import {
   IonTitle, IonToolbar, modalController
 } from '@ionic/vue';
 import { defineProps } from 'vue'
-import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   canAdd: boolean,
@@ -63,7 +62,6 @@ const props = defineProps<{
 }>()
 
 
-const { t } = useI18n()
 function cancel() {
   return modalController.dismiss(null, 'cancel');
 }

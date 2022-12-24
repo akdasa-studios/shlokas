@@ -11,7 +11,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@akdasa-studios/shlokas-core": "0.0.29",
+    "@akdasa-studios/shlokas-core": "0.0.30",
     "@capacitor/app": "4.1.0",
     "@capacitor/core": "4.4.0",
     "@capacitor/haptics": "4.0.1",
@@ -34,7 +34,7 @@
     "@playwright/test": "^1.29.0",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
-    "@typescript-eslint/parser": "^5.6.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
     "@vue/cli-plugin-router": "~5.0.0-rc.1",
@@ -47,6 +47,8 @@
     "babel-jest": "^27.3.1",
     "capacitor-resources": "^2.0.5",
     "eslint": "^8.4.1",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-playwright": "^0.11.2",
     "eslint-plugin-vue": "^8.2.0",
     "jest": "^27.3.1",

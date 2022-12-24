@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         path: 'review',
         component: () => import('@/app/decks/review/views/ReviewPage.vue')
       },
+      {
+        path: 'settings',
+        component: () => import('@/app/settings/views/SettingsPage.vue')
+      },
     ]
   }
 ]

@@ -6,14 +6,14 @@
     <div v-if="isFinished">
       <span>😎</span>
       <div>
-        {{ t('cards.inbox.finished') }}
+        {{ $t('cards.inbox.finished') }}
       </div>
     </div>
 
     <div v-else>
       <span>⏱</span>
       <div>
-        {{ t('cards.inbox.inProgress') }}
+        {{ $t('cards.inbox.inProgress') }}
       </div>
     </div>
   </div>
@@ -22,11 +22,9 @@
 
 <script lang="ts" setup>
 import { defineProps, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 const props = defineProps<{
   state: string,
 }>()
-const { t } = useI18n()
 const isVisible = computed(() => !!props.state)
 const isFinished = computed(() => props.state === 'finished')
 </script>

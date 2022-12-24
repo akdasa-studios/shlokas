@@ -43,14 +43,14 @@
 
 <script lang="ts" setup>
 import { ReviewGrade, Scheduler } from '@akdasa-studios/shlokas-core'
+import { defineEmits, defineProps, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
 import {
   ReviewCardVerseNumberSide, ReviewCardTranslationSide,
   ReviewCardTextSide, ReviewCardSwipeOverlay
 } from '@/app/decks/review/views'
-import { defineEmits, defineProps, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 

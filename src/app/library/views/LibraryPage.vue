@@ -3,14 +3,14 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ t('library.title') }}</ion-title>
+        <ion-title>{{ $t('library.title') }}</ion-title>
       </ion-toolbar>
 
       <ion-toolbar>
         <ion-searchbar
           v-model="library.searchQuery.value"
           data-testid="searchbar"
-          :placeholder="t('library.search')"
+          :placeholder="$t('library.search')"
           animated
         />
       </ion-toolbar>
@@ -65,7 +65,7 @@
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="t('decks.inbox.verseAdded', { verseNumber: library.openedVerse.number })"
+        :message="$t('decks.inbox.verseAdded', { verseNumber: library.openedVerse.number })"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => library.revertLastAction() }]"
         :is-open="library.isToastOpen.value"
         :duration="2000"
@@ -82,19 +82,18 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
+import { onMounted, ref } from 'vue'
 import { VerseDialog } from '@/app/library/views'
 import { testId } from '@/app/TestId'
 
-import { onMounted, ref } from 'vue'
 import { library } from '@/application'
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
 
 const page = ref(null)
 const presentingElement = ref(null)
 
-onMounted(() => { presentingElement.value = page.value.$el })
+onMounted(() => {
+  presentingElement.value = page.value.$el
+})
 </script>
 
 

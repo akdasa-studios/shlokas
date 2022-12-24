@@ -5,15 +5,13 @@
       class="img"
     />
     <div class="text">
-      <div>{{ t('decks.review.empty') }}</div>
+      <div>{{ $t('decks.review.empty') }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { IonImg } from '@ionic/vue';
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
 </script>
 
 <style scoped>
