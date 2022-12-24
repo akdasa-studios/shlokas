@@ -129,20 +129,5 @@ function getQuestion(cardType: string) {
 }
 </script>
 
-<style scoped>
-/deep/ .number {
-  text-transform: uppercase;
-  background-color: lightblue;
-  padding: .4em;
-  margin: .4em;
-  border-radius: .2em;
-  font-size: 6vw;
-}
 
-.question {
-  background-color: aliceblue;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-}
-</style>
+<style src="@/app/decks/Card.css" />

@@ -78,7 +78,6 @@ function addVerseToInbox() {
   margin-bottom: 1rem;
   text-align: center;
   font-style: italic;
-  color: #666;
 }
 
 .translation {

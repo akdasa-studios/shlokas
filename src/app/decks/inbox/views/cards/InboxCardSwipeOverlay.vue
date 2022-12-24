@@ -1,6 +1,6 @@
 <template>
   <div
-    class="overlay"
+    class="side borders big-text transition"
     :class="{'invisible':!isVisible}"
   >
     <div v-if="isFinished">
@@ -31,22 +31,8 @@ const isFinished = computed(() => props.state === 'finished')
 
 
 <style scoped>
-.invisible {
-  opacity: 0;
-  background-color: white;
-}
-.overlay {
-  position: absolute;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 9vw;
-  background-color: white;
-  transition: .25s;
-  text-align: center;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
+.invisible { opacity: 0; }
+.transition { transition: .25s; }
 </style>
+
+<style src="@/app/decks/Card.css" />

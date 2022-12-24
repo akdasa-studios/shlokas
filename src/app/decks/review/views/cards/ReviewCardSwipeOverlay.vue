@@ -1,9 +1,12 @@
 <template>
   <div
-    class="overlay"
+    class="side borders big-text transition"
     :class="{'invisible':!isVisible}"
   >
-    <div v-if="props.grade">
+    <div
+      v-if="props.grade"
+      class="grade"
+    >
       {{ t("cards.grade." + props.grade) }}
     </div>
     <div class="interval">
@@ -36,31 +39,15 @@ const intervalHumanReadable = computed(() => {
 
 
 <style scoped>
-.invisible {
-  opacity: 0;
-  background-color: white;
-}
-.overlay {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 9vw;
-  background-color: white;
-  transition: .25s;
-  text-align: center;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  border-bottom: 10px solid #ddd;
-}
+.invisible { opacity: 0; }
+.grade { text-transform: uppercase; }
 
 .interval {
   margin: 20px;
   font-size: 15pt;
   text-transform: uppercase;
-  color: gray;
+  color: var(--ion-color-medium-shade);
 }
 </style>
+
+<style src="@/app/decks/Card.css" />

@@ -11,7 +11,6 @@
     <ion-content
       :scroll-y="false"
       :scroll-x="false"
-      color="light"
     >
       <InboxCard
         v-for="card, idx in inbox.cards.value"
