@@ -16,15 +16,15 @@
           tab="tab2"
           href="/home/inbox"
           data-testid="inbox-tab"
-          @click="root.inbox.sync()"
+          @click="root.inboxDeck.sync()"
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
           <ion-badge
-            v-if="root.inbox.count.value"
+            v-if="root.inboxDeck.count.value"
             data-testid="inboxCounterBadge"
           >
-            {{ root.inbox.count.value }}
+            {{ root.inboxDeck.count.value }}
           </ion-badge>
         </ion-tab-button>
 
@@ -35,10 +35,10 @@
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
-            v-if="root.review.count.value"
+            v-if="root.reviewDeck.count.value"
             data-testid="reviewCounterBadge"
           >
-            {{ root.review.count.value }}
+            {{ root.reviewDeck.count.value }}
           </ion-badge>
         </ion-tab-button>
 

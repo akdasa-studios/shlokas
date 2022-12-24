@@ -24,7 +24,7 @@
       />
 
       <!-- Inbox deck is empty -->
-      <InboxEmpty
+      <InboxDeckEmpty
         v-if="inbox.count.value === 0"
         data-testid="inboxEmpty"
       />
@@ -48,7 +48,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
 import { computed } from 'vue'
 import { inbox } from '@/application'
-import { InboxCard, InboxEmpty } from '@/app/decks/inbox'
+import { InboxCard, InboxDeckEmpty } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
 const swipeDirections = computed(() => {

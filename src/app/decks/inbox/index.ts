@@ -1,5 +1,5 @@
-export { default as InboxPage } from './InboxPage.vue'
-export { default as InboxEmpty } from './InboxEmpty.vue'
+export { default as InboxDeckPage } from './InboxDeckPage.vue'
+export { default as InboxDeckEmpty } from './InboxDeckEmpty.vue'
 export * from './cards'
-export * from './InboxPageViewModel'
+export * from './InboxDeckPageViewModel'
 export * from './cards/InboxCardViewModel'

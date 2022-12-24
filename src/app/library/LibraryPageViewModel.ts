@@ -52,7 +52,7 @@ export class LibraryPageViewModel implements ViewModel {
       const transaction = new Transaction('!!!!')
       root.execute(new AddVerseToInboxDeck(detail.data.verseId as VerseId), transaction)
       root.execute(new UpdateVerseStatus(detail.data.verseId as VerseId), transaction)
-      root.inbox.sync()
+      root.inboxDeck.sync()
       this.openToast()
     }
     this.sync()
@@ -72,7 +72,7 @@ export class LibraryPageViewModel implements ViewModel {
 
   revertLastAction() {
     root.app.processor.revert()
-    root.inbox.sync()
+    root.inboxDeck.sync()
     this.sync()
   }
 }

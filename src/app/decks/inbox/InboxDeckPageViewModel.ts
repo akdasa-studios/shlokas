@@ -5,7 +5,7 @@ import { root } from '@/application'
 import { InboxCardViewModel } from './cards/InboxCardViewModel'
 
 
-export class InboxPageViewModel implements ViewModel {
+export class InboxDeckPageViewModel implements ViewModel {
 
   /* ---------------------------------- Cards --------------------------------- */
   public cards = ref<InboxCardViewModel[]>([])
@@ -13,7 +13,7 @@ export class InboxPageViewModel implements ViewModel {
 
   public revertLastAction() {
     root.app.processor.revert()
-    root.inbox.sync()
+    root.inboxDeck.sync()
   }
 
   /* -------------------------------------------------------------------------- */

@@ -36,7 +36,7 @@ export class InboxCardViewModel implements ViewModel {
 
   memorized() {
     root.execute(new InboxCardMemorized(this._card.object))
-    root.inbox.sync()
-    root.review.sync()
+    root.inboxDeck.sync()
+    root.reviewDeck.sync()
   }
 }

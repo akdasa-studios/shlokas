@@ -1,5 +1,5 @@
-export { default as ReviewPage } from './ReviewPage.vue'
-export { default as ReviewEmpty } from './ReviewEmpty.vue'
+export { default as ReviewDeckPage } from './ReviewDeckPage.vue'
+export { default as ReviewDeckEmpty } from './ReviewDeckEmpty.vue'
 export * from './cards'
-export * from './ReviewPageViewModel'
+export * from './ReviewDeckPageViewModel'
 export * from './cards/ReviewCardViewModel'

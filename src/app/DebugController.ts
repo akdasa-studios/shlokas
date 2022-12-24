@@ -9,6 +9,6 @@ export class DebugController{
       )
     )
 
-    root.review.sync()
+    root.reviewDeck.sync()
   }
 }

@@ -22,11 +22,11 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'inbox',
-        component: () => import('@/app/decks/inbox/InboxPage.vue')
+        component: () => import('@/app/decks/inbox/InboxDeckPage.vue')
       },
       {
         path: 'review',
-        component: () => import('@/app/decks/review/ReviewPage.vue')
+        component: () => import('@/app/decks/review/ReviewDeckPage.vue')
       },
       {
         path: 'settings',

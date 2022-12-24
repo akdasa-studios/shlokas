@@ -1,6 +1,6 @@
 import { mount , config } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
-import { InboxPage } from '@/app/decks/inbox'
+import { InboxDeckPage } from '@/app/decks/inbox'
 
 
 const i18n = createI18n({
@@ -14,7 +14,7 @@ config.global.plugins = [i18n]
 
 describe('InboxDeck.vue', () => {
   it('renders', async () => {
-    const wrapper = mount(InboxPage
+    const wrapper = mount(InboxDeckPage
       // ,
       //   {
       //   global: {
