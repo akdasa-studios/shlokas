@@ -1,16 +1,12 @@
-import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
+import { CardId, ReviewCard, ReviewGrade, Verse } from '@akdasa-studios/shlokas-core'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-import { root } from '@/application'
 
-/**
- * Represents a card in the inbox created from a verse.
- */
-export class InboxCardVewModel implements ViewModel {
-  private readonly _card: DomainViewModel<InboxCard>
+export class ReviewCardViewModel implements ViewModel {
+  private readonly _card: DomainViewModel<ReviewCard>
   private readonly _verse: DomainViewModel<Verse>
 
   constructor(
-    card: InboxCard,
+    card: ReviewCard,
     verse: Verse,
   ) {
     this._card = new DomainViewModel(card)
@@ -27,16 +23,16 @@ export class InboxCardVewModel implements ViewModel {
   get verseNumber(): string { return this._verse.object.number.toString() }
   get text() { return this._verse.object.text.lines }
   get translation(): string { return this._verse.object.translation.text }
+  get interval(): number { return this._card.object.interval }
+  get ease(): number { return this._card.object.ease }
+  review(grade: ReviewGrade) {
+    // TODO: execure command
+    this._card.object.review(grade)
+  }
   get synonyms() : {word:string, translation:string}[] {
     return this._verse.object.synonyms.map(x => ({
       word: x.word,
       translation: x.translation
     }))
-  }
-
-  memorized() {
-    root.execute(new InboxCardMemorized(this._card.object))
-    root.inbox.sync()
-    root.review.sync()
   }
 }

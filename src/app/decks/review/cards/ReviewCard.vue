@@ -50,7 +50,7 @@ import CardSide from '@/app/decks/CardSide.vue'
 import {
   ReviewCardVerseNumberSide, ReviewCardTranslationSide,
   ReviewCardTextSide, ReviewCardSwipeOverlay
-} from '@/app/decks/review/views'
+} from '@/app/decks/review'
 
 const { t } = useI18n()
 

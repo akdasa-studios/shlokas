@@ -7,6 +7,7 @@ export class InboxDeckPage {
   async open() {
     const tab = await this.page.getByTestId("inbox-tab")
     await tab.click()
+    await this.page.getByTestId('inboxpage').waitFor({state: "visible"})
   }
 
   async swipeCard(
@@ -17,10 +18,11 @@ export class InboxDeckPage {
     const card = await this.page.getByTestId(
       testId(verseNumber ,'card', type.toString())
     )
+    await card.waitFor({state:"visible"})
+
     const cardBoundingBox = await card.boundingBox()
     const dx = direction === "left" ? -40 : direction === "right" ? 120 : 0
     const dy = direction === "top" ? -60 : direction === "bottom" ? 120 : 0
-
 
     const sourcePosition = {
       x: cardBoundingBox?.x as number + 40,

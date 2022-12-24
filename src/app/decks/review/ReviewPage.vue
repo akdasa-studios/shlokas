@@ -36,7 +36,7 @@ import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
 import { review } from '@/application'
-import { ReviewCard, ReviewEmpty } from '@/app/decks/review/views'
+import { ReviewCard, ReviewEmpty } from '@/app/decks/review'
 
 const swipeDirections = computed(() => {
   return review.cards.value.length > 1

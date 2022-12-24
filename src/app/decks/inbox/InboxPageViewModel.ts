@@ -2,13 +2,13 @@ import { InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
-import { InboxCardVewModel } from './InboxCardVewModel'
+import { InboxCardViewModel } from './cards/InboxCardViewModel'
 
 
-export class InboxViewModel implements ViewModel {
+export class InboxPageViewModel implements ViewModel {
 
   /* ---------------------------------- Cards --------------------------------- */
-  public cards = ref<InboxCardVewModel[]>([])
+  public cards = ref<InboxCardViewModel[]>([])
   public count = computed(() => this.cards.value.length)
 
   public revertLastAction() {
@@ -41,7 +41,7 @@ export class InboxViewModel implements ViewModel {
     const inboxCards = root.app.inboxDeck.cards
 
     this.cards.value = inboxCards.map(
-      (card: InboxCard) => new InboxCardVewModel(card, getVerse(card.verseId))
+      (card: InboxCard) => new InboxCardViewModel(card, getVerse(card.verseId))
     )
   }
 }

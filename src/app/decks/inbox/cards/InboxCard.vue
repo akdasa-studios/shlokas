@@ -41,7 +41,7 @@ import {
   InboxCardSynonymsSide,
   InboxCardVerseTextSide,
   InboxCardTranslationSide,
-} from '@/app/decks/inbox/views/cards'
+} from '@/app/decks/inbox/cards'
 import { testId } from '@/app/TestId'
 
 /* -------------------------------------------------------------------------- */

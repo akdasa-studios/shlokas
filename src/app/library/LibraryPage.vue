@@ -83,7 +83,7 @@ import {
   IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
 } from '@ionic/vue'
 import { onMounted, ref } from 'vue'
-import { VerseDialog } from '@/app/library/views'
+import { VerseDialog } from '@/app/library'
 import { testId } from '@/app/TestId'
 
 import { library } from '@/application'

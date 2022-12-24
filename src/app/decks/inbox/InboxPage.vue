@@ -1,5 +1,7 @@
 <template>
-  <ion-page>
+  <ion-page
+    :data-testid="testId('inboxPage')"
+  >
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
@@ -46,7 +48,8 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
 import { computed } from 'vue'
 import { inbox } from '@/application'
-import { InboxCard, InboxEmpty } from '@/app/decks/inbox/views'
+import { InboxCard, InboxEmpty } from '@/app/decks/inbox'
+import { testId } from '@/app/TestId'
 
 const swipeDirections = computed(() => {
   return inbox.cards.value.length > 1

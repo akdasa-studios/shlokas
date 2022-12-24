@@ -18,15 +18,15 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'library',
-        component: () => import('@/app/library/views/LibraryPage.vue')
+        component: () => import('@/app/library/LibraryPage.vue')
       },
       {
         path: 'inbox',
-        component: () => import('@/app/decks/inbox/views/InboxPage.vue')
+        component: () => import('@/app/decks/inbox/InboxPage.vue')
       },
       {
         path: 'review',
-        component: () => import('@/app/decks/review/views/ReviewPage.vue')
+        component: () => import('@/app/decks/review/ReviewPage.vue')
       },
       {
         path: 'settings',

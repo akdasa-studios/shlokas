@@ -4,10 +4,10 @@ import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from 'vue'
 import { root } from '@/application'
 import { ViewModel } from '@/app/DomainViewModel'
-import { VerseViewModel } from './VerseViewModel'
+import { VerseViewModel } from '@/app/library'
 
 
-export class LibraryViewModel implements ViewModel {
+export class LibraryPageViewModel implements ViewModel {
 
   sync() {
     this.filteredVerses.value.forEach(x => x.sync())

@@ -2,13 +2,13 @@ import { ReviewCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { root } from '@/application'
-import { ReviewCardVewModel } from './ReviewCardVewModel'
+import { ReviewCardViewModel } from './cards/ReviewCardViewModel'
 
 
-export class ReviewViewModel implements ViewModel {
+export class ReviewPageViewModel implements ViewModel {
 
   /* ---------------------------------- Cards --------------------------------- */
-  public cards = ref<ReviewCardVewModel[]>([])
+  public cards = ref<ReviewCardViewModel[]>([])
   public count = computed(() => this.cards.value.length)
 
   public revertLastAction() {
@@ -28,7 +28,7 @@ export class ReviewViewModel implements ViewModel {
     const reviewCards = root.app.reviewDeck.dueToCards(root.app.timeMachine.now)
 
     this.cards.value = reviewCards.map(
-      (card: ReviewCard) => new ReviewCardVewModel(card, getVerse(card.verseId))
+      (card: ReviewCard) => new ReviewCardViewModel(card, getVerse(card.verseId))
     )
   }
 }

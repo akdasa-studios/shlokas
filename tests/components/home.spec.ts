@@ -1,7 +1,6 @@
 import { mount , config } from '@vue/test-utils'
 import { createI18n } from 'vue-i18n'
-import { InboxPage } from '@/app/decks/inbox/views'
-
+import { InboxPage } from '@/app/decks/inbox'
 
 
 const i18n = createI18n({
