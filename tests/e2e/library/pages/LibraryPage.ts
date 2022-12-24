@@ -1,11 +1,11 @@
-import { testId } from '@/app/TestId';
-import { expect, Locator, Page } from '@playwright/test';
-import { LibraryModalDialog } from './LibraryModalDialog';
+import { expect, Locator, Page } from '@playwright/test'
+import { testId } from '@/app/TestId'
+import { LibraryModalDialog } from './LibraryModalDialog'
 
 export class LibraryPage {
   constructor(public readonly page: Page) { }
   async open() {
-    await this.page.goto('/home/library');
+    await this.page.goto('/home/library')
   }
 
   async search(query: string): Promise<Locator> {
@@ -18,14 +18,14 @@ export class LibraryPage {
   }
 
   async openVerse(number: string): Promise<LibraryModalDialog> {
-    const firstVerse = await this.page.getByTestId(testId(number)).first();
-    await firstVerse.click();
+    const firstVerse = await this.page.getByTestId(testId(number)).first()
+    await firstVerse.click()
 
-    const verseDialog = await this.page.getByRole("dialog").first();
-    await verseDialog.waitFor({ state: "visible" });
-    await expect(verseDialog).toBeVisible();
+    const verseDialog = await this.page.getByRole("dialog").first()
+    await verseDialog.waitFor({ state: "visible" })
+    await expect(verseDialog).toBeVisible()
 
-    return new LibraryModalDialog(verseDialog);
+    return new LibraryModalDialog(verseDialog)
   }
 
 

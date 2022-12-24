@@ -41,5 +41,9 @@
   "library": {
     "title": "Library",
     "search": "Search"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language"
   }
 }

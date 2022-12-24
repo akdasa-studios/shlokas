@@ -1,10 +1,28 @@
-import { Application, Translation, Verse, VerseBuilder, Text, VerseNumber, Repositories, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { InMemoryRepository } from '@akdasa-studios/framework'
+import { Application, InboxCard, Language, Repositories, Text, Translation, Verse, VerseBuilder, VerseNumber, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 
 const versesRepo = new InMemoryRepository<Verse>()
+const english = new Language('en', 'English')
+const russian = new Language('ru', 'Русский')
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(russian)
+  .withNumber(new VerseNumber('БГ 1.1'))
+  .withText(new Text([
+    'дхр̣тара̄шт̣ра ува̄ча',
+    'дхарма-кшетре куру-кшетре',
+    'самавета̄ йуйутсавах̣',
+    'ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаива',
+    'ким акурвата сан̃джайа',
+  ]))
+  .withTranslation(new Translation(
+    'Дхритараштра спросил: О Санджая, что стали делать мои сыновья и сыновья Панду, когда, горя желанием вступить в бой, собрались в месте паломничества, на поле Курукшетра?'
+  ))
+  .build().value)
+
+versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 1.1'))
   .withText(new Text([
     'dhṛtarāṣṭra uvāca',
@@ -19,6 +37,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 1.2'))
   .withText(new Text([
     'sañjaya uvāca',
@@ -33,6 +52,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.12'))
   .withText(new Text([
     'na tv evāhaṁ jātu nāsaṁ',
@@ -46,6 +66,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.13'))
   .withText(new Text([
     'dehino ’smin yathā dehe',
@@ -59,6 +80,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.20'))
   .withText(new Text([
     'na jāyate mriyate vā kadācin',
@@ -72,6 +94,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.22'))
   .withText(new Text([
     'vāsāṁsi jīrṇāni yathā vihāya',
@@ -86,6 +109,7 @@ versesRepo.save(new VerseBuilder()
 
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.41'))
   .withText(new Text([
     'vyavasāyātmikā buddhir',
@@ -99,6 +123,7 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 versesRepo.save(new VerseBuilder()
+  .ofLanguage(english)
   .withNumber(new VerseNumber('BG 2.44'))
   .withText(new Text([
     'bhogaiśvarya-prasaktānāṁ',
@@ -113,11 +138,9 @@ versesRepo.save(new VerseBuilder()
 
 export const repositories = new Repositories(
   versesRepo,
-  new InMemoryRepository<VerseStatus>()
+  new InMemoryRepository<VerseStatus>(),
+  new InMemoryRepository<InboxCard>()
 )
 const app = new Application(repositories)
 
-export const root = new ApplicationViewModel(app)
-export const library = root.library
-export const inbox = root.inbox
-export const review = root.review
+export const shlokas = new ApplicationViewModel(app)

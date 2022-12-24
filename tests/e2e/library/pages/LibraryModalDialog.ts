@@ -1,16 +1,16 @@
-import { Locator, expect } from '@playwright/test';
+import { Locator, expect } from '@playwright/test'
 
 export class LibraryModalDialog {
   constructor(public readonly locator: Locator) { }
 
   async close() {
-    const closeButton = await this.locator.page().getByTestId("closeVerseDialog").first();
-    await closeButton.click();
+    const closeButton = await this.locator.page().getByTestId("closeVerseDialog").first()
+    await closeButton.click()
   }
 
   async clickAddButton() {
-    const addVerseToInbox = await this.locator.page().getByTestId("addVerseToInbox").first();
-    await addVerseToInbox.click();
+    const addVerseToInbox = await this.locator.page().getByTestId("addVerseToInbox").first()
+    await addVerseToInbox.click()
   }
 
   /* -------------------------------------------------------------------------- */
@@ -18,7 +18,7 @@ export class LibraryModalDialog {
   /* -------------------------------------------------------------------------- */
 
   async expectClosed() {
-    await this.locator.waitFor({ state: "detached" });
+    await this.locator.waitFor({ state: "detached" })
   }
 
   async expectAddButtonIsHidden() {

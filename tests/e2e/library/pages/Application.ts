@@ -1,8 +1,8 @@
-import { Page } from '@playwright/test';
-import { InboxDeckPage } from './InboxDeckPage';
-import { LibraryPage } from './LibraryPage';
-import { TabsBar } from './TabsBar';
-import { Toasts } from './Toasts';
+import { Page } from '@playwright/test'
+import { InboxDeckPage } from './InboxDeckPage'
+import { LibraryPage } from './LibraryPage'
+import { TabsBar } from './TabsBar'
+import { Toasts } from './Toasts'
 
 export class Application {
   constructor(public readonly page: Page) { }

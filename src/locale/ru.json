@@ -36,5 +36,9 @@
   "library": {
     "title": "Библиотека",
     "search": "Поиск"
+  },
+  "settings": {
+    "title": "Настройки",
+    "language": "Язык"
   }
 }

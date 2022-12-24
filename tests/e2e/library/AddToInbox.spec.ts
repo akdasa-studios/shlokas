@@ -1,5 +1,5 @@
-import { test } from '@playwright/test';
-import { Application } from './pages/Application';
+import { test } from '@playwright/test'
+import { Application } from './pages/Application'
 
 let app: Application
 

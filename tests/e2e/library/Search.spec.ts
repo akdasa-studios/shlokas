@@ -1,6 +1,6 @@
-import { testId } from '@/app/TestId';
-import { test, expect } from '@playwright/test';
-import { Application } from './pages/Application';
+import { test, expect } from '@playwright/test'
+import { testId } from '@/app/TestId'
+import { Application } from './pages/Application'
 
 let app: Application
 

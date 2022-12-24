@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from '@ionic/vue-router'
+import { RouteRecordRaw } from 'vue-router'
 import HomePage from '@/app/home/views/HomePage.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -18,15 +18,19 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'library',
-        component: () => import('@/app/library/views/LibraryPage.vue')
+        component: () => import('@/app/library/LibraryPage.vue')
       },
       {
         path: 'inbox',
-        component: () => import('@/app/decks/inbox/views/InboxPage.vue')
+        component: () => import('@/app/decks/inbox/InboxDeckPage.vue')
       },
       {
         path: 'review',
-        component: () => import('@/app/decks/review/views/ReviewPage.vue')
+        component: () => import('@/app/decks/review/ReviewDeckPage.vue')
+      },
+      {
+        path: 'settings',
+        component: () => import('@/app/settings/SettingsPage.vue')
       },
     ]
   }
