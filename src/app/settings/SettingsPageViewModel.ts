@@ -5,7 +5,7 @@ import { root } from '@/application'
 import { i18n } from '@/i18n'
 
 
-export class SettingsViewModel implements ViewModel {
+export class SettingsPageViewModel implements ViewModel {
   /** List of available languages */
   public readonly availableLanguages = [
     new Language("en", "English"),
