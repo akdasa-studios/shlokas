@@ -12,7 +12,7 @@
       <slot name="back" />
     </div>
 
-    <div class="face">
+    <div class="face no-events">
       <slot name="overlay" />
     </div>
   </div>
@@ -38,6 +38,8 @@ const props = defineProps<{
   index: number,
   swipeThreshold: number,
   swipeDirections: string[],
+  targetX?: number
+  targetY?: number
 }>()
 const emit = defineEmits<{
   (event: 'swiping', direction: string, valiue: number): void,
@@ -161,6 +163,14 @@ onMounted(() => {
     setTimeout(() => reset(index), 10) // go fuck yourself safari
   }, { immediate: true })
 
+  watch(() => props.targetX, (value?: number) => {
+    posX.value = value || 0
+  }, { immediate: true })
+
+  watch(() => props.targetY, (value?: number) => {
+    posY.value = value || 0
+  }, { immediate: true })
+
   enableInteraction()
 })
 
@@ -213,5 +223,9 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
       transform: rotateY($flipAngleBack);
     }
   }
+}
+
+.no-events {
+  pointer-events: none;
 }
 </style>

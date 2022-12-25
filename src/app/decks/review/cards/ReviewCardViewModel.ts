@@ -1,9 +1,12 @@
-import { CardId, ReviewCard, ReviewGrade, Verse } from '@akdasa-studios/shlokas-core'
+import { CardId, ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 
 export class ReviewCardViewModel implements ViewModel {
   private readonly _card: DomainViewModel<ReviewCard>
   private readonly _verse: DomainViewModel<Verse>
+
+  public targetX = 0
+  public targetY = 0
 
   constructor(
     card: ReviewCard,
@@ -25,6 +28,37 @@ export class ReviewCardViewModel implements ViewModel {
   get translation(): string { return this._verse.object.translation.text }
   get interval(): number { return this._card.object.interval }
   get ease(): number { return this._card.object.ease }
+
+  swipeAway() {
+    this.targetX = -500
+    setTimeout(() => { this.targetX = 0 }, 400)
+  }
+
+  get intervals(): number[] {
+    const sc = new Scheduler()
+    return [
+      sc.getNewInterval(
+        this._card.object.interval,
+        this._card.object.ease / 100,
+        ReviewGrade.Forgot
+      ),
+      sc.getNewInterval(
+        this._card.object.interval,
+        this._card.object.ease / 100,
+        ReviewGrade.Hard
+      ),
+      sc.getNewInterval(
+        this._card.object.interval,
+        this._card.object.ease / 100,
+        ReviewGrade.Good
+      ),
+      sc.getNewInterval(
+        this._card.object.interval,
+        this._card.object.ease / 100,
+        ReviewGrade.Easy
+      ),
+    ]
+  }
   review(grade: ReviewGrade) {
     // TODO: execure command
     this._card.object.review(grade)
