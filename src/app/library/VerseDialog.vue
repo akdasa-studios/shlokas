@@ -3,9 +3,9 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button
-          v-if="canAdd"
+          v-if="!props.verse.isAlreadyAdded"
           data-testid="addVerseToInbox"
-          @click="addVerseToInbox"
+          @click="onAddClicked"
         >
           {{ $t('common.add') }}
         </ion-button>
@@ -15,13 +15,13 @@
         <ion-button
           data-testid="closeVerseDialog"
           color="medium"
-          @click="cancel"
+          @click="onCancelClicked"
         >
           {{ $t('common.cancel') }}
         </ion-button>
       </ion-buttons>
 
-      <ion-title>{{ props.title }}</ion-title>
+      <ion-title>{{ props.verse.number }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -31,7 +31,7 @@
   >
     <div class="text">
       <div
-        v-for="line, id in props.text"
+        v-for="line, id in props.verse.text"
         :key="id"
       >
         {{ line }}
@@ -39,35 +39,40 @@
     </div>
 
     <div class="translation">
-      {{ props.translation }}
+      {{ props.verse.translation }}
     </div>
   </ion-content>
 </template>
 
 
 <script lang="ts" setup>
-import { VerseId } from '@akdasa-studios/shlokas-core'
 import {
   IonButton, IonButtons, IonContent, IonHeader,
   IonTitle, IonToolbar, modalController
 } from '@ionic/vue'
 import { defineProps } from 'vue'
+import { VerseViewModel } from './VerseViewModel'
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  canAdd: boolean,
-  verseId: VerseId,
-  title: string,
-  text: string[],
-  translation: string
+  verse: VerseViewModel,
 }>()
 
 
-function cancel() {
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+function onCancelClicked() {
   return modalController.dismiss(null, 'cancel')
 }
 
-function addVerseToInbox() {
-  return modalController.dismiss({ verseId: props.verseId }, 'confirm')
+function onAddClicked() {
+  return modalController.dismiss({ verseId: props.verse.verseId }, 'confirm')
 }
 </script>
 

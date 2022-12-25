@@ -10,7 +10,7 @@
     "ios/": true,
     "android/": true
   },
-  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.enabled": false,
   "explorer.fileNesting.patterns":{
     "*.vue": "${capture}ViewModel.ts"
   },

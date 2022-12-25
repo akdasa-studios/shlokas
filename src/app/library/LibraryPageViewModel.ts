@@ -1,16 +1,16 @@
-import { Transaction } from '@akdasa-studios/framework'
-import { AddVerseToInboxDeck, Language, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { Language } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from 'vue'
-import { shlokas } from '@/application'
 import { ViewModel } from '@/app/DomainViewModel'
 import { VerseViewModel } from '@/app/library'
+import { shlokas } from '@/application'
+import { VerseAddedToInboxToastViewModel } from './VerseAddedToInboxToastViewModel'
+import { VerseDialogViewModel } from './VerseDialogViewModel'
 
 
-export class LibraryPageViewModel implements ViewModel {
-
+export class LibraryPageViewModel extends ViewModel {
   sync() {
-    this.filteredVerses.value.forEach(x => x.sync())
+    // this.filteredVerses.value.forEach(x => x.sync())
   }
 
   /* ------------------------------ Search verses ----------------------------- */
@@ -28,51 +28,21 @@ export class LibraryPageViewModel implements ViewModel {
     })
   })
 
-  /* ------------------------------ Modal dialog ------------------------------ */
-  public openedVerse: VerseViewModel = VerseViewModel.empty
-  public readonly isModalOpen = ref(false)
-  public readonly isToastOpen = ref(false)
+  public readonly verseDialog = new VerseDialogViewModel()
+  public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
 
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    Modal                                   */
-  /* -------------------------------------------------------------------------- */
-
-  openModal(verse: Verse) {
-    const status = shlokas.app.library.getStatus(verse.id).value
-    this.openedVerse = new VerseViewModel(verse, status)
-    this.isModalOpen.value = true
-  }
 
   closeModal(ev: CustomEvent<OverlayEventDetail>) {
     const detail = ev.detail
-    this.isModalOpen.value = false
 
     if (detail.role === 'confirm') {
-      const transaction = new Transaction('!!!!')
-      shlokas.execute(new AddVerseToInboxDeck(detail.data.verseId as VerseId), transaction)
-      shlokas.execute(new UpdateVerseStatus(detail.data.verseId as VerseId), transaction)
+      this.verseDialog.addVerseToInbox()
       shlokas.inboxDeck.sync()
-      this.openToast()
+      this.verseAddedToast.open(this.verseDialog.verse)
+      this.verseDialog.verse.sync()
     }
-    this.sync()
-  }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                    Toast                                   */
-  /* -------------------------------------------------------------------------- */
-
-  openToast() {
-    this.isToastOpen.value = true
-  }
-
-  closeToast() {
-    this.isToastOpen.value = false
-  }
-
-  revertLastAction() {
-    shlokas.app.processor.revert()
-    shlokas.inboxDeck.sync()
+    this.verseDialog.close()
     this.sync()
   }
 }

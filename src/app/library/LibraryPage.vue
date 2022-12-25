@@ -8,7 +8,7 @@
 
       <ion-toolbar>
         <ion-searchbar
-          v-model="shlokas.library.searchQuery.value"
+          v-model="vm.searchQuery.value"
           data-testid="searchbar"
           :placeholder="$t('library.search')"
           animated
@@ -20,12 +20,12 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item
-          v-for="verse in shlokas.library.filteredVerses.value"
+          v-for="verse in vm.filteredVerses.value"
           :key="verse.number"
           :data-testid="testId(verse.number)"
           text-wrap
           role="listitem"
-          @click="shlokas.library.openModal(verse.verse)"
+          @click="vm.verseDialog.open(verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -48,29 +48,23 @@
 
       <!-- Modal -->
       <ion-modal
-        :is-open="shlokas.library.isModalOpen.value"
+        :is-open="vm.verseDialog.isOpen.value"
         :presenting-element="presentingElement"
         role="dialog"
-        @will-dismiss="(v) => shlokas.library.closeModal(v)"
+        @will-dismiss="(v) => vm.closeModal(v)"
       >
-        <VerseDialog
-          :can-add="!shlokas.library.openedVerse.isAlreadyAdded"
-          :verse-id="shlokas.library.openedVerse.verseId"
-          :title="shlokas.library.openedVerse.number"
-          :translation="shlokas.library.openedVerse.translation"
-          :text="shlokas.library.openedVerse.text"
-        />
+        <VerseDialog :verse="vm.verseDialog.verse" />
       </ion-modal>
 
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="$t('decks.inbox.verseAdded', { verseNumber: shlokas.library.openedVerse.number })"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => shlokas.library.revertLastAction() }]"
-        :is-open="shlokas.library.isToastOpen.value"
+        :message="$t('decks.inbox.verseAdded', { verseNumber: vm.verseDialog.verse.number })"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => vm.verseAddedToast.revert() }]"
+        :is-open="vm.verseAddedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="() => shlokas.library.closeToast()"
+        @did-dismiss="() => vm.verseAddedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -85,11 +79,21 @@ import {
 import { onMounted, ref } from 'vue'
 import { VerseDialog } from '@/app/library'
 import { testId } from '@/app/TestId'
-
 import { shlokas } from '@/application'
 
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const vm = shlokas.library
 const page = ref(null)
 const presentingElement = ref(null)
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
 onMounted(() => {
   presentingElement.value = page.value.$el
