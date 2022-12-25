@@ -15,7 +15,7 @@
       :scroll-x="false"
     >
       <InboxCard
-        v-for="card, idx in shlokas.inboxDeck.cards.value"
+        v-for="card, idx in vm.cards.value"
         :key="card.id.value"
         :index="idx"
         :card="card"
@@ -25,7 +25,7 @@
 
       <!-- Inbox deck is empty -->
       <InboxDeckEmpty
-        v-if="shlokas.inboxDeck.count.value === 0"
+        v-if="vm.count.value === 0"
         data-testid="inboxEmpty"
       />
 
@@ -33,11 +33,11 @@
       <ion-toast
         position="top"
         :message="$t('cards.memorized')"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => shlokas.inboxDeck.revertLastAction() }]"
-        :is-open="shlokas.inboxDeck.isCardMemorizedToastOpen.value"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => vm.cardMemorizedToast.revert() }]"
+        :is-open="vm.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="() => shlokas.inboxDeck.closeCardMemorizedToast()"
+        @did-dismiss="() => vm.cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -51,6 +51,8 @@ import { shlokas } from '@/application'
 import { InboxCard, InboxDeckEmpty } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
+const vm = shlokas.inboxDeck
+
 const swipeDirections = computed(() => {
   return shlokas.inboxDeck.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']
@@ -58,18 +60,13 @@ const swipeDirections = computed(() => {
 })
 
 function onCardSwiped(direction: string) {
-  // const topCard = inbox.cards.value[0]
-
   setTimeout(() => {
-    // if (!first) { return }
-    // first.progress = ""
     if (direction == "left" || direction == "right") {
       const first = shlokas.inboxDeck.cards.value.shift()
-      shlokas.inboxDeck.cards.value.push(first)
+      vm.cards.value.push(first)
     } else if (direction == "top" || direction == "bottom") {
-      shlokas.inboxDeck.openCardMemorizesToast()
-      // inbox.cards.value.push(first)
-      shlokas.inboxDeck.cards.value[0].memorized()
+      vm.cardMemorizedToast.open()
+      vm.cards.value[0].memorized()
     }
   }, 250)
 }

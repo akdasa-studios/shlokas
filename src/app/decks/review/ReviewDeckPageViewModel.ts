@@ -11,19 +11,13 @@ export class ReviewDeckPageViewModel implements ViewModel {
   public cards = ref<ReviewCardViewModel[]>([])
   public count = computed(() => this.cards.value.length)
 
-  public revertLastAction() {
-    shlokas.app.processor.revert()
-    shlokas.inboxDeck.sync()
-  }
-
   /* -------------------------------------------------------------------------- */
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
 
   public sync() {
     const getVerse = (verseId: VerseId) => {
-      const result = shlokas.app.library.getById(verseId)
-      return result.value
+      return shlokas.app.library.getById(verseId).value
     }
     const reviewCards = shlokas.app.reviewDeck.dueToCards(shlokas.app.timeMachine.now)
 

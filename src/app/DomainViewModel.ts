@@ -3,8 +3,10 @@ import { Aggregate, AnyIdentity, Repository } from '@akdasa-studios/framework'
 import { markRaw } from 'vue'
 import { repositories } from "@/application"
 
-export interface ViewModel {
-  sync(): void
+export abstract class ViewModel {
+  sync(): void {
+    //
+  }
 }
 
 export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements ViewModel

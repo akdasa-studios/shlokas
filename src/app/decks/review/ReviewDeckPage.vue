@@ -14,7 +14,7 @@
       color="light"
     >
       <ReviewCard
-        v-for="card, idx in shlokas.reviewDeck.cards.value"
+        v-for="card, idx in vm.cards.value"
         :key="card.id.value"
         :index="idx"
         :card="card"
@@ -24,7 +24,7 @@
 
       <!-- Inbox deck is empty -->
       <ReviewDeckEmpty
-        v-if="shlokas.reviewDeck.count.value === 0"
+        v-if="vm.count.value === 0"
       />
     </ion-content>
   </ion-page>
@@ -38,8 +38,10 @@ import { computed } from 'vue'
 import { shlokas } from '@/application'
 import { ReviewCard, ReviewDeckEmpty } from '@/app/decks/review'
 
+const vm = shlokas.reviewDeck
+
 const swipeDirections = computed(() => {
-  return shlokas.reviewDeck.cards.value.length > 1
+  return vm.cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']
     : ['left', 'right']
 })
@@ -47,12 +49,11 @@ const swipeDirections = computed(() => {
 function onCardSwiped(direction: string) {
   setTimeout(() => {
     if (direction == "left" || direction == "right") {
-      const first = shlokas.reviewDeck.cards.value.shift()
+      const first = vm.cards.value.shift()
       first?.review(direction === "left" ? ReviewGrade.Good : ReviewGrade.Easy)
-      console.log("well done")
     } else if (direction == "top" || direction == "bottom") {
-      const first = shlokas.reviewDeck.cards.value.shift()
-      shlokas.reviewDeck.cards.value.push(first)
+      const first = vm.cards.value.shift()
+      vm.cards.value.push(first)
     }
   }, 250)
 }
