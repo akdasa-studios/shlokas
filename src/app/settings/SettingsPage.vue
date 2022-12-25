@@ -30,6 +30,14 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
+
+      <ion-item>
+        <ion-label>Grade buttons</ion-label>
+        <ion-toggle
+          slot="end"
+          v-model="shlokas.settings.showGradeButtons.value"
+        />
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
@@ -39,7 +47,7 @@
 import { Language } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonPage,
-  IonTitle, IonToolbar, IonSelect, IonSelectOption
+  IonTitle, IonToolbar, IonSelect, IonSelectOption, IonToggle
 } from '@ionic/vue'
 import { ref } from 'vue'
 import { shlokas } from '@/application'

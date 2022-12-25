@@ -3,7 +3,11 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ $t('decks.review.title') }}</ion-title>
+        <ion-title
+          @click="shlokas.debug.nextDay()"
+        >
+          {{ $t('decks.review.title') }}
+        </ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -11,15 +15,15 @@
     <ion-content
       :scroll-y="false"
       :scroll-x="false"
-      color="light"
     >
       <ReviewCard
         v-for="card, idx in vm.cards.value"
         :key="card.id.value"
         :index="idx"
-        :card="card"
+        :card="(card as ReviewCardViewModel)"
         :swipe-directions="swipeDirections"
-        @swiped="onCardSwiped"
+        :show-grade-buttons="showGradeButtons"
+        @graded="onCardGraded"
       />
 
       <!-- Inbox deck is empty -->
@@ -36,9 +40,10 @@ import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
 import { shlokas } from '@/application'
-import { ReviewCard, ReviewDeckEmpty } from '@/app/decks/review'
+import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty } from '@/app/decks/review'
 
 const vm = shlokas.reviewDeck
+const showGradeButtons = shlokas.settings.showGradeButtons
 
 const swipeDirections = computed(() => {
   return vm.cards.value.length > 1
@@ -46,12 +51,14 @@ const swipeDirections = computed(() => {
     : ['left', 'right']
 })
 
-function onCardSwiped(direction: string) {
+
+function onCardGraded(grade: ReviewGrade) {
+  console.log(grade)
   setTimeout(() => {
-    if (direction == "left" || direction == "right") {
+    if (grade === ReviewGrade.Easy || grade === ReviewGrade.Good) {
       const first = vm.cards.value.shift()
-      first?.review(direction === "left" ? ReviewGrade.Good : ReviewGrade.Easy)
-    } else if (direction == "top" || direction == "bottom") {
+      first?.review(grade)
+    } else  {
       const first = vm.cards.value.shift()
       vm.cards.value.push(first)
     }

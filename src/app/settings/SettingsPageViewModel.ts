@@ -6,6 +6,17 @@ import { i18n } from '@/i18n'
 
 
 export class SettingsPageViewModel implements ViewModel {
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Answer Buttons                               */
+  /* -------------------------------------------------------------------------- */
+
+  public readonly showGradeButtons = ref<boolean>(false)
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Language                                  */
+  /* -------------------------------------------------------------------------- */
+
   /** List of available languages */
   public readonly availableLanguages = [
     new Language("en", "English"),

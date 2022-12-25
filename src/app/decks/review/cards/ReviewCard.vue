@@ -3,6 +3,8 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
+    :target-x="card.targetX"
+    :target-y="card.targetY"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
@@ -35,6 +37,15 @@
           :lines="card.text"
           :translation="card.translation"
         />
+        <div
+          v-if="showGradeButtons"
+          class="buttons"
+        >
+          <ReviewCardAnswerButtons
+            :intervals="props.card.intervals"
+            @graded="onGradeButtonClicked"
+          />
+        </div>
       </CardSide>
     </template>
   </FlipCard>
@@ -49,7 +60,7 @@ import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
 import {
   ReviewCardVerseNumberSide, ReviewCardTranslationSide,
-  ReviewCardTextSide, ReviewCardSwipeOverlay
+  ReviewCardTextSide, ReviewCardSwipeOverlay, ReviewCardAnswerButtons, ReviewCardViewModel
 } from '@/app/decks/review'
 
 const { t } = useI18n()
@@ -61,19 +72,12 @@ const { t } = useI18n()
 const props = defineProps<{
   index: number,
   swipeDirections: string[],
-  card: {
-    verseNumber: string,
-    type: string,
-    text: string[],
-    translation: string,
-    synonyms: { word: string, translation: string }[],
-    interval: number,
-    ease: number,
-  }
+  card: ReviewCardViewModel,
+  showGradeButtons: boolean
 }>()
 
 const emit = defineEmits<{
-  (event: 'graded', direction: string): boolean
+  (event: 'graded', grade: ReviewGrade): boolean
 }>()
 
 /* -------------------------------------------------------------------------- */
@@ -103,7 +107,16 @@ function onSwiping(direction: string, value: number) {
 
 function onSwiped(direction: string) {
   grade.value = ""
-  return emit('graded', ReviewGrade[getGrade(direction)])
+  return emit('graded', getGrade(direction))
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+function onGradeButtonClicked(grade: ReviewGrade) {
+  props.card.swipeAway()
+  return emit('graded', grade)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -131,3 +144,11 @@ function getQuestion(cardType: string) {
 
 
 <style src="@/app/decks/Card.css" scoped />
+
+<style scoped>
+.buttons {
+  width: 100%;
+  position:absolute;
+  bottom:10px;
+}
+</style>
