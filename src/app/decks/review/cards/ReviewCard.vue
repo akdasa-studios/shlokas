@@ -3,28 +3,28 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
-    :target-x="card.targetX"
-    :target-y="card.targetY"
+    :target-x="props.card.targetX.value"
+    :target-y="props.card.targetY.value"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
         :grade="grade"
-        :interval="interval"
+        :interval="props.card.nextIntervals.value[grade || 0]"
       />
     </template>
 
     <template #front>
       <CardSide>
         <div class="question">
-          {{ getQuestion(card.type) }}
+          {{ getQuestion(props.card.type.value) }}
         </div>
         <component
-          :is="getSideComponent(card.type, true)"
-          :verse-number="card.verseNumber"
-          :lines="card.text"
-          :translation="card.translation"
+          :is="getSideComponent(props.card.type.value, true)"
+          :verse-number="card.verseNumber.value"
+          :lines="card.text.value"
+          :translation="card.translation.value"
         />
       </CardSide>
     </template>
@@ -32,17 +32,17 @@
     <template #back>
       <CardSide>
         <component
-          :is="getSideComponent(card.type, false)"
-          :verse-number="card.verseNumber"
-          :lines="card.text"
-          :translation="card.translation"
+          :is="getSideComponent(props.card.type.value, false)"
+          :verse-number="props.card.verseNumber.value"
+          :lines="props.card.text.value"
+          :translation="props.card.translation.value"
         />
         <div
           v-if="showGradeButtons"
           class="buttons"
         >
           <ReviewCardAnswerButtons
-            :intervals="props.card.intervals"
+            :intervals="props.card.nextIntervals.value"
             @graded="onGradeButtonClicked"
           />
         </div>
@@ -53,7 +53,7 @@
 
 
 <script lang="ts" setup>
-import { ReviewGrade, Scheduler } from '@akdasa-studios/shlokas-core'
+import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { defineEmits, defineProps, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FlipCard from '@/app/decks/FlipCard.vue'
@@ -84,29 +84,23 @@ const emit = defineEmits<{
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const grade = ref<string>("")
-const interval = ref<number>(0)
+const grade = ref<ReviewGrade|undefined>(undefined)
 
-function getGrade(direction: string) : ReviewGrade {
+function getGrade(direction: string) : ReviewGrade|undefined {
   return {
     'top': ReviewGrade.Forgot,
     'bottom': ReviewGrade.Hard,
     'left': ReviewGrade.Good,
     'right': ReviewGrade.Easy
-  }[direction] || ReviewGrade.Forgot
+  }[direction]
 }
 
 function onSwiping(direction: string, value: number) {
-  if (Math.abs(value) < 30) { grade.value = ""; return }
-  grade.value = ReviewGrade[getGrade(direction)].toLocaleLowerCase()
-
-  interval.value = new Scheduler().getNewInterval(
-    props.card.interval, props.card.ease / 100, getGrade(direction)
-  )
+  if (Math.abs(value) < 30) { grade.value = undefined; return }
+  grade.value = getGrade(direction)
 }
 
 function onSwiped(direction: string) {
-  grade.value = ""
   return emit('graded', getGrade(direction))
 }
 

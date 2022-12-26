@@ -11,7 +11,7 @@
       "text": "Text",
       "translation": "Translation"
     },
-    "memorized": "Card marked as <b>Memorized</b>",
+    "memorized": "Card marked as Memorized",
     "inbox": {
       "finished": "Finished",
       "inProgress": "In Progress"
@@ -24,14 +24,15 @@
   },
   "common": {
     "add": "Add",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "close": "Close"
   },
   "decks": {
     "inbox": {
       "empty": "Your inbox is empty.",
       "goToLibrary": "Go to the Library and add a verse.",
       "title": "Inbox",
-      "verseAdded": "Verse <b>{verseNumber}</b> added to inbox"
+      "verseAdded": "Verse {verseNumber} added to inbox"
     },
     "review": {
       "empty": "Your have nothing to review today.",

@@ -7,21 +7,6 @@ const english = new Language('en', 'English')
 const russian = new Language('ru', 'Русский')
 
 versesRepo.save(new VerseBuilder()
-  .ofLanguage(russian)
-  .withNumber(new VerseNumber('БГ 1.1'))
-  .withText(new Text([
-    'дхр̣тара̄шт̣ра ува̄ча',
-    'дхарма-кшетре куру-кшетре',
-    'самавета̄ йуйутсавах̣',
-    'ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаива',
-    'ким акурвата сан̃джайа',
-  ]))
-  .withTranslation(new Translation(
-    'Дхритараштра спросил: О Санджая, что стали делать мои сыновья и сыновья Панду, когда, горя желанием вступить в бой, собрались в месте паломничества, на поле Курукшетра?'
-  ))
-  .build().value)
-
-versesRepo.save(new VerseBuilder()
   .ofLanguage(english)
   .withNumber(new VerseNumber('BG 1.1'))
   .withText(new Text([
@@ -136,11 +121,26 @@ versesRepo.save(new VerseBuilder()
   ))
   .build().value)
 
+
+versesRepo.save(new VerseBuilder()
+  .ofLanguage(russian)
+  .withNumber(new VerseNumber('БГ 1.1'))
+  .withText(new Text([
+    'дхр̣тара̄шт̣ра ува̄ча',
+    'дхарма-кшетре куру-кшетре',
+    'самавета̄ йуйутсавах̣',
+    'ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаива',
+    'ким акурвата сан̃джайа',
+  ]))
+  .withTranslation(new Translation(
+    'Дхритараштра спросил: О Санджая, что стали делать мои сыновья и сыновья Панду, когда, горя желанием вступить в бой, собрались в месте паломничества, на поле Курукшетра?'
+  ))
+  .build().value)
 export const repositories = new Repositories(
   versesRepo,
   new InMemoryRepository<VerseStatus>(),
   new InMemoryRepository<InboxCard>()
 )
-const app = new Application(repositories)
+export const app = new Application(repositories)
 
 export const shlokas = new ApplicationViewModel(app)

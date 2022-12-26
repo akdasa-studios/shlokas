@@ -3,46 +3,45 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
-    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
+    :data-testid="testId(props.card.verseNumber.value, 'card', props.card.type.value)"
     :data-index="props.index"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
     <template #overlay>
-      <InboxCardSwipeOverlay :state="progress" />
+      <InboxCardSwipeOverlay :state="props.card.grade.value" />
     </template>
 
     <template #front>
       <InboxCardVerseTextSide
-        v-if="card.type === 'Text'"
-        :verse-number="card.verseNumber"
-        :lines="card.text"
+        v-if="props.card.type.value === 'Text'"
+        :verse-number="props.card.verseNumber.value"
+        :lines="props.card.text.value"
       />
 
       <InboxCardTranslationSide
-        v-if="card.type === 'Translation'"
-        :verse-number="card.verseNumber"
-        :translation="card.translation"
+        v-if="props.card.type.value === 'Translation'"
+        :verse-number="props.card.verseNumber.value"
+        :translation="props.card.translation.value"
       />
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide :words="card.synonyms" />
+      <InboxCardSynonymsSide :words="props.card.synonyms.value" />
     </template>
   </FlipCard>
 </template>
 
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps } from 'vue'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import {
   InboxCardSwipeOverlay,
-  InboxCardSynonymsSide,
-  InboxCardVerseTextSide,
-  InboxCardTranslationSide,
+  InboxCardSynonymsSide, InboxCardTranslationSide, InboxCardVerseTextSide
 } from '@/app/decks/inbox/cards'
 import { testId } from '@/app/TestId'
+import { InboxCardViewModel } from './InboxCardViewModel'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -51,33 +50,27 @@ import { testId } from '@/app/TestId'
 const props = defineProps<{
   index: number,
   swipeDirections: string[],
-  card: {
-    verseNumber: string,
-    type: string,
-    text: string[],
-    translation: string,
-    synonyms: { word: string, translation: string }[],
-  }
+  card: InboxCardViewModel
 }>()
 
 const emit = defineEmits<{
   (event: 'swiped', direction: string, value: number): boolean
 }>()
 
-/* -------------------------------------------------------------------------- */
-/*                                    State                                   */
-/* -------------------------------------------------------------------------- */
 
-const progress = ref<string>("")
+/* -------------------------------------------------------------------------- */
+/*                                 Handlers                                   */
+/* -------------------------------------------------------------------------- */
 
 function onSwiping(direction: string, value: number) {
-  progress.value =
+  props.card.setGrade(
     (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
     (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+  )
 }
 
 function onSwiped(direction: string, value: number) {
-  progress.value = ""
+  setTimeout(() => props.card.setGrade("") , 250)
   return emit('swiped', direction, value)
 }
 </script>

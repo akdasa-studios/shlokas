@@ -18,7 +18,7 @@
     >
       <ReviewCard
         v-for="card, idx in vm.cards.value"
-        :key="card.id.value"
+        :key="card.id.value.value"
         :index="idx"
         :card="(card as ReviewCardViewModel)"
         :swipe-directions="swipeDirections"
@@ -53,7 +53,6 @@ const swipeDirections = computed(() => {
 
 
 function onCardGraded(grade: ReviewGrade) {
-  console.log(grade)
   setTimeout(() => {
     if (grade === ReviewGrade.Easy || grade === ReviewGrade.Good) {
       const first = vm.cards.value.shift()

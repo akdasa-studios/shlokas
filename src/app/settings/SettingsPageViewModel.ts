@@ -1,11 +1,14 @@
 import { ref } from 'vue'
 import { Language } from '@akdasa-studios/shlokas-core'
 import { ViewModel } from '@/app/DomainViewModel'
-import { shlokas } from '@/application'
 import { i18n } from '@/i18n'
+import { ApplicationViewModel } from '../ApplicationViewModel'
 
 
-export class SettingsPageViewModel implements ViewModel {
+export class SettingsPageViewModel extends ViewModel {
+  constructor(private readonly shlokas: ApplicationViewModel) {
+    super()
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                               Answer Buttons                               */
@@ -29,13 +32,13 @@ export class SettingsPageViewModel implements ViewModel {
 
   /** Changes language */
   public changeLanguage(lang: Language) {
-    shlokas.app.settings.changeLanguage(lang)
+    this.shlokas.app.settings.changeLanguage(lang)
     i18n.global.locale.value = lang.code as any
     this.sync()
   }
 
   /** Sync view model with domain */
   sync() {
-    this.language.value = shlokas.app.settings.language
+    this.language.value = this.shlokas.app.settings.language
   }
 }

@@ -8,14 +8,21 @@ import { SettingsPageViewModel } from './settings/SettingsPageViewModel'
 
 
 export class ApplicationViewModel {
-  public readonly library = new LibraryPageViewModel()
-  public readonly inboxDeck = new InboxDeckPageViewModel()
-  public readonly reviewDeck = new ReviewDeckPageViewModel()
-  public readonly settings = new SettingsPageViewModel()
-  public readonly debug = new DebugController()
+  constructor(readonly app: Application) {}
 
-  constructor(readonly app: Application) {
-  }
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
+  public readonly library = new LibraryPageViewModel(this)
+  public readonly inboxDeck = new InboxDeckPageViewModel(this)
+  public readonly reviewDeck = new ReviewDeckPageViewModel(this)
+  public readonly settings = new SettingsPageViewModel(this)
+  public readonly debug = new DebugController(this)
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
   public execute(command: AnyCommand, transaction?: Transaction): ProcessorResult<AnyResult> {
     return this.app.processor.execute(command, transaction)

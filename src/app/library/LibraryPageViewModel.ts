@@ -3,46 +3,49 @@ import { OverlayEventDetail } from '@ionic/core/components'
 import { computed, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { VerseViewModel } from '@/app/library'
-import { shlokas } from '@/application'
+import { ApplicationViewModel } from '../ApplicationViewModel'
 import { VerseAddedToInboxToastViewModel } from './VerseAddedToInboxToastViewModel'
 import { VerseDialogViewModel } from './VerseDialogViewModel'
 
 
 export class LibraryPageViewModel extends ViewModel {
-  sync() {
-    // this.filteredVerses.value.forEach(x => x.sync())
+  constructor(private readonly shlokas: ApplicationViewModel) {
+    super()
   }
 
-  /* ------------------------------ Search verses ----------------------------- */
-  public readonly searchQuery = ref('')
-  public readonly filteredVerses = computed(() => {
-    const verses = shlokas.app.library.findByContent(
-      shlokas.settings.language.value as Language,
-      this.searchQuery.value
-    )
-
-    return verses.map(verse => {
-      // TODO: N+1 issue
-      const status = shlokas.app.library.getStatus(verse.id).value
-      return new VerseViewModel(verse, status)
-    })
-  })
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
 
   public readonly verseDialog = new VerseDialogViewModel()
   public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
+  public readonly filterQuery = ref('')
+  public readonly filteredVerses = computed(() => this.findByContent(this.filterQuery.value))
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
+
+  findByContent(query: string): VerseViewModel[] {
+    const verses = this.shlokas.app.library.findByContent(
+      this.shlokas.settings.language.value as Language, query
+    )
+    return verses.map(verse => { // TODO: N+1 issue
+      const status = this.shlokas.app.library.getStatus(verse.id).value
+      return new VerseViewModel(verse, status)
+    })
+  }
 
   closeModal(ev: CustomEvent<OverlayEventDetail>) {
     const detail = ev.detail
 
     if (detail.role === 'confirm') {
       this.verseDialog.addVerseToInbox()
-      shlokas.inboxDeck.sync()
       this.verseAddedToast.open(this.verseDialog.verse)
       this.verseDialog.verse.sync()
+      this.shlokas.inboxDeck.sync()
     }
 
     this.verseDialog.close()
-    this.sync()
   }
 }

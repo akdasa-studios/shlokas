@@ -1,14 +1,20 @@
 import { ReviewCard, VerseId } from '@akdasa-studios/shlokas-core'
-import { computed, ref } from 'vue'
+import { computed, markRaw, Ref, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
-import { shlokas } from '@/application'
+import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 import { ReviewCardViewModel } from './cards/ReviewCardViewModel'
 
 
-export class ReviewDeckPageViewModel implements ViewModel {
+export class ReviewDeckPageViewModel extends ViewModel {
+  constructor(private readonly shlokas: ApplicationViewModel) {
+    super()
+  }
 
-  /* ---------------------------------- Cards --------------------------------- */
-  public cards = ref<ReviewCardViewModel[]>([])
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
+  public cards: Ref<ReviewCardViewModel[]> = ref([])
   public count = computed(() => this.cards.value.length)
 
   /* -------------------------------------------------------------------------- */
@@ -17,12 +23,14 @@ export class ReviewDeckPageViewModel implements ViewModel {
 
   public sync() {
     const getVerse = (verseId: VerseId) => {
-      return shlokas.app.library.getById(verseId).value
+      return this.shlokas.app.library.getById(verseId).value
     }
-    const reviewCards = shlokas.app.reviewDeck.dueToCards(shlokas.app.timeMachine.now)
+    const reviewCards = this.shlokas.app.reviewDeck.dueToCards(
+      this.shlokas.app.timeMachine.now
+    )
 
     this.cards.value = reviewCards.map(
-      (card: ReviewCard) => new ReviewCardViewModel(card, getVerse(card.verseId))
+      (card: ReviewCard) => markRaw(new ReviewCardViewModel(card, getVerse(card.verseId)))
     )
   }
 }

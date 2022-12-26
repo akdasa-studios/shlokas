@@ -1,4 +1,5 @@
-import { Decks, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
+import { Decks, Text, Translation, Verse, VerseBuilder, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
+import { computed } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 
 export class VerseViewModel implements ViewModel {
@@ -13,19 +14,30 @@ export class VerseViewModel implements ViewModel {
     this._status = new DomainViewModel<VerseStatus>(verseStatus)
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
+  isAlreadyAdded = computed(() => this._status.ref.value.inDeck !== Decks.None)
+  verseId = computed(() => this._verse.object.id)
+  showStatus = computed(() => this._status.ref.value.inDeck !== Decks.None)
+  status = computed(() => this._status.ref.value.inDeck.toUpperCase())
+  number = computed(() => this._verse.ref.value.number.toString())
+  translation = computed(() => this._verse.ref.value.translation.text)
+  text = computed(() => this._verse.ref.value.text.lines)
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    Sync                                    */
+  /* -------------------------------------------------------------------------- */
+
   sync() {
     this._verse.sync()
     this._status.sync()
   }
 
-  get verse(): Verse { return this._verse.object }
-  get verseId(): VerseId { return this._verse.object.id }
-  get isAlreadyAdded(): boolean { return this._status.object.inDeck !== Decks.None }
-  get showStatus(): boolean { return this._status.object.inDeck !== Decks.None }
-  get status(): string { return  this._status.object.inDeck.toUpperCase() }
-  get number(): string { return this._verse.object.number.toString() }
-  get translation(): string { return this._verse.object.translation.text }
-  get text(): string[] { return this._verse.object.text.lines }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
 
   static get empty() : VerseViewModel {
     const dummyVerse = new VerseBuilder()

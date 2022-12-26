@@ -4,10 +4,10 @@
     :class="{'invisible':!isVisible}"
   >
     <div
-      v-if="props.grade"
+      v-if="props.grade !== undefined"
       class="grade"
     >
-      {{ t("cards.grade." + props.grade) }}
+      {{ t("cards.grade." + reviewGradeToName) }}
     </div>
     <div class="interval">
       {{ intervalToText(props.interval) }}
@@ -17,15 +17,19 @@
 
 
 <script lang="ts" setup>
+import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { computed, defineProps } from 'vue'
 import { useI18n } from 'vue-i18n'
 import intervalToText from './IntervalToText'
 const props = defineProps<{
-  grade: string,
-  interval: number,
+  grade: ReviewGrade|undefined,
+  interval: number
 }>()
 const { t } = useI18n()
-const isVisible = computed(() => props.grade)
+const isVisible = computed(() => props.grade !== undefined)
+const reviewGradeToName = computed(() =>
+  props.grade !== undefined ? ReviewGrade[props.grade].toLowerCase() : ""
+)
 </script>
 
 
