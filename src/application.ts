@@ -144,7 +144,3 @@ export const repositories = new Repositories(
 export const app = new Application(repositories)
 
 export const shlokas = new ApplicationViewModel(app)
-
-
-// @ts-ignore
-window.shlokas = shlokas

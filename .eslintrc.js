@@ -33,7 +33,7 @@ module.exports = {
         ]
       }
     ],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
   },
   ignorePatterns: ["dist/**"],
   overrides: [
