@@ -11,6 +11,10 @@ export class InboxDeckPageViewModel extends ViewModel {
     super()
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
   public cards: Ref<InboxCardViewModel[]> = ref([])
   public count = computed(() => this.cards.value.length)
   public readonly cardMemorizedToast = new CardMemorizedToastViewModel()

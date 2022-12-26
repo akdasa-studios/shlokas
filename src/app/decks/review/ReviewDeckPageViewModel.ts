@@ -10,6 +10,10 @@ export class ReviewDeckPageViewModel extends ViewModel {
     super()
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
   public cards: Ref<ReviewCardViewModel[]> = ref([])
   public count = computed(() => this.cards.value.length)
 

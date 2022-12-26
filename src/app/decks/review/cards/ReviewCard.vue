@@ -11,7 +11,7 @@
     <template #overlay>
       <ReviewCardSwipeOverlay
         :grade="grade"
-        :interval="props.card.intervals.value[grade || 0]"
+        :interval="props.card.nextIntervals.value[grade || 0]"
       />
     </template>
 
@@ -42,7 +42,7 @@
           class="buttons"
         >
           <ReviewCardAnswerButtons
-            :intervals="props.card.intervals.value"
+            :intervals="props.card.nextIntervals.value"
             @graded="onGradeButtonClicked"
           />
         </div>
@@ -75,8 +75,6 @@ const props = defineProps<{
   card: ReviewCardViewModel,
   showGradeButtons: boolean
 }>()
-
-console.log(props.card)
 
 const emit = defineEmits<{
   (event: 'graded', grade: ReviewGrade): boolean

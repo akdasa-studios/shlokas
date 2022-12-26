@@ -13,11 +13,18 @@ export class LibraryPageViewModel extends ViewModel {
     super()
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
   public readonly verseDialog = new VerseDialogViewModel()
   public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
   public readonly filterQuery = ref('')
   public readonly filteredVerses = computed(() => this.findByContent(this.filterQuery.value))
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
   findByContent(query: string): VerseViewModel[] {
     const verses = this.shlokas.app.library.findByContent(

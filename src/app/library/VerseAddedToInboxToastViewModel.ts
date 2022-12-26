@@ -4,8 +4,17 @@ import { shlokas } from "@/application"
 
 
 export class VerseAddedToInboxToastViewModel {
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 Properties                                 */
+  /* -------------------------------------------------------------------------- */
+
   public readonly isOpen = ref(false)
   public verse: VerseViewModel | undefined
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
   open(verse: VerseViewModel) {
     this.isOpen.value = true
