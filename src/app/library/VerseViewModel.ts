@@ -1,9 +1,32 @@
-import { Decks, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
+import { Decks, Text, Translation, Verse, VerseBuilder, VerseNumber, VerseStatus, VerseStatusId } from '@akdasa-studios/shlokas-core'
+import { computed } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 
 export class VerseViewModel implements ViewModel {
   private readonly _verse: DomainViewModel<Verse>
   private readonly _status: DomainViewModel<VerseStatus>
+
+  isAlreadyAdded = computed(() =>
+    this._status.$.value.inDeck !== Decks.None
+  )
+  verseId = computed(() =>
+    this._verse._object.id
+  )
+  showStatus = computed(() =>
+    this._status.$.value.inDeck !== Decks.None
+  )
+  status = computed(() =>
+    this._status.$.value.inDeck.toUpperCase()
+  )
+  number = computed(() =>
+    this._verse.$.value.number.toString()
+  )
+  translation = computed(() =>
+    this._verse.$.value.translation.text
+  )
+  text = computed(() =>
+    this._verse.$.value.text.lines
+  )
 
   constructor(
     verse: Verse,
@@ -18,14 +41,6 @@ export class VerseViewModel implements ViewModel {
     this._status.sync()
   }
 
-  get verse(): Verse { return this._verse.object }
-  get verseId(): VerseId { return this._verse.object.id }
-  get isAlreadyAdded(): boolean { return this._status.object.inDeck !== Decks.None }
-  get showStatus(): boolean { return this._status.object.inDeck !== Decks.None }
-  get status(): string { return  this._status.object.inDeck.toUpperCase() }
-  get number(): string { return this._verse.object.number.toString() }
-  get translation(): string { return this._verse.object.translation.text }
-  get text(): string[] { return this._verse.object.text.lines }
 
   static get empty() : VerseViewModel {
     const dummyVerse = new VerseBuilder()

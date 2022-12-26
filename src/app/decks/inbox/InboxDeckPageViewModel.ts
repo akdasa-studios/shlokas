@@ -1,14 +1,17 @@
 import { InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
-import { computed, ref } from 'vue'
+import { computed, Ref, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
-import { shlokas } from '@/application'
+import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 import { CardMemorizedToastViewModel } from './CardMemorizedToastViewModel'
 import { InboxCardViewModel } from './cards/InboxCardViewModel'
 
 
-export class InboxDeckPageViewModel implements ViewModel {
+export class InboxDeckPageViewModel extends ViewModel {
+  constructor(private readonly shlokas: ApplicationViewModel) {
+    super()
+  }
 
-  public cards = ref<InboxCardViewModel[]>([])
+  public cards: Ref<InboxCardViewModel[]> = ref([])
   public count = computed(() => this.cards.value.length)
   public readonly cardMemorizedToast = new CardMemorizedToastViewModel()
 
@@ -18,9 +21,9 @@ export class InboxDeckPageViewModel implements ViewModel {
 
   public sync() {
     const getVerse = (verseId: VerseId) => {
-      return shlokas.app.library.getById(verseId).value
+      return this.shlokas.app.library.getById(verseId).value
     }
-    this.cards.value = shlokas.app.inboxDeck.cards.map(
+    this.cards.value = this.shlokas.app.inboxDeck.cards.map(
       (card: InboxCard) => new InboxCardViewModel(card, getVerse(card.verseId))
     )
   }

@@ -1,41 +1,58 @@
-import { CardId, InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
+import { InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
+import { computed, ComputedRef, ref } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 import { shlokas } from '@/application'
+
+
+export class CardViewModel implements ViewModel {
+  public readonly _verse: DomainViewModel<Verse>
+
+  constructor(
+    verse: Verse,
+  ) {
+    this._verse = new DomainViewModel(verse)
+  }
+
+  sync(): void {
+    this._verse.sync()
+  }
+
+  verseNumber: ComputedRef<string> = computed(() => this._verse.$.value.number.toString())
+  text = computed(() => this._verse.$.value.text.lines)
+  translation = computed(() => this._verse.$.value.translation.text)
+  synonyms = computed(() =>  {
+    return this._verse.$.value.synonyms.map(x => ({
+      word: x.word,
+      translation: x.translation
+    }))
+  })
+}
 
 /**
  * Represents a card in the inbox created from a verse.
  */
-export class InboxCardViewModel implements ViewModel {
-  private readonly _card: DomainViewModel<InboxCard>
-  private readonly _verse: DomainViewModel<Verse>
+export class InboxCardViewModel extends CardViewModel implements ViewModel {
+  public readonly _card: DomainViewModel<InboxCard>
 
   constructor(
     card: InboxCard,
     verse: Verse,
   ) {
+    super(verse)
     this._card = new DomainViewModel(card)
-    this._verse = new DomainViewModel(verse)
   }
 
   sync(): void {
+    super.sync()
     this._card.sync()
-    this._verse.sync()
   }
 
-  get id(): CardId { return this._card.object.id }
-  get type(): string { return this._card.object.type }
-  get verseNumber(): string { return this._verse.object.number.toString() }
-  get text() { return this._verse.object.text.lines }
-  get translation(): string { return this._verse.object.translation.text }
-  get synonyms() : {word:string, translation:string}[] {
-    return this._verse.object.synonyms.map(x => ({
-      word: x.word,
-      translation: x.translation
-    }))
-  }
+  id = computed(() =>  this._card.$.value.id)
+  type = computed(() => this._card.$.value.type)
+  progress = ref<string>("")
 
   memorized() {
-    shlokas.execute(new InboxCardMemorized(this._card.object))
+    shlokas.execute(new InboxCardMemorized(this._card._object))
     shlokas.inboxDeck.sync()
     shlokas.reviewDeck.sync()
   }

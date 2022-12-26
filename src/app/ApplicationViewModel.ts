@@ -8,11 +8,11 @@ import { SettingsPageViewModel } from './settings/SettingsPageViewModel'
 
 
 export class ApplicationViewModel {
-  public readonly library = new LibraryPageViewModel()
-  public readonly inboxDeck = new InboxDeckPageViewModel()
-  public readonly reviewDeck = new ReviewDeckPageViewModel()
-  public readonly settings = new SettingsPageViewModel()
-  public readonly debug = new DebugController()
+  public readonly library = new LibraryPageViewModel(this)
+  public readonly inboxDeck = new InboxDeckPageViewModel(this)
+  public readonly reviewDeck = new ReviewDeckPageViewModel(this)
+  public readonly settings = new SettingsPageViewModel(this)
+  public readonly debug = new DebugController(this)
 
   constructor(readonly app: Application) {
   }

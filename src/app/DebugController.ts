@@ -1,14 +1,17 @@
-import { shlokas } from "@/application"
+import { ApplicationViewModel } from "./ApplicationViewModel"
 
 export class DebugController{
+  constructor(private readonly shlokas: ApplicationViewModel) {
+  }
+
   nextDay() {
-    shlokas.app.timeMachine.set(
-      shlokas.app.timeMachine.add(
-        shlokas.app.timeMachine.now,
+    this.shlokas.app.timeMachine.set(
+      this.shlokas.app.timeMachine.add(
+        this.shlokas.app.timeMachine.now,
         24, "h"
       )
     )
 
-    shlokas.reviewDeck.sync()
+    this.shlokas.reviewDeck.sync()
   }
 }

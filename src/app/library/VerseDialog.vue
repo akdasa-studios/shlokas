@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button
-          v-if="!props.verse.isAlreadyAdded"
+          v-if="!props.verse.isAlreadyAdded.value"
           data-testid="addVerseToInbox"
           @click="onAddClicked"
         >
@@ -17,11 +17,11 @@
           color="medium"
           @click="onCancelClicked"
         >
-          {{ $t('common.cancel') }}
+          {{ $t('common.close') }}
         </ion-button>
       </ion-buttons>
 
-      <ion-title>{{ props.verse.number }}</ion-title>
+      <ion-title>{{ props.verse.number.value }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -31,7 +31,7 @@
   >
     <div class="text">
       <div
-        v-for="line, id in props.verse.text"
+        v-for="line, id in props.verse.text.value"
         :key="id"
       >
         {{ line }}
@@ -39,7 +39,7 @@
     </div>
 
     <div class="translation">
-      {{ props.verse.translation }}
+      {{ props.verse.translation.value }}
     </div>
   </ion-content>
 </template>
@@ -72,7 +72,11 @@ function onCancelClicked() {
 }
 
 function onAddClicked() {
-  return modalController.dismiss({ verseId: props.verse.verseId }, 'confirm')
+  // shlokas.library.verseDialog.addVerseToInbox()
+  // shlokas.library.verseAddedToast.open(props.verse)
+  // shlokas.library.verseDialog.verse.sync()
+  // shlokas.inboxDeck.sync()
+  return modalController.dismiss({ verseId: props.verse.verseId.value }, 'confirm')
 }
 </script>
 

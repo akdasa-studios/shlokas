@@ -8,7 +8,7 @@
 
       <ion-toolbar>
         <ion-searchbar
-          v-model="vm.searchQuery.value"
+          v-model="vm.filterQuery.value"
           data-testid="searchbar"
           :placeholder="$t('library.search')"
           animated
@@ -21,8 +21,8 @@
       <ion-list>
         <ion-item
           v-for="verse in vm.filteredVerses.value"
-          :key="verse.number"
-          :data-testid="testId(verse.number)"
+          :key="verse.number.value.toString()"
+          :data-testid="testId(verse.number.value.toString())"
           text-wrap
           role="listitem"
           @click="vm.verseDialog.open(verse)"
@@ -30,18 +30,18 @@
           <ion-label class="ion-text-wrap">
             <div class="header">
               <h2 class="inline">
-                {{ verse.number }}
+                {{ verse.number.value.toString() }}
               </h2>
               <ion-badge
-                v-if="verse.showStatus"
+                v-if="verse.showStatus.value"
                 class="badge"
                 color="medium"
-                :data-testid="testId(verse.number, 'badge')"
+                :data-testid="testId(verse.number.value, 'badge')"
               >
-                {{ verse.status }}
+                {{ verse.status.value }}
               </ion-badge>
             </div>
-            <p>{{ verse.translation }}</p>
+            <p>{{ verse.translation.value }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -59,7 +59,7 @@
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="$t('decks.inbox.verseAdded', { verseNumber: vm.verseDialog.verse.number })"
+        :message="$t('decks.inbox.verseAdded', { verseNumber: vm.verseDialog.verse.number.value })"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: () => vm.verseAddedToast.revert() }]"
         :is-open="vm.verseAddedToast.isOpen.value"
         :duration="2000"
@@ -73,8 +73,8 @@
 
 <script lang="ts" setup>
 import {
-  IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage,
-  IonSearchbar, IonTitle, IonToolbar, IonModal, IonToast, IonBadge
+  IonBadge, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonPage,
+  IonSearchbar, IonTitle, IonToast, IonToolbar
 } from '@ionic/vue'
 import { onMounted, ref } from 'vue'
 import { VerseDialog } from '@/app/library'
@@ -89,7 +89,6 @@ import { shlokas } from '@/application'
 const vm = shlokas.library
 const page = ref(null)
 const presentingElement = ref(null)
-
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

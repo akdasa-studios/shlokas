@@ -1,26 +1,28 @@
 import { Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
 import { Aggregate, AnyIdentity, Repository } from '@akdasa-studios/framework'
-import { markRaw } from 'vue'
+import { markRaw, ref, Ref, toRaw } from 'vue'
 import { repositories } from "@/application"
 
 export abstract class ViewModel {
-  sync(): void {
-    //
-  }
+  sync(): void { /* to be implemented */ }
 }
 
 export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements ViewModel
 {
-  private _object: TType
+  public _object: TType
+  public $: Ref<TType>
+
   constructor(object: TType) {
-    this._object = markRaw(object)
+    this.$ = ref(object) as Ref<TType>
+    this._object = object
   }
-  get object(): TType { return this._object }
 
   sync() {
-    console.log("sync " + this._object.id.value)
     const repository: Repository<TType> = this.getRepository()
     this._object = repository.get(this._object.id).value
+    console.log("sync " + this._object.id.value, this._object)
+    this.$.value = this._object
+    console.log(this.$.value)
   }
 
   private getRepository(): Repository<TType> {
@@ -30,6 +32,7 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
     if (this._object instanceof Verse) {
       return repositories.verses as unknown as Repository<TType>
     }
+    console.log("Unknown Object Type", this._object)
     throw Error("Unknown Object Type")
   }
 }

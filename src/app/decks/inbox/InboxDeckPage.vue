@@ -45,11 +45,11 @@
 
 
 <script lang="ts" setup>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
-import { shlokas } from '@/application'
 import { InboxCard, InboxDeckEmpty } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
+import { shlokas } from '@/application'
 
 const vm = shlokas.inboxDeck
 
