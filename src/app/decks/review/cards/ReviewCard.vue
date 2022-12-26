@@ -3,28 +3,28 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
-    :target-x="targetX"
-    :target-y="targetY"
+    :target-x="props.card.targetX.value"
+    :target-y="props.card.targetY.value"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
         :grade="grade"
-        :interval="intervals[grade || 0]"
+        :interval="props.card.intervals.value[grade || 0]"
       />
     </template>
 
     <template #front>
       <CardSide>
         <div class="question">
-          {{ getQuestion(type) }}
+          {{ getQuestion(props.card.type.value) }}
         </div>
         <component
-          :is="getSideComponent(type, true)"
-          :verse-number="card.verseNumber"
-          :lines="card.text"
-          :translation="card.translation"
+          :is="getSideComponent(props.card.type.value, true)"
+          :verse-number="card.verseNumber.value"
+          :lines="card.text.value"
+          :translation="card.translation.value"
         />
       </CardSide>
     </template>
@@ -32,17 +32,17 @@
     <template #back>
       <CardSide>
         <component
-          :is="getSideComponent(type, false)"
-          :verse-number="verseNumber"
-          :lines="text"
-          :translation="translation"
+          :is="getSideComponent(props.card.type.value, false)"
+          :verse-number="props.card.verseNumber.value"
+          :lines="props.card.text.value"
+          :translation="props.card.translation.value"
         />
         <div
           v-if="showGradeButtons"
           class="buttons"
         >
           <ReviewCardAnswerButtons
-            :intervals="intervals"
+            :intervals="props.card.intervals.value"
             @graded="onGradeButtonClicked"
           />
         </div>
@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps, ref, toRefs } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
@@ -76,13 +76,11 @@ const props = defineProps<{
   showGradeButtons: boolean
 }>()
 
+console.log(props.card)
+
 const emit = defineEmits<{
   (event: 'graded', grade: ReviewGrade): boolean
 }>()
-
-const {
-  verseNumber, type, text, translation, targetX, targetY, intervals
-} = toRefs(props.card)
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */

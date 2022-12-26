@@ -1,5 +1,5 @@
 import { InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
-import { computed, Ref, ref } from 'vue'
+import { computed, markRaw, Ref, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 import { CardMemorizedToastViewModel } from './CardMemorizedToastViewModel'
@@ -24,7 +24,7 @@ export class InboxDeckPageViewModel extends ViewModel {
       return this.shlokas.app.library.getById(verseId).value
     }
     this.cards.value = this.shlokas.app.inboxDeck.cards.map(
-      (card: InboxCard) => new InboxCardViewModel(card, getVerse(card.verseId))
+      (card: InboxCard) => markRaw(new InboxCardViewModel(card, getVerse(card.verseId)))
     )
   }
 }

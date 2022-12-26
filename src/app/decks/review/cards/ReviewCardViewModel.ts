@@ -1,7 +1,7 @@
 import { ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-import { CardViewModel } from '../../inbox'
+import { CardViewModel } from '../../CardViewModel'
 
 export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   private readonly _card: DomainViewModel<ReviewCard>

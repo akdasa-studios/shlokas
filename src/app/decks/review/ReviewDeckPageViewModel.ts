@@ -1,5 +1,5 @@
 import { ReviewCard, VerseId } from '@akdasa-studios/shlokas-core'
-import { computed, Ref, ref } from 'vue'
+import { computed, markRaw, Ref, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 import { ReviewCardViewModel } from './cards/ReviewCardViewModel'
@@ -26,7 +26,7 @@ export class ReviewDeckPageViewModel extends ViewModel {
     )
 
     this.cards.value = reviewCards.map(
-      (card: ReviewCard) => new ReviewCardViewModel(card, getVerse(card.verseId))
+      (card: ReviewCard) => markRaw(new ReviewCardViewModel(card, getVerse(card.verseId)))
     )
   }
 }

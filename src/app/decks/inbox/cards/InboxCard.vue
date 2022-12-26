@@ -3,38 +3,38 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
-    :data-testid="testId(verseNumber, 'card', type)"
+    :data-testid="testId(props.card.verseNumber.value, 'card', props.card.type.value)"
     :data-index="props.index"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
     <template #overlay>
-      <InboxCardSwipeOverlay :state="progress" />
+      <InboxCardSwipeOverlay :state="props.card.grade.value" />
     </template>
 
     <template #front>
       <InboxCardVerseTextSide
-        v-if="type === 'Text'"
-        :verse-number="verseNumber"
-        :lines="text"
+        v-if="props.card.type.value === 'Text'"
+        :verse-number="props.card.verseNumber.value"
+        :lines="props.card.text.value"
       />
 
       <InboxCardTranslationSide
-        v-if="type === 'Translation'"
-        :verse-number="verseNumber"
-        :translation="translation"
+        v-if="props.card.type.value === 'Translation'"
+        :verse-number="props.card.verseNumber.value"
+        :translation="props.card.translation.value"
       />
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide :words="synonyms" />
+      <InboxCardSynonymsSide :words="props.card.synonyms.value" />
     </template>
   </FlipCard>
 </template>
 
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, toRefs } from 'vue'
+import { defineEmits, defineProps } from 'vue'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import {
   InboxCardSwipeOverlay,
@@ -53,10 +53,6 @@ const props = defineProps<{
   card: InboxCardViewModel
 }>()
 
-const {
-  verseNumber, type, text, synonyms, translation, progress,
-} = toRefs(props.card)
-
 const emit = defineEmits<{
   (event: 'swiped', direction: string, value: number): boolean
 }>()
@@ -67,13 +63,14 @@ const emit = defineEmits<{
 /* -------------------------------------------------------------------------- */
 
 function onSwiping(direction: string, value: number) {
-  progress.value =
+  props.card.setGrade(
     (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
     (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+  )
 }
 
 function onSwiped(direction: string, value: number) {
-  setTimeout(() => progress.value = "", 250)
+  setTimeout(() => props.card.setGrade("") , 250)
   return emit('swiped', direction, value)
 }
 </script>
