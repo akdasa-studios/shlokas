@@ -25,8 +25,8 @@ import { Target } from '@interactjs/types'
 
 // Vue
 import {
-  ref, watch, computed, defineExpose,
-  defineProps, defineEmits, onMounted, onBeforeUnmount
+  ref, watch, computed, defineProps, defineEmits,
+  onMounted, onBeforeUnmount
 } from 'vue'
 
 
@@ -176,11 +176,6 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   disableInteraction()
-})
-
-
-defineExpose({
-  reset
 })
 </script>
 
