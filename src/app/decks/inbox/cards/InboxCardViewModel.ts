@@ -17,11 +17,11 @@ export class CardViewModel implements ViewModel {
     this._verse.sync()
   }
 
-  verseNumber: ComputedRef<string> = computed(() => this._verse.$.value.number.toString())
-  text = computed(() => this._verse.$.value.text.lines)
-  translation = computed(() => this._verse.$.value.translation.text)
+  verseNumber: ComputedRef<string> = computed(() => this._verse.ref.value.number.toString())
+  text = computed(() => this._verse.ref.value.text.lines)
+  translation = computed(() => this._verse.ref.value.translation.text)
   synonyms = computed(() =>  {
-    return this._verse.$.value.synonyms.map(x => ({
+    return this._verse.ref.value.synonyms.map(x => ({
       word: x.word,
       translation: x.translation
     }))
@@ -47,12 +47,12 @@ export class InboxCardViewModel extends CardViewModel implements ViewModel {
     this._card.sync()
   }
 
-  id = computed(() =>  this._card.$.value.id)
-  type = computed(() => this._card.$.value.type)
+  id = computed(() =>  this._card.ref.value.id)
+  type = computed(() => this._card.ref.value.type)
   progress = ref<string>("")
 
   memorized() {
-    shlokas.execute(new InboxCardMemorized(this._card._object))
+    shlokas.execute(new InboxCardMemorized(this._card.object))
     shlokas.inboxDeck.sync()
     shlokas.reviewDeck.sync()
   }

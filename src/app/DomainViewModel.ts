@@ -9,20 +9,22 @@ export abstract class ViewModel {
 
 export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements ViewModel
 {
-  public _object: TType
-  public $: Ref<TType>
+  private _object: TType
+  private _ref: Ref<TType>
 
   constructor(object: TType) {
-    this.$ = ref(object) as Ref<TType>
+    this._ref = ref(object) as Ref<TType>
     this._object = object
   }
+
+  get object() { return this._object }
+  get ref() { return this._ref }
 
   sync() {
     const repository: Repository<TType> = this.getRepository()
     this._object = repository.get(this._object.id).value
     console.log("sync " + this._object.id.value, this._object)
-    this.$.value = this._object
-    console.log(this.$.value)
+    this._ref.value = this._object
   }
 
   private getRepository(): Repository<TType> {
@@ -32,7 +34,6 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
     if (this._object instanceof Verse) {
       return repositories.verses as unknown as Repository<TType>
     }
-    console.log("Unknown Object Type", this._object)
     throw Error("Unknown Object Type")
   }
 }

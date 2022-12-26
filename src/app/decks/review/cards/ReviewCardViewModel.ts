@@ -22,10 +22,10 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
     this._card.sync()
   }
 
-  id = computed(() =>  this._card.$.value.id)
-  type = computed(() =>  this._card.$.value.type)
-  interval = computed(() => this._card.$.value.interval)
-  ease = computed(() =>  this._card.$.value.ease)
+  id = computed(() =>  this._card.ref.value.id)
+  type = computed(() =>  this._card.ref.value.type)
+  interval = computed(() => this._card.ref.value.interval)
+  ease = computed(() =>  this._card.ref.value.ease)
 
   swipeAway() {
     this.targetX.value = -500
@@ -36,23 +36,23 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
     const sc = new Scheduler()
     return [
       sc.getNewInterval(
-        this._card.$.value.interval,
-        this._card.$.value.ease / 100,
+        this._card.ref.value.interval,
+        this._card.ref.value.ease / 100,
         ReviewGrade.Forgot
       ),
       sc.getNewInterval(
-        this._card.$.value.interval,
-        this._card.$.value.ease / 100,
+        this._card.ref.value.interval,
+        this._card.ref.value.ease / 100,
         ReviewGrade.Hard
       ),
       sc.getNewInterval(
-        this._card.$.value.interval,
-        this._card.$.value.ease / 100,
+        this._card.ref.value.interval,
+        this._card.ref.value.ease / 100,
         ReviewGrade.Good
       ),
       sc.getNewInterval(
-        this._card.$.value.interval,
-        this._card.$.value.ease / 100,
+        this._card.ref.value.interval,
+        this._card.ref.value.ease / 100,
         ReviewGrade.Easy
       ),
     ]
@@ -60,6 +60,6 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
 
   review(grade: ReviewGrade) {
     // TODO: execure command
-    this._card._object.review(grade)
+    this._card.object.review(grade)
   }
 }

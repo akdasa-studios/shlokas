@@ -7,25 +7,25 @@ export class VerseViewModel implements ViewModel {
   private readonly _status: DomainViewModel<VerseStatus>
 
   isAlreadyAdded = computed(() =>
-    this._status.$.value.inDeck !== Decks.None
+    this._status.ref.value.inDeck !== Decks.None
   )
   verseId = computed(() =>
-    this._verse._object.id
+    this._verse.object.id
   )
   showStatus = computed(() =>
-    this._status.$.value.inDeck !== Decks.None
+    this._status.ref.value.inDeck !== Decks.None
   )
   status = computed(() =>
-    this._status.$.value.inDeck.toUpperCase()
+    this._status.ref.value.inDeck.toUpperCase()
   )
   number = computed(() =>
-    this._verse.$.value.number.toString()
+    this._verse.ref.value.number.toString()
   )
   translation = computed(() =>
-    this._verse.$.value.translation.text
+    this._verse.ref.value.translation.text
   )
   text = computed(() =>
-    this._verse.$.value.text.lines
+    this._verse.ref.value.text.lines
   )
 
   constructor(
