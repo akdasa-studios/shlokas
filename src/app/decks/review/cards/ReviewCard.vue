@@ -82,7 +82,7 @@ const emit = defineEmits<{
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
-  type, text, targetX, targetY,
+  type, text, targetY,
 }}} = toRefs(props)
 
 
