@@ -20,6 +20,11 @@ export class CouchDB {
     await this._db.sync(to)
   }
 
+  async deleteAll() {
+    const docs = await this._db.allDocs()
+    docs.rows.forEach(y => this._db.remove(y.id, y.value.rev))
+  }
+
   get db(): PouchDB.Database { return this ._db }
 }
 
