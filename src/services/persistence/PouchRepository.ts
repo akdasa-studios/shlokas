@@ -1,9 +1,9 @@
-import { Result , Repository, Aggregate, AnyIdentity, Operators, Query, Predicate, Expression, Identity, QueryBuilder } from '@akdasa-studios/framework'
-import { ObjectMapper } from '@akdasa-studios/framework-firebase'
-import PouchDBUpsert from 'pouchdb-upsert'
-import PouchdbFind from 'pouchdb-find'
+import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, Result } from '@akdasa-studios/framework'
 import PouchDB from 'pouchdb'
+import PouchdbFind from 'pouchdb-find'
+import PouchDBUpsert from 'pouchdb-upsert'
 import { deepMerge } from './deepMerge'
+import { ObjectMapper } from './ObjectMapper'
 
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)

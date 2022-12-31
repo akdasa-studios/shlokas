@@ -1,6 +1,6 @@
-import { ObjectMapper } from "@akdasa-studios/framework-firebase"
-import { CardId, InboxCard, InboxCardType, VerseId } from "@akdasa-studios/shlokas-core"
 import { Result } from "@akdasa-studios/framework"
+import { CardId, InboxCard, InboxCardType, VerseId } from "@akdasa-studios/shlokas-core"
+import { ObjectMapper } from "./ObjectMapper"
 
 
 export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
