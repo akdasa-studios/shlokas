@@ -15,10 +15,10 @@ export class VerseDialogViewModel extends ViewModel {
     this.isOpen.value = true
   }
 
-  addVerseToInbox() {
-    const transaction = new Transaction('!!!!') // TODO: remove '!!!!'
-    shlokas.execute(new AddVerseToInboxDeck(this.verse.verseId.value), transaction)
-    shlokas.execute(new UpdateVerseStatus(this.verse.verseId.value), transaction)
+  async addVerseToInbox() {
+    const transaction = new Transaction()
+    await shlokas.execute(new AddVerseToInboxDeck(this.verse.verseId.value), transaction)
+    await shlokas.execute(new UpdateVerseStatus(this.verse.verseId.value), transaction)
   }
 
   close() {

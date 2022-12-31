@@ -28,7 +28,7 @@ export class SettingsPageViewModel extends ViewModel {
   ]
 
   /** Current language */
-  public language = ref<Language>(new Language("en", "English"))
+  public language = ref(new Language("en", "English"))
 
   /** Changes language */
   public changeLanguage(lang: Language) {

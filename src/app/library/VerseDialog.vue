@@ -21,7 +21,9 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-title>{{ props.verse.number.value }}</ion-title>
+      <ion-title>
+        {{ props.verse.number.value }}
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -61,7 +63,6 @@ import { VerseViewModel } from './VerseViewModel'
 const props = defineProps<{
   verse: VerseViewModel,
 }>()
-
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

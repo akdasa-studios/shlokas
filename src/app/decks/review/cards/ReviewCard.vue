@@ -4,27 +4,27 @@
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
     :target-x="props.card.targetX.value"
-    :target-y="props.card.targetY.value"
+    :target-y="targetY"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
         :grade="grade"
-        :interval="props.card.nextIntervals.value[grade || 0]"
+        :interval="nextIntervals[grade || 0]"
       />
     </template>
 
     <template #front>
       <CardSide>
         <div class="question">
-          {{ getQuestion(props.card.type.value) }}
+          {{ getQuestion(type) }}
         </div>
         <component
-          :is="getSideComponent(props.card.type.value, true)"
-          :verse-number="card.verseNumber.value"
-          :lines="card.text.value"
-          :translation="card.translation.value"
+          :is="getSideComponent(type, true)"
+          :verse-number="verseNumber"
+          :lines="text"
+          :translation="translation"
         />
       </CardSide>
     </template>
@@ -32,17 +32,17 @@
     <template #back>
       <CardSide>
         <component
-          :is="getSideComponent(props.card.type.value, false)"
-          :verse-number="props.card.verseNumber.value"
-          :lines="props.card.text.value"
-          :translation="props.card.translation.value"
+          :is="getSideComponent(type, false)"
+          :verse-number="verseNumber"
+          :lines="text"
+          :translation="translation"
         />
         <div
           v-if="showGradeButtons"
           class="buttons"
         >
           <ReviewCardAnswerButtons
-            :intervals="props.card.nextIntervals.value"
+            :intervals="nextIntervals"
             @graded="onGradeButtonClicked"
           />
         </div>
@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import CardSide from '@/app/decks/CardSide.vue'
@@ -79,6 +79,12 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'graded', grade: ReviewGrade): boolean
 }>()
+
+const { card: { value: {
+  verseNumber, translation, nextIntervals,
+  type, text, targetX, targetY,
+}}} = toRefs(props)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -109,6 +115,8 @@ function onSwiped(direction: string) {
 /* -------------------------------------------------------------------------- */
 
 function onGradeButtonClicked(grade: ReviewGrade) {
+  // targetX.value = -500
+  // setTimeout(() => { targetX.value = 0 }, 400)
   props.card.swipeAway()
   return emit('graded', grade)
 }

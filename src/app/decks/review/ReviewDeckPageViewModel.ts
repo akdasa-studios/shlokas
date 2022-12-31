@@ -21,16 +21,20 @@ export class ReviewDeckPageViewModel extends ViewModel {
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
 
-  public sync() {
-    const getVerse = (verseId: VerseId) => {
-      return this.shlokas.app.library.getById(verseId).value
+  async sync() {
+    const getVerse = async (verseId: VerseId) => {
+      return (await this.shlokas.app.library.getById(verseId)).value
     }
     const reviewCards = this.shlokas.app.reviewDeck.dueToCards(
       this.shlokas.app.timeMachine.now
     )
 
-    this.cards.value = reviewCards.map(
-      (card: ReviewCard) => markRaw(new ReviewCardViewModel(card, getVerse(card.verseId)))
-    )
+    this.cards.value = await Promise.all(
+        reviewCards.map(async (card: ReviewCard) => {
+          return markRaw(
+            new ReviewCardViewModel(card, await getVerse(card.verseId))
+          ) as ReviewCardViewModel
+        })
+      )
   }
 }

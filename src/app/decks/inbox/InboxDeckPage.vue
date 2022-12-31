@@ -16,7 +16,7 @@
     >
       <InboxCard
         v-for="card, idx in vm.cards.value"
-        :key="card.id.value"
+        :key="card.id.value.value"
         :index="idx"
         :card="card"
         :swipe-directions="swipeDirections"
@@ -47,7 +47,7 @@
 <script lang="ts" setup>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
 import { computed } from 'vue'
-import { InboxCard, InboxDeckEmpty } from '@/app/decks/inbox'
+import { InboxCard, InboxCardViewModel, InboxDeckEmpty } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 import { shlokas } from '@/application'
 
@@ -60,13 +60,13 @@ const swipeDirections = computed(() => {
 })
 
 function onCardSwiped(direction: string) {
-  setTimeout(() => {
+  setTimeout(async () => {
     if (direction == "left" || direction == "right") {
       const first = shlokas.inboxDeck.cards.value.shift()
-      vm.cards.value.push(first)
+      shlokas.inboxDeck.cards.value.push(first as InboxCardViewModel)
     } else if (direction == "top" || direction == "bottom") {
       vm.cardMemorizedToast.open()
-      vm.cards.value[0].memorized()
+      await vm.cards.value[0].memorized()
     }
   }, 250)
 }

@@ -23,10 +23,10 @@
 <script lang="ts" setup>
 import { defineProps, computed } from 'vue'
 const props = defineProps<{
-  state: string,
+  grade: string,
 }>()
-const isVisible = computed(() => !!props.state)
-const isFinished = computed(() => props.state === 'finished')
+const isVisible = computed(() => !!props.grade)
+const isFinished = computed(() => props.grade === 'finished')
 </script>
 
 

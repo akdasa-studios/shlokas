@@ -1,12 +1,11 @@
 import { Language } from '@akdasa-studios/shlokas-core'
 import { OverlayEventDetail } from '@ionic/core/components'
-import { computed, ref } from 'vue'
-import { ViewModel } from '@/app/DomainViewModel'
+import { markRaw, Ref, ref, watch } from 'vue'
 import { VerseViewModel } from '@/app/library'
+import { ViewModel } from '@/app/DomainViewModel'
 import { ApplicationViewModel } from '../ApplicationViewModel'
 import { VerseAddedToInboxToastViewModel } from './VerseAddedToInboxToastViewModel'
 import { VerseDialogViewModel } from './VerseDialogViewModel'
-
 
 export class LibraryPageViewModel extends ViewModel {
   constructor(private readonly shlokas: ApplicationViewModel) {
@@ -19,31 +18,40 @@ export class LibraryPageViewModel extends ViewModel {
 
   public readonly verseDialog = new VerseDialogViewModel()
   public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
-  public readonly filterQuery = ref('')
-  public readonly filteredVerses = computed(() => this.findByContent(this.filterQuery.value))
+  public readonly filterQuery = ref()
+  public readonly filteredVerses: Ref<VerseViewModel[]> =ref([])
+
+  public readonly watch = watch(
+    this.filterQuery, async (query: string) => {
+      this.filteredVerses.value = await this.findByContent(query)
+    })
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  findByContent(query: string): VerseViewModel[] {
-    const verses = this.shlokas.app.library.findByContent(
-      this.shlokas.settings.language.value as Language, query
-    )
-    return verses.map(verse => { // TODO: N+1 issue
-      const status = this.shlokas.app.library.getStatus(verse.id).value
-      return new VerseViewModel(verse, status)
-    })
+  open() {
+    this.filterQuery.value = ''
   }
 
-  closeModal(ev: CustomEvent<OverlayEventDetail>) {
+  async findByContent(query: string): Promise<VerseViewModel[]> {
+    const verses = await this.shlokas.app.library.findByContent(
+      this.shlokas.settings.language.value as Language, query
+    )
+    return Promise.all(verses.map(async (verse) => { // TODO: N+1 issue
+      const status = (await this.shlokas.app.library.getStatus(verse.id)).value
+      return markRaw(new VerseViewModel(verse, status))
+    }))
+  }
+
+  async closeModal(ev: CustomEvent<OverlayEventDetail>) {
     const detail = ev.detail
 
     if (detail.role === 'confirm') {
-      this.verseDialog.addVerseToInbox()
+      await this.verseDialog.addVerseToInbox()
+      await this.verseDialog.verse.sync()
+      await this.shlokas.inboxDeck.sync()
       this.verseAddedToast.open(this.verseDialog.verse)
-      this.verseDialog.verse.sync()
-      this.shlokas.inboxDeck.sync()
     }
 
     this.verseDialog.close()
