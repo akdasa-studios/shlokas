@@ -19,28 +19,25 @@ export class InboxCardViewModel extends CardViewModel implements ViewModel {
 
   id = computed(() =>  this._card.ref.value.id)
   type = computed(() => this._card.ref.value.type)
-  grade = ref<string>("")
+  addedAt = computed(() => this._card.ref.value.addedAt)
+  grade = ref("")
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  setGrade(value:string) {
-    this.grade.value=value
-  }
-
-  memorized() {
-    shlokas.execute(new InboxCardMemorized(this._card.object))
-    shlokas.inboxDeck.sync()
-    shlokas.reviewDeck.sync()
+  async memorized() {
+    await shlokas.execute(new InboxCardMemorized(this._card.object))
+    await shlokas.inboxDeck.sync()
+    await shlokas.reviewDeck.sync()
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
 
-  sync(): void {
+  async sync() {
     super.sync()
-    this._card.sync()
+    await this._card.sync()
   }
 }

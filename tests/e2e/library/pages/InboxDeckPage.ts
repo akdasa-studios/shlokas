@@ -34,7 +34,6 @@ export class InboxDeckPage {
     }
 
     await card.dragTo(card, {
-      // force: true,
       sourcePosition, targetPosition
     })
     await this.page.waitForTimeout(500)

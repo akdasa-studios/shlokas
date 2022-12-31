@@ -24,7 +24,7 @@ export class ApplicationViewModel {
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  public execute(command: AnyCommand, transaction?: Transaction): ProcessorResult<AnyResult> {
-    return this.app.processor.execute(command, transaction)
+  async execute(command: AnyCommand, transaction?: Transaction): Promise<ProcessorResult<AnyResult>> {
+    return await this.app.processor.execute(command, transaction)
   }
 }

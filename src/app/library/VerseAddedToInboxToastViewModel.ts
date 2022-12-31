@@ -10,7 +10,7 @@ export class VerseAddedToInboxToastViewModel {
   /* -------------------------------------------------------------------------- */
 
   public readonly isOpen = ref(false)
-  public verse: VerseViewModel | undefined
+  public verse: VerseViewModel = VerseViewModel.empty
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -23,13 +23,11 @@ export class VerseAddedToInboxToastViewModel {
 
   close() {
     this.isOpen.value = false
-    this.verse = undefined
   }
 
-  revert() {
-    shlokas.app.processor.revert()
-    shlokas.inboxDeck.sync()
-    this.verse?.sync()
-    // shlokas.library.sync()
+  async revert() {
+    await shlokas.app.processor.revert()
+    await shlokas.inboxDeck.sync()
+    this.verse.sync()
   }
 }

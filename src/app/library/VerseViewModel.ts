@@ -20,6 +20,7 @@ export class VerseViewModel implements ViewModel {
 
   isAlreadyAdded = computed(() => this._status.ref.value.inDeck !== Decks.None)
   verseId = computed(() => this._verse.object.id)
+  statusId = computed(() => this._status.object.id)
   showStatus = computed(() => this._status.ref.value.inDeck !== Decks.None)
   status = computed(() => this._status.ref.value.inDeck.toUpperCase())
   number = computed(() => this._verse.ref.value.number.toString())
@@ -30,9 +31,9 @@ export class VerseViewModel implements ViewModel {
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
 
-  sync() {
-    this._verse.sync()
-    this._status.sync()
+  async sync() {
+    await this._verse.sync()
+    await this._status.sync()
   }
 
   /* -------------------------------------------------------------------------- */

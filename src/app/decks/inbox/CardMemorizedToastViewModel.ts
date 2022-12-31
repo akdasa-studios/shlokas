@@ -22,9 +22,9 @@ export class CardMemorizedToastViewModel {
     this.isOpen.value = false
   }
 
-  revert() {
-    shlokas.app.processor.revert()
-    shlokas.inboxDeck.sync()
-    shlokas.reviewDeck.sync()
+  async revert() {
+    await shlokas.app.processor.revert()
+    await shlokas.inboxDeck.sync()
+    await shlokas.reviewDeck.sync()
   }
 }

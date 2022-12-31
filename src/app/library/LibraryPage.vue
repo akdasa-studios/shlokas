@@ -21,8 +21,8 @@
       <ion-list>
         <ion-item
           v-for="verse in vm.filteredVerses.value"
-          :key="verse.number.value.toString()"
-          :data-testid="testId(verse.number.value.toString())"
+          :key="verse.number.toString()"
+          :data-testid="testId(verse.number.value)"
           text-wrap
           role="listitem"
           @click="vm.verseDialog.open(verse)"
@@ -30,7 +30,7 @@
           <ion-label class="ion-text-wrap">
             <div class="header">
               <h2 class="inline">
-                {{ verse.number.value.toString() }}
+                {{ verse.number.value }}
               </h2>
               <ion-badge
                 v-if="verse.showStatus.value"
@@ -51,7 +51,7 @@
         :is-open="vm.verseDialog.isOpen.value"
         :presenting-element="presentingElement"
         role="dialog"
-        @will-dismiss="(v) => vm.closeModal(v)"
+        @will-dismiss="async (v) => await vm.closeModal(v)"
       >
         <VerseDialog :verse="vm.verseDialog.verse" />
       </ion-modal>
@@ -60,7 +60,7 @@
       <ion-toast
         position="top"
         :message="$t('decks.inbox.verseAdded', { verseNumber: vm.verseDialog.verse.number.value })"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: () => vm.verseAddedToast.revert() }]"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: async () => await vm.verseAddedToast.revert() }]"
         :is-open="vm.verseAddedToast.isOpen.value"
         :duration="2000"
         color="dark"
@@ -96,6 +96,7 @@ const presentingElement = ref(null)
 
 onMounted(() => {
   presentingElement.value = page.value.$el
+  vm.open()
 })
 </script>
 

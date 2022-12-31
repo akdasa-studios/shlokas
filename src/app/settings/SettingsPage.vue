@@ -38,6 +38,23 @@
           v-model="shlokas.settings.showGradeButtons.value"
         />
       </ion-item>
+
+      <ion-item>
+        <ion-input
+          v-model="syncServer"
+          placeholder="http://user:password@localhost:5987/shlokas"
+        />
+        <ion-button
+          @click="onSync"
+        >
+          Sync
+        </ion-button>
+        <ion-button
+          @click="onClean"
+        >
+          Clean
+        </ion-button>
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
@@ -47,15 +64,25 @@
 import { Language } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonPage,
-  IonTitle, IonToolbar, IonSelect, IonSelectOption, IonToggle
+  IonTitle, IonToolbar, IonSelect, IonSelectOption, IonToggle,
+  IonButton, IonInput
 } from '@ionic/vue'
 import { ref } from 'vue'
-import { shlokas } from '@/application'
+import { shlokas, couchDB } from '@/application'
 
 const value = ref(shlokas.settings.language.value.code)
+const syncServer = ref("http://user:password@localhost:5987/shlokas")
 
 function languageChanged(e: any) {
   const lang = shlokas.settings.availableLanguages.find(x => x.code === e.detail.value)
   shlokas.settings.changeLanguage(lang as Language)
+}
+
+async function onSync() {
+  const res = await couchDB.sync(syncServer.value)
+  console.log(res)
+}
+async function onClean() {
+  await couchDB.deleteAll()
 }
 </script>

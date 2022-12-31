@@ -20,9 +20,9 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
   get object() { return this._object }
   get ref() { return this._ref }
 
-  sync() {
+  async sync() {
     const repository: Repository<TType> = this.getRepository()
-    this._object = repository.get(this._object.id).value
+    this._object = (await repository.get(this._object.id)).value
     console.log("sync " + this._object.id.value, this._object)
     this._ref.value = this._object
   }

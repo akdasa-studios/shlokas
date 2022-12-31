@@ -23,12 +23,15 @@ export class InboxDeckPageViewModel extends ViewModel {
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */
 
-  public sync() {
-    const getVerse = (verseId: VerseId) => {
-      return this.shlokas.app.library.getById(verseId).value
+  async sync() : Promise<void> {
+    const getVerse = async (verseId: VerseId) => {
+      return (await this.shlokas.app.library.getById(verseId)).value
     }
-    this.cards.value = this.shlokas.app.inboxDeck.cards.map(
-      (card: InboxCard) => markRaw(new InboxCardViewModel(card, getVerse(card.verseId)))
+    const cards = await this.shlokas.app.inboxDeck.cards()
+    this.cards.value = await Promise.all(
+      cards.map(async(card: InboxCard) =>
+        markRaw(new InboxCardViewModel(card, await getVerse(card.verseId)))
+      )
     )
   }
 }
