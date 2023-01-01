@@ -1,5 +1,6 @@
 import { AnyCommand, AnyResult, ProcessorResult, Transaction } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"
+import { ViewModel } from '@/app/DomainViewModel'
 import { InboxDeckPageViewModel } from '@/app/decks/inbox/InboxDeckPageViewModel'
 import { ReviewDeckPageViewModel } from '@/app/decks/review'
 import { LibraryPageViewModel } from '@/app/library'
@@ -7,8 +8,10 @@ import { DebugController } from './DebugController'
 import { SettingsPageViewModel } from './settings/SettingsPageViewModel'
 
 
-export class ApplicationViewModel {
-  constructor(readonly app: Application) {}
+export class ApplicationViewModel extends ViewModel {
+  constructor(readonly app: Application) {
+    super()
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                                 Properties                                 */
@@ -26,5 +29,15 @@ export class ApplicationViewModel {
 
   async execute(command: AnyCommand, transaction?: Transaction): Promise<ProcessorResult<AnyResult>> {
     return await this.app.processor.execute(command, transaction)
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    Sync                                    */
+  /* -------------------------------------------------------------------------- */
+
+  sync() {
+    this.library.sync()
+    this.inboxDeck.sync()
+    this.reviewDeck.sync()
   }
 }

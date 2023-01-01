@@ -36,4 +36,6 @@ try {
   }
 } catch(e) { console.log(e) }
 
+// Start
+shlokas.sync()
 </script>

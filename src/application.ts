@@ -1,9 +1,10 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
-import { Application, InboxCard, Language, Repositories, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Application, InboxCard, Language, Repositories, ReviewCard, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { ApplicationViewModel } from '@/app/ApplicationViewModel'
 import { VerseStatusDeserializer, VerseStatusSerializer } from "@/services/persistence/VerseStatusSerializer"
 import { InboxCardDeserializer, InboxCardSerializer } from './services/persistence/InboxCardSerializer'
 import { CouchDB, PouchRepository } from './services/persistence/PouchRepository'
+import { ReviewCardDeserializer, ReviewCardSerializer } from './services/persistence/ReviewCardSerializer'
 
 const versesRepo = new InMemoryRepository<Verse>()
 const english = new Language('en', 'English')
@@ -153,7 +154,7 @@ const dev = process.env.NODE_ENV === "development"
 
 export const couchDB = new CouchDB(
   dev
-  ? "local " + new Date().toISOString() // create new DB every page refresh
+  ? "local " // + new Date().toISOString() // create new DB every page refresh
   : "local"
 )
 export const repositories = new Repositories(
@@ -169,6 +170,12 @@ export const repositories = new Repositories(
     "inbox",
     new InboxCardSerializer(),
     new InboxCardDeserializer()
+  ),
+  new PouchRepository<ReviewCard>(
+    couchDB,
+    "review",
+    new ReviewCardSerializer(),
+    new ReviewCardDeserializer()
   ),
 )
 
