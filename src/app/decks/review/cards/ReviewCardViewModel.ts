@@ -18,8 +18,11 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
 
+  get card() { return this._card.object }
+
   targetX = ref(0)
   targetY = ref(0)
+  dueTo = computed(() => this._card.ref.value.dueTo)
   id = computed(() =>  this._card.ref.value.id)
   type = computed(() =>  this._card.ref.value.type)
   interval = computed(() => this._card.ref.value.interval)

@@ -79,8 +79,7 @@ function languageChanged(e: any) {
 }
 
 async function onSync() {
-  const res = await couchDB.sync(syncServer.value)
-  console.log(res)
+  await couchDB.sync(syncServer.value)
 }
 async function onClean() {
   await couchDB.deleteAll()

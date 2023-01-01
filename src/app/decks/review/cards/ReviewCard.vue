@@ -82,7 +82,7 @@ const emit = defineEmits<{
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
-  type, text, targetY,
+  type, text, targetY
 }}} = toRefs(props)
 
 
@@ -107,6 +107,7 @@ function onSwiping(direction: string, value: number) {
 }
 
 function onSwiped(direction: string) {
+  grade.value = undefined
   return emit('graded', getGrade(direction))
 }
 

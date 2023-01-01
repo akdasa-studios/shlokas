@@ -54,13 +54,7 @@ const swipeDirections = computed(() => {
 
 function onCardGraded(grade: ReviewGrade) {
   setTimeout(() => {
-    if (grade === ReviewGrade.Easy || grade === ReviewGrade.Good) {
-      const first = vm.cards.value.shift()
-      first?.review(grade)
-    } else  {
-      const first = vm.cards.value.shift()
-      vm.cards.value.push(first)
-    }
+    vm.reviewTopCard(grade)
   }, 250)
 }
 </script>
