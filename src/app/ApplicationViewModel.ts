@@ -11,6 +11,7 @@ import { SettingsPageViewModel } from './settings/SettingsPageViewModel'
 export class ApplicationViewModel extends ViewModel {
   constructor(readonly app: Application) {
     super()
+    this.settings.sync()
   }
 
   /* -------------------------------------------------------------------------- */
