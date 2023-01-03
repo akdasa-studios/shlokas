@@ -18,10 +18,10 @@ export class ApplicationViewModel extends ViewModel {
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
 
+  public readonly settings = new SettingsPageViewModel(this)
   public readonly library = new LibraryPageViewModel(this)
   public readonly inboxDeck = new InboxDeckPageViewModel(this)
   public readonly reviewDeck = new ReviewDeckPageViewModel(this)
-  public readonly settings = new SettingsPageViewModel(this)
   public readonly debug = new DebugController(this)
 
   /* -------------------------------------------------------------------------- */

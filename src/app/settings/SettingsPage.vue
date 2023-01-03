@@ -18,7 +18,7 @@
             {{ $t('settings.language') }}
           </ion-label>
           <ion-select
-            v-model="shlokas.settings.language.value.code"
+            :value="shlokas.settings.language.value.code"
             interface="action-sheet"
             placeholder="Language"
             @ion-change="languageChanged"
@@ -105,9 +105,9 @@ import {
 } from '@ionic/vue'
 import { shlokas, couchDB } from '@/application'
 
-function languageChanged(e: any) {
+async function languageChanged(e: any) {
   const lang = shlokas.settings.availableLanguages.find(x => x.code === e.detail.value)
-  shlokas.settings.changeLanguage(lang as Language)
+  await shlokas.settings.changeLanguage(lang as Language)
 }
 
 async function onRegister() {

@@ -5,10 +5,29 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from "@/services/persi
 import { InboxCardDeserializer, InboxCardSerializer } from './services/persistence/InboxCardSerializer'
 import { CouchDB, PouchRepository } from './services/persistence/PouchRepository'
 import { ReviewCardDeserializer, ReviewCardSerializer } from './services/persistence/ReviewCardSerializer'
+import { verses } from './verses'
 
 const versesRepo = new InMemoryRepository<Verse>()
 const english = new Language('en', 'English')
 const russian = new Language('ru', 'Русский')
+
+
+for (const verse of verses) {
+  const builder = new VerseBuilder()
+    .ofLanguage(russian)
+    .withId(new VerseId(verse.uuid))
+    .withNumber(new VerseNumber(verse.number))
+    .withText(new Text(verse.text))
+    .withTranslation(new Translation(verse.translation))
+
+  for (const w of verse.synonyms) {
+    builder.withSynonym(
+      w.words.join(' '),
+      w.translation
+    )
+  }
+  versesRepo.save(builder.build().value)
+}
 
 versesRepo.save(new VerseBuilder()
   .ofLanguage(english)
@@ -134,21 +153,6 @@ versesRepo.save(new VerseBuilder()
   .build().value)
 
 
-versesRepo.save(new VerseBuilder()
-  .withId(new VerseId("54de7d4c-eb9a-4b7c-b6d1-0635a3a0d310"))
-  .ofLanguage(russian)
-  .withNumber(new VerseNumber('БГ 1.1'))
-  .withText(new Text([
-    'дхр̣тара̄шт̣ра ува̄ча',
-    'дхарма-кшетре куру-кшетре',
-    'самавета̄ йуйутсавах̣',
-    'ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаива',
-    'ким акурвата сан̃джайа',
-  ]))
-  .withTranslation(new Translation(
-    'Дхритараштра спросил: О Санджая, что стали делать мои сыновья и сыновья Панду, когда, горя желанием вступить в бой, собрались в месте паломничества, на поле Курукшетра?'
-  ))
-  .build().value)
 
 const dev = process.env.NODE_ENV === "development"
 

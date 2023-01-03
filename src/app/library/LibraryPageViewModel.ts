@@ -10,6 +10,12 @@ import { VerseDialogViewModel } from './VerseDialogViewModel'
 export class LibraryPageViewModel extends ViewModel {
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
+
+    watch([this.shlokas.settings.language, this.filterQuery], async () => {
+      await this.findByContent(
+        this.shlokas.settings.language.value as Language,
+        this.filterQuery.value
+    )})
   }
 
   /* -------------------------------------------------------------------------- */
@@ -21,10 +27,6 @@ export class LibraryPageViewModel extends ViewModel {
   public readonly filterQuery = ref()
   public readonly filteredVerses: Ref<VerseViewModel[]> =ref([])
 
-  public readonly watch = watch(
-    this.filterQuery, async (query: string) => {
-      this.filteredVerses.value = await this.findByContent(query)
-    })
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -34,11 +36,9 @@ export class LibraryPageViewModel extends ViewModel {
     this.filterQuery.value = ''
   }
 
-  async findByContent(query: string): Promise<VerseViewModel[]> {
-    const verses = await this.shlokas.app.library.findByContent(
-      this.shlokas.settings.language.value as Language, query
-    )
-    return Promise.all(verses.map(async (verse) => { // TODO: N+1 issue
+  async findByContent(lang: Language, query: string) {
+    const verses = await this.shlokas.app.library.findByContent(lang, query)
+    this.filteredVerses.value = await Promise.all(verses.map(async (verse) => { // TODO: N+1 issue
       const status = (await this.shlokas.app.library.getStatus(verse.id)).value
       return markRaw(new VerseViewModel(verse, status))
     }))
