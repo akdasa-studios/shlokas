@@ -18,10 +18,6 @@
   <a href="https://app.netlify.com/sites/shlokas-staging/deploys"><img src="https://api.netlify.com/api/v1/badges/c005fb9b-d8a8-410e-ae86-89e3dc213202/deploy-status" alt="Netlify Status"></a>
 </p>
 
-
-
-
-
 ## Documentation
 1. [Architecture](./docs/architecture.md) – Overall project architecture
 1. [Models](./docs/models.md) – Domain models
