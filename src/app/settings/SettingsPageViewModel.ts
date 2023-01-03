@@ -8,8 +8,8 @@ import { ApplicationViewModel } from '../ApplicationViewModel'
 
 export class SettingsPageViewModel extends ViewModel {
   private _store: Storage
-  public readonly dbHost = "45.134.226.153:5984"
-  public readonly authHost = "http://45.134.226.153:8912/auth/user"
+  public readonly dbHost = "shlokas.app/db"
+  public readonly authHost = "https://shlokas.app/auth/user"
 
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
@@ -38,7 +38,7 @@ export class SettingsPageViewModel extends ViewModel {
   public readonly password = ref()
   public readonly dbName = ref()
   public readonly syncServer = computed(() => {
-    return `http://${this.login.value}:${this.password.value}@${this.dbHost}/${this.dbName.value}`
+    return `https://${this.login.value}:${this.password.value}@${this.dbHost}/${this.dbName.value}`
   })
 
   /* -------------------------------------------------------------------------- */
