@@ -5,17 +5,13 @@ import HomePage from '@/app/home/views/HomePage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home/library'
   },
   {
     path: '/home',
     name: 'Home',
     component: HomePage,
     children: [
-      {
-        path: '',
-        redirect: '/home/library'
-      },
       {
         path: 'library',
         component: () => import('@/app/library/LibraryPage.vue')

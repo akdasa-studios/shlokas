@@ -14,10 +14,11 @@ const dev = process.env.NODE_ENV === "development"
 
 export const couchDB = new CouchDB(
   dev
-  ? "local" // + new Date().toISOString() // create new DB every page refresh
+  ? "local" +new Date().toISOString() // create new DB every page refresh
   // ? "http://admin:12345678@localhost:5984/test123"
   : "local"
 )
+
 export const repositories = new Repositories(
   new InMemoryRepository<Verse>(),
   new PouchRepository<VerseStatus>(
@@ -39,7 +40,6 @@ export const repositories = new Repositories(
     new ReviewCardDeserializer()
   ),
 )
-
 
 export const app = new Application(repositories)
 export const shlokas = new ApplicationViewModel(app)

@@ -25,7 +25,7 @@ export class LibraryPageViewModel extends ViewModel {
 
   public readonly verseDialog = new VerseDialogViewModel()
   public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
-  public readonly filterQuery = ref('')
+  public readonly filterQuery = ref()
   public readonly filteredVerses: Ref<VerseViewModel[]> =ref([])
 
 
@@ -46,14 +46,12 @@ export class LibraryPageViewModel extends ViewModel {
     })
   }
 
-  async closeModal(ev: CustomEvent<OverlayEventDetail>) {
-    const detail = ev.detail
-
-    if (detail.role === 'confirm') {
+  async closeModal(action: string) {
+    if (action === 'confirm') {
+      this.verseAddedToast.open(this.verseDialog.verse)
       await this.verseDialog.addVerseToInbox()
       await this.verseDialog.verse.sync()
       await this.shlokas.inboxDeck.sync()
-      this.verseAddedToast.open(this.verseDialog.verse)
     }
 
     this.verseDialog.close()

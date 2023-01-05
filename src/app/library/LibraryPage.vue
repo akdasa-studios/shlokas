@@ -51,7 +51,7 @@
         :is-open="vm.verseDialog.isOpen.value"
         :presenting-element="presentingElement"
         role="dialog"
-        @will-dismiss="async (v) => await vm.closeModal(v)"
+        @will-dismiss="onVerseDialogDismiss"
       >
         <VerseDialog :verse="vm.verseDialog.verse" />
       </ion-modal>
@@ -64,7 +64,7 @@
         :is-open="vm.verseAddedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="() => vm.verseAddedToast.close()"
+        @did-dismiss="async () => await vm.verseAddedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -77,6 +77,7 @@ import {
   IonSearchbar, IonTitle, IonToast, IonToolbar
 } from '@ionic/vue'
 import { onMounted, ref } from 'vue'
+import { OverlayEventDetail } from '@ionic/core'
 import { VerseDialog } from '@/app/library'
 import { testId } from '@/app/TestId'
 import { shlokas } from '@/application'
@@ -98,6 +99,10 @@ onMounted(() => {
   presentingElement.value = page.value.$el
   vm.open()
 })
+
+async function onVerseDialogDismiss(event: CustomEvent<OverlayEventDetail>) {
+  await vm.closeModal(event.detail.role || "")
+}
 </script>
 
 

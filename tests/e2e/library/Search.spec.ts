@@ -17,7 +17,7 @@ test.describe('Search', () => {
 
   test('By text', async () => {
     const items = await app.library.search('army')
-    expect(await app.page.getByTestId(testId('BG 1.2')).count()).toEqual(1)
+    expect(await app.page.getByTestId(testId('BG 9.2')).count()).toEqual(1)
     expect(await items.count()).toEqual(1)
   })
 
