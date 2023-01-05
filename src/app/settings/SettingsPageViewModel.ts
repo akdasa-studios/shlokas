@@ -64,7 +64,9 @@ export class SettingsPageViewModel extends ViewModel {
   /** Changes language */
   public async changeLanguage(lang: Language) {
     await this._store.set("language", lang.code)
-    i18n.global.locale.value = lang.code as any
+    if (i18n) {
+      i18n.global.locale.value = lang.code as any
+    }
     await this.sync()
   }
 
@@ -73,7 +75,9 @@ export class SettingsPageViewModel extends ViewModel {
     const langCode = await this._store.get('language')
     this.language.value = this.availableLanguages.find(x => x.code === langCode)
                           || this.availableLanguages[0]
-    i18n.global.locale.value = this.language.value.code as any
+    if (i18n) {
+      i18n.global.locale.value = this.language.value.code as any
+    }
     this.login.value = await this._store.get('login')
     this.password.value = await this._store.get('password')
     this.dbName.value = await this._store.get('dbName')

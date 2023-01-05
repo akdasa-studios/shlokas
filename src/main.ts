@@ -1,6 +1,7 @@
+import { Storage } from '@ionic/storage'
 import { createApp } from 'vue'
 import { IonicVue } from '@ionic/vue'
-import { i18n } from './i18n'
+import { initI18n } from './i18n'
 import App from './App.vue'
 import router from './router'
 
@@ -24,11 +25,19 @@ import '@ionic/vue/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .use(i18n)
+async function initApp() {
+  const storage = new Storage()
+  await storage.create()
+  const lang = (await storage.get("language")) || 'en'
 
-router.isReady().then(() => {
-  app.mount('#app')
-})
+  const app = createApp(App)
+    .use(IonicVue)
+    .use(router)
+    .use(initI18n(lang))
+
+  router.isReady().then(() => {
+    app.mount('#app')
+  })
+}
+
+initApp()

@@ -7,6 +7,7 @@ import { ApplicationViewModel } from '../ApplicationViewModel'
 import { VerseAddedToInboxToastViewModel } from './VerseAddedToInboxToastViewModel'
 import { VerseDialogViewModel } from './VerseDialogViewModel'
 
+
 export class LibraryPageViewModel extends ViewModel {
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
@@ -24,7 +25,7 @@ export class LibraryPageViewModel extends ViewModel {
 
   public readonly verseDialog = new VerseDialogViewModel()
   public readonly verseAddedToast = new VerseAddedToInboxToastViewModel()
-  public readonly filterQuery = ref()
+  public readonly filterQuery = ref('')
   public readonly filteredVerses: Ref<VerseViewModel[]> =ref([])
 
 
@@ -38,10 +39,11 @@ export class LibraryPageViewModel extends ViewModel {
 
   async findByContent(lang: Language, query: string) {
     const verses = await this.shlokas.app.library.findByContent(lang, query)
-    this.filteredVerses.value = await Promise.all(verses.map(async (verse) => { // TODO: N+1 issue
-      const status = (await this.shlokas.app.library.getStatus(verse.id)).value
-      return markRaw(new VerseViewModel(verse, status))
-    }))
+    const statuses = await this.shlokas.app.library.getStatuses(verses.map(x => x.id))
+
+    this.filteredVerses.value = verses.map((verse) => {
+      return markRaw(new VerseViewModel(verse, statuses[verse.id.value]))
+    })
   }
 
   async closeModal(ev: CustomEvent<OverlayEventDetail>) {

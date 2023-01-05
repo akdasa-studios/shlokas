@@ -1,4 +1,4 @@
-import { Aggregate, AnyIdentity, Repository } from '@akdasa-studios/framework'
+import { Aggregate, AnyIdentity, Repository, Query } from '@akdasa-studios/framework'
 import { Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
 import { ref, Ref } from 'vue'
 import { repositories } from "@/application"
@@ -11,19 +11,34 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
 {
   private _object: TType
   private _ref: Ref<TType>
+  private _query: Query<TType> | undefined
 
-  constructor(object: TType) {
+  constructor(object: TType, query?: Query<TType>) {
     this._ref = ref(object) as Ref<TType>
     this._object = object
+    this._query = query
   }
 
   get object() { return this._object }
   get ref() { return this._ref }
 
   async sync() {
+    // console.log("sync " + this._object.id.value, this._object)
+
     const repository: Repository<TType> = this.getRepository()
-    this._object = (await repository.get(this._object.id)).value
-    console.log("sync " + this._object.id.value, this._object)
+
+    if (this._query) {
+      console.log(this._query)
+      const queryResult =  (await repository.find(this._query)).value
+      console.log(queryResult)
+      this._object = queryResult[0]
+    } else {
+      if (this._object.id.value === "00000000-0000-0000-0000-000000000000") {
+        return // this object is not meant to be saved
+      }
+
+      this._object = (await repository.get(this._object.id)).value
+    }
     this._ref.value = this._object
   }
 

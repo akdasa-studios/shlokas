@@ -1,11 +1,16 @@
 import { AnyCommand, AnyResult, ProcessorResult, Transaction } from '@akdasa-studios/framework'
 import { Application } from "@akdasa-studios/shlokas-core"
+
+// View models
 import { ViewModel } from '@/app/DomainViewModel'
-import { InboxDeckPageViewModel } from '@/app/decks/inbox/InboxDeckPageViewModel'
+import { InboxDeckPageViewModel } from '@/app/decks/inbox'
 import { ReviewDeckPageViewModel } from '@/app/decks/review'
 import { LibraryPageViewModel } from '@/app/library'
+import { SettingsPageViewModel } from '@/app/settings'
+
+// Controllers
 import { DebugController } from './DebugController'
-import { SettingsPageViewModel } from './settings/SettingsPageViewModel'
+import { SyncController } from './SyncController'
 
 
 export class ApplicationViewModel extends ViewModel {
@@ -22,6 +27,12 @@ export class ApplicationViewModel extends ViewModel {
   public readonly library = new LibraryPageViewModel(this)
   public readonly inboxDeck = new InboxDeckPageViewModel(this)
   public readonly reviewDeck = new ReviewDeckPageViewModel(this)
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 Controllers                                */
+  /* -------------------------------------------------------------------------- */
+
+  public readonly synchronization = new SyncController(this)
   public readonly debug = new DebugController(this)
 
   /* -------------------------------------------------------------------------- */
