@@ -7,6 +7,7 @@ import { ApplicationViewModel } from '../ApplicationViewModel'
 import { VerseAddedToInboxToastViewModel } from './VerseAddedToInboxToastViewModel'
 import { VerseDialogViewModel } from './VerseDialogViewModel'
 
+
 export class LibraryPageViewModel extends ViewModel {
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
@@ -38,20 +39,19 @@ export class LibraryPageViewModel extends ViewModel {
 
   async findByContent(lang: Language, query: string) {
     const verses = await this.shlokas.app.library.findByContent(lang, query)
-    this.filteredVerses.value = await Promise.all(verses.map(async (verse) => { // TODO: N+1 issue
-      const status = (await this.shlokas.app.library.getStatus(verse.id)).value
-      return markRaw(new VerseViewModel(verse, status))
-    }))
+    const statuses = await this.shlokas.app.library.getStatuses(verses.map(x => x.id))
+
+    this.filteredVerses.value = verses.map((verse) => {
+      return markRaw(new VerseViewModel(verse, statuses[verse.id.value]))
+    })
   }
 
-  async closeModal(ev: CustomEvent<OverlayEventDetail>) {
-    const detail = ev.detail
-
-    if (detail.role === 'confirm') {
+  async closeModal(action: string) {
+    if (action === 'confirm') {
+      this.verseAddedToast.open(this.verseDialog.verse)
       await this.verseDialog.addVerseToInbox()
       await this.verseDialog.verse.sync()
       await this.shlokas.inboxDeck.sync()
-      this.verseAddedToast.open(this.verseDialog.verse)
     }
 
     this.verseDialog.close()
