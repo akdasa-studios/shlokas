@@ -2,6 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet />
+      <!-- Tabs -->
       <ion-tab-bar slot="bottom">
         <ion-tab-button
           tab="tab1"

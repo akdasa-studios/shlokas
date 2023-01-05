@@ -26,7 +26,17 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'settings',
-        component: () => import('@/app/settings/SettingsPage.vue')
+        component: () => import('@/app/settings/SettingsPage.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('@/app/settings/MainSettingsPage.vue')
+          },
+          {
+            path: 'account',
+            component: () => import('@/app/settings/AccountSettingsPage.vue')
+          }
+        ]
       },
     ]
   }

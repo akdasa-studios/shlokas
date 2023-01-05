@@ -45,6 +45,7 @@
   },
   "settings": {
     "title": "Settings",
-    "language": "Language"
+    "language": "Language",
+    "account": "Account"
   }
 }
