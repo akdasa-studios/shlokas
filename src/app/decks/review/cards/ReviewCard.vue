@@ -12,11 +12,16 @@
       <ReviewCardSwipeOverlay
         :grade="grade"
         :interval="nextIntervals[grade || 0]"
+        :class="style"
+        class="side"
       />
     </template>
 
     <template #front>
-      <CardSide>
+      <CardSide
+        :class="style"
+        class="side"
+      >
         <div class="question">
           {{ getQuestion(type) }}
         </div>
@@ -30,7 +35,10 @@
     </template>
 
     <template #back>
-      <CardSide>
+      <CardSide
+        :class="style"
+        class="side"
+      >
         <component
           :is="getSideComponent(type, false)"
           :verse-number="verseNumber"
@@ -82,7 +90,7 @@ const emit = defineEmits<{
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
-  type, text, targetY
+  type, text, targetY, style
 }}} = toRefs(props)
 
 

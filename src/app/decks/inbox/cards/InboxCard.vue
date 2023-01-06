@@ -9,7 +9,11 @@
     @swiping="onSwiping"
   >
     <template #overlay>
-      <InboxCardSwipeOverlay :grade="grade" />
+      <InboxCardSwipeOverlay
+        :grade="grade"
+        :class="style"
+        class="side"
+      />
     </template>
 
     <template #front>
@@ -17,17 +21,25 @@
         v-if="type === InboxCardType.Text"
         :verse-number="verseNumber"
         :lines="text"
+        class="side"
+        :class="style"
       />
 
       <InboxCardTranslationSide
         v-if="type === InboxCardType.Translation"
         :verse-number="verseNumber"
         :translation="translation"
+        :class="style"
+        class="side"
       />
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide :words="synonyms" />
+      <InboxCardSynonymsSide
+        :words="synonyms"
+        class="side"
+        :class="style"
+      />
     </template>
   </FlipCard>
 </template>
@@ -59,9 +71,8 @@ const emit = defineEmits<{
 }>()
 
 const {
-  verseNumber, translation, synonyms, grade, type, text
+  verseNumber, translation, synonyms, grade, type, text, style
 } = toRefs(props.card)
-
 
 /* -------------------------------------------------------------------------- */
 /*                                 Handlers                                   */
