@@ -45,6 +45,14 @@
             v-model="shlokas.settings.showGradeButtons.value"
           />
         </ion-item>
+
+        <ion-item>
+          <ion-label>Colorful cards</ion-label>
+          <ion-toggle
+            slot="end"
+            v-model="shlokas.settings.colorfulCards.value"
+          />
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>

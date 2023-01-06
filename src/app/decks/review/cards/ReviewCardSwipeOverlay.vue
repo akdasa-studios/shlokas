@@ -1,6 +1,6 @@
 <template>
   <div
-    class="side borders big-text transition"
+    class="big-text transition"
     :class="{'invisible':!isVisible}"
   >
     <div
@@ -45,4 +45,4 @@ const reviewGradeToName = computed(() =>
 }
 </style>
 
-<style src="@/app/decks/Card.css" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" scoped />

@@ -1,7 +1,8 @@
 import { Verse } from '@akdasa-studios/shlokas-core'
 import { computed } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-
+import { shlokas } from '@/application'
+import { hashString } from '../utils/hashString'
 
 export abstract class CardViewModel implements ViewModel {
   public readonly _verse: DomainViewModel<Verse>
@@ -24,6 +25,13 @@ export abstract class CardViewModel implements ViewModel {
     }))
   })
 
+  style = computed(() => {
+    if (shlokas.settings.colorfulCards.value) {
+      return "side-color-" + (1+(hashString(this.verseNumber.value) % 8)).toString()
+    } else {
+      return "side-color-0"
+    }
+  })
   /* -------------------------------------------------------------------------- */
   /*                                    Sync                                    */
   /* -------------------------------------------------------------------------- */

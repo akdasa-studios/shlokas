@@ -1,0 +1,94 @@
+
+$colors: (
+  "1": #ffb7ce,
+  "2": #89cff0,
+  "3": #99c5c4,
+  "4": #9adedb,
+  "5": #F2C4DE,
+  "6": #aaf0d1,
+  "7": #FFDFD3,
+  "8": #E5F5DC,
+  "9": #bdb0d0,
+);
+
+.side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  font-size: 6vw;
+  text-align: center;
+
+  border: 1px solid black;
+  border-radius: 8px;
+  border-bottom: 10px solid black;
+
+  > .number {
+    text-transform: uppercase;
+    padding: .4em;
+    margin: .4em;
+    border-radius: .2em;
+    font-size: 6vw;
+  }
+
+  > .question {
+    text-transform: uppercase;
+    padding: .4em;
+    margin: .4em;
+    border-radius: .2em;
+    font-size: 6vw;
+  }
+}
+
+.big-text {
+  font-size: 9vw;
+}
+
+.side-color-0 {
+  background-color: var(--ion-color-light-tint);
+  border-color: var(--ion-color-light-shade);
+  border-bottom-color: var(--ion-color-light-shade);
+
+  > .number {
+    background-color: var(--ion-color-light-shade);
+  }
+  > .question {
+    background-color: var(--ion-color-light-shade);
+  }
+}
+
+@each $name, $base-color in $colors {
+  $darken-color: darken($base-color, 10%);
+
+  .side-color-#{$name} {
+    background-color: $base-color;
+    border-color: $darken-color;
+    border-bottom-color: $darken-color;
+
+    > .number {
+      background-color: $darken-color;
+    }
+    > .question {
+      background-color: $darken-color;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .side-color-#{$name} {
+      background-color: invert($base-color);
+      border-color: invert($darken-color);
+      border-bottom-color: invert($darken-color);
+
+      > .number {
+        background-color: invert($darken-color);
+      }
+      > .question {
+        background-color: invert($darken-color);
+      }
+    }
+  }
+}

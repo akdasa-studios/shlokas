@@ -1,6 +1,6 @@
 <template>
   <div
-    class="side borders big-text transition"
+    class="big-text transition"
     :class="{'invisible':!isVisible}"
   >
     <div v-if="isFinished">
@@ -35,4 +35,4 @@ const isFinished = computed(() => props.grade === 'finished')
 .transition { transition: .25s; }
 </style>
 
-<style src="@/app/decks/Card.css" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" scoped />

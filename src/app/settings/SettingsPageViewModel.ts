@@ -28,6 +28,10 @@ export class SettingsPageViewModel extends ViewModel {
       if (!this.dbName.value) { return }
       this._store.set("dbName", this.dbName.value)
     })
+    watchEffect(() => {
+      if (this.colorfulCards.value == undefined) { return }
+      this._store.set("colorfulCards", this.colorfulCards.value)
+    })
   }
 
   /* -------------------------------------------------------------------------- */
@@ -37,6 +41,7 @@ export class SettingsPageViewModel extends ViewModel {
   public readonly login = ref()
   public readonly password = ref()
   public readonly dbName = ref()
+  public readonly colorfulCards = ref()
   public readonly syncServer = computed(() => {
     return `https://${this.login.value}:${this.password.value}@${this.dbHost}/${this.dbName.value}`
   })
@@ -82,5 +87,6 @@ export class SettingsPageViewModel extends ViewModel {
     this.password.value = await this._store.get('password')
     this.dbName.value = await this._store.get('dbName')
     this.dbName.value = await this._store.get('dbName')
+    this.colorfulCards.value = await this._store.get('colorfulCards')
   }
 }
