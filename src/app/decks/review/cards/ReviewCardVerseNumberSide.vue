@@ -1,5 +1,5 @@
 <template>
-  <div class="number">
+  <div>
     {{ props.verseNumber }}
   </div>
 </template>

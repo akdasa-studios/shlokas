@@ -29,7 +29,14 @@ $colors: (
 
   > .number {
     text-transform: uppercase;
+    padding: .4em;
+    margin: .4em;
+    border-radius: .2em;
+    font-size: 6vw;
+  }
 
+  > .question {
+    text-transform: uppercase;
     padding: .4em;
     margin: .4em;
     border-radius: .2em;
@@ -49,6 +56,9 @@ $colors: (
   > .number {
     background-color: var(--ion-color-light-shade);
   }
+  > .question {
+    background-color: var(--ion-color-light-shade);
+  }
 }
 
 @each $name, $base-color in $colors {
@@ -62,6 +72,9 @@ $colors: (
     > .number {
       background-color: $darken-color;
     }
+    > .question {
+      background-color: $darken-color;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -71,6 +84,9 @@ $colors: (
       border-bottom-color: invert($darken-color);
 
       > .number {
+        background-color: invert($darken-color);
+      }
+      > .question {
         background-color: invert($darken-color);
       }
     }
