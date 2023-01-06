@@ -45,4 +45,4 @@ const reviewGradeToName = computed(() =>
 }
 </style>
 
-<style src="@/app/decks/Card.css" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" scoped />
