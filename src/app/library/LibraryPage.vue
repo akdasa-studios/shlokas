@@ -35,7 +35,7 @@
               <ion-badge
                 v-if="verse.showStatus.value"
                 class="badge"
-                color="medium"
+                color="primary"
                 :data-testid="testId(verse.number.value, 'badge')"
               >
                 {{ verse.status.value }}
