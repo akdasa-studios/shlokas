@@ -4,10 +4,10 @@ $colors: (
   "2": #89cff0,
   "3": #99c5c4,
   "4": #9adedb,
-  "5": #aa9499,
+  "5": #F2C4DE,
   "6": #aaf0d1,
-  "7": #b2fba5,
-  "8": #b39eb5,
+  "7": #FFDFD3,
+  "8": #E5F5DC,
   "9": #bdb0d0,
 );
 
@@ -35,10 +35,10 @@ $colors: (
     border-radius: .2em;
     font-size: 6vw;
   }
+}
 
-  > .big-text {
-    font-size: 9vw;
-  }
+.big-text {
+  font-size: 9vw;
 }
 
 .side-color-0 {

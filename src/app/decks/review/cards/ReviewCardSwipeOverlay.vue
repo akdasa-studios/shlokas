@@ -1,6 +1,6 @@
 <template>
   <div
-    class="side borders big-text transition"
+    class="big-text transition"
     :class="{'invisible':!isVisible}"
   >
     <div
