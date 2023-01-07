@@ -1,5 +1,4 @@
 import { Language } from '@akdasa-studios/shlokas-core'
-import { OverlayEventDetail } from '@ionic/core/components'
 import { markRaw, Ref, ref, watch } from 'vue'
 import { VerseViewModel } from '@/app/library'
 import { ViewModel } from '@/app/DomainViewModel'

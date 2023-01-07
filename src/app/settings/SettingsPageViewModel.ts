@@ -6,10 +6,11 @@ import { ViewModel } from '@/app/DomainViewModel'
 import { ApplicationViewModel } from '../ApplicationViewModel'
 
 
+const HOST = process.env.NODE_ENV === "development" ? 'localhost' : 'shlokas.app'
+
 export class SettingsPageViewModel extends ViewModel {
   private _store: Storage
-  public readonly dbHost = "shlokas.app/db"
-  public readonly authHost = "https://shlokas.app/auth/user"
+  public readonly authHost = `http://${HOST}/auth`
 
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
@@ -17,20 +18,24 @@ export class SettingsPageViewModel extends ViewModel {
     this._store.create()
 
     watchEffect(() => {
-      if (this.login.value === undefined) { return }
-      this._store.set("login", this.login.value)
+      if (this.name.value === undefined) { return }
+      this._store.set("name", this.name.value)
+    })
+    watchEffect(() => {
+      if (this.email.value === undefined) { return }
+      this._store.set("email", this.email.value)
     })
     watchEffect(() => {
       if (this.password.value === undefined) { return }
       this._store.set("password", this.password.value)
     })
     watchEffect(() => {
-      if (!this.dbName.value) { return }
-      this._store.set("dbName", this.dbName.value)
-    })
-    watchEffect(() => {
       if (this.colorfulCards.value == undefined) { return }
       this._store.set("colorfulCards", this.colorfulCards.value)
+    })
+    watchEffect(() => {
+      if (this.authToken.value === undefined) { return }
+      this._store.set("authToken", JSON.stringify(this.authToken.value))
     })
   }
 
@@ -38,12 +43,17 @@ export class SettingsPageViewModel extends ViewModel {
   /*                                   Account                                  */
   /* -------------------------------------------------------------------------- */
 
-  public readonly login = ref()
+  public readonly name = ref()
+  public readonly email = ref()
   public readonly password = ref()
-  public readonly dbName = ref()
   public readonly colorfulCards = ref()
-  public readonly syncServer = computed(() => {
-    return `https://${this.login.value}:${this.password.value}@${this.dbHost}/${this.dbName.value}`
+  public readonly authToken = ref()
+  public readonly dbConnectionString = computed(() => {
+    if (!this.authToken.value) { return undefined }
+    return this.authToken.value.dbName.replace('db:5984', `${HOST}/db`)
+  })
+  public readonly isAuthenticated = computed(() => {
+    return !!this.authToken.value
   })
 
   /* -------------------------------------------------------------------------- */
@@ -83,10 +93,10 @@ export class SettingsPageViewModel extends ViewModel {
     if (i18n) {
       i18n.global.locale.value = this.language.value.code as any
     }
-    this.login.value = await this._store.get('login')
+    this.name.value = await this._store.get('name')
+    this.email.value = await this._store.get('email')
     this.password.value = await this._store.get('password')
-    this.dbName.value = await this._store.get('dbName')
-    this.dbName.value = await this._store.get('dbName')
     this.colorfulCards.value = await this._store.get('colorfulCards')
+    this.authToken.value = JSON.parse(await this._store.get('authToken'))
   }
 }

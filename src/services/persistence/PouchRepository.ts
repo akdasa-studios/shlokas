@@ -17,6 +17,7 @@ export class CouchDB {
   }
 
   async sync(to: string) {
+    console.log("syncing to", to)
     await this._db.sync(to)
   }
 
