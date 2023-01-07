@@ -32,6 +32,7 @@
         <ion-tab-button
           tab="tab3"
           href="/home/review"
+          @click="shlokas.reviewDeck.sync()"
         >
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
