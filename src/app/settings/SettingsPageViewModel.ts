@@ -50,7 +50,9 @@ export class SettingsPageViewModel extends ViewModel {
   public readonly authToken = ref()
   public readonly dbConnectionString = computed(() => {
     if (!this.authToken.value) { return undefined }
-    return this.authToken.value.dbName.replace('db:5984', `${HOST}/db`)
+    return this.authToken.value.dbName
+      .replace('db:5984', `${HOST}/db`)
+      .replace('http://', 'https://')
   })
   public readonly isAuthenticated = computed(() => {
     return !!this.authToken.value
