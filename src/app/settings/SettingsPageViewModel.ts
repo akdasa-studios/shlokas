@@ -10,7 +10,7 @@ const HOST = process.env.NODE_ENV === "development" ? 'localhost' : 'shlokas.app
 
 export class SettingsPageViewModel extends ViewModel {
   private _store: Storage
-  public readonly authHost = `http://${HOST}/auth`
+  public readonly authHost = `https://${HOST}/auth`
 
   constructor(private readonly shlokas: ApplicationViewModel) {
     super()
