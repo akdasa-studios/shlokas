@@ -1,49 +1,47 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
+import { useDeviceStore } from '@/app/useDeviceStorage'
 
 
-interface Storage {
-  get(key: string): Promise<any>
-  set(key: string, value: any): Promise<any>
-}
-
-
-export function useAppearanceStore(storage: Storage) {
+export const useAppearanceStore = defineStore('settings/appearance', () => {
   const KEY_COLORFUL_CARDS = 'colorfulCards'
   const KEY_GRADE_BUTTONS = 'gradeButtons'
+  const storage = useDeviceStore()
 
-  return defineStore('settings/appearance', () => {
-    const colorfulCards = ref(false)
-    const gradeButtons = ref(false)
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
 
-    watch(colorfulCards, onColorfulCardsChanged)
-    watch(gradeButtons, onGradeButtonsChanged)
+  const colorfulCards = ref(false)
+  const gradeButtons = ref(false)
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Actions                                  */
-    /* -------------------------------------------------------------------------- */
+  watch(colorfulCards, onColorfulCardsChanged)
+  watch(gradeButtons, onGradeButtonsChanged)
 
-    async function load() {
-      colorfulCards.value = await storage.get(KEY_COLORFUL_CARDS)
-      gradeButtons.value = await storage.get(KEY_GRADE_BUTTONS)
-    }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Private                                  */
-    /* -------------------------------------------------------------------------- */
+  async function load() {
+    colorfulCards.value = await storage.get(KEY_COLORFUL_CARDS)
+    gradeButtons.value = await storage.get(KEY_GRADE_BUTTONS)
+  }
 
-    async function onColorfulCardsChanged(value: boolean) {
-      await storage.set(KEY_COLORFUL_CARDS, value)
-    }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Private                                  */
+  /* -------------------------------------------------------------------------- */
 
-    async function onGradeButtonsChanged(value: boolean) {
-      await storage.set(KEY_GRADE_BUTTONS, value)
-    }
+  async function onColorfulCardsChanged(value: boolean) {
+    await storage.set(KEY_COLORFUL_CARDS, value)
+  }
 
-    /* -------------------------------------------------------------------------- */
-    /*                                  Interface                                 */
-    /* -------------------------------------------------------------------------- */
+  async function onGradeButtonsChanged(value: boolean) {
+    await storage.set(KEY_GRADE_BUTTONS, value)
+  }
 
-    return { colorfulCards, gradeButtons, load }
-  })()
-}
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { colorfulCards, gradeButtons, load }
+})

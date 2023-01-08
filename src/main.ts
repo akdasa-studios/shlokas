@@ -32,7 +32,7 @@ async function initApp() {
   const storage = new Storage()
   await storage.create()
   const lang = (await storage.get("language")) || 'en'
-  const shlokasApp = createApplication()
+  const shlokasApp = await createApplication()
 
   const app = createApp(App)
     .use(IonicVue)

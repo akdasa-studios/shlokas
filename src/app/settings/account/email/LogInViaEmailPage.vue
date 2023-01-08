@@ -66,19 +66,15 @@
 import {
   IonButton, IonContent, IonHeader, IonInput, IonItem,
   IonLabel, IonList, IonLoading, IonPage, IonTitle,
-  IonToolbar, modalController
+  IonToolbar, IonButtons, modalController
 } from '@ionic/vue'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { Storage } from '@ionic/storage'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
 import { useAccountStore } from '@/app/settings'
 
-const deviceStorage = new Storage()
-deviceStorage.create()
-
-const account = useAccountStore(deviceStorage)
+const account = useAccountStore()
 const { email, password, token } = storeToRefs(account)
 
 const inProgress = ref(false)
@@ -89,9 +85,13 @@ async function onLogIn() {
     email.value,
     password.value,
   )
-  if (result.isSuccess) { token.value = result.value }
+  if (result.isSuccess) {
+    token.value = result.value
+    modalController.dismiss(null, 'ok')
+  } else {
+    console.log("Ero")
+  }
   inProgress.value = false
-  return modalController.dismiss(null, 'ok')
 }
 
 function cancel() {

@@ -91,8 +91,10 @@ import { useInboxDeckStore } from '../decks/inbox'
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
+const app = inject('app') as Application
+
 const i18n = useLocaleStore()
-const inboxDeck = useInboxDeckStore()
+const inboxDeck = useInboxDeckStore(app)
 const { language } = storeToRefs(i18n)
 
 const { t } = useI18n()
@@ -101,7 +103,6 @@ const verseDialog = useDialog<VerseViewModel>(VerseViewModel.empty)
 const verseAddedToast = useToast()
 const page = ref(null)
 const presentingElement = ref(null)
-const app = inject('app') as Application
 const query = ref("")
 const verses: Ref<VerseViewModel[]> = ref([])
 const { refresh: refreshInboxDeck } = inboxDeck
@@ -149,6 +150,7 @@ async function onRevert() {
 /* -------------------------------------------------------------------------- */
 
 async function findByContent(lang: Language, query: string) {
+  console.log(app)
   const verses = await app.library.findByContent(lang, query)
   const statuses = await app.library.getStatuses(verses.map(x => x.id))
 

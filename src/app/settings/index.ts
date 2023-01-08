@@ -1,6 +1,5 @@
 export * from './useLocaleStore'
 export * from './useAppearanceStore'
 export * from './useAccountStore'
-export * from './SettingsPageViewModel'
 export { default as SettingsPage } from './SettingsPage.vue'
 export { default as AccountSettingsPage } from './account/AccountPage.vue'

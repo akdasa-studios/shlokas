@@ -82,7 +82,6 @@ import {
 import { mail } from 'ionicons/icons'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { Storage } from '@ionic/storage'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
@@ -90,12 +89,12 @@ import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 
-const deviceStorage = new Storage()
-deviceStorage.create()
-
-const account = useAccountStore(deviceStorage)
+const account = useAccountStore()
+console.log(account)
 const { isAuthenticated, syncHost } = storeToRefs(account)
-const { logOut } = account
+const { logOut, load } = account
+
+load()
 
 async function openModal(component: any) {
   const modal = await modalController.create({ component })

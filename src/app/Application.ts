@@ -1,5 +1,6 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text } from "@akdasa-studios/shlokas-core"
+import { Storage } from '@ionic/storage'
 import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
 import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository"
 import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
@@ -7,12 +8,18 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persi
 
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
+import { useDeviceStore } from './useDeviceStorage'
 
 export let application: Application
 export let couchDB: CouchDB
 
-export function createApplication() {
+export async function createApplication() {
   const dev = process.env.NODE_ENV === "development"
+
+  const deviceStorage = new Storage()
+  await deviceStorage.create()
+  const storage = useDeviceStore()
+  storage.init(deviceStorage)
 
   couchDB = new CouchDB(
     dev

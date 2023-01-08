@@ -63,13 +63,10 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
-import { Storage } from '@ionic/storage'
 import { useAppearanceStore, useLocaleStore } from '@/app/settings'
-const deviceStorage = new Storage()
-deviceStorage.create()
 
-const locale = useLocaleStore(deviceStorage)
-const appearance = useAppearanceStore(deviceStorage)
+const locale = useLocaleStore()
+const appearance = useAppearanceStore()
 
 locale.load()
 appearance.load()

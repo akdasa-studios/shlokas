@@ -84,16 +84,12 @@ import {
   IonLoading, modalController
 } from '@ionic/vue'
 import { ref } from 'vue'
-import { Storage } from '@ionic/storage'
 import { storeToRefs } from 'pinia'
 import { AuthService } from '@/services/AuthService'
 import { useAccountStore } from '@/app/settings'
 import { AUTH_HOST } from '@/app/Env'
 
-const deviceStorage = new Storage()
-deviceStorage.create()
-
-const account = useAccountStore(deviceStorage)
+const account = useAccountStore()
 const { name, email, password } = storeToRefs(account)
 
 const inProgress = ref(false)

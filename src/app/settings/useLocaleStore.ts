@@ -2,49 +2,47 @@ import { defineStore } from 'pinia'
 import { ref, watch, computed, Ref } from 'vue'
 import { Language } from '@akdasa-studios/shlokas-core'
 import { i18n } from '@/i18n'
+import { useDeviceStore } from '@/app/useDeviceStorage'
 
 
-interface Storage {
-  get(key: string): Promise<any>
-  set(key: string, value: any): Promise<any>
-}
-
-
-export function useLocaleStore(storage: Storage) {
+export const useLocaleStore = defineStore('settings/locale', () => {
   const KEY_LANGUAGE = 'language'
+  const storage = useDeviceStore()
 
-  return defineStore('settings/locale', () => {
-    const languageCode: Ref<string> = ref(i18n.global.locale.value)
-    const language = computed(() => availableLanguages.find(x => x.code === languageCode.value) || availableLanguages[0])
-    const availableLanguages = [
-      new Language("en", "English"),
-      new Language("ru", "Русский"),
-      new Language("rs", "Српски")
-    ]
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
 
-    watch(languageCode, onLanguageChanged)
+  const languageCode: Ref<string> = ref(i18n.global.locale.value)
+  const language = computed(() => availableLanguages.find(x => x.code === languageCode.value) || availableLanguages[0])
+  const availableLanguages = [
+    new Language("en", "English"),
+    new Language("ru", "Русский"),
+    new Language("rs", "Српски")
+  ]
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Actions                                  */
-    /* -------------------------------------------------------------------------- */
+  watch(languageCode, onLanguageChanged)
 
-    async function load() {
-      languageCode.value = await storage.get(KEY_LANGUAGE)
-    }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Private                                  */
-    /* -------------------------------------------------------------------------- */
+  async function load() {
+    languageCode.value = await storage.get(KEY_LANGUAGE)
+  }
 
-    async function onLanguageChanged(lang: string) {
-      i18n.global.locale.value = lang
-      await storage.set("language", lang)
-    }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Private                                  */
+  /* -------------------------------------------------------------------------- */
 
-    /* -------------------------------------------------------------------------- */
-    /*                                  Interface                                 */
-    /* -------------------------------------------------------------------------- */
+  async function onLanguageChanged(lang: string) {
+    i18n.global.locale.value = lang
+    await storage.set("language", lang)
+  }
 
-    return { language, availableLanguages, languageCode, load }
-  })()
-}
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { language, availableLanguages, languageCode, load }
+})
