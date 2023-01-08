@@ -7,7 +7,6 @@
         <ion-tab-button
           tab="tab1"
           href="/home/library"
-          @click="shlokas.library.sync()"
         >
           <ion-icon :icon="libraryOutline" />
           <ion-label>{{ $t('library.title') }}</ion-label>
@@ -17,30 +16,28 @@
           tab="tab2"
           href="/home/inbox"
           data-testid="inbox-tab"
-          @click="shlokas.inboxDeck.sync()"
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
           <ion-badge
-            v-if="shlokas.inboxDeck.count.value"
+            v-if="inboxDeckCount"
             data-testid="inboxCounterBadge"
           >
-            {{ shlokas.inboxDeck.count.value }}
+            {{ inboxDeckCount }}
           </ion-badge>
         </ion-tab-button>
 
         <ion-tab-button
           tab="tab3"
           href="/home/review"
-          @click="shlokas.reviewDeck.sync()"
         >
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
-            v-if="shlokas.reviewDeck.count.value"
+            v-if="reviewDeckCount"
             data-testid="reviewCounterBadge"
           >
-            {{ shlokas.reviewDeck.count.value }}
+            {{ reviewDeckCount }}
           </ion-badge>
         </ion-tab-button>
 
@@ -66,6 +63,13 @@ import {
   enterOutline, libraryOutline, albumsOutline,
   constructOutline
 } from 'ionicons/icons'
+import { storeToRefs } from 'pinia'
+import { Application } from '@akdasa-studios/shlokas-core'
+import { inject } from 'vue'
+import { useInboxDeckStore } from '@/app/decks/inbox'
+import { useReviewDeckStore } from '@/app/decks/review'
 
-import { shlokas } from '@/application'
+const app = inject('app') as Application
+const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore(app))
+const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore(app))
 </script>

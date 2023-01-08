@@ -30,7 +30,7 @@
             Name
           </ion-label>
           <ion-input
-            v-model="shlokas.settings.name.value"
+            v-model="name"
           />
         </ion-item>
 
@@ -40,7 +40,7 @@
             EMail
           </ion-label>
           <ion-input
-            v-model="shlokas.settings.email.value"
+            v-model="email"
             type="email"
           />
         </ion-item>
@@ -51,7 +51,7 @@
             Password
           </ion-label>
           <ion-input
-            v-model="shlokas.settings.password.value"
+            v-model="password"
             type="password"
           />
         </ion-item>
@@ -84,20 +84,26 @@ import {
   IonLoading, modalController
 } from '@ionic/vue'
 import { ref } from 'vue'
-import { shlokas } from '@/application'
+import { Storage } from '@ionic/storage'
+import { storeToRefs } from 'pinia'
 import { AuthService } from '@/services/AuthService'
+import { useAccountStore } from '@/app/settings'
+import { AUTH_HOST } from '@/app/Env'
+
+const deviceStorage = new Storage()
+deviceStorage.create()
+
+const account = useAccountStore(deviceStorage)
+const { name, email, password } = storeToRefs(account)
 
 const inProgress = ref(false)
 const showVerifyEmail = ref(false)
 
 async function onSignUp() {
   inProgress.value = true
-  const result = await new AuthService(shlokas.settings.authHost).signUp(
-    shlokas.settings.name.value,
-    shlokas.settings.email.value,
-    shlokas.settings.password.value,
+  await new AuthService(AUTH_HOST).signUp(
+    name.value, email.value, password.value,
   )
-  console.log(result)
   inProgress.value = false
   showVerifyEmail.value = true
 }

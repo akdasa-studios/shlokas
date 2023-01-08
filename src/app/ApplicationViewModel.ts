@@ -3,9 +3,9 @@ import { Application } from "@akdasa-studios/shlokas-core"
 
 // View models
 import { ViewModel } from '@/app/DomainViewModel'
-import { InboxDeckPageViewModel } from '@/app/decks/inbox'
-import { ReviewDeckPageViewModel } from '@/app/decks/review'
-import { LibraryPageViewModel } from '@/app/library'
+// import { InboxDeckPageViewModel } from '@/app/decks/inbox'
+// import { ReviewDeckPageViewModel } from '@/app/decks/review'
+// import { LibraryPageViewModel } from '@/app/library'
 import { SettingsPageViewModel } from '@/app/settings'
 
 // Controllers
@@ -24,9 +24,9 @@ export class ApplicationViewModel extends ViewModel {
   /* -------------------------------------------------------------------------- */
 
   public readonly settings = new SettingsPageViewModel(this)
-  public readonly library = new LibraryPageViewModel(this)
-  public readonly inboxDeck = new InboxDeckPageViewModel(this)
-  public readonly reviewDeck = new ReviewDeckPageViewModel(this)
+  // public readonly library = new LibraryPageViewModel(this)
+  // public readonly inboxDeck = new InboxDeckPageViewModel(this)
+  // public readonly reviewDeck = new ReviewDeckPageViewModel(this)
 
   /* -------------------------------------------------------------------------- */
   /*                                 Controllers                                */
@@ -48,8 +48,8 @@ export class ApplicationViewModel extends ViewModel {
   /* -------------------------------------------------------------------------- */
 
   sync() {
-    this.library.sync()
-    this.inboxDeck.sync()
-    this.reviewDeck.sync()
+    // this.library.sync()
+    // this.inboxDeck.sync()
+    // this.reviewDeck.sync()
   }
 }

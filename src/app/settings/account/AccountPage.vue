@@ -10,12 +10,12 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-      <h1 v-if="shlokas.settings.isAuthenticated.value">
+      <h1 v-if="isAuthenticated">
         Welcome back!
       </h1>
 
       <ion-button
-        v-if="!shlokas.settings.isAuthenticated.value"
+        v-if="!isAuthenticated"
         expand="block"
         @click="openModal(LogInViaEmailPage)"
       >
@@ -27,7 +27,7 @@
       </ion-button>
 
       <ion-button
-        v-if="!shlokas.settings.isAuthenticated.value"
+        v-if="!isAuthenticated"
         expand="block"
         fill="clear"
         @click="openModal(SignUpViaEmailPage)"
@@ -36,16 +36,16 @@
       </ion-button>
 
       <ion-button
-        v-if="shlokas.settings.isAuthenticated.value"
+        v-if="isAuthenticated"
         fill="outline"
         expand="block"
-        @click="onLogOut"
+        @click="logOut"
       >
         Log Out
       </ion-button>
 
       <ion-button
-        v-if="shlokas.settings.isAuthenticated.value"
+        v-if="isAuthenticated"
         expand="block"
         fill="outline"
         @click="onSync"
@@ -54,7 +54,7 @@
       </ion-button>
 
       <ion-button
-        v-if="shlokas.settings.isAuthenticated.value"
+        v-if="isAuthenticated"
         expand="block"
         fill="outline"
         @click="onClean"
@@ -76,32 +76,35 @@
 <script lang="ts" setup>
 import {
   IonBackButton, IonButton, IonButtons, IonContent,
-  IonHeader, IonPage, IonTitle, IonToolbar, modalController
+  IonHeader, IonPage, IonTitle, IonToolbar, IonLoading,
+  IonIcon, modalController
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
 import { ref } from 'vue'
-import { couchDB, shlokas } from '@/application'
+import { storeToRefs } from 'pinia'
+import { Storage } from '@ionic/storage'
+import { useAccountStore } from '@/app/settings'
+import { couchDB } from '@/app/Application'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 
+const deviceStorage = new Storage()
+deviceStorage.create()
 
-async function openModal(component) {
+const account = useAccountStore(deviceStorage)
+const { isAuthenticated, syncHost } = storeToRefs(account)
+const { logOut } = account
+
+async function openModal(component: any) {
   const modal = await modalController.create({ component })
   modal.present()
 }
 
-function onLogOut() {
-  shlokas.settings.name.value = ""
-  shlokas.settings.email.value = ""
-  shlokas.settings.password.value = ""
-  shlokas.settings.authToken.value = undefined
-}
-
 async function onSync() {
   inProgress.value = true
-  await couchDB.sync(shlokas.settings.dbConnectionString.value)
+  await couchDB.sync(syncHost.value)
   inProgress.value = false
 }
 

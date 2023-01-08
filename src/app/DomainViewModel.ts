@@ -1,7 +1,7 @@
 import { Aggregate, AnyIdentity, Repository, Query } from '@akdasa-studios/framework'
 import { Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
 import { ref, Ref } from 'vue'
-import { repositories } from "@/application"
+import { application } from "@/app/Application"
 
 export abstract class ViewModel {
   sync(): void { /* to be implemented */ }
@@ -44,10 +44,10 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
 
   private getRepository(): Repository<TType> {
     if (this._object instanceof VerseStatus) {
-      return repositories.verseStatuses as unknown as Repository<TType>
+      return application.repositories.verseStatuses as unknown as Repository<TType>
     }
     if (this._object instanceof Verse) {
-      return repositories.verses as unknown as Repository<TType>
+      return application.repositories.verses as unknown as Repository<TType>
     }
     throw Error("Unknown Object Type")
   }

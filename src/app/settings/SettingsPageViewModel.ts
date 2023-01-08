@@ -1,7 +1,5 @@
-import { Language } from '@akdasa-studios/shlokas-core'
 import { Storage } from '@ionic/storage'
 import { computed, ref, watchEffect } from 'vue'
-import { i18n } from '@/i18n'
 import { ViewModel } from '@/app/DomainViewModel'
 import { ApplicationViewModel } from '../ApplicationViewModel'
 
@@ -69,32 +67,10 @@ export class SettingsPageViewModel extends ViewModel {
   /* -------------------------------------------------------------------------- */
 
   /** List of available languages */
-  public readonly availableLanguages = [
-    new Language("en", "English"),
-    new Language("ru", "Русский"),
-    new Language("rs", "Српски")
-  ]
 
-  /** Current language */
-  public language = ref(this.availableLanguages[0])
-
-  /** Changes language */
-  public async changeLanguage(lang: Language) {
-    await this._store.set("language", lang.code)
-    if (i18n) {
-      i18n.global.locale.value = lang.code as any
-    }
-    await this.sync()
-  }
 
   /** Sync view model with domain */
   async sync() {
-    const langCode = await this._store.get('language')
-    this.language.value = this.availableLanguages.find(x => x.code === langCode)
-                          || this.availableLanguages[0]
-    if (i18n) {
-      i18n.global.locale.value = this.language.value.code as any
-    }
     this.name.value = await this._store.get('name')
     this.email.value = await this._store.get('email')
     this.password.value = await this._store.get('password')

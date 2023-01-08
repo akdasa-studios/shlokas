@@ -1,5 +1,5 @@
 import { ref } from "vue"
-import { shlokas } from "@/application"
+// import { shlokas } from "@/application"
 
 
 export class CardMemorizedToastViewModel {
@@ -23,8 +23,8 @@ export class CardMemorizedToastViewModel {
   }
 
   async revert() {
-    await shlokas.app.processor.revert()
-    await shlokas.inboxDeck.sync()
-    await shlokas.reviewDeck.sync()
+    // await shlokas.app.processor.revert()
+    // await shlokas.inboxDeck.sync()
+    // await shlokas.reviewDeck.sync()
   }
 }

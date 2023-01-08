@@ -17,44 +17,45 @@
       :scroll-x="false"
     >
       <ReviewCard
-        v-for="card, idx in vm.cards.value"
-        :key="card.id.value.value"
+        v-for="card, idx in cards"
+        :key="card.id.value"
         :index="idx"
-        :card="(card as ReviewCardViewModel)"
+        :card="(card as unknown as ReviewCardViewModel)"
         :swipe-directions="swipeDirections"
-        :show-grade-buttons="showGradeButtons"
+        :show-grade-buttons="true"
         @graded="onCardGraded"
       />
 
       <!-- Inbox deck is empty -->
-      <ReviewDeckEmpty
-        v-if="vm.count.value === 0"
-      />
+      <ReviewDeckEmpty v-if="count === 0" />
     </ion-content>
   </ion-page>
 </template>
 
 
 <script lang="ts" setup>
-import { ReviewGrade } from '@akdasa-studios/shlokas-core'
+import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
-import { computed } from 'vue'
-import { shlokas } from '@/application'
+import { computed, inject } from 'vue'
+import { storeToRefs } from 'pinia'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty } from '@/app/decks/review'
+import { useReviewDeckStore } from './useReviewStore'
 
-const vm = shlokas.reviewDeck
-const showGradeButtons = shlokas.settings.showGradeButtons
+const app = inject('app') as Application
+const reviewDeck = useReviewDeckStore(app)
+const { cards, count } = storeToRefs(reviewDeck)
+const { reviewTopCard, refresh } = reviewDeck
+
+refresh()
 
 const swipeDirections = computed(() => {
-  return vm.cards.value.length > 1
+  return cards.value.length > 1
     ? ['top', 'bottom', 'left', 'right']
     : ['left', 'right']
 })
 
 
 function onCardGraded(grade: ReviewGrade) {
-  setTimeout(() => {
-    vm.reviewTopCard(grade)
-  }, 250)
+  setTimeout(() => { reviewTopCard(grade) }, 250)
 }
 </script>

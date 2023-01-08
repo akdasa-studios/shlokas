@@ -8,7 +8,7 @@
 
       <ion-toolbar>
         <ion-searchbar
-          v-model="vm.filterQuery.value"
+          v-model="query"
           data-testid="searchbar"
           :placeholder="$t('library.search')"
           animated
@@ -20,12 +20,12 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item
-          v-for="verse in vm.filteredVerses.value"
+          v-for="verse in verses"
           :key="verse.number.toString()"
           :data-testid="testId(verse.number.value)"
           text-wrap
           role="listitem"
-          @click="vm.verseDialog.open(verse)"
+          @click="verseDialog.open(verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -48,23 +48,23 @@
 
       <!-- Modal -->
       <ion-modal
-        :is-open="vm.verseDialog.isOpen.value"
+        :is-open="verseDialog.isOpen.value"
         :presenting-element="presentingElement"
         role="dialog"
-        @will-dismiss="onVerseDialogDismiss"
+        @will-dismiss="(e) => onVerseDialogDismiss(e.detail.role)"
       >
-        <VerseDialog :verse="vm.verseDialog.verse" />
+        <VerseDialog :verse="verseDialog.data.value" />
       </ion-modal>
 
       <!-- Toast -->
       <ion-toast
         position="top"
-        :message="$t('decks.inbox.verseAdded', { verseNumber: vm.verseDialog.verse.number.value })"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: async () => await vm.verseAddedToast.revert() }]"
-        :is-open="vm.verseAddedToast.isOpen.value"
-        :duration="2000"
         color="dark"
-        @did-dismiss="async () => await vm.verseAddedToast.close()"
+        :message="verseAddedToast.message.value"
+        :is-open="verseAddedToast.isOpen.value"
+        :buttons="[{ text: 'Revert', role: 'cancel', handler: onRevert }]"
+        :duration="2000"
+        @did-dismiss="verseAddedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -72,24 +72,41 @@
 
 
 <script lang="ts" setup>
+import { AddVerseToInboxDeck, Application, Language, UpdateVerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   IonBadge, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonPage,
   IonSearchbar, IonTitle, IonToast, IonToolbar
 } from '@ionic/vue'
-import { onMounted, ref } from 'vue'
-import { OverlayEventDetail } from '@ionic/core'
-import { VerseDialog } from '@/app/library'
+import { storeToRefs } from 'pinia'
+import { inject, markRaw, onMounted, Ref, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Transaction } from '@akdasa-studios/framework'
 import { testId } from '@/app/TestId'
-import { shlokas } from '@/application'
-
+import { VerseDialog, VerseViewModel } from '@/app/library'
+import { useDialog, useToast } from '@/app/composables'
+import { useLocaleStore } from '@/app/settings'
+import { useInboxDeckStore } from '../decks/inbox'
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const vm = shlokas.library
+const i18n = useLocaleStore()
+const inboxDeck = useInboxDeckStore()
+const { language } = storeToRefs(i18n)
+
+const { t } = useI18n()
+
+const verseDialog = useDialog<VerseViewModel>(VerseViewModel.empty)
+const verseAddedToast = useToast()
 const page = ref(null)
 const presentingElement = ref(null)
+const app = inject('app') as Application
+const query = ref("")
+const verses: Ref<VerseViewModel[]> = ref([])
+const { refresh: refreshInboxDeck } = inboxDeck
+
+watch([language, query], onSearchQueryChanged, { immediate :true })
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -97,11 +114,47 @@ const presentingElement = ref(null)
 
 onMounted(() => {
   presentingElement.value = page.value.$el
-  vm.open()
 })
 
-async function onVerseDialogDismiss(event: CustomEvent<OverlayEventDetail>) {
-  await vm.closeModal(event.detail.role || "")
+async function onSearchQueryChanged() {
+  verses.value = await findByContent(language.value, query.value)
+}
+
+async function onVerseDialogDismiss(action: string) {
+  verseDialog.close()
+  if (action === "confirm") {
+    const verse = verseDialog.data.value
+    const verseNumber = verse.number.value
+
+    verseAddedToast.open(t('decks.inbox.verseAdded', { verseNumber }))
+
+    const transaction = new Transaction()
+    await app.processor.execute(new AddVerseToInboxDeck(verse.verseId.value), transaction)
+    await app.processor.execute(new UpdateVerseStatus(verse.verseId.value), transaction)
+    await verse.sync()
+    await refreshInboxDeck()
+
+  }
+}
+
+async function onRevert() {
+  const verse = verseDialog.data.value
+  await app.processor.revert()
+  await verse.sync()
+  await refreshInboxDeck()
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+async function findByContent(lang: Language, query: string) {
+  const verses = await app.library.findByContent(lang, query)
+  const statuses = await app.library.getStatuses(verses.map(x => x.id))
+
+  return verses.map((verse) => {
+    return markRaw(new VerseViewModel(verse, statuses[verse.id.value]))
+  })
 }
 </script>
 

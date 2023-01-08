@@ -23,13 +23,12 @@
             {{ $t('settings.language') }}
           </ion-label>
           <ion-select
-            :value="shlokas.settings.language.value.code"
+            v-model="locale.languageCode"
             interface="action-sheet"
             placeholder="Language"
-            @ion-change="languageChanged"
           >
             <ion-select-option
-              v-for="lang in shlokas.settings.availableLanguages"
+              v-for="lang in locale.availableLanguages"
               :key="lang.code"
               :value="lang.code"
             >
@@ -42,7 +41,7 @@
           <ion-label>Grade buttons</ion-label>
           <ion-toggle
             slot="end"
-            v-model="shlokas.settings.showGradeButtons.value"
+            v-model="appearance.colorfulCards"
           />
         </ion-item>
 
@@ -50,7 +49,7 @@
           <ion-label>Colorful cards</ion-label>
           <ion-toggle
             slot="end"
-            v-model="shlokas.settings.colorfulCards.value"
+            v-model="appearance.gradeButtons"
           />
         </ion-item>
       </ion-list>
@@ -60,15 +59,18 @@
 
 
 <script lang="ts" setup>
-import { Language } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
-import { shlokas } from '@/application'
+import { Storage } from '@ionic/storage'
+import { useAppearanceStore, useLocaleStore } from '@/app/settings'
+const deviceStorage = new Storage()
+deviceStorage.create()
 
-async function languageChanged(e: any) {
-  const lang = shlokas.settings.availableLanguages.find(x => x.code === e.detail.value)
-  await shlokas.settings.changeLanguage(lang as Language)
-}
+const locale = useLocaleStore(deviceStorage)
+const appearance = useAppearanceStore(deviceStorage)
+
+locale.load()
+appearance.load()
 </script>

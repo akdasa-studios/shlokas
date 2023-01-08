@@ -12,6 +12,6 @@ export class DebugController{
       )
     )
 
-    this.shlokas.reviewDeck.sync()
+    // this.shlokas.reviewDeck.sync()
   }
 }

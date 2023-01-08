@@ -25,7 +25,7 @@
             EMail
           </ion-label>
           <ion-input
-            v-model="shlokas.settings.email.value"
+            v-model="email"
             type="email"
           />
         </ion-item>
@@ -36,7 +36,7 @@
             Password
           </ion-label>
           <ion-input
-            v-model="shlokas.settings.password.value"
+            v-model="password"
             type="password"
           />
         </ion-item>
@@ -69,20 +69,27 @@ import {
   IonToolbar, modalController
 } from '@ionic/vue'
 import { ref } from 'vue'
-import { shlokas } from '@/application'
+import { storeToRefs } from 'pinia'
+import { Storage } from '@ionic/storage'
 import { AuthService } from '@/services/AuthService'
+import { AUTH_HOST } from '@/app/Env'
+import { useAccountStore } from '@/app/settings'
+
+const deviceStorage = new Storage()
+deviceStorage.create()
+
+const account = useAccountStore(deviceStorage)
+const { email, password, token } = storeToRefs(account)
 
 const inProgress = ref(false)
 
 async function onLogIn() {
   inProgress.value = true
-  const result = await new AuthService(shlokas.settings.authHost).logIn(
-    shlokas.settings.email.value,
-    shlokas.settings.password.value,
+  const result = await new AuthService(AUTH_HOST).logIn(
+    email.value,
+    password.value,
   )
-  if (result.isSuccess) {
-    shlokas.settings.authToken.value = result.value
-  }
+  if (result.isSuccess) { token.value = result.value }
   inProgress.value = false
   return modalController.dismiss(null, 'ok')
 }

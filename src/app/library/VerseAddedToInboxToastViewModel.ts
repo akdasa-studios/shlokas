@@ -1,6 +1,6 @@
 import { ref } from "vue"
 import { VerseViewModel } from '@/app/library'
-import { shlokas } from "@/application"
+// import { shlokas } from "@/application"
 
 
 export class VerseAddedToInboxToastViewModel {
@@ -26,8 +26,8 @@ export class VerseAddedToInboxToastViewModel {
   }
 
   async revert() {
-    await shlokas.app.processor.revert()
-    await shlokas.inboxDeck.sync()
+    // await shlokas.app.processor.revert()
+    // await shlokas.inboxDeck.sync()
     this.verse.sync()
   }
 }
