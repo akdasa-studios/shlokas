@@ -22,7 +22,7 @@
       </ion-buttons>
 
       <ion-title>
-        {{ props.verse.number.value }}
+        {{ props.verse.number }}
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -33,7 +33,7 @@
   >
     <div class="text">
       <div
-        v-for="line, id in props.verse.text.value"
+        v-for="line, id in props.verse.text"
         :key="id"
       >
         {{ line }}
@@ -41,7 +41,7 @@
     </div>
 
     <div class="translation">
-      {{ props.verse.translation.value }}
+      {{ props.verse.translation }}
     </div>
   </ion-content>
 </template>
@@ -53,7 +53,7 @@ import {
   IonTitle, IonToolbar, modalController
 } from '@ionic/vue'
 import { defineProps } from 'vue'
-import { VerseViewModel } from './VerseViewModel'
+import { LibraryVerse } from '@/app/library'
 
 
 /* -------------------------------------------------------------------------- */
@@ -61,7 +61,7 @@ import { VerseViewModel } from './VerseViewModel'
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  verse: VerseViewModel,
+  verse: LibraryVerse,
 }>()
 
 /* -------------------------------------------------------------------------- */
@@ -77,7 +77,7 @@ function onAddClicked() {
   // shlokas.library.verseAddedToast.open(props.verse)
   // shlokas.library.verseDialog.verse.sync()
   // shlokas.inboxDeck.sync()
-  return modalController.dismiss({ verseId: props.verse.verseId.value }, 'confirm')
+  return modalController.dismiss({ verseId: props.verse.verseId }, 'confirm')
 }
 </script>
 

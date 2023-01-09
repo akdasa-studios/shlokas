@@ -15,7 +15,7 @@
       :scroll-x="false"
     >
       <InboxCard
-        v-for="card, idx in cards"
+        v-for="card, idx in userLearningCards.cards"
         :key="card.id.value"
         :index="idx"
         :card="(card as unknown as InboxCardViewModel)"
@@ -24,7 +24,7 @@
       />
 
       <InboxDeckEmpty
-        v-if="store.count === 0"
+        v-if="userLearningCards.count === 0"
         data-testid="inboxEmpty"
       />
 
@@ -32,10 +32,10 @@
         position="top"
         :message="$t('cards.memorized')"
         :buttons="[{ text: 'Revert', role: 'cancel', handler: onRevert }]"
-        :is-open="cardMemorizedToast.isOpen.value"
+        :is-open="userLearningCards.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="cardMemorizedToast.close()"
+        @did-dismiss="userLearningCards.cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -43,28 +43,18 @@
 
 
 <script lang="ts" setup>
-import { Application, InboxCardMemorized } from '@akdasa-studios/shlokas-core'
+import { Application } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
-import { storeToRefs } from 'pinia'
 import { computed, inject } from 'vue'
+import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
-import { InboxCard, InboxCardViewModel, InboxDeckEmpty } from '@/app/decks/inbox'
-import { useToast } from '@/app/composables'
-import { useReviewDeckStore } from '../review'
-import { useInboxDeckStore } from './useInboxStore'
 
 const app = inject('app') as Application
-const store = useInboxDeckStore(app)
-const reviewDeck = useReviewDeckStore(app)
-const cardMemorizedToast = useToast()
-const { cards, count } = storeToRefs(store)
-const { shiftCard, memorizeCard } = store
-const { refresh: refreshReviewDeck } = reviewDeck
-
-store.refresh()
+const userLearningCards = new UserLearningCards(app)
+userLearningCards.open()
 
 const swipeDirections = computed(() => {
-  return count.value > 1
+  return userLearningCards.count > 1
     ? ['top', 'bottom', 'left', 'right']
     : ['top', 'bottom']
 })
@@ -72,20 +62,14 @@ const swipeDirections = computed(() => {
 function onCardSwiped(direction: string) {
   setTimeout(async () => {
     if (direction == "left" || direction == "right") {
-      shiftCard()
+      userLearningCards.shiftCard()
     } else if (direction == "top" || direction == "bottom") {
-      const m = memorizeCard()
-      if (m) {
-        const inboxCard = m._card.object
-        await app.processor.execute(new InboxCardMemorized(inboxCard))
-        await refreshReviewDeck()
-        cardMemorizedToast.open()
-      }
+      await userLearningCards.cardMemorized()
     }
   }, 250)
 }
 
-function onRevert() {
-  app.processor.revert()
+async function onRevert() {
+  await userLearningCards.revert()
 }
 </script>

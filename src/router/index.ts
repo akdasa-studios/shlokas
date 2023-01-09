@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import { RouteRecordRaw } from 'vue-router'
-import HomePage from '@/app/home/views/HomePage.vue'
+import HomePage from '@/app/home/components/HomePage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,11 +14,11 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'library',
-        component: () => import('@/app/library/LibraryPage.vue')
+        component: () => import('@/app/library/components/LibraryPage.vue')
       },
       {
         path: 'inbox',
-        component: () => import('@/app/decks/inbox/InboxDeckPage.vue')
+        component: () => import('@/app/decks/inbox/components/InboxDeckPage.vue')
       },
       {
         path: 'review',

@@ -19,7 +19,8 @@
   },
   "common": {
     "add": "Добавить",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "close": "Закрыть"
   },
   "decks": {
     "inbox": {

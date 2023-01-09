@@ -1,10 +1,10 @@
 import { Application, InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
 import { computed, markRaw, ref, Ref } from 'vue'
-import { InboxCardViewModel } from './cards/InboxCardViewModel'
+import { InboxCardViewModel } from '../models/InboxCardViewModel'
 
 export function useInboxDeckStore(app: Application) {
-  return defineStore('inboxDeck', () => {
+  return defineStore('decks/inbox', () => {
     const cards: Ref<InboxCardViewModel[]> = ref([])
     const count = computed(() => cards.value.length)
 

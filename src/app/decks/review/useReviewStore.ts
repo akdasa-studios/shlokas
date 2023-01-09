@@ -5,7 +5,7 @@ import { ReviewCardViewModel } from './cards/ReviewCardViewModel'
 
 
 export function useReviewDeckStore(app: Application) {
-  return defineStore('reviewDeck', () => {
+  return defineStore('decks/review', () => {
     const cards: Ref<ReviewCardViewModel[]> = ref([])
     const count = computed(() => cards.value.length)
 

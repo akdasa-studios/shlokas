@@ -1,6 +1,8 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text } from "@akdasa-studios/shlokas-core"
 import { Storage } from '@ionic/storage'
+import { App } from '@capacitor/app'
+import { BackgroundTask } from '@capawesome/capacitor-background-task'
 import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
 import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository"
 import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
@@ -8,6 +10,7 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persi
 
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
+import { useAccountStore } from './settings/useAccountStore'
 import { useDeviceStore } from './useDeviceStorage'
 
 export let application: Application
@@ -73,5 +76,22 @@ export async function createApplication() {
   }
 
   application = new Application(repositories)
+
+  /* -------------------------------------------------------------------------- */
+  /*                             Sync in background                             */
+  /* -------------------------------------------------------------------------- */
+
+  App.addListener('appStateChange', async ({ isActive }) => {
+    if (isActive) { return }
+    const account = useAccountStore()
+
+    const taskId = await BackgroundTask.beforeExit(async () => {
+      if (account.syncHost.value) {
+        await couchDB.sync(account.syncHost.value)
+      }
+      BackgroundTask.finish({ taskId })
+    })
+  })
+
   return application
 }

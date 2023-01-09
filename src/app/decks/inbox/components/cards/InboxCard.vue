@@ -49,12 +49,12 @@
 import { defineEmits, defineProps, toRefs } from 'vue'
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import FlipCard from '@/app/decks/FlipCard.vue'
+import { testId } from '@/app/TestId'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
-  InboxCardTranslationSide, InboxCardVerseTextSide
-} from '@/app/decks/inbox/cards'
-import { testId } from '@/app/TestId'
-import { InboxCardViewModel } from './InboxCardViewModel'
+  InboxCardTranslationSide, InboxCardVerseTextSide,
+  InboxCardViewModel
+} from '@/app/decks/inbox'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

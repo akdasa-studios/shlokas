@@ -38,7 +38,6 @@ export const useAccountStore = defineStore('settings/account', () => {
   /* -------------------------------------------------------------------------- */
 
   async function load() {
-    console.log("load")
     name.value = await storage.get(KEY_NAME)
     email.value = await storage.get(KEY_EMAIL)
     password.value = await storage.get(KEY_PASSWORD)
@@ -46,7 +45,6 @@ export const useAccountStore = defineStore('settings/account', () => {
   }
 
   function logOut() {
-    console.log("logout")
     name.value = ""
     email.value = ""
     password.value = ""
