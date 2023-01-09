@@ -1,7 +1,7 @@
 import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, VerseId } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
 import { computed, markRaw, ref, Ref } from 'vue'
-import { ReviewCardViewModel } from './cards/ReviewCardViewModel'
+import { ReviewCardViewModel } from '../models/ReviewCardViewModel'
 
 
 export function useReviewDeckStore(app: Application) {

@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'review',
-        component: () => import('@/app/decks/review/ReviewDeckPage.vue')
+        component: () => import('@/app/decks/review/components/ReviewDeckPage.vue')
       },
       {
         path: 'settings',
