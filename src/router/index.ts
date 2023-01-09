@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
           },
           {
             path: 'account',
-            component: () => import('@/app/settings/account/AccountPage.vue'),
+            component: () => import('@/app/settings/components/account/AccountPage.vue'),
             // children: [
             //   {
             //     path: 'login',

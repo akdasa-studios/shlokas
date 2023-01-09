@@ -5,4 +5,4 @@ export * from './stores/useAccountStore'
 
 // components:
 export { default as SettingsPage } from './components/SettingsPage.vue'
-export { default as AccountSettingsPage } from './account/AccountPage.vue'
+export { default as AccountSettingsPage } from './components/account/AccountPage.vue'
