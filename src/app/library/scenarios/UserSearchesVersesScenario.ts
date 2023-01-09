@@ -21,13 +21,16 @@ export class UserSearchesVersesScenario {
 
     watch(
       [this._language, this.query],
-      () => this.types(),
+      () => this.onQueryChanged(),
       { immediate :true }
     )
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   Privare                                  */
+  /* -------------------------------------------------------------------------- */
 
-  async types() {
+  private async onQueryChanged() {
     this.verses.value = await this.findByContent(this._language.value, this.query.value)
   }
 
