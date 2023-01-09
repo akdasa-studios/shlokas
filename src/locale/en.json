@@ -25,7 +25,8 @@
   "common": {
     "add": "Add",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "revert": "Revert"
   },
   "decks": {
     "inbox": {
