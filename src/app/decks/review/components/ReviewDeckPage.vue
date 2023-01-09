@@ -20,7 +20,7 @@
         :index="idx"
         :card="(card as unknown as ReviewCardViewModel)"
         :swipe-directions="swipeDirections"
-        :show-grade-buttons="true"
+        :show-grade-buttons="appearance.gradeButtons"
         @graded="onCardGraded"
       />
 
@@ -36,9 +36,11 @@ import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
+import { useAppearanceStore } from '@/app/settings'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)
+const appearance = useAppearanceStore()
 userGradesCards.open()
 
 const swipeDirections = computed(() => {

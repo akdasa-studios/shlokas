@@ -41,7 +41,7 @@
           <ion-label>Grade buttons</ion-label>
           <ion-toggle
             slot="end"
-            v-model="appearance.colorfulCards"
+            v-model="appearance.gradeButtons"
           />
         </ion-item>
 
@@ -49,7 +49,7 @@
           <ion-label>Colorful cards</ion-label>
           <ion-toggle
             slot="end"
-            v-model="appearance.gradeButtons"
+            v-model="appearance.colorfulCards"
           />
         </ion-item>
       </ion-list>
