@@ -19,14 +19,16 @@
   },
   "common": {
     "add": "Добавить",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "revert": "Отменить"
   },
   "decks": {
     "inbox": {
       "empty": "Входящие пусты.",
       "goToLibrary": "Зайдите в библиотеку и добавьте стих.",
       "title": "Входящие",
-      "verseAdded": "Стих {verseNumber} добавлен во \"Входящие\""
+      "verseAdded": "{verseNumber} добавлен во \"Входящие\""
     },
     "review": {
       "empty": "Пусто.",

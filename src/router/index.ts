@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import { RouteRecordRaw } from 'vue-router'
-import HomePage from '@/app/home/views/HomePage.vue'
+import HomePage from '@/app/home/components/HomePage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,27 +14,27 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'library',
-        component: () => import('@/app/library/LibraryPage.vue')
+        component: () => import('@/app/library/components/LibraryPage.vue')
       },
       {
         path: 'inbox',
-        component: () => import('@/app/decks/inbox/InboxDeckPage.vue')
+        component: () => import('@/app/decks/inbox/components/InboxDeckPage.vue')
       },
       {
         path: 'review',
-        component: () => import('@/app/decks/review/ReviewDeckPage.vue')
+        component: () => import('@/app/decks/review/components/ReviewDeckPage.vue')
       },
       {
         path: 'settings',
-        component: () => import('@/app/settings/SettingsPage.vue'),
+        component: () => import('@/app/settings/components/SettingsPage.vue'),
         children: [
           {
             path: '',
-            component: () => import('@/app/settings/MainSettingsPage.vue')
+            component: () => import('@/app/settings/components/GeneralSettingsPage.vue')
           },
           {
             path: 'account',
-            component: () => import('@/app/settings/account/AccountPage.vue'),
+            component: () => import('@/app/settings/components/account/AccountPage.vue'),
             // children: [
             //   {
             //     path: 'login',

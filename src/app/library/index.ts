@@ -1,4 +1,11 @@
-export * from './LibraryPageViewModel'
-export * from './VerseViewModel'
-export { default as LibraryPage } from './LibraryPage.vue'
-export { default as VerseDialog } from './VerseDialog.vue'
+// models
+export * from './models/LibraryVerse'
+export * from './models/DummyLibraryVerse'
+
+// components
+export { default as LibraryPage } from './components/LibraryPage.vue'
+export { default as AddVerseDialog } from './components/AddVerseDialog.vue'
+
+// scenarios
+export * from './scenarios/UserAddsVerseToInboxDeckScenario'
+export * from './scenarios/UserSearchesVersesScenario'
