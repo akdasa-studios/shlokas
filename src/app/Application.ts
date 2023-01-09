@@ -10,7 +10,7 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persi
 
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
-import { useAccountStore } from './settings/useAccountStore'
+import { useAccountStore } from './settings/stores/useAccountStore'
 import { useDeviceStore } from './useDeviceStorage'
 
 export let application: Application

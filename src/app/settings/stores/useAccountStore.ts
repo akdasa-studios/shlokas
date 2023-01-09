@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { useDeviceStore } from '@/app/useDeviceStorage'
-import { HOST } from './../Env'
+import { HOST } from '../../Env'
 
 
 export const useAccountStore = defineStore('settings/account', () => {
