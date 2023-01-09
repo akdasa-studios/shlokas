@@ -1,5 +1,11 @@
+// models
 export * from './models/LibraryVerse'
+export * from './models/DummyLibraryVerse'
+
+// components
 export { default as LibraryPage } from './components/LibraryPage.vue'
 export { default as AddVerseDialog } from './components/AddVerseDialog.vue'
-export { UserAddsVerseToInboxDeck } from './scenarios/UserAddsVerseToInbox'
-export { UserSearchesVerses } from './scenarios/UserSearchesVerses'
+
+// scenarios
+export * from './scenarios/UserAddsVerseToInboxDeckScenario'
+export * from './scenarios/UserSearchesVersesScenario'

@@ -1,7 +1,6 @@
-import { InboxCard, InboxCardMemorized, Verse } from '@akdasa-studios/shlokas-core'
+import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-// import { shlokas } from '@/application'
 import { CardViewModel } from '@/app/decks/CardViewModel'
 
 

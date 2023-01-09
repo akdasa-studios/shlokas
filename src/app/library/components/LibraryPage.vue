@@ -25,7 +25,7 @@
           :data-testid="testId(verse.number)"
           text-wrap
           role="listitem"
-          @click="addVerseScenario.openVerseDialog(verse)"
+          @click="addVerseScenario.dialog.open(verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -48,22 +48,22 @@
 
       <!-- Modal -->
       <ion-modal
-        :is-open="addVerseScenario.isVerseDialogOpen.value"
+        :is-open="addVerseScenario.dialog.isOpen.value"
         role="dialog"
         @will-dismiss="(e) => onVerseDialogDismiss(e.detail.role)"
       >
-        <AddVerseDialog :verse="addVerseScenario.activeVerse.value" />
+        <AddVerseDialog :verse="addVerseScenario.dialog.data.value" />
       </ion-modal>
 
       <!-- Toast -->
       <ion-toast
         position="top"
         color="dark"
-        :message="addVerseScenario.toastMessage.value"
-        :is-open="addVerseScenario.isToastOpen.value"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: onRevert }]"
+        :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
+        :is-open="addVerseScenario.toast.isOpen.value"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
         :duration="2000"
-        @did-dismiss="addVerseScenario.closeToast()"
+        @did-dismiss="addVerseScenario.toast.close()"
       />
     </ion-content>
   </ion-page>
@@ -78,24 +78,27 @@ import {
 } from '@ionic/vue'
 import { inject } from 'vue'
 import { testId } from '@/app/TestId'
-import { AddVerseDialog, UserAddsVerseToInboxDeck, UserSearchesVerses } from '@/app/library'
+import {
+  AddVerseDialog, UserAddsVerseToInboxDeckScenario,
+  UserSearchesVersesScenario
+} from '@/app/library'
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
-const addVerseScenario = new UserAddsVerseToInboxDeck(app)
-const searchScenario = new UserSearchesVerses(app)
+const addVerseScenario = new UserAddsVerseToInboxDeckScenario(app)
+const searchScenario = new UserSearchesVersesScenario(app)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 async function onVerseDialogDismiss(action: string) {
-  addVerseScenario.closeVerseDialog()
-  if (action === "confirm" && addVerseScenario.activeVerse) {
-    await addVerseScenario.addVerseToInbox(addVerseScenario.activeVerse.value)
+  addVerseScenario.dialog.close()
+  if (action === "confirm") {
+    await addVerseScenario.addVerseToInbox(addVerseScenario.dialog.data.value)
   }
 }
 

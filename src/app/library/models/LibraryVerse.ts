@@ -4,6 +4,9 @@ import {
 import { computed } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 
+/**
+ * Library verse view model
+ */
 export class LibraryVerse implements ViewModel {
   private readonly _verse: DomainViewModel<Verse>
   private readonly _status: DomainViewModel<VerseStatus>

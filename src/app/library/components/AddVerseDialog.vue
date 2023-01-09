@@ -73,10 +73,6 @@ function onCancelClicked() {
 }
 
 function onAddClicked() {
-  // shlokas.library.verseDialog.addVerseToInbox()
-  // shlokas.library.verseAddedToast.open(props.verse)
-  // shlokas.library.verseDialog.verse.sync()
-  // shlokas.inboxDeck.sync()
   return modalController.dismiss({ verseId: props.verse.verseId }, 'confirm')
 }
 </script>

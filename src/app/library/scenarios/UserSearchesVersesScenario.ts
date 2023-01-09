@@ -5,7 +5,7 @@ import { LibraryVerse } from '@/app/library'
 import { useLocaleStore } from "@/app/settings"
 
 
-export class UserSearchesVerses {
+export class UserSearchesVersesScenario {
   public verses: Ref<LibraryVerse[]> = ref([])
   public query = ref("")
 

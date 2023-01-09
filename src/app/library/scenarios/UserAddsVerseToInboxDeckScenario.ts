@@ -1,15 +1,12 @@
 import { Transaction } from '@akdasa-studios/framework'
 import { AddVerseToInboxDeck, Application, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
-import { ComposerTranslation, useI18n } from "vue-i18n"
 import { useDialog, useToast } from "@/app/composables"
 import { useInboxDeckStore } from "@/app/decks/inbox"
-import { LibraryVerse } from '@/app/library'
-import { DummyLibraryVerse } from "../models/DummyLibraryVerse"
+import { LibraryVerse, DummyLibraryVerse } from '@/app/library'
 
 
-export class UserAddsVerseToInboxDeck {
+export class UserAddsVerseToInboxDeckScenario {
   private _app: Application
-  private _t: ComposerTranslation
   private _addedVerse: LibraryVerse = DummyLibraryVerse
   private _inboxDeck
   private _toast
@@ -20,43 +17,18 @@ export class UserAddsVerseToInboxDeck {
     this._inboxDeck = useInboxDeckStore(app)
     this._toast = useToast()
     this._dialog = useDialog<LibraryVerse>(DummyLibraryVerse)
-    this._t = useI18n().t
   }
-
-  /* -------------------------------------------------------------------------- */
-  /*           Step 1: User clicks on the verse and opens verse dialog          */
-  /* -------------------------------------------------------------------------- */
-
-  openVerseDialog(verse: LibraryVerse) {
-    this._dialog.open(verse)
-  }
-
-  /* -------------------------------------------------------------------------- */
-  /*                  Step 2: User adds verse to the inbox deck                 */
-  /* -------------------------------------------------------------------------- */
 
   async addVerseToInbox(verse: LibraryVerse) {
     this._addedVerse = verse
 
-    this._toast.open(this._t('decks.inbox.verseAdded', { verseNumber: verse.number }))
+    this._toast.open({data: { verseNumber: verse.number }})
 
     const transaction = new Transaction()
     await this._app.processor.execute(new AddVerseToInboxDeck(verse.verseId), transaction)
     await this._app.processor.execute(new UpdateVerseStatus(verse.verseId), transaction)
     await verse.sync()
     await this._inboxDeck.refresh()
-  }
-
-  /* -------------------------------------------------------------------------- */
-  /*                Step 3: User closes dialog and notifications                */
-  /* -------------------------------------------------------------------------- */
-
-  closeVerseDialog() {
-    this._dialog.close()
-  }
-
-  closeToast() {
-    this._toast.close()
   }
 
   /* -------------------------------------------------------------------------- */
@@ -74,19 +46,11 @@ export class UserAddsVerseToInboxDeck {
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
 
-  get isVerseDialogOpen() {
-    return this._dialog.isOpen
+  get dialog() {
+    return this._dialog
   }
 
-  get activeVerse() {
-    return this._dialog.data
-  }
-
-  get toastMessage() {
-    return this._toast.message
-  }
-
-  get isToastOpen() {
-    return this._toast.isOpen
+  get toast() {
+    return this._toast
   }
 }

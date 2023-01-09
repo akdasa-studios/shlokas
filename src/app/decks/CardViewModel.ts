@@ -1,7 +1,6 @@
 import { Verse } from '@akdasa-studios/shlokas-core'
 import { computed } from 'vue'
 import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
-// import { shlokas } from '@/application'
 import { hashString } from '../utils/hashString'
 
 export abstract class CardViewModel implements ViewModel {
