@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test"
 
-export abstract class Component {
+export class Component {
   constructor(
     protected readonly page: Page,
     protected readonly locator: Locator
@@ -13,5 +13,13 @@ export abstract class Component {
 
   async click() {
     return await this.locator.click()
+  }
+
+  async waitFor(state? : "attached"|"detached"|"visible"|"hidden") {
+    await this.locator.waitFor({ state })
+  }
+
+  async textContent() {
+    return await this.locator.textContent()
   }
 }

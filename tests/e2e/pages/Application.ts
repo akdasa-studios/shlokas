@@ -16,7 +16,7 @@ export class Application {
   }
 
   get tabsBar() {
-    return new TabsBar(this.page)
+    return new TabsBar(this.page, this.page.getByTestId("tabs-bar"))
   }
 
   get toasts() {

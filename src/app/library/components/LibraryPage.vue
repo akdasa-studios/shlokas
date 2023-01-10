@@ -36,6 +36,7 @@
                 v-if="verse.showStatus.value"
                 class="badge"
                 color="primary"
+                role="status"
                 :data-testid="testId(verse.number, 'badge')"
               >
                 {{ $t(`decks.${verse.status.value}.title`).toUpperCase() }}
@@ -57,6 +58,7 @@
 
       <!-- Toast -->
       <ion-toast
+        data-testid="verse-added-toast"
         position="top"
         color="dark"
         :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
