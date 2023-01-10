@@ -3,10 +3,14 @@
     <ion-tabs>
       <ion-router-outlet />
       <!-- Tabs -->
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar
+        slot="bottom"
+        data-testid="tabs-bar"
+      >
         <ion-tab-button
           tab="tab1"
           href="/home/library"
+          data-testid="library-tab"
         >
           <ion-icon :icon="libraryOutline" />
           <ion-label>{{ $t('library.title') }}</ion-label>
@@ -21,7 +25,7 @@
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
           <ion-badge
             v-if="inboxDeckCount"
-            data-testid="inboxCounterBadge"
+            data-testid="inbox-tab-badge"
           >
             {{ inboxDeckCount }}
           </ion-badge>
@@ -30,12 +34,13 @@
         <ion-tab-button
           tab="tab3"
           href="/home/review"
+          data-testid="review-tab"
         >
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
             v-if="reviewDeckCount"
-            data-testid="reviewCounterBadge"
+            data-testid="review-tab-badge"
           >
             {{ reviewDeckCount }}
           </ion-badge>
@@ -44,6 +49,7 @@
         <ion-tab-button
           tab="tab4"
           href="/home/settings"
+          data-testid="settings-tab"
         >
           <ion-icon :icon="constructOutline" />
           <ion-label>{{ $t('settings.title') }}</ion-label>

@@ -26,6 +26,7 @@
             v-model="locale.languageCode"
             interface="action-sheet"
             placeholder="Language"
+            data-testid="language"
           >
             <ion-select-option
               v-for="lang in locale.availableLanguages"
