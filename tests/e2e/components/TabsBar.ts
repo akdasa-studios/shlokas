@@ -1,10 +1,12 @@
-import { expect, Locator, Page } from '@playwright/test'
+import { Locator, Page } from '@playwright/test'
 import { TabWithBadge } from './TabWithBadge'
-import { Component } from './core/Component'
+import { Tab, Component } from './core'
 
 export class TabsBar extends Component {
+  public readonly libraryTab: Tab
   public readonly inboxTab: TabWithBadge
   public readonly reviewTab: TabWithBadge
+  public readonly settingsTab: Tab
 
   constructor(page: Page, locator: Locator) {
     super(page, locator)
@@ -17,23 +19,7 @@ export class TabsBar extends Component {
       this.locator.getByTestId('review-tab'),
       this.locator.getByTestId('review-tab-badge')
     )
-  }
-
-  async expectInboxBadgeValueIs(number: string) {
-    const counterBadge = await this.page.getByTestId("inbox-tab-badge").first()
-    if (number) {
-      await expect(counterBadge).toHaveText(number)
-    } else {
-      await expect(counterBadge).toBeHidden()
-    }
-  }
-
-  async expectReviewBadgeValueIs(number: string) {
-    const counterBadge = await this.page.getByTestId("review-tab-badge").first()
-    if (number) {
-      await expect(counterBadge).toHaveText(number)
-    } else {
-      await expect(counterBadge).toBeHidden()
-    }
+    this.settingsTab = new Tab(this.page, locator.getByTestId("settings-tab"))
+    this.libraryTab = new Tab(this.page, locator.getByTestId("library-tab"))
   }
 }

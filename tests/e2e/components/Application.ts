@@ -1,6 +1,7 @@
 import { Page } from '@playwright/test'
 import { InboxDeckPage } from './decks/inbox/InboxDeckPage'
 import { LibraryPage } from './library/LibraryPage'
+import { SettingsPage } from './settings/SettingsPage'
 import { TabsBar } from './TabsBar'
 
 export class Application {
@@ -12,6 +13,10 @@ export class Application {
 
   get inboxDeck() {
     return new InboxDeckPage(this.page)
+  }
+
+  get settings() {
+    return new SettingsPage(this.page)
   }
 
   get tabsBar() {

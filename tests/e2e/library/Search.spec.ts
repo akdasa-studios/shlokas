@@ -28,22 +28,34 @@ test.describe('Library › Search', () => {
     expect(itemsCount).toEqual(1)
   })
 
+  test('By verse', async () => {
+    await app.library.searchbar.search('kim akurvata')
+    const itemsCount = await app.library.versesList.count()
+    expect(itemsCount).toEqual(1)
+  })
+
   test('Nothing found', async () => {
     await app.library.searchbar.search('NOTHING FOUND')
     const itemsCount = await app.library.versesList.count()
     expect(itemsCount).toEqual(0)
   })
 
-  test('Respect diacritics', async () => {
+  test('Respects diacritics', async () => {
     await app.library.searchbar.search('Dhṛtarāṣṭra')
     const itemsCount = await app.library.versesList.count()
     expect(itemsCount).toEqual(1)
   })
 
-  test('Search by verse', async () => {
-    await app.library.searchbar.search('kim akurvata')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1)
+  test('Change language', async () => {
+    await app.tabsBar.settingsTab.click()
+    await app.settings.changeLanguage("Русский")
+    await app.tabsBar.libraryTab.click()
+    await app.page.waitForTimeout(1000)
+
+    const item = await app.library.versesList.getByTestId("бг 1.1")
+    const visible = await item.isVisible()
+
+    expect(visible).toBeTruthy()
   })
 
   // todo: fix, it should not be case sensetive

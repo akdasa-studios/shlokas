@@ -53,4 +53,15 @@ test.describe('Library › Add to Inbox', () => {
     const isVisible = await app.library.verseDialog.addVerse.isVisible()
     expect(isVisible).toBeFalsy()
   })
+
+  test('Cancel closes dialog', async () => {
+    await app.library.openVerse('BG 1.1')
+    await app.library.verseDialog.waitFor()
+    await app.library.verseDialog.close.click()
+    await app.library.verseDialog.waitFor("hidden")
+
+    const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
+    const verseBadge = await verseItem.badge.isVisible()
+    expect(verseBadge).toBeFalsy()
+  })
 })

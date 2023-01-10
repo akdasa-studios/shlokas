@@ -10,6 +10,7 @@
         <ion-tab-button
           tab="tab1"
           href="/home/library"
+          data-testid="library-tab"
         >
           <ion-icon :icon="libraryOutline" />
           <ion-label>{{ $t('library.title') }}</ion-label>
@@ -48,6 +49,7 @@
         <ion-tab-button
           tab="tab4"
           href="/home/settings"
+          data-testid="settings-tab"
         >
           <ion-icon :icon="constructOutline" />
           <ion-label>{{ $t('settings.title') }}</ion-label>
