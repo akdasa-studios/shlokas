@@ -46,29 +46,41 @@ test.describe('Library › Search', () => {
     expect(itemsCount).toEqual(1)
   })
 
-  test('Change language', async () => {
-    await app.tabsBar.settingsTab.click()
-    await app.settings.changeLanguage("Русский")
-    await app.tabsBar.libraryTab.click()
-    await app.page.waitForTimeout(1000)
-
-    const item = await app.library.versesList.getByTestId("бг 1.1")
-    const visible = await item.isVisible()
-
-    expect(visible).toBeTruthy()
-  })
-
-  // todo: fix, it should not be case sensetive
-  test.fixme('Respect case', async () => {
+  test('Ignores case', async () => {
     await app.library.searchbar.search('bg 1.1')
     const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1) // todo: should be 1
+    expect(itemsCount).toEqual(1)
   })
 
-  // todo: fix
-  test.fixme('Ignores diacritics', async () => {
+  test('Ignores diacritics', async () => {
     await app.library.searchbar.search('Dhrtarastra')
     const itemsCount = await app.library.versesList.count()
     expect(itemsCount).toEqual(1)
+  })
+
+  test.describe('Change language', () => {
+    test.beforeEach(async () => {
+      await app.tabsBar.settingsTab.click()
+      await app.settings.changeLanguage("Русский")
+      await app.tabsBar.libraryTab.click()
+      await app.page.waitForTimeout(1000)
+    })
+
+    test('Library updated', async () => {
+      const item = await app.library.versesList.getByTestId("бг 1.1")
+      const visible = await item.isVisible()
+      expect(visible).toBeTruthy()
+    })
+
+    test('Search by text', async () => {
+      await app.library.searchbar.search('будет изобилие')
+      const item = await app.library.versesList.getByTestId(testId('бг 18.78'))
+
+      const isVisible  = await item.isVisible()
+      const itemsCount = await app.library.versesList.count()
+
+      expect(isVisible).toBeTruthy()
+      expect(itemsCount).toEqual(1)
+    })
   })
 })
