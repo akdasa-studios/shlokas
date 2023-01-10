@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test'
-import { Badge } from './components'
-import { Component } from './components/Component'
+import { Badge } from './core'
+import { Component } from './core/Component'
 
 
 export class TabWithBadge extends Component {

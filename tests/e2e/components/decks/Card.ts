@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test"
-import { Component } from "./components/Component"
+import { Component } from "../core/Component"
 
 export class Card extends Component {
   constructor(page: Page, locator: Locator) {

@@ -1,8 +1,7 @@
-import { InboxCardType } from '@akdasa-studios/shlokas-core'
-import { expect, Locator, Page } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { testId } from '@/app/TestId'
-import { Component } from './components/Component'
-import { Card } from './Card'
+import { Card } from '../Card'
+import { Component } from '../../core/Component'
 
 export class InboxDeckPage {
   public readonly empty: Component

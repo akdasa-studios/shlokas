@@ -1,20 +1,21 @@
 import { Page } from '@playwright/test'
+import { List, Searchbar, Toast } from '$/e2e/components/core'
 import { testId } from '@/app/TestId'
-import { Searchbar, Toast, List } from './components'
-import { LibraryModalDialog } from './LibraryModalDialog'
+import { VerseDialog } from './VerseDialog'
 import { VerseListItem } from './VerseListItem'
+
 
 export class LibraryPage {
   public readonly searchbar: Searchbar
   public readonly versesList: List<VerseListItem>
   public readonly verseAddedToast: Toast
-  public readonly verseDialog: LibraryModalDialog
+  public readonly verseDialog: VerseDialog
 
   constructor(public readonly page: Page) {
     this.searchbar = new Searchbar(page, page.getByTestId('searchbar'))
     this.versesList = new List(page, page.getByRole('list'), VerseListItem)
     this.verseAddedToast = new Toast(page, page.getByText('added to inbox'))
-    this.verseDialog = new LibraryModalDialog(page, this.page.getByRole("dialog").first())
+    this.verseDialog = new VerseDialog(page, this.page.getByRole("dialog").first())
   }
 
   async open() {

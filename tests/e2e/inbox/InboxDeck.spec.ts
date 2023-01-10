@@ -1,6 +1,7 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { Application } from '../pages/Application'
+import { Application } from '$/e2e/components'
+
 
 let app: Application
 

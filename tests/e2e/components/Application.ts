@@ -1,8 +1,7 @@
 import { Page } from '@playwright/test'
-import { InboxDeckPage } from './InboxDeckPage'
-import { LibraryPage } from './LibraryPage'
+import { InboxDeckPage } from './decks/inbox/InboxDeckPage'
+import { LibraryPage } from './library/LibraryPage'
 import { TabsBar } from './TabsBar'
-import { Toasts } from './Toasts'
 
 export class Application {
   constructor(public readonly page: Page) { }
@@ -17,9 +16,5 @@ export class Application {
 
   get tabsBar() {
     return new TabsBar(this.page, this.page.getByTestId("tabs-bar"))
-  }
-
-  get toasts() {
-    return new Toasts(this.page)
   }
 }

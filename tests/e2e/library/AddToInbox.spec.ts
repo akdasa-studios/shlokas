@@ -1,5 +1,5 @@
 import { test , expect } from '@playwright/test'
-import { Application } from '$/e2e/pages/Application'
+import { Application } from '$/e2e/components'
 
 let app: Application
 

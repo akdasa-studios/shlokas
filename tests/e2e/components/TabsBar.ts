@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 import { TabWithBadge } from './TabWithBadge'
-import { Component } from './components/Component'
+import { Component } from './core/Component'
 
 export class TabsBar extends Component {
   public readonly inboxTab: TabWithBadge

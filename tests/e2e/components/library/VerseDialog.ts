@@ -1,8 +1,8 @@
 import { Locator, Page } from '@playwright/test'
-import { Button } from './components/Button'
-import { Component } from './components/Component'
+import { Component, Button } from '$/e2e/components/core'
 
-export class LibraryModalDialog extends Component {
+
+export class VerseDialog extends Component {
   public readonly addVerse: Button
   public readonly close: Button
 
