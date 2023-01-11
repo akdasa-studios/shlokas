@@ -12,5 +12,6 @@ export class SettingsPage {
   async changeLanguage(lang: string) {
     await this.language.click()
     await this.page.locator("ion-action-sheet").getByText(lang).click()
+    await this.page.locator("ion-action-sheet").waitFor({ state: "hidden"})
   }
 }
