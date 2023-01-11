@@ -32,14 +32,15 @@ async function initApp() {
   const storage = new Storage()
   await storage.create()
   const lang = (await storage.get("language")) || 'en'
-  const shlokasApp = await createApplication()
 
   const app = createApp(App)
     .use(IonicVue)
     .use(router)
     .use(pinia)
     .use(initI18n(lang))
-    .provide("app", shlokasApp)
+
+  const shlokasApp = await createApplication()
+  app.provide("app", shlokasApp)
 
   router.isReady().then(() => {
     app.mount('#app')
