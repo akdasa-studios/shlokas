@@ -36,8 +36,11 @@ test.describe('Library › Add to Inbox', () => {
     await app.library.verseAddedToast.revert.click()
     await app.library.verseAddedToast.revert.waitFor("hidden")
 
+    await app.tabsBar.inboxTab.badge.waitFor('hidden')
     const inboxBadge = await app.tabsBar.inboxTab.badge.isVisible()
     const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
+
+    await verseItem.badge.waitFor('hidden')
     const verseBadge = await verseItem.badge.isVisible()
 
     expect(inboxBadge).toBeFalsy()
