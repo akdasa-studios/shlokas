@@ -23,6 +23,8 @@
     "@ionic/storage": "^3.0.6",
     "@ionic/vue": "^6.0.0",
     "@ionic/vue-router": "^6.0.0",
+    "@sentry/capacitor": "^0.11.0",
+    "@sentry/vue": "^7.25.0",
     "core-js": "^3.6.5",
     "interactjs": "^1.10.17",
     "ionicons": "^6.0.3",
