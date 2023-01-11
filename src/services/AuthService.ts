@@ -38,7 +38,7 @@ export class AuthService {
       expires: response.expires,
       token: response.token,
       password: response.password,
-      dbName: response.userDBs.supertest
+      dbName: response.userDBs.shlokas
     })
   }
 
