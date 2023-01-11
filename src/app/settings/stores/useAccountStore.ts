@@ -23,6 +23,10 @@ export const useAccountStore = defineStore('settings/account', () => {
 
   const syncHost = computed(() => {
     if (!token.value) { return undefined }
+    if (process.env.NODE_ENV === 'development' ) {
+      return token.value.dbName
+        .replace('db:5984', `${HOST}/db`)
+    }
     return token.value.dbName
       .replace('db:5984', `${HOST}/db`)
       .replace('http://', 'https://')

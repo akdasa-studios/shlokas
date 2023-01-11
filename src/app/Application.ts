@@ -3,6 +3,8 @@ import { Application, InboxCard, Language, Repositories, ReviewCard, Translation
 import { Storage } from '@ionic/storage'
 import { App } from '@capacitor/app'
 import { BackgroundTask } from '@capawesome/capacitor-background-task'
+import { useInboxDeckStore } from '@/app/decks/inbox'
+import { useReviewDeckStore } from '@/app/decks/review'
 import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
 import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository"
 import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
@@ -10,6 +12,7 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persi
 
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
+import { useAppearanceStore } from './settings/stores/useAppearanceStore'
 import { useAccountStore } from './settings/stores/useAccountStore'
 import { useDeviceStore } from './useDeviceStorage'
 
@@ -76,10 +79,23 @@ export async function createApplication() {
   }
 
   application = new Application(repositories)
-
+  await loadState()
+  async function loadState() {
+    await Promise.all([
+      useAccountStore().load(),
+      useAppearanceStore().load(),
+      useInboxDeckStore(application).refresh(),
+      useReviewDeckStore(application).refresh(),
+    ])
+  }
   /* -------------------------------------------------------------------------- */
   /*                             Sync in background                             */
   /* -------------------------------------------------------------------------- */
+
+  App.addListener('appStateChange', async ({ isActive }) => {
+    if (!isActive) { return }
+    await loadState()
+  })
 
   App.addListener('appStateChange', async ({ isActive }) => {
     if (isActive) { return }
