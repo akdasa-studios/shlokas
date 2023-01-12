@@ -14,7 +14,7 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <Deck>
+      <CardsDeck>
         <ReviewCard
           v-for="card, idx in userGradesCards.cards.slice(0, 3)"
           :key="card.id.value"
@@ -24,7 +24,7 @@
           :show-grade-buttons="appearance.gradeButtons"
           @graded="onCardGraded"
         />
-      </Deck>
+      </CardsDeck>
 
       <!-- Inbox deck is empty -->
       <ReviewDeckEmpty v-if="userGradesCards.count === 0" />
@@ -39,7 +39,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import { computed, inject } from 'vue'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
 import { useAppearanceStore } from '@/app/settings'
-import Deck from '@/app/decks/Deck.vue'
+import CardsDeck from '@/app/decks/CardsDeck.vue'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)

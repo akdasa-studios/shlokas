@@ -60,7 +60,6 @@ const angle = ref<number>(0)
 const scale = ref<number>(.95)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const flipAngleBack = computed(() => flipped.value ? 0 : -180)
-const zindex = computed(() => props.index)
 
 const distance = computed<number>(function () {
   const xaxis = Math.abs(posX.value) > Math.abs(posY.value)

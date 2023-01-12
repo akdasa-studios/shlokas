@@ -14,7 +14,7 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <Deck>
+      <CardsDeck>
         <InboxCard
           v-for="card, idx in userLearningCards.cards.slice(0, 3)"
           :key="card.id.value"
@@ -23,7 +23,7 @@
           :swipe-directions="swipeDirections"
           @swiped="onCardSwiped"
         />
-      </Deck>
+      </CardsDeck>
 
       <InboxDeckEmpty
         v-if="userLearningCards.count === 0"
@@ -50,7 +50,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '
 import { computed, inject } from 'vue'
 import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
-import Deck from '@/app/decks/Deck.vue'
+import CardsDeck from '@/app/decks/CardsDeck.vue'
 
 const app = inject('app') as Application
 const userLearningCards = new UserLearningCards(app)
