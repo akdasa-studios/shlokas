@@ -84,7 +84,7 @@ function onSwiping(direction: string, value: number) {
 }
 
 function onSwiped(direction: string, value: number) {
-  // setTimeout(() => grade.value = "" , 250)
+  setTimeout(() => grade.value = "" , 50)
   return emit('swiped', direction, value)
 }
 </script>

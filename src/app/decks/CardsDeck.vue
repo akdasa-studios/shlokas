@@ -1,12 +1,12 @@
 <template>
-  <div class>
+  <div class="deck">
     <slot />
   </div>
 </template>
 
 
 <style scoped >
-.t3d {
+.deck {
   /* background-color: red; */
   transform-style: preserve-3d;
   /* transform: translateZ(-100px); */

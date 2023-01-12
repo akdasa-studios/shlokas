@@ -5,7 +5,7 @@
     @click="onCardClicked"
   >
     <div class="face face--front">
-      <!-- {{ props.index }} -->
+      {{ props.index }}
       <slot name="front" />
     </div>
 
@@ -60,6 +60,7 @@ const angle = ref<number>(0)
 const scale = ref<number>(.95)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const flipAngleBack = computed(() => flipped.value ? 0 : -180)
+const zindex = computed(() => 2 - props.index)
 
 const distance = computed<number>(function () {
   const xaxis = Math.abs(posX.value) > Math.abs(posY.value)
@@ -210,7 +211,7 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
   transition: .5s cubic-bezier(0.34, 1.56, 0.64, 1);
   touch-action: none;
   user-select: none;
-  // z-index: v-bind(zindex);
+  z-index: v-bind(zindex);
   transform: translate($x, $y) translateZ($z) rotate($angle); // scale($scale);
   will-change: transform;
 
