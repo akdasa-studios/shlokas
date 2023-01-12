@@ -15,7 +15,10 @@
       "finished": "Запомнил",
       "inProgress": "Учу"
     },
-    "memorized": "Карточка запомнена"
+    "memorized": "Карточка запомнена",
+    "schedule": {
+      "inDays": "сегодня | + {count} день | + {count} дней"
+    }
   },
   "common": {
     "add": "Добавить",

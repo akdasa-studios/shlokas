@@ -22,11 +22,16 @@ export function useReviewDeckStore(app: Application) {
 
       await app.processor.execute(new ReviewCardReviewed(topCard.card, grade))
 
+      console.log(
+        topCard.card.dueTo.getTime(),
+        app.timeMachine.today.getTime()
+      )
       if (topCard.card.dueTo.getTime() !== app.timeMachine.today.getTime()) {
         cards.value.shift()
       } else {
+
         const first = cards.value.shift()
-        if (first) { cards.value.push(first) }
+        if (first) { cards.value.push(first); console.log("return back") }
       }
     }
 

@@ -1,15 +1,14 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
-import { computed, ref } from 'vue'
-import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
 import { CardViewModel } from '@/app/decks/CardViewModel'
+import { ViewModel } from '@/app/DomainViewModel'
 
 
 export class InboxCardViewModel extends CardViewModel implements ViewModel {
-  public readonly _card: DomainViewModel<InboxCard>
+  public readonly _card: InboxCard
 
   constructor(card: InboxCard, verse: Verse) {
     super(verse)
-    this._card = new DomainViewModel(card)
+    this._card = card
   }
 
   /* -------------------------------------------------------------------------- */
@@ -17,20 +16,9 @@ export class InboxCardViewModel extends CardViewModel implements ViewModel {
   /* -------------------------------------------------------------------------- */
 
   // id = computed(() =>  this._card.ref.value.id)
-  get id() { return this._card.object.id }
-  type = computed(() => this._card.ref.value.type)
-  addedAt = computed(() => this._card.ref.value.addedAt)
-  grade = ref("")
-
-  /* -------------------------------------------------------------------------- */
-  /*                                   Actions                                  */
-  /* -------------------------------------------------------------------------- */
-
-  async memorized() {
-    // await shlokas.execute(new InboxCardMemorized(this._card.object))
-    // await shlokas.inboxDeck.sync()
-    // await shlokas.reviewDeck.sync()
-  }
+  get id()      { return this._card.id }
+  get type()    { return this._card.type }
+  get addedAt() { return this._card.addedAt }
 
   /* -------------------------------------------------------------------------- */
   /*                                    Sync                                    */
@@ -38,6 +26,5 @@ export class InboxCardViewModel extends CardViewModel implements ViewModel {
 
   async sync() {
     super.sync()
-    await this._card.sync()
   }
 }

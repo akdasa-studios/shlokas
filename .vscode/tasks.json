@@ -12,6 +12,18 @@
       "type": "npm",
       "script": "test:e2e:report",
       "problemMatcher": []
+    },
+    {
+      "detail": "Run on device",
+      "icon": {
+        "id": "device-mobile",
+        "color": "terminal.ansiMagenta"
+      },
+      "label": "Run on device",
+      "isBackground": true,
+      "type": "npm",
+      "script": "run:device",
+      "problemMatcher": []
     }
   ]
 }

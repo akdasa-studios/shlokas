@@ -27,7 +27,7 @@ export class UserLearningCards {
   async cardMemorized() {
     const card = this._inboxDeckStore.memorizeCard()
     if (card) {
-      const inboxCard = card._card.object
+      const inboxCard = card._card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._reviewDeckStore.refresh()
       this._cardMemorizedToast.open()

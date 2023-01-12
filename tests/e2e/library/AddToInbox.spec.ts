@@ -40,7 +40,7 @@ test.describe('Library › Add to Inbox', () => {
     const inboxBadge = await app.tabsBar.inboxTab.badge.isVisible()
     const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
 
-    await verseItem.badge.waitFor('hidden')
+    await verseItem.badge.waitFor('detached')
     const verseBadge = await verseItem.badge.isVisible()
 
     expect(inboxBadge).toBeFalsy()
