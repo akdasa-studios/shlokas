@@ -3,7 +3,7 @@
     :index="props.index"
     :swipe-threshold="50"
     :swipe-directions="props.swipeDirections"
-    :data-testid="testId(verseNumber, 'card', type)"
+    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
     :data-index="props.index"
     @swiped="onSwiped"
     @swiping="onSwiping"
@@ -11,34 +11,34 @@
     <template #overlay>
       <InboxCardSwipeOverlay
         :grade="grade"
-        :class="style"
+        :class="props.card.style"
         class="side"
       />
     </template>
 
     <template #front>
       <InboxCardVerseTextSide
-        v-if="type === InboxCardType.Text"
-        :verse-number="verseNumber"
-        :lines="text"
+        v-if="props.card.type === InboxCardType.Text"
+        :verse-number="props.card.verseNumber"
+        :lines="props.card.text"
         class="side"
-        :class="style"
+        :class="props.card.style"
       />
 
       <InboxCardTranslationSide
-        v-if="type === InboxCardType.Translation"
-        :verse-number="verseNumber"
-        :translation="translation"
-        :class="style"
+        v-if="props.card.type === InboxCardType.Translation"
+        :verse-number="props.card.verseNumber"
+        :translation="props.card.translation"
+        :class="props.card.style"
         class="side"
       />
     </template>
 
     <template #back>
       <InboxCardSynonymsSide
-        :words="synonyms"
+        :words="props.card.synonyms"
         class="side"
-        :class="style"
+        :class="props.card.style"
       />
     </template>
   </FlipCard>
@@ -46,7 +46,7 @@
 
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, toRefs } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import FlipCard from '@/app/decks/FlipCard.vue'
 import { testId } from '@/app/TestId'
@@ -70,9 +70,7 @@ const emit = defineEmits<{
   (event: 'swiped', direction: string, value: number): boolean
 }>()
 
-const {
-  verseNumber, translation, synonyms, grade, type, text, style
-} = toRefs(props.card)
+const grade = ref('')
 
 /* -------------------------------------------------------------------------- */
 /*                                 Handlers                                   */
@@ -86,7 +84,7 @@ function onSwiping(direction: string, value: number) {
 }
 
 function onSwiped(direction: string, value: number) {
-  setTimeout(() => grade.value = "" , 250)
+  // setTimeout(() => grade.value = "" , 250)
   return emit('swiped', direction, value)
 }
 </script>

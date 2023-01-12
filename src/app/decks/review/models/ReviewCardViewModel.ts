@@ -1,32 +1,30 @@
 import { ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
-import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
+import { ViewModel } from '@/app/DomainViewModel'
 import { CardViewModel } from '@/app/decks/CardViewModel'
 
 export class ReviewCardViewModel extends CardViewModel implements ViewModel {
-  private readonly _card: DomainViewModel<ReviewCard>
+  private readonly _card: ReviewCard
 
-  constructor(
-    card: ReviewCard,
-    verse: Verse,
-  ) {
+  constructor(card: ReviewCard, verse: Verse) {
     super(verse)
-    this._card = new DomainViewModel(card)
+    this._card = card
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
 
-  get card() { return this._card.object }
+  get card()     { return this._card }
+  get id()       { return this._card.id }
+  get dueTo()    { return this._card.dueTo }
+  get type()     { return this._card.type }
+  get interval() { return this._card.interval }
+  get ease()     { return this._card.ease }
 
   targetX = ref(0)
   targetY = ref(0)
-  dueTo = computed(() => this._card.ref.value.dueTo)
-  id = computed(() =>  this._card.ref.value.id)
-  type = computed(() =>  this._card.ref.value.type)
-  interval = computed(() => this._card.ref.value.interval)
-  ease = computed(() =>  this._card.ref.value.ease)
+
   nextIntervals = computed(() => {
     const sc = new Scheduler()
     return [
@@ -34,8 +32,8 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
       ReviewGrade.Good, ReviewGrade.Easy
     ].map(x =>
       sc.getNewInterval(
-        this._card.ref.value.interval,
-        this._card.ref.value.ease / 100, x
+        this._card.interval,
+        this._card.ease / 100, x
       )
     )
   })
@@ -46,7 +44,7 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
 
   review(grade: ReviewGrade) {
     // TODO: execure command
-    this._card.object.review(grade)
+    this._card.review(grade)
   }
 
   swipeAway() {
@@ -60,7 +58,7 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
 
   sync(): void {
     super.sync()
-    this._card.sync()
+    // this._card.sync()
   }
 
 }

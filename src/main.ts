@@ -42,25 +42,27 @@ async function initApp() {
     .use(initI18n(lang))
 
   /* Sentry */
-  Sentry.init(
-    {
-      app,
-      dsn: 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152',
-      // To set your release and dist versions
-      release: 'shlokas@' + process.env.npm_package_version,
-      dist: '1',
-      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-      // We recommend adjusting this value in production.
-      tracesSampleRate: 1.0,
-      integrations: [
-        new BrowserTracing({
-          tracingOrigins: ['localhost', 'https://shlokas.app/'],
-        }),
-      ]
-    },
-    // Forward the init method to the sibling Framework.
-    SentrySibling.init
-  )
+  if (process.env.NODE_ENV !== 'development') {
+    Sentry.init(
+      {
+        app,
+        dsn: 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152',
+        // To set your release and dist versions
+        release: 'shlokas@' + process.env.npm_package_version,
+        dist: '1',
+        // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+        // We recommend adjusting this value in production.
+        tracesSampleRate: 1.0,
+        integrations: [
+          new BrowserTracing({
+            tracingOrigins: ['localhost', 'https://shlokas.app/'],
+          }),
+        ]
+      },
+      // Forward the init method to the sibling Framework.
+      SentrySibling.init
+    )
+  }
 
   const shlokasApp = await createApplication()
   app.provide("app", shlokasApp)

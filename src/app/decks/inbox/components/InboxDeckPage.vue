@@ -14,14 +14,16 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <InboxCard
-        v-for="card, idx in userLearningCards.cards"
-        :key="card.id.value"
-        :index="idx"
-        :card="(card as unknown as InboxCardViewModel)"
-        :swipe-directions="swipeDirections"
-        @swiped="onCardSwiped"
-      />
+      <Deck>
+        <InboxCard
+          v-for="card, idx in userLearningCards.cards.slice(0, 3)"
+          :key="card.id.value"
+          :index="idx"
+          :card="(card as unknown as InboxCardViewModel)"
+          :swipe-directions="swipeDirections"
+          @swiped="onCardSwiped"
+        />
+      </Deck>
 
       <InboxDeckEmpty
         v-if="userLearningCards.count === 0"
@@ -48,6 +50,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '
 import { computed, inject } from 'vue'
 import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
+import Deck from '@/app/decks/Deck.vue'
 
 const app = inject('app') as Application
 const userLearningCards = new UserLearningCards(app)
@@ -60,13 +63,13 @@ const swipeDirections = computed(() => {
 })
 
 function onCardSwiped(direction: string) {
-  setTimeout(async () => {
+  setTimeout(() => {
     if (direction == "left" || direction == "right") {
       userLearningCards.shiftCard()
     } else if (direction == "top" || direction == "bottom") {
-      await userLearningCards.cardMemorized()
+      userLearningCards.cardMemorized()
     }
-  }, 250)
+  }, 100)
 }
 
 async function onRevert() {

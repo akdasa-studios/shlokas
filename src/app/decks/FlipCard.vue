@@ -5,6 +5,7 @@
     @click="onCardClicked"
   >
     <div class="face face--front">
+      <!-- {{ props.index }} -->
       <slot name="front" />
     </div>
 
@@ -54,11 +55,12 @@ const card = ref()
 const flipped = ref<boolean>(false)
 const posX = ref<number>(0)
 const posY = ref<number>(0)
+const posZ = ref<number>(-20)
 const angle = ref<number>(0)
 const scale = ref<number>(.95)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const flipAngleBack = computed(() => flipped.value ? 0 : -180)
-const zindex = computed(() => 2 - props.index)
+const zindex = computed(() => props.index)
 
 const distance = computed<number>(function () {
   const xaxis = Math.abs(posX.value) > Math.abs(posY.value)
@@ -82,14 +84,16 @@ const direction = computed<string>(function () {
 /* -------------------------------------------------------------------------- */
 
 function reset(index: number) {
-  if (index !== 0) {
+  if (index === 0) {
     posX.value = 0
     posY.value = 0
+    // posZ.value = -10
     angle.value = 0
     flipped.value = false
   } else {
     card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
   }
+  posZ.value = -(index * 100)
   scale.value = index === 0 ? 1 : .95 //1 - (0.1 * index)
 }
 
@@ -97,11 +101,11 @@ function enableInteraction() {
   interact(card.value as Target).draggable({
     listeners: {
       start(event:any) {
-        if (props.index !== 0) { return }
+        // if (props.index !== 0) { return }
         event.target.style.transition = "none"
       },
       move(event:any) {
-        if (props.index !== 0) { return }
+        // if (props.index !== 0) { return }
         onSwiping(event.dx, event.dy)
       },
       end(event:any) {
@@ -157,17 +161,24 @@ function onSwiped() {
 /* -------------------------------------------------------------------------- */
 /*                                    Hooks                                   */
 /* -------------------------------------------------------------------------- */
+let w1: any
+let w2: any
+let w3: any
+
+
 
 onMounted(() => {
-  watch(() => props.index, (index: number) => {
-    setTimeout(() => reset(index), 10) // go fuck yourself safari
+  w1 = watch(() => props.index, function(index: number) {
+    // setTimeout(function () {
+      reset(index)
+    //  } , 10) // go fuck yourself safari
   }, { immediate: true })
 
-  watch(() => props.targetX, (value?: number) => {
+  w2 = watch(() => props.targetX, function(value?: number)  {
     posX.value = value || 0
   }, { immediate: true })
 
-  watch(() => props.targetY, (value?: number) => {
+  w3 = watch(() => props.targetY, function(value?: number) {
     posY.value = value || 0
   }, { immediate: true })
 
@@ -176,12 +187,16 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   disableInteraction()
+  if (w1) { w1() }
+  if (w2) { w2() }
+  if (w2) { w3() }
 })
 </script>
 
 <style scoped lang="scss">
 $x: calc(v-bind(posX) * 1px);
 $y: calc(v-bind(posY) * 1px);
+$z: calc(v-bind(posZ) * 1px);
 $angle: calc(v-bind(angle) * 1deg);
 $scale: v-bind(scale);
 $flipAngleFront: calc(v-bind(flipAngle) * 1deg);
@@ -191,13 +206,13 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
   width: calc(100% - 20px);
   height: calc(100% - 20px);
   margin: 10px;
-  perspective: 1800px;
   position: absolute;
+  perspective: 1800px;
   transition: .5s cubic-bezier(0.34, 1.56, 0.64, 1);
   touch-action: none;
   user-select: none;
-  z-index: v-bind(zindex);
-  transform: translate($x, $y) rotate($angle) scale($scale);
+  // z-index: v-bind(zindex);
+  transform: translate($x, $y) translateZ($z) rotate($angle); // scale($scale);
   will-change: transform;
 
   .face {
