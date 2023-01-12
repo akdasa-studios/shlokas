@@ -5,7 +5,6 @@
     @click="onCardClicked"
   >
     <div class="face face--front">
-      {{ props.index }}
       <slot name="front" />
     </div>
 
@@ -55,7 +54,7 @@ const card = ref()
 const flipped = ref<boolean>(false)
 const posX = ref<number>(0)
 const posY = ref<number>(0)
-const posZ = ref<number>(-20)
+const posZ = ref<number>(-100)
 const angle = ref<number>(0)
 const scale = ref<number>(.95)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
@@ -84,16 +83,28 @@ const direction = computed<string>(function () {
 /* -------------------------------------------------------------------------- */
 
 function reset(index: number) {
-  if (index === 0) {
-    posX.value = 0
-    posY.value = 0
-    // posZ.value = -10
-    angle.value = 0
-    flipped.value = false
-  } else {
-    card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
-  }
-  posZ.value = -(index * 100)
+  // console.log(index)
+  // if (index === 0) {
+  //   posX.value = 0
+  //   posY.value = 0
+  //   // posZ.value = 0
+  //   angle.value = 0
+  //   flipped.value = false
+
+  //   card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
+  // } else {
+  card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
+
+  //   posX.value = 0
+  //   posY.value = 0
+  //   // posZ.value = -10
+  //   angle.value = 0
+  //   flipped.value = false
+  // }
+  angle.value = 0
+  posX.value = 0
+  posY.value = index * 40
+  posZ.value = -(index * 150)
   scale.value = index === 0 ? 1 : .95 //1 - (0.1 * index)
 }
 
@@ -144,15 +155,16 @@ function onSwiped() {
 
   if (distance.value != 0 && canSwipedInDirection) {
     angle.value *= 2
-    if (direction.value == "left") posX.value *= 8
-    if (direction.value == "right") posX.value *= 8
-    if (direction.value == "top") posY.value *= 8
-    if (direction.value == "bottom") posY.value *= 8
+    if (direction.value == "left") posX.value *= 5
+    if (direction.value == "right") posX.value *= 5
+    if (direction.value == "top") posY.value *= 5
+    if (direction.value == "bottom") posY.value *= 5
 
     emit('swiped', direction.value, distance.value)
   } else {
     posX.value = 0
     posY.value = 0
+    // posZ.value = 0
     angle.value = 0
     emit('swiping', "none", 0)
   }
@@ -169,18 +181,16 @@ let w3: any
 
 onMounted(() => {
   w1 = watch(() => props.index, function(index: number) {
-    // setTimeout(function () {
-      reset(index)
-    //  } , 10) // go fuck yourself safari
+    reset(index)
   }, { immediate: true })
 
-  w2 = watch(() => props.targetX, function(value?: number)  {
-    posX.value = value || 0
-  }, { immediate: true })
+  // w2 = watch(() => props.targetX, function(value?: number)  {
+  //   posX.value = value || 0
+  // }, { immediate: true })
 
-  w3 = watch(() => props.targetY, function(value?: number) {
-    posY.value = value || 0
-  }, { immediate: true })
+  // w3 = watch(() => props.targetY, function(value?: number) {
+  //   posY.value = value || 0
+  // }, { immediate: true })
 
   enableInteraction()
 })
@@ -204,7 +214,7 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
 
 .card {
   width: calc(100% - 20px);
-  height: calc(100% - 20px);
+  height: calc(100% - 50px);
   margin: 10px;
   position: absolute;
   perspective: 1800px;
