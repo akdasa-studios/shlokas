@@ -60,6 +60,7 @@ const scale = ref<number>(.95)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const flipAngleBack = computed(() => flipped.value ? 0 : -180)
 const zindex = computed(() => 2 - props.index)
+const opacity = computed(() => [1, 1, .25, .25][props.index])
 
 const distance = computed<number>(function () {
   const xaxis = Math.abs(posX.value) > Math.abs(posY.value)
@@ -214,7 +215,7 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
 
 .card {
   width: calc(100% - 20px);
-  height: calc(100% - 50px);
+  height: calc(100% - 40px);
   margin: 10px;
   position: absolute;
   perspective: 1800px;
@@ -224,6 +225,7 @@ $flipAngleBack: calc(v-bind(flipAngleBack) * 1deg);
   z-index: v-bind(zindex);
   transform: translate($x, $y) translateZ($z) rotate($angle); // scale($scale);
   will-change: transform;
+  opacity: v-bind(opacity);
 
   .face {
     position: absolute;

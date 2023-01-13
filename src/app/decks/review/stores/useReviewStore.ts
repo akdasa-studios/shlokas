@@ -27,11 +27,21 @@ export function useReviewDeckStore(app: Application) {
         app.timeMachine.today.getTime()
       )
       if (topCard.card.dueTo.getTime() !== app.timeMachine.today.getTime()) {
-        cards.value.shift()
+        // cards.value.shift()
+        const topCard = cards.value.findIndex(x => x.index.value === 0)
+        if (topCard !== -1) {
+          cards.value.splice(topCard, 1)
+          cards.value.forEach(function(x) { x.index.value-- })
+        }
       } else {
 
-        const first = cards.value.shift()
-        if (first) { cards.value.push(first); console.log("return back") }
+        // const first = cards.value.shift()
+        // if (first) { cards.value.push(first); console.log("return back") }
+        const topCard = cards.value.find(x => x.index.value === 0)
+        if (topCard) {
+          cards.value.forEach(function(x) { x.index.value-- })
+          topCard.index.value = cards.value.length - 1
+        }
       }
     }
 
@@ -47,8 +57,8 @@ export function useReviewDeckStore(app: Application) {
       const cards = await app.reviewDeck.dueToCards(
         app.timeMachine.now
       )
-      const viewModels = cards.map(async (card: ReviewCard) => {
-        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId)))
+      const viewModels = cards.map(async (card: ReviewCard, index: number) => {
+        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId), index))
       })
 
       return await Promise.all(viewModels)

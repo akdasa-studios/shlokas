@@ -6,9 +6,10 @@ import { CardViewModel } from '@/app/decks/CardViewModel'
 export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   private readonly _card: ReviewCard
 
-  constructor(card: ReviewCard, verse: Verse) {
+  constructor(card: ReviewCard, verse: Verse, index: number) {
     super(verse)
     this._card = card
+    this.index.value = index
   }
 
   /* -------------------------------------------------------------------------- */
@@ -22,6 +23,7 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   get interval() { return this._card.interval }
   get ease()     { return this._card.ease }
 
+  index   = ref(0)
   targetX = ref(0)
   targetY = ref(0)
 
