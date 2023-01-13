@@ -84,24 +84,7 @@ const direction = computed<string>(function () {
 /* -------------------------------------------------------------------------- */
 
 function reset(index: number) {
-  // console.log(index)
-  // if (index === 0) {
-  //   posX.value = 0
-  //   posY.value = 0
-  //   // posZ.value = 0
-  //   angle.value = 0
-  //   flipped.value = false
-
-  //   card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
-  // } else {
   card.value.style.transition = ".5s cubic-bezier(0.34, 1.56, 0.64, 1)"
-
-  //   posX.value = 0
-  //   posY.value = 0
-  //   // posZ.value = -10
-  //   angle.value = 0
-  //   flipped.value = false
-  // }
   angle.value = 0
   posX.value = 0
   posY.value = index * 40

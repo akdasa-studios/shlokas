@@ -18,8 +18,8 @@ export class Card extends Component {
     const dy = direction === "top" ? -60 : direction === "bottom" ? 120 : 0
 
     const sourcePosition = {
-      x: cardBoundingBox?.x as number + 80,
-      y: cardBoundingBox?.y as number + 120
+      x: cardBoundingBox?.x as number + 40,
+      y: cardBoundingBox?.y as number + 60
     }
     const targetPosition = {
       x: sourcePosition.x + dx,
