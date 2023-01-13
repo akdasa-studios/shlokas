@@ -29,7 +29,7 @@ export async function createApplication() {
 
   couchDB = new CouchDB(
     dev
-    ? "local-" // + new Date().toISOString() // create new DB every page refresh
+    ? "local-" + new Date().toISOString() // create new DB every page refresh
     // ? "http://admin:12345678@localhost:5984/test123"
     : "local"
   )

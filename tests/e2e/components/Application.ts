@@ -4,9 +4,8 @@ import { ReviewDeckPage } from './decks/review/ReviewDeckPage'
 import { LibraryPage } from './library/LibraryPage'
 import { SettingsPage } from './settings/SettingsPage'
 import { TabsBar } from './TabsBar'
-// import { application } from '@/app/Application'
 
-export class Application {
+export class ApplicationPage {
   constructor(public readonly page: Page) { }
 
   get library() {

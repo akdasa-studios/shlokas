@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
-import { Application } from '$/e2e/components'
+import { ApplicationPage } from '$/e2e/components'
 
-let app: Application
+let app: ApplicationPage
 
 test.beforeEach(async ({ page }) => {
-  app = new Application(page)
+  app = new ApplicationPage(page)
   await app.library.open()
   await app.tabsBar.settingsTab.click()
 })

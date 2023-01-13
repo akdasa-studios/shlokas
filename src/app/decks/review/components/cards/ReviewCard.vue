@@ -5,6 +5,8 @@
     :swipe-directions="props.swipeDirections"
     :target-x="props.card.targetX.value"
     :target-y="targetY"
+    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
+    :data-index="props.index"
     @swiped="onSwiped"
     @swiping="onSwiping"
   >
@@ -70,6 +72,7 @@ import {
   ReviewCardVerseNumberSide, ReviewCardTranslationSide,
   ReviewCardTextSide, ReviewCardSwipeOverlay, ReviewCardAnswerButtons, ReviewCardViewModel
 } from '@/app/decks/review'
+import { testId } from '@/app/TestId'
 
 const { t } = useI18n()
 
