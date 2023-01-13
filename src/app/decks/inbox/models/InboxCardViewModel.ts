@@ -1,5 +1,4 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
-import { Ref, ref } from 'vue'
 import { CardViewModel } from '@/app/decks/CardViewModel'
 import { ViewModel } from '@/app/DomainViewModel'
 
