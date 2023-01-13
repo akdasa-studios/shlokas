@@ -22,26 +22,11 @@ export function useReviewDeckStore(app: Application) {
 
       await app.processor.execute(new ReviewCardReviewed(topCard.card, grade))
 
-      console.log(
-        topCard.card.dueTo.getTime(),
-        app.timeMachine.today.getTime()
-      )
       if (topCard.card.dueTo.getTime() !== app.timeMachine.today.getTime()) {
-        // cards.value.shift()
-        const topCard = cards.value.findIndex(x => x.index.value === 0)
-        if (topCard !== -1) {
-          cards.value.splice(topCard, 1)
-          cards.value.forEach(function(x) { x.index.value-- })
-        }
+        cards.value.shift()
       } else {
-
-        // const first = cards.value.shift()
-        // if (first) { cards.value.push(first); console.log("return back") }
-        const topCard = cards.value.find(x => x.index.value === 0)
-        if (topCard) {
-          cards.value.forEach(function(x) { x.index.value-- })
-          topCard.index.value = cards.value.length - 1
-        }
+        const first = cards.value.shift()
+        if (first) { cards.value.push(first); console.log("return back") }
       }
     }
 
@@ -58,8 +43,8 @@ export function useReviewDeckStore(app: Application) {
       const sorted = Array.from(cards).sort((a, b) => a.addedAt.getTime() - b.addedAt.getTime())
 
       // TODO: should be sorting by date be extracted to shlokas-core?
-      const viewModels = sorted.map(async (card: ReviewCard, index: number) => {
-        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId), index)) as ReviewCardViewModel
+      const viewModels = sorted.map(async (card: ReviewCard) => {
+        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId))) as ReviewCardViewModel
       })
       return await Promise.all(viewModels)
     }

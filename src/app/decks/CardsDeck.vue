@@ -1,20 +1,19 @@
 <template>
   <div class="deck">
     <slot
-      v-for="card in cardsToShow"
+      v-for="(card, idx) in cardsToShow"
       :key="card.id"
       :card="card"
+      :index="idx"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, Ref, toRefs } from 'vue'
-import { useArrayFilter } from '@vueuse/core'
+import { defineProps, toRefs, computed } from 'vue'
 
 interface ICard {
   id: string,
-  index: Ref<number>
 }
 
 const props = defineProps<{
@@ -24,9 +23,7 @@ const props = defineProps<{
 
 const { cards, showCards } = toRefs(props)
 
-const cardsToShow = useArrayFilter(cards, (x) => {
-  return x.index.value < showCards.value
-})
+const cardsToShow = computed(() => cards.value.slice(0, showCards.value))
 </script>
 
 

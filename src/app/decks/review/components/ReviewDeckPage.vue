@@ -16,14 +16,14 @@
     >
       <CardsDeck
         v-if="userGradesCards.count > 0"
-        v-slot="card"
+        v-slot="{ card, index }"
         :cards="userGradesCards.cards"
         :show-cards="3"
       >
         <ReviewCard
-          :key="card.card.id"
-          :index="card.card.index.value"
-          :card="(card.card as unknown as ReviewCardViewModel)"
+          :key="card.id"
+          :index="index"
+          :card="(card as unknown as InboxCardViewModel)"
           :swipe-directions="swipeDirections"
           :show-grade-buttons="appearance.gradeButtons"
           @graded="onCardGraded"

@@ -18,14 +18,14 @@
     >
       <CardsDeck
         v-if="userLearningCards.count > 0"
-        v-slot="card"
+        v-slot="{ card, index }"
         :cards="userLearningCards.cards"
         :show-cards="3"
       >
         <InboxCard
-          :key="card.card.id"
-          :index="card.card.index.value"
-          :card="(card.card as unknown as InboxCardViewModel)"
+          :key="card.id"
+          :index="index"
+          :card="(card as unknown as InboxCardViewModel)"
           :swipe-directions="swipeDirections"
           @swiped="onCardSwiped"
         />

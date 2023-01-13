@@ -17,17 +17,12 @@ export function useInboxDeckStore(app: Application) {
     }
 
     function shiftCard() {
-      const topCard = cards.value.find(x => x.index.value === 0)
-      if (topCard) {
-        cards.value.forEach(function(x) { x.index.value-- })
-        topCard.index.value = cards.value.length - 1
-      }
+      const card = cards.value.shift()
+      if (card) { cards.value.push(card) }
     }
 
     function memorizeCard(): InboxCardViewModel | undefined {
-      const topCard = cards.value.shift()
-      cards.value.forEach(function(x) { x.index.value-- })
-      return topCard
+      return cards.value.shift()
     }
 
 
@@ -41,8 +36,8 @@ export function useInboxDeckStore(app: Application) {
       }
 
       const cards = await app.inboxDeck.cards()
-      const viewModels = cards.map(async (card: InboxCard, idx: number) =>
-        markRaw(new InboxCardViewModel(card, await getVerse(card.verseId), idx))
+      const viewModels = cards.map(async (card: InboxCard) =>
+        markRaw(new InboxCardViewModel(card, await getVerse(card.verseId)))
       )
 
       return await Promise.all(viewModels)
