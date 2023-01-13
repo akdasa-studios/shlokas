@@ -13,13 +13,13 @@ export class Card extends Component {
   async swipe(direction: "left" | "right" | "top" | "bottom") {
     await this.waitFor("visible")
 
-    const cardBoundingBox = await this.locator.boundingBox()
+    // const cardBoundingBox = await this.locator.boundingBox()
     const dx = direction === "left" ? -40 : direction === "right" ? 120 : 0
     const dy = direction === "top" ? -60 : direction === "bottom" ? 120 : 0
 
     const sourcePosition = {
-      x: cardBoundingBox?.x as number + 40,
-      y: cardBoundingBox?.y as number + 60
+      x: 40,
+      y: 60
     }
     const targetPosition = {
       x: sourcePosition.x + dx,
