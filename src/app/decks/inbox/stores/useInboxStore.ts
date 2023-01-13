@@ -17,13 +17,12 @@ export function useInboxDeckStore(app: Application) {
     }
 
     function shiftCard() {
-      const topCard = cards.value.shift()
-      if (topCard) { cards.value.push(topCard) }
+      const card = cards.value.shift()
+      if (card) { cards.value.push(card) }
     }
 
     function memorizeCard(): InboxCardViewModel | undefined {
-      const topCard = cards.value.shift()
-      return topCard
+      return cards.value.shift()
     }
 
 

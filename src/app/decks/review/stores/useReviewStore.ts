@@ -26,7 +26,7 @@ export function useReviewDeckStore(app: Application) {
         cards.value.shift()
       } else {
         const first = cards.value.shift()
-        if (first) { cards.value.push(first) }
+        if (first) { cards.value.push(first); console.log("return back") }
       }
     }
 
@@ -39,13 +39,13 @@ export function useReviewDeckStore(app: Application) {
         return (await app.library.getById(verseId)).value
       }
 
-      const cards = await app.reviewDeck.dueToCards(
-        app.timeMachine.now
-      )
-      const viewModels = cards.map(async (card: ReviewCard) => {
-        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId)))
-      })
+      const cards  = await app.reviewDeck.dueToCards(app.timeMachine.now)
+      const sorted = Array.from(cards).sort((a, b) => a.addedAt.getTime() - b.addedAt.getTime())
 
+      // TODO: should be sorting by date be extracted to shlokas-core?
+      const viewModels = sorted.map(async (card: ReviewCard) => {
+        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId))) as ReviewCardViewModel
+      })
       return await Promise.all(viewModels)
     }
 

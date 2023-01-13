@@ -1,10 +1,11 @@
 import { Page } from '@playwright/test'
 import { InboxDeckPage } from './decks/inbox/InboxDeckPage'
+import { ReviewDeckPage } from './decks/review/ReviewDeckPage'
 import { LibraryPage } from './library/LibraryPage'
 import { SettingsPage } from './settings/SettingsPage'
 import { TabsBar } from './TabsBar'
 
-export class Application {
+export class ApplicationPage {
   constructor(public readonly page: Page) { }
 
   get library() {
@@ -13,6 +14,10 @@ export class Application {
 
   get inboxDeck() {
     return new InboxDeckPage(this.page)
+  }
+
+  get reviewDeck() {
+    return new ReviewDeckPage(this.page)
   }
 
   get settings() {

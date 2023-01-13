@@ -1,10 +1,10 @@
 import { test , expect } from '@playwright/test'
-import { Application } from '$/e2e/components'
+import { ApplicationPage } from '$/e2e/components'
 
-let app: Application
+let app: ApplicationPage
 
 test.beforeEach(async ({ page }) => {
-  app = new Application(page)
+  app = new ApplicationPage(page)
   await app.library.open()
 })
 
@@ -36,11 +36,11 @@ test.describe('Library › Add to Inbox', () => {
     await app.library.verseAddedToast.revert.click()
     await app.library.verseAddedToast.revert.waitFor("hidden")
 
-    await app.tabsBar.inboxTab.badge.waitFor('hidden')
+    await app.tabsBar.inboxTab.badge.waitFor('detached')
     const inboxBadge = await app.tabsBar.inboxTab.badge.isVisible()
     const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
 
-    await verseItem.badge.waitFor('hidden')
+    await verseItem.badge.waitFor('detached')
     const verseBadge = await verseItem.badge.isVisible()
 
     expect(inboxBadge).toBeFalsy()

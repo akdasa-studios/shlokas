@@ -5,7 +5,9 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ $t('decks.inbox.title') }}</ion-title>
+        <ion-title @click="test">
+          {{ $t('decks.inbox.title') }}
+        </ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -14,17 +16,23 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <InboxCard
-        v-for="card, idx in userLearningCards.cards"
-        :key="card.id.value"
-        :index="idx"
-        :card="(card as unknown as InboxCardViewModel)"
-        :swipe-directions="swipeDirections"
-        @swiped="onCardSwiped"
-      />
+      <CardsDeck
+        v-if="userLearningCards.count > 0"
+        v-slot="{ card, index }"
+        :cards="userLearningCards.cards"
+        :show-cards="3"
+      >
+        <InboxCard
+          :key="card.id"
+          :index="index"
+          :card="(card as unknown as InboxCardViewModel)"
+          :swipe-directions="swipeDirections"
+          @swiped="onCardSwiped"
+        />
+      </CardsDeck>
 
       <InboxDeckEmpty
-        v-if="userLearningCards.count === 0"
+        v-else
         data-testid="inboxEmpty"
       />
 
@@ -45,13 +53,22 @@
 <script lang="ts" setup>
 import { Application } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
-import { computed, inject } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
+import CardsDeck from '@/app/decks/CardsDeck.vue'
 
 const app = inject('app') as Application
 const userLearningCards = new UserLearningCards(app)
 userLearningCards.open()
+
+function idx1(x:any) { return x }
+function idx2(x:any) { return 1 - x}
+const i = ref(idx1)
+
+function test() {
+  i.value = i.value == idx1 ? idx2 : idx1
+}
 
 const swipeDirections = computed(() => {
   return userLearningCards.count > 1
@@ -60,11 +77,11 @@ const swipeDirections = computed(() => {
 })
 
 function onCardSwiped(direction: string) {
-  setTimeout(async () => {
+  setTimeout(() => {
     if (direction == "left" || direction == "right") {
       userLearningCards.shiftCard()
     } else if (direction == "top" || direction == "bottom") {
-      await userLearningCards.cardMemorized()
+      userLearningCards.cardMemorized()
     }
   }, 250)
 }

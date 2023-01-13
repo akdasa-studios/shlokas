@@ -14,18 +14,27 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <ReviewCard
-        v-for="card, idx in userGradesCards.cards"
-        :key="card.id.value"
-        :index="idx"
-        :card="(card as unknown as ReviewCardViewModel)"
-        :swipe-directions="swipeDirections"
-        :show-grade-buttons="appearance.gradeButtons"
-        @graded="onCardGraded"
-      />
+      <CardsDeck
+        v-if="userGradesCards.count > 0"
+        v-slot="{ card, index }"
+        :cards="userGradesCards.cards"
+        :show-cards="3"
+      >
+        <ReviewCard
+          :key="card.id"
+          :index="index"
+          :card="(card as unknown as InboxCardViewModel)"
+          :swipe-directions="swipeDirections"
+          :show-grade-buttons="appearance.gradeButtons"
+          @graded="onCardGraded"
+        />
+      </CardsDeck>
 
       <!-- Inbox deck is empty -->
-      <ReviewDeckEmpty v-if="userGradesCards.count === 0" />
+      <ReviewDeckEmpty
+        v-else
+        data-testid="reviewEmpty"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -37,6 +46,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue
 import { computed, inject } from 'vue'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
 import { useAppearanceStore } from '@/app/settings'
+import CardsDeck from '@/app/decks/CardsDeck.vue'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)
@@ -50,6 +60,6 @@ const swipeDirections = computed(() => {
 })
 
 function onCardGraded(grade: ReviewGrade) {
-  setTimeout(() => { userGradesCards.gradeCard(grade) }, 250)
+  setTimeout(() => { userGradesCards.gradeCard(grade) }, 100)
 }
 </script>
