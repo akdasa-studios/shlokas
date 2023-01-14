@@ -10,11 +10,13 @@ import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository
 import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
 import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persistence/VerseStatusSerializer'
 
+import { AuthService } from '@/services/AuthService'
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
 import { useAppearanceStore } from './settings/stores/useAppearanceStore'
 import { useAccountStore } from './settings/stores/useAccountStore'
 import { useDeviceStore } from './useDeviceStorage'
+import { AUTH_HOST } from './Env'
 
 export let application: Application
 export let couchDB: CouchDB
@@ -102,7 +104,14 @@ export async function createApplication() {
     const account = useAccountStore()
 
     const taskId = await BackgroundTask.beforeExit(async () => {
-      if (account?.syncHost?.value) {
+      if (!account?.token) { return }
+
+      if (new Date().getTime() >= account.token.expires) {
+        // refresh token
+        const service = new AuthService(AUTH_HOST)
+        account.token.expires = (await service.refreshToken(account.token)).expires
+      } else if (account.syncHost?.value) {
+        // sync db
         await couchDB.sync(account.syncHost.value)
       }
       BackgroundTask.finish({ taskId })
