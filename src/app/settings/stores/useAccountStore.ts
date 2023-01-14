@@ -35,7 +35,7 @@ export const useAccountStore = defineStore('settings/account', () => {
   watch(name, onNameChanged)
   watch(email, onEmailChanged)
   watch(password, onPasswordChanged)
-  watch(token, onTokenChanged)
+  watch(token, onTokenChanged, { deep: true })
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */

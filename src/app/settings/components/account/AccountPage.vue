@@ -14,6 +14,11 @@
         Welcome back!
       </h1>
 
+      <span v-if="token">
+        Token is valid till:
+        {{ new Date(token.expires).toLocaleString() }}
+      </span>
+
       <ion-button
         v-if="!isAuthenticated"
         expand="block"
@@ -61,6 +66,15 @@
       >
         Delete all data
       </ion-button>
+
+      <ion-button
+        v-if="isAuthenticated"
+        expand="block"
+        fill="outline"
+        @click="onRefreshToken"
+      >
+        Refresh Token
+      </ion-button>
     </ion-content>
 
     <ion-loading
@@ -84,14 +98,15 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
+import { AuthService } from '@/services/AuthService'
+import { AUTH_HOST } from '@/app/Env'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 
 const account = useAccountStore()
-console.log(account)
-const { isAuthenticated, syncHost } = storeToRefs(account)
+const { isAuthenticated, syncHost, token } = storeToRefs(account)
 const { logOut, load } = account
 
 load()
@@ -111,5 +126,10 @@ async function onClean() {
   inProgress.value = true
   await couchDB.deleteAll()
   inProgress.value = false
+}
+
+async function onRefreshToken() {
+  const service = new AuthService(AUTH_HOST)
+  token.value.expires = (await service.refreshToken(token.value)).expires
 }
 </script>

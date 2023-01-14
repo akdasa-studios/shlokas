@@ -42,12 +42,22 @@ export class AuthService {
     })
   }
 
-  private async _post(url: string, data: any): Promise<any> {
+  async refreshToken(token: any): Promise<any> {
+    const response = await this._post("refresh", token, {
+      "Authorization": `Bearer ${token.token}:${token.password}`
+    })
+    return {
+      expires: response.expires,
+    }
+  }
+
+  private async _post(url: string, data: any, headers = {}): Promise<any> {
     return (await fetch(`${this._host}/${url}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...headers
       },
       body: JSON.stringify(data)
     })).json()
