@@ -28,9 +28,7 @@ export class DomainViewModel<TType extends Aggregate<AnyIdentity>> implements Vi
     const repository: Repository<TType> = this.getRepository()
 
     if (this._query) {
-      console.log(this._query)
       const queryResult =  (await repository.find(this._query)).value
-      console.log(queryResult)
       this._object = queryResult[0]
     } else {
       if (this._object.id.value === "00000000-0000-0000-0000-000000000000") {
