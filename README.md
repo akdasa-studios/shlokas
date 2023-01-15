@@ -2,7 +2,7 @@
     <img src="docs/logo.svg" height="184px"/>
 </p>
 
-<p align="center"><i>Learn Vedic verses to spiritualize your mind! This app is a collection of shlokas from the Vedas, Upanishads, Bhagavad Gita, and other spiritual texts. The app is designed to help you learn the verses by heart. It is also a great way to learn Sanskrit. Shlokas uses an interval repetition algorithm to help you learn the verses. So you can learn several verses a day.</i></p><br>
+<p align="center"><i>Enhance your spiritual practice and deepen your understanding of the Vedas with Shlokas, the mobile app that makes it easy to memorize and recite Vedic verses. <a href='https://shlokas.app'>Try it out</a> today and take your spiritual journey to the next level</i></p><br>
 
 <a href="https://shlokas.app">
   <p align="center">
@@ -10,7 +10,7 @@
   </p>
 </a>
 
-#
+
 <p align="center">
   <a href="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml"><img src="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <a href="https://codecov.io/gh/akdasa-studios/shlokas"><img src="https://codecov.io/gh/akdasa-studios/shlokas/branch/main/graph/badge.svg?token=QUAOR54W17"/></a>
