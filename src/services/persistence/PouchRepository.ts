@@ -67,7 +67,6 @@ export class PouchRepository<
   }
 
   async all(): Promise<Result<readonly TAggregate[]>> {
-    console.log("#all")
     const allDocs = await this.find(
       new QueryBuilder<TAggregate>()
         // @ts-ignore
@@ -78,7 +77,6 @@ export class PouchRepository<
   }
 
   async save(entity: TAggregate): Promise<Result<void, string>> {
-    console.log("#save", entity)
     const serializedDoc = this._serializer.map(entity).value
     await this._db.db.upsert(
       entity.id.value,
@@ -92,7 +90,6 @@ export class PouchRepository<
   }
 
   async get(id: TAggregate['id']): Promise<Result<TAggregate, string>> {
-    console.log("#get", id)
     try {
       const document = await this._db.db.get(id.value)
       return Result.ok(this._deserializer.map(document).value)
@@ -102,13 +99,11 @@ export class PouchRepository<
   }
 
   async exists(id: TAggregate['id']): Promise<boolean> {
-    console.log("#exists", id)
     const document = await this.get(id)
     return document.isSuccess
   }
 
   async find(query: Query<TAggregate>): Promise<Result<TAggregate[], string>> {
-    console.log("#find", query)
     const convertedQuery = new QueryConverter().convert(query)
     convertedQuery.selector["@type"] = this._collectionName
     const items = await this._db.db.find(convertedQuery)
@@ -117,7 +112,6 @@ export class PouchRepository<
   }
 
   async delete(id: TAggregate['id']): Promise<Result<void, string>> {
-    console.log("#delete", id)
     try {
       const doc = await this._db.db.get(id.value)
       await this._db.db.remove(doc)

@@ -28,6 +28,7 @@
     "@sentry/vue": "7.25.0",
     "@vueuse/core": "^9.10.0",
     "core-js": "^3.6.5",
+    "fitty": "^2.3.6",
     "interactjs": "^1.10.17",
     "ionicons": "^6.0.3",
     "pinia": "^2.0.28",
