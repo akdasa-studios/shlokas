@@ -5,7 +5,7 @@
     <template #overlay>
       <InboxCardSwipeOverlay
         grade=""
-        :class="props.card.style"
+        :class="style"
         class="side"
       />
     </template>
@@ -16,14 +16,14 @@
         :verse-number="props.card.verseNumber"
         :lines="props.card.text"
         class="side"
-        :class="props.card.style"
+        :class="style"
       />
 
       <InboxCardTranslationSide
         v-if="props.card.type === InboxCardType.Translation"
         :verse-number="props.card.verseNumber"
         :translation="props.card.translation"
-        :class="props.card.style"
+        :class="style"
         class="side"
       />
     </template>
@@ -32,7 +32,7 @@
       <InboxCardSynonymsSide
         :words="props.card.synonyms"
         class="side"
-        :class="props.card.style"
+        :class="style"
       />
     </template>
   </FlipCard>
@@ -49,6 +49,8 @@ import {
   InboxCardViewModel
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
+import { useAppearanceStore } from '@/app/settings'
+import { hashString } from '@/app/utils/hashString'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -57,6 +59,12 @@ import { testId } from '@/app/TestId'
 const props = defineProps<{
   card: InboxCardViewModel
 }>()
+
+
+const appearance = useAppearanceStore()
+const style = appearance.colorfulCards
+  ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+  : "side-color-0"
 
 // const emit = defineEmits<{
 //   (event: 'swiped', direction: string, value: number): boolean

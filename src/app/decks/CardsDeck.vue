@@ -1,30 +1,36 @@
+<template>
+  <div class="deck">
+    <div
+      v-for="card in cards"
+      :key="card.id"
+      :ref="(el) => setRefs(card.index.value, el)"
+      class="card1"
+      :style="calculateStyle(card)"
+    >
+      <slot :card="card" />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, computed, watch, defineEmits, onMounted, defineProps} from 'vue'
 import interact from 'interactjs'
+import { card } from 'ionicons/icons'
 import { Vector3d } from './Vector3d'
+import { CardViewModel } from './CardViewModel'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
-type CardAction = "inactive"|"moving"
-
-interface CardState {
-  id: string
-  index: number,
-  position: Vector3d,
-  angle: Vector3d,
-  action: CardAction
-}
-
 const props = defineProps<{
-  cards: CardState[],
+  cards: CardViewModel[],
 }>()
 
 const emit = defineEmits<{
-  (e: 'place',  state: CardState): void
-  (e: 'moving', state: CardState, deltaPos: Vector3d): void
-  (e: 'moved',  state: CardState, deltaPos: Vector3d): void
+  (e: 'place',  state: CardViewModel): void
+  (e: 'moving', state: CardViewModel, deltaPos: Vector3d): void
+  (e: 'moved',  state: CardViewModel, deltaPos: Vector3d): void
 }>()
 
 /* -------------------------------------------------------------------------- */
@@ -55,17 +61,27 @@ onMounted(() => {
   props.cards.forEach(x => emit("place", x))
 })
 
-function calculateStyle(state: CardState) {
-  const transition = state.action === "moving"
-    ? 'none'
-    : '.5s cubic-bezier(0.075, 0.82, 0.165, 1)'
+function calculateStyle(state: CardViewModel) {
+  const actions = {
+    'moving': 'none',
+    // 'inactive': '.6s linear',
+    'inactive': '.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);',
+    'deleting': '.25s linear'
+  }
+
+  const transition = actions[state.action.value] as string
+  // state.action.value === "moving"
+  //   ? 'none'
+  //   : '.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);'
   return `transform: translateX(${state.position.x}px)` +
          `           translateY(${state.position.y}px)` +
          `           translateZ(${state.position.z}px)` +
          `           rotateX(${state.angle.x}deg)` +
          `           rotateY(${state.angle.y}deg)` +
          `           rotateZ(${state.angle.z}deg);` +
-         `transition: ${transition};`}
+         `transition: ${transition};`+
+         `opacity: ${state.opacity.value}`
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                 Iteractions                                */
@@ -75,16 +91,16 @@ function enableInteraction(ref: any) {
   interact(ref).draggable({
     listeners: {
       start() {
-        const card = topCardObj.value as CardState
-        card.action = "moving"
+        const card = topCardObj.value as CardViewModel
+        card.action.value = "moving"
       },
       move(event:any) {
-        const card = topCardObj.value as CardState
+        const card = topCardObj.value as CardViewModel
         emit("moving", card, new Vector3d(event.dx, event.dy, 0))
       },
       end() {
-        const card = topCardObj.value as CardState
-        card.action = "inactive"
+        const card = topCardObj.value as CardViewModel
+        card.action.value = "inactive"
         emit("moved", card, new Vector3d(card.position.x, card.position.y, 0))
       }
     }
@@ -95,20 +111,6 @@ function disableInteraction(ref: any) {
   interact(ref).unset()
 }
 </script>
-
-<template>
-  <div class="deck">
-    <div
-      v-for="card in cards"
-      :key="card.id"
-      :ref="(el) => setRefs(card.index.value, el)"
-      class="card1"
-      :style="calculateStyle(card)"
-    >
-      <slot :card="card" />
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .deck {

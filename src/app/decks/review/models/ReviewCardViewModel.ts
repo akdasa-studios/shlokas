@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { CardViewModel } from '@/app/decks/CardViewModel'
 
-export class ReviewCardViewModel extends CardViewModel implements ViewModel {
+export class ReviewCardViewModel extends CardViewModel {
   private readonly _card: ReviewCard
 
   constructor(card: ReviewCard, verse: Verse) {
@@ -51,14 +51,4 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
     this.targetX.value = -500
     setTimeout(() => { this.targetX.value = 0 }, 400)
   }
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    Sync                                    */
-  /* -------------------------------------------------------------------------- */
-
-  sync(): void {
-    super.sync()
-    // this._card.sync()
-  }
-
 }
