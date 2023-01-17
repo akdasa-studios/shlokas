@@ -80,7 +80,8 @@ function calculateStyle(state: CardViewModel) {
          `           rotateY(${state.angle.y}deg)` +
          `           rotateZ(${state.angle.z}deg);` +
          `transition: ${transition};`+
-         `opacity: ${state.opacity.value}`
+         `opacity: ${state.opacity.value};`+
+         `z-index: ${10 - state.index.value}`
 }
 
 /* -------------------------------------------------------------------------- */

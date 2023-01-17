@@ -2,7 +2,7 @@ import { CardViewModel } from '@/app/decks/CardViewModel'
 import { Vector3d } from '@/app/decks/Vector3d'
 
 export abstract class DeckTheme {
-  public swipeThreshold = 60
+  public swipeThreshold = 40
 
   abstract updateInactiveCard(card: CardViewModel): void
   abstract updateMovingCard(card: CardViewModel, deltaPos: Vector3d): void

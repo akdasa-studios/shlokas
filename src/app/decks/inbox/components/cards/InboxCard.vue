@@ -1,6 +1,7 @@
 <template>
   <FlipCard
     :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
+    :data-index="props.card.index.value"
   >
     <template #overlay>
       <InboxCardSwipeOverlay
