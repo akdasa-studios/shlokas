@@ -1,16 +1,10 @@
 <template>
   <FlipCard
-    :index="props.index"
-    :swipe-threshold="50"
-    :swipe-directions="props.swipeDirections"
     :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
-    :data-index="props.index"
-    @swiped="onSwiped"
-    @swiping="onSwiping"
   >
     <template #overlay>
       <InboxCardSwipeOverlay
-        :grade="grade"
+        grade=""
         :class="props.card.style"
         class="side"
       />
@@ -46,47 +40,45 @@
 
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, ref } from 'vue'
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
+import { defineProps } from 'vue'
 import FlipCard from '@/app/decks/FlipCard.vue'
-import { testId } from '@/app/TestId'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
   InboxCardViewModel
 } from '@/app/decks/inbox'
+import { testId } from '@/app/TestId'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  index: number,
-  swipeDirections: string[],
   card: InboxCardViewModel
 }>()
 
-const emit = defineEmits<{
-  (event: 'swiped', direction: string, value: number): boolean
-}>()
+// const emit = defineEmits<{
+//   (event: 'swiped', direction: string, value: number): boolean
+// }>()
 
-const grade = ref('')
+// const grade = ref('')
 
-/* -------------------------------------------------------------------------- */
-/*                                 Handlers                                   */
-/* -------------------------------------------------------------------------- */
+// /* -------------------------------------------------------------------------- */
+// /*                                 Handlers                                   */
+// /* -------------------------------------------------------------------------- */
 
-function onSwiping(direction: string, value: number) {
-  grade.value = (
-    (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
-    (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
-  )
-}
+// function onSwiping(direction: string, value: number) {
+//   grade.value = (
+//     (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
+//     (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
+//   )
+// }
 
-function onSwiped(direction: string, value: number) {
-  setTimeout(() => grade.value = "" , 50)
-  return emit('swiped', direction, value)
-}
+// function onSwiped(direction: string, value: number) {
+//   setTimeout(() => grade.value = "" , 50)
+//   return emit('swiped', direction, value)
+// }
 </script>
 
 

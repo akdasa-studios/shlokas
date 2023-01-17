@@ -1,7 +1,9 @@
 import { Verse } from '@akdasa-studios/shlokas-core'
+import { reactive, ref } from 'vue'
 import { ViewModel } from '@/app/DomainViewModel'
 import { useAppearanceStore } from '@/app/settings'
 import { hashString } from '../utils/hashString'
+import { Vector3d } from './Vector3d'
 
 export abstract class CardViewModel implements ViewModel {
   private readonly _verse: Verse
@@ -15,6 +17,11 @@ export abstract class CardViewModel implements ViewModel {
   /* -------------------------------------------------------------------------- */
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
+
+  index    = ref<number>(0)
+  position = reactive(new Vector3d(0, 0, 0))
+  angle    = reactive(new Vector3d(0, 0, 0))
+  action   = ref<string>("inactive")
 
   get verseNumber() { return this._verse.number.toString() }
   get text()        { return this._verse.text.lines }

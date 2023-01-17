@@ -5,9 +5,10 @@ import { ViewModel } from '@/app/DomainViewModel'
 export class InboxCardViewModel extends CardViewModel implements ViewModel {
   public readonly _card: InboxCard
 
-  constructor(card: InboxCard, verse: Verse) {
+  constructor(card: InboxCard, verse: Verse, index: number) {
     super(verse)
     this._card = card
+    this.index.value = index
   }
 
   /* -------------------------------------------------------------------------- */
