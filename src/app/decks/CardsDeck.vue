@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'place',  state: CardViewModel): void
-  (e: 'moving', state: CardViewModel, deltaPos: Vector3d): void
+  (e: 'moving', state: CardViewModel, deltaPos: Vector3d, allDeltaPos: Vector3d): void
   (e: 'moved',  state: CardViewModel, deltaPos: Vector3d): void
 }>()
 
@@ -70,9 +70,6 @@ function calculateStyle(state: CardViewModel) {
   }
 
   const transition = actions[state.action.value] as string
-  // state.action.value === "moving"
-  //   ? 'none'
-  //   : '.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);'
   return `transform: translateX(${state.position.x}px)` +
          `           translateY(${state.position.y}px)` +
          `           translateZ(${state.position.z}px)` +
@@ -97,7 +94,12 @@ function enableInteraction(ref: any) {
       },
       move(event:any) {
         const card = topCardObj.value as CardViewModel
-        emit("moving", card, new Vector3d(event.dx, event.dy, 0))
+        emit(
+          "moving",
+          card,
+          new Vector3d(event.dx, event.dy, 0),
+          new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
+        )
       },
       end() {
         const card = topCardObj.value as CardViewModel

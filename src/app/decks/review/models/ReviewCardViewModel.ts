@@ -6,9 +6,10 @@ import { CardViewModel } from '@/app/decks/CardViewModel'
 export class ReviewCardViewModel extends CardViewModel {
   private readonly _card: ReviewCard
 
-  constructor(card: ReviewCard, verse: Verse) {
+  constructor(card: ReviewCard, verse: Verse, index: number) {
     super(verse)
     this._card = card
+    this.index.value = index
   }
 
   /* -------------------------------------------------------------------------- */
@@ -24,6 +25,7 @@ export class ReviewCardViewModel extends CardViewModel {
 
   targetX = ref(0)
   targetY = ref(0)
+  grade = ref<ReviewGrade|undefined>(undefined)
 
   nextIntervals = computed(() => {
     const sc = new Scheduler()

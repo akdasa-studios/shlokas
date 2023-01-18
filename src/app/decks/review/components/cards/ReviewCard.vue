@@ -1,19 +1,12 @@
 <template>
   <FlipCard
-    :index="props.index"
-    :swipe-threshold="50"
-    :swipe-directions="props.swipeDirections"
-    :target-x="props.card.targetX.value"
-    :target-y="targetY"
     :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
-    :data-index="props.index"
-    @swiped="onSwiped"
-    @swiping="onSwiping"
+    :data-index="props.card.index.value"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
-        :grade="grade"
-        :interval="nextIntervals[grade || 0]"
+        :grade="props.card.grade.value"
+        :interval="nextIntervals[props.card.grade.value || 0]"
         :class="style"
         class="side"
       />
@@ -21,8 +14,8 @@
 
     <template #front>
       <CardSide
-        :class="style"
         class="side"
+        :class="style"
       >
         <div class="question">
           {{ getQuestion(type) }}
@@ -38,8 +31,8 @@
 
     <template #back>
       <CardSide
-        :class="style"
         class="side"
+        :class="style"
       >
         <component
           :is="getSideComponent(type, false)"
@@ -47,7 +40,7 @@
           :lines="text"
           :translation="translation"
         />
-        <div
+        <!-- <div
           v-if="showGradeButtons"
           class="buttons"
         >
@@ -55,7 +48,7 @@
             :intervals="nextIntervals"
             @graded="onGradeButtonClicked"
           />
-        </div>
+        </div> -->
       </CardSide>
     </template>
   </FlipCard>
@@ -73,6 +66,8 @@ import {
   ReviewCardTextSide, ReviewCardSwipeOverlay, ReviewCardAnswerButtons, ReviewCardViewModel
 } from '@/app/decks/review'
 import { testId } from '@/app/TestId'
+import { useAppearanceStore } from '@/app/settings'
+import { hashString } from '@/app/utils/hashString'
 
 const { t } = useI18n()
 
@@ -81,19 +76,16 @@ const { t } = useI18n()
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  index: number,
-  swipeDirections: string[],
   card: ReviewCardViewModel,
-  showGradeButtons: boolean
 }>()
 
-const emit = defineEmits<{
-  (event: 'graded', grade: ReviewGrade): boolean
-}>()
+// const emit = defineEmits<{
+//   (event: 'graded', grade: ReviewGrade): boolean
+// }>()
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
-  type, text, targetY, style
+  type, text
 }}} = toRefs(props)
 
 
@@ -101,37 +93,42 @@ const { card: { value: {
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const grade = ref<ReviewGrade|undefined>(undefined)
+const appearance = useAppearanceStore()
+const style = appearance.colorfulCards
+  ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+  : "side-color-0"
 
-function getGrade(direction: string) : ReviewGrade|undefined {
-  return {
-    'top': ReviewGrade.Forgot,
-    'bottom': ReviewGrade.Hard,
-    'left': ReviewGrade.Good,
-    'right': ReviewGrade.Easy
-  }[direction]
-}
+// const grade = ref<ReviewGrade|undefined>(undefined)
 
-function onSwiping(direction: string, value: number) {
-  if (Math.abs(value) < 30) { grade.value = undefined; return }
-  grade.value = getGrade(direction)
-}
+// function getGrade(direction: string) : ReviewGrade|undefined {
+//   return {
+//     'top': ReviewGrade.Forgot,
+//     'bottom': ReviewGrade.Hard,
+//     'left': ReviewGrade.Good,
+//     'right': ReviewGrade.Easy
+//   }[direction]
+// }
 
-function onSwiped(direction: string) {
-  grade.value = undefined
-  return emit('graded', getGrade(direction))
-}
+// function onSwiping(direction: string, value: number) {
+//   if (Math.abs(value) < 30) { grade.value = undefined; return }
+//   grade.value = getGrade(direction)
+// }
+
+// function onSwiped(direction: string) {
+//   grade.value = undefined
+//   return emit('graded', getGrade(direction))
+// }
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
-function onGradeButtonClicked(grade: ReviewGrade) {
-  // targetX.value = -500
-  // setTimeout(() => { targetX.value = 0 }, 400)
-  props.card.swipeAway()
-  return emit('graded', grade)
-}
+// function onGradeButtonClicked(grade: ReviewGrade) {
+//   // targetX.value = -500
+//   // setTimeout(() => { targetX.value = 0 }, 400)
+//   props.card.swipeAway()
+//   // return emit('graded', grade)
+// }
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */

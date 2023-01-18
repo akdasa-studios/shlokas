@@ -67,27 +67,6 @@ const style = appearance.colorfulCards
   ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
   : "side-color-0"
 
-// const emit = defineEmits<{
-//   (event: 'swiped', direction: string, value: number): boolean
-// }>()
-
-// const grade = ref('')
-
-// /* -------------------------------------------------------------------------- */
-// /*                                 Handlers                                   */
-// /* -------------------------------------------------------------------------- */
-
-// function onSwiping(direction: string, value: number) {
-//   grade.value = (
-//     (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
-//     (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
-//   )
-// }
-
-// function onSwiped(direction: string, value: number) {
-//   setTimeout(() => grade.value = "" , 50)
-//   return emit('swiped', direction, value)
-// }
 </script>
 
 

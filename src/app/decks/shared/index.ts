@@ -1,3 +1,3 @@
-export * from "./theme/DeckTheme"
-export * from "./theme/StackedCardsDeckTheme"
-export * from "./theme/DefaultDeckTheme"
+export * from "./theme/DeckBehaviour"
+export * from "./theme/StackedDeckBehaviour"
+export * from "./theme/DefaultDeckBehaviour"

@@ -22,13 +22,14 @@ export function useInboxDeckStore(app: Application) {
         topCard.index.value = cards.value.length
         cards.value.forEach(x => x.index.value--)
       }
-
-      // const card = cards.value.shift()
-      // if (card) { cards.value.push(card) }
     }
 
     function memorizeCard(): InboxCardViewModel | undefined {
-      return cards.value.shift()
+      const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
+      if (topCardIndex !== -1) {
+        cards.value.forEach(x => x.index.value--)
+        return cards.value.splice(topCardIndex, 1)[0]
+      }
     }
 
 

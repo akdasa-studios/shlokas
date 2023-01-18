@@ -20,11 +20,11 @@
         v-if="userLearningCards.count > 0"
         v-slot="{ card }"
         :cards="cardsToShow"
-        @place="(c) => theme.updateInactiveCard(c)"
-        @moving="(c,v) => theme.updateMovingCard(c,v)"
-        @moved="(c,v) => { theme.updateMovedCard(c,v); onCardSwiped(c,v) }"
+        @place="onCardPlaced"
+        @moving="onCardMoving"
+        @moved="onCardMoved"
       >
-        <InboxCard :card="(card as unknown as InboxCardViewModel)" />
+        <InboxCard :card="(card as InboxCardViewModel)" />
       </CardsDeck>
 
       <InboxDeckEmpty
@@ -50,25 +50,34 @@
 import { Application } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
-import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
-import { testId } from '@/app/TestId'
 import CardsDeck from '@/app/decks/CardsDeck.vue'
-import { StackedCardsDeckTheme } from '@/app/decks/shared'
 import { CardViewModel } from '@/app/decks/CardViewModel'
+import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
+import { StackedDeckBehaviour } from '@/app/decks/shared'
 import { Vector3d } from '@/app/decks/Vector3d'
+import { testId } from '@/app/TestId'
 
 const app = inject('app') as Application
 
 const userLearningCards = new UserLearningCards(app)
-const theme = new StackedCardsDeckTheme()
+const deck = new StackedDeckBehaviour()
 const cardsToShow = computed(() =>
   userLearningCards.cards.filter(x => x.index.value < 3)
 )
 
 userLearningCards.open()
 
-function onCardSwiped(card: CardViewModel, vector: Vector3d) {
-  if (vector.length < theme.swipeThreshold) { return }
+function onCardPlaced(card: CardViewModel) {
+  deck.updateInactiveCard(card)
+}
+
+function onCardMoving(card: CardViewModel, vector: Vector3d) {
+  deck.updateMovingCard(card, vector)
+}
+
+function onCardMoved(card: CardViewModel, vector: Vector3d) {
+  deck.updateMovedCard(card, vector)
+  if (vector.length < deck.swipeThreshold) { return }
   setTimeout(() => {
     if (vector.direction == "left" || vector.direction == "right") {
       userLearningCards.shiftCard()

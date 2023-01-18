@@ -1,8 +1,8 @@
 import { CardViewModel } from "@/app/decks/CardViewModel"
 import { Vector3d } from "@/app/decks/Vector3d"
-import { DeckTheme } from "@/app/decks/shared"
+import { DeckBehaviour } from "@/app/decks/shared"
 
-export class DefaultDeckTheme extends DeckTheme {
+export class DefaultDeckBehaviour extends DeckBehaviour {
   private readonly maxAngleZ = 15
 
   updateInactiveCard(card: CardViewModel) {
