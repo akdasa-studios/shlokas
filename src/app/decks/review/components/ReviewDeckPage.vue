@@ -22,15 +22,6 @@
         @moving="onCardMoving"
         @moved="onCardMoved"
       >
-        <!-- <ReviewCard
-          :key="card.id"
-          :index="index"
-          :card="(card as unknown as InboxCardViewModel)"
-          :swipe-directions="swipeDirections"
-          :show-grade-buttons="appearance.gradeButtons"
-          @graded="onCardGraded"
-        /> -->
-        <!-- <InboxCard :card="card" /> -->
         <ReviewCard :card="(card as ReviewCardViewModel)" />
       </CardsDeck>
 
@@ -48,12 +39,8 @@
 import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
-import CardsDeck from '@/app/decks/CardsDeck.vue'
-import { CardViewModel } from '@/app/decks/CardViewModel'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
-import { InboxCard } from '@/app/decks/inbox'
-import { StackedDeckBehaviour } from '@/app/decks/shared'
-import { Vector3d } from '@/app/decks/Vector3d'
+import { CardViewModel, StackedDeckBehaviour, Vector3d, CardsDeck } from '@/app/decks/shared'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)

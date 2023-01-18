@@ -1,5 +1,5 @@
-import { CardViewModel } from "./CardViewModel"
-import { Vector3d } from "./Vector3d"
+import { CardViewModel } from "./shared/CardViewModel"
+import { Vector3d } from "./shared/Vector3d"
 
 export class DeckCardInteraction {
   constructor(

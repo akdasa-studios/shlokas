@@ -1,6 +1,5 @@
-import { CardViewModel } from "@/app/decks/CardViewModel"
-import { Vector3d } from "@/app/decks/Vector3d"
-import { DeckBehaviour } from "@/app/decks/shared"
+import { CardViewModel } from "@/app/decks/shared/CardViewModel"
+import { Vector3d, DeckBehaviour } from "@/app/decks/shared"
 
 export class DefaultDeckBehaviour extends DeckBehaviour {
   private readonly maxAngleZ = 15

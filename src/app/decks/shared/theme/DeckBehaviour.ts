@@ -1,5 +1,4 @@
-import { CardViewModel } from '@/app/decks/CardViewModel'
-import { Vector3d } from '@/app/decks/Vector3d'
+import { CardViewModel , Vector3d } from '@/app/decks/shared'
 
 export abstract class DeckBehaviour {
   public swipeThreshold = 40

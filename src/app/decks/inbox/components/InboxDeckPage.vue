@@ -50,11 +50,9 @@
 import { Application } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
-import CardsDeck from '@/app/decks/CardsDeck.vue'
-import { CardViewModel } from '@/app/decks/CardViewModel'
+import CardsDeck from '@/app/decks/shared/CardsDeck.vue'
 import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
-import { StackedDeckBehaviour } from '@/app/decks/shared'
-import { Vector3d } from '@/app/decks/Vector3d'
+import { StackedDeckBehaviour, Vector3d, CardViewModel } from '@/app/decks/shared'
 import { testId } from '@/app/TestId'
 
 const app = inject('app') as Application

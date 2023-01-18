@@ -56,17 +56,12 @@
 
 
 <script lang="ts" setup>
-import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps, ref, toRefs } from 'vue'
+import { defineProps, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import FlipCard from '@/app/decks/FlipCard.vue'
-import CardSide from '@/app/decks/CardSide.vue'
-import {
-  ReviewCardVerseNumberSide, ReviewCardTranslationSide,
-  ReviewCardTextSide, ReviewCardSwipeOverlay, ReviewCardAnswerButtons, ReviewCardViewModel
-} from '@/app/decks/review'
-import { testId } from '@/app/TestId'
+import { ReviewCardSwipeOverlay, ReviewCardTextSide, ReviewCardTranslationSide, ReviewCardVerseNumberSide, ReviewCardViewModel } from '@/app/decks/review'
+import { CardSide, FlipCard } from '@/app/decks/shared'
 import { useAppearanceStore } from '@/app/settings'
+import { testId } from '@/app/TestId'
 import { hashString } from '@/app/utils/hashString'
 
 const { t } = useI18n()
@@ -78,10 +73,6 @@ const { t } = useI18n()
 const props = defineProps<{
   card: ReviewCardViewModel,
 }>()
-
-// const emit = defineEmits<{
-//   (event: 'graded', grade: ReviewGrade): boolean
-// }>()
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
@@ -97,42 +88,6 @@ const appearance = useAppearanceStore()
 const style = appearance.colorfulCards
   ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
   : "side-color-0"
-
-// const grade = ref<ReviewGrade|undefined>(undefined)
-
-// function getGrade(direction: string) : ReviewGrade|undefined {
-//   return {
-//     'top': ReviewGrade.Forgot,
-//     'bottom': ReviewGrade.Hard,
-//     'left': ReviewGrade.Good,
-//     'right': ReviewGrade.Easy
-//   }[direction]
-// }
-
-// function onSwiping(direction: string, value: number) {
-//   if (Math.abs(value) < 30) { grade.value = undefined; return }
-//   grade.value = getGrade(direction)
-// }
-
-// function onSwiped(direction: string) {
-//   grade.value = undefined
-//   return emit('graded', getGrade(direction))
-// }
-
-/* -------------------------------------------------------------------------- */
-/*                                  Handlers                                  */
-/* -------------------------------------------------------------------------- */
-
-// function onGradeButtonClicked(grade: ReviewGrade) {
-//   // targetX.value = -500
-//   // setTimeout(() => { targetX.value = 0 }, 400)
-//   props.card.swipeAway()
-//   // return emit('graded', grade)
-// }
-
-/* -------------------------------------------------------------------------- */
-/*                                   Helpers                                  */
-/* -------------------------------------------------------------------------- */
 
 function getSideComponent(cardType: string, front: boolean) {
   const name = cardType.split('To')[front ? 0 : 1]

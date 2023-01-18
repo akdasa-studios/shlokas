@@ -1,10 +1,8 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
-import { CardViewModel } from '@/app/decks/CardViewModel'
-import { ViewModel } from '@/app/DomainViewModel'
+import { CardViewModel } from '@/app/decks/shared/CardViewModel'
 
 export class InboxCardViewModel extends CardViewModel {
   public readonly _card: InboxCard
-style: unknown
 
   constructor(card: InboxCard, verse: Verse, index: number) {
     super(verse)

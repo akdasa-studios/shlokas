@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import CardSide from '@/app/decks/CardSide.vue'
+import { CardSide } from '@/app/decks/shared'
 import FitText from '@/app/FitText.vue'
 const props = defineProps<{
   verseNumber: string

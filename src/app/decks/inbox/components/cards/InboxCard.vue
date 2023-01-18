@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { defineProps } from 'vue'
-import FlipCard from '@/app/decks/FlipCard.vue'
+import { FlipCard } from '@/app/decks/shared'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
