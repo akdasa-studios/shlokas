@@ -1,5 +1,12 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
+import { ref } from 'vue'
 import { CardViewModel } from '@/app/decks/shared/CardViewModel'
+
+export enum MemorizingStatus {
+  Unknown,
+  StillMemorizing,
+  Memorized
+}
 
 export class InboxCardViewModel extends CardViewModel {
   public readonly _card: InboxCard
@@ -10,9 +17,7 @@ export class InboxCardViewModel extends CardViewModel {
     this.index.value = index
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                 Properties                                 */
-  /* -------------------------------------------------------------------------- */
+  memorizingStatus = ref<MemorizingStatus>(MemorizingStatus.Unknown)
 
   get id()      { return this._card.id.value }
   get type()    { return this._card.type }

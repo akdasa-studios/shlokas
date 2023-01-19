@@ -1,40 +1,41 @@
 <template>
   <FlipCard
-    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
-    :data-index="props.card.index.value"
+    :data-testid="testId(card.verseNumber, 'card', card.type)"
+    :data-index="card.index.value"
   >
     <template #overlay>
-      <InboxCardSwipeOverlay
-        grade=""
+      <CardSide
+        v-if="card.memorizingStatus.value !== MemorizingStatus.Unknown"
         :class="style"
-        class="side"
-      />
+      >
+        <InboxCardSwipeOverlay
+          :memorizing-status="card.memorizingStatus.value"
+        />
+      </CardSide>
     </template>
 
     <template #front>
-      <InboxCardVerseTextSide
-        v-if="props.card.type === InboxCardType.Text"
-        :verse-number="props.card.verseNumber"
-        :lines="props.card.text"
-        class="side"
-        :class="style"
-      />
+      <CardSide :class="style">
+        <InboxCardVerseTextSide
+          v-if="card.type === InboxCardType.Text"
+          :verse-number="card.verseNumber"
+          :lines="card.text"
+        />
 
-      <InboxCardTranslationSide
-        v-if="props.card.type === InboxCardType.Translation"
-        :verse-number="props.card.verseNumber"
-        :translation="props.card.translation"
-        :class="style"
-        class="side"
-      />
+        <InboxCardTranslationSide
+          v-if="card.type === InboxCardType.Translation"
+          :verse-number="card.verseNumber"
+          :translation="card.translation"
+        />
+      </CardSide>
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide
-        :words="props.card.synonyms"
-        class="side"
-        :class="style"
-      />
+      <CardSide :class="style">
+        <InboxCardSynonymsSide
+          :words="card.synonyms"
+        />
+      </CardSide>
     </template>
   </FlipCard>
 </template>
@@ -42,12 +43,13 @@
 
 <script lang="ts" setup>
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
-import { defineProps } from 'vue'
-import { FlipCard } from '@/app/decks/shared'
+import { defineProps, toRefs } from 'vue'
+import { FlipCard, CardSide } from '@/app/decks/shared'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
-  InboxCardViewModel
+  InboxCardViewModel,
+MemorizingStatus
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 import { useAppearanceStore } from '@/app/settings'
@@ -60,13 +62,17 @@ import { hashString } from '@/app/utils/hashString'
 const props = defineProps<{
   card: InboxCardViewModel
 }>()
+const { card } = toRefs(props)
 
+
+/* -------------------------------------------------------------------------- */
+/*                                  Behaviour                                 */
+/* -------------------------------------------------------------------------- */
 
 const appearance = useAppearanceStore()
 const style = appearance.colorfulCards
   ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
   : "side-color-0"
-
 </script>
 
 

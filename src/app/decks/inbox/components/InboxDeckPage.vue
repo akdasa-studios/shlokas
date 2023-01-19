@@ -51,7 +51,7 @@ import { Application } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import CardsDeck from '@/app/decks/shared/CardsDeck.vue'
-import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
+import { InboxCard, InboxCardViewModel, InboxDeckEmpty, MemorizingStatus, UserLearningCards } from '@/app/decks/inbox'
 import { StackedDeckBehaviour, Vector3d, CardViewModel } from '@/app/decks/shared'
 import { testId } from '@/app/TestId'
 
@@ -69,11 +69,20 @@ function onCardPlaced(card: CardViewModel) {
   deck.updateInactiveCard(card)
 }
 
-function onCardMoving(card: CardViewModel, vector: Vector3d) {
+function onCardMoving(card: InboxCardViewModel, vector: Vector3d, vecotorD: Vector3d) {
+  if (vecotorD.length > deck.swipeThreshold) {
+    if (["left", "right"].includes(vecotorD.direction)) {
+      card.memorizingStatus.value = MemorizingStatus.StillMemorizing
+    } else {
+      card.memorizingStatus.value = MemorizingStatus.Memorized
+    }
+  } else {
+    card.memorizingStatus.value = MemorizingStatus.Unknown
+  }
   deck.updateMovingCard(card, vector)
 }
 
-function onCardMoved(card: CardViewModel, vector: Vector3d) {
+function onCardMoved(card: InboxCardViewModel, vector: Vector3d) {
   deck.updateMovedCard(card, vector)
   if (vector.length < deck.swipeThreshold) { return }
   setTimeout(() => {
@@ -82,6 +91,7 @@ function onCardMoved(card: CardViewModel, vector: Vector3d) {
     } else if (vector.direction == "top" || vector.direction == "bottom") {
       userLearningCards.cardMemorized()
     }
+    card.memorizingStatus.value = MemorizingStatus.Unknown
   }, 250)
 }
 

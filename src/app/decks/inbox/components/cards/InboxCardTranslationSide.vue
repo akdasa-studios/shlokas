@@ -1,18 +1,15 @@
 <template>
-  <CardSide>
-    <!-- Number -->
-    <div class="number">
-      {{ props.verseNumber }}
-    </div>
+  <!-- Number -->
+  <div class="number">
+    {{ props.verseNumber }}
+  </div>
 
-    <!-- Translation -->
-    <div>{{ props.translation }}</div>
-  </CardSide>
+  <!-- Translation -->
+  <div>{{ props.translation }}</div>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { CardSide } from '@/app/decks/shared'
 const props = defineProps<{
   translation: string,
   verseNumber: string
