@@ -18,13 +18,13 @@
     >
       <CardsDeck
         v-if="userLearningCards.count > 0"
-        v-slot="{ card }"
+        v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
         @moving="onCardMoving"
         @moved="onCardMoved"
       >
-        <InboxCard :card="(card as InboxCardViewModel)" />
+        <InboxCard :card="(data.card as InboxCardViewModel)" />
       </CardsDeck>
 
       <InboxDeckEmpty

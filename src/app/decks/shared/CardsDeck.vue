@@ -1,13 +1,13 @@
 <template>
   <div class="deck">
     <div
-      v-for="card in cards"
-      :key="card.id"
-      :ref="(el) => setRefs(card.index.value, el)"
+      v-for="item in cards"
+      :key="item.id"
+      :ref="(el) => setRefs(item.index.value, el)"
       class="card1"
-      :style="calculateStyle(card)"
+      :style="item.style.value"
     >
-      <slot :card="card" />
+      <slot :card="item" />
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@ const emit = defineEmits<{
 
 const topCardRef = ref()
 const topCardObj = computed(() => props.cards.find(x => x.index.value === 0))
+const items = computed(() => props.cards.map(x=>x.id).toString())
 
 function setRefs(idx: number, el: any) {
   if (idx === 0 && el) { topCardRef.value = el }
@@ -56,6 +57,11 @@ watch(topCardRef, (newTopCard, prevTopCard) => {
 watch(topCardObj, () => {
   props.cards.forEach(x => emit("place", x))
 })
+
+watch(items, () => {
+  console.log("???")
+  props.cards.forEach(x => emit("place", x))
+}, {immediate:true})
 
 onMounted(() => {
   props.cards.forEach(x => emit("place", x))
