@@ -5,7 +5,7 @@
       :key="item.id"
       :ref="(el) => setRefs(item.index.value, el)"
       class="card1"
-      :style="item.style.value"
+      :style="calculateStyle(item)"
     >
       <slot :card="item" />
     </div>
@@ -15,7 +15,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, defineEmits, onMounted, defineProps} from 'vue'
 import interact from 'interactjs'
-import { card } from 'ionicons/icons'
 import { Vector3d } from './Vector3d'
 import { CardViewModel } from './CardViewModel'
 
@@ -55,17 +54,16 @@ watch(topCardRef, (newTopCard, prevTopCard) => {
 })
 
 watch(topCardObj, () => {
+  console.log("%%%%%%%")
   props.cards.forEach(x => emit("place", x))
 })
 
 watch(items, () => {
-  console.log("???")
+  console.log("------")
   props.cards.forEach(x => emit("place", x))
-}, {immediate:true})
+}, {immediate: true})
 
-onMounted(() => {
-  props.cards.forEach(x => emit("place", x))
-})
+
 
 function calculateStyle(state: CardViewModel) {
   const actions = {
