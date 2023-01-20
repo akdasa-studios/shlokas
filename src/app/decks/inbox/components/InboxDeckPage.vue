@@ -5,7 +5,7 @@
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
-        <ion-title @click="test">
+        <ion-title>
           {{ $t('decks.inbox.title') }}
         </ion-title>
       </ion-toolbar>
@@ -18,17 +18,13 @@
     >
       <CardsDeck
         v-if="userLearningCards.count > 0"
-        v-slot="{ card, index }"
-        :cards="userLearningCards.cards"
-        :show-cards="3"
+        v-slot="data"
+        :cards="cardsToShow"
+        @place="onCardPlaced"
+        @moving="onCardMoving"
+        @moved="onCardMoved"
       >
-        <InboxCard
-          :key="card.id"
-          :index="index"
-          :card="(card as unknown as InboxCardViewModel)"
-          :swipe-directions="swipeDirections"
-          @swiped="onCardSwiped"
-        />
+        <InboxCard :card="(data.card as InboxCardViewModel)" />
       </CardsDeck>
 
       <InboxDeckEmpty
@@ -52,37 +48,59 @@
 
 <script lang="ts" setup>
 import { Application } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
-import { computed, inject, ref } from 'vue'
-import { InboxCard, InboxCardViewModel, InboxDeckEmpty, UserLearningCards } from '@/app/decks/inbox'
+import {
+  IonContent, IonHeader, IonPage, IonTitle,
+  IonToast, IonToolbar
+} from '@ionic/vue'
+import { computed, inject } from 'vue'
+import {
+  CardsDeck , StackedDeckBehaviour, Vector3d, CardViewModel
+} from '@/app/decks/shared'
+import {
+  InboxCard, InboxCardViewModel, InboxDeckEmpty,
+  MemorizingStatus, UserLearningCards
+} from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
-import CardsDeck from '@/app/decks/CardsDeck.vue'
 
-const app = inject('app') as Application
-const userLearningCards = new UserLearningCards(app)
+const userLearningCards = new UserLearningCards(inject('app') as Application)
+
+const deck = new StackedDeckBehaviour()
+
+const cardsToShow = computed(() =>
+  userLearningCards.cards.filter(x => x.index.value < 3)
+)
+
 userLearningCards.open()
 
-function idx1(x:any) { return x }
-function idx2(x:any) { return 1 - x}
-const i = ref(idx1)
-
-function test() {
-  i.value = i.value == idx1 ? idx2 : idx1
+function onCardPlaced(card: CardViewModel) {
+  deck.updateInactiveCard(card)
 }
 
-const swipeDirections = computed(() => {
-  return userLearningCards.count > 1
-    ? ['top', 'bottom', 'left', 'right']
-    : ['top', 'bottom']
-})
+function onCardMoving(
+  card: InboxCardViewModel,
+  deltaPos: Vector3d,
+  deltaPosTotal: Vector3d
+) {
+  deck.updateMovingCard(card, deltaPos)
+  if (deltaPosTotal.length < deck.swipeThreshold) {
+    card.memorizingStatus.value = MemorizingStatus.Unknown
+  } else {
+    card.memorizingStatus.value = deltaPosTotal.isLeftOrRight
+      ? MemorizingStatus.StillMemorizing
+      : MemorizingStatus.Memorized
+  }
+}
 
-function onCardSwiped(direction: string) {
+function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
+  deck.updateMovedCard(card, deltaPos)
+  if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
-    if (direction == "left" || direction == "right") {
+    if (deltaPos.isLeftOrRight) {
       userLearningCards.shiftCard()
-    } else if (direction == "top" || direction == "bottom") {
+    } else {
       userLearningCards.cardMemorized()
     }
+    card.memorizingStatus.value = MemorizingStatus.Unknown
   }, 250)
 }
 

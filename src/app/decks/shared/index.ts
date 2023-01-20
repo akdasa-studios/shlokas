@@ -1,0 +1,8 @@
+export * from "./theme/DeckBehaviour"
+export * from "./theme/StackedDeckBehaviour"
+export * from "./CardViewModel"
+export * from "./SwipingEvent"
+export * from "./Vector3d"
+export { default as CardsDeck } from "./CardsDeck.vue"
+export { default as CardSide } from "./CardSide.vue"
+export { default as FlipCard } from "./FlipCard.vue"

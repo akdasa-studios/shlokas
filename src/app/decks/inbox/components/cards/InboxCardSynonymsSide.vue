@@ -1,21 +1,16 @@
 <template>
-  <CardSide
-    style="display: block; text-align: left;"
+  <span
+    v-for="word in props.words"
+    :key="word.word"
   >
-    <span
-      v-for="word in props.words"
-      :key="word.word"
-    >
-      <b>{{ word.word }}</b> –
-      {{ word.translation }};
-    </span>
-  </CardSide>
+    <b>{{ word.word }}</b> –
+    {{ word.translation }};
+  </span>
 </template>
 
 
 <script lang="ts" setup>
 import { defineProps } from 'vue'
-import CardSide from '@/app/decks/CardSide.vue'
 
 interface Synomym {
   word: string

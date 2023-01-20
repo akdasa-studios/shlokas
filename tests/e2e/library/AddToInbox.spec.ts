@@ -37,14 +37,10 @@ test.describe('Library › Add to Inbox', () => {
     await app.library.verseAddedToast.revert.waitFor("hidden")
 
     await app.tabsBar.inboxTab.badge.waitFor('detached')
-    const inboxBadge = await app.tabsBar.inboxTab.badge.isVisible()
+    await app.tabsBar.inboxTab.badge.waitFor('detached')
+
     const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
-
     await verseItem.badge.waitFor('detached')
-    const verseBadge = await verseItem.badge.isVisible()
-
-    expect(inboxBadge).toBeFalsy()
-    expect(verseBadge).toBeFalsy()
   })
 
   test('Add button is hidden if the verse has already been added', async () => {

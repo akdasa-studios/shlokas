@@ -16,16 +16,14 @@
     >
       <CardsDeck
         v-if="userGradesCards.count > 0"
-        v-slot="{ card, index }"
-        :cards="userGradesCards.cards"
-        :show-cards="3"
+        v-slot="{ card }"
+        :cards="cardsToShow"
+        @place="onCardPlaced"
+        @moving="onCardMoving"
+        @moved="onCardMoved"
       >
         <ReviewCard
-          :key="card.id"
-          :index="index"
-          :card="(card as unknown as InboxCardViewModel)"
-          :swipe-directions="swipeDirections"
-          :show-grade-buttons="appearance.gradeButtons"
+          :card="(card as ReviewCardViewModel)"
           @graded="onCardGraded"
         />
       </CardsDeck>
@@ -45,21 +43,49 @@ import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
-import { useAppearanceStore } from '@/app/settings'
-import CardsDeck from '@/app/decks/CardsDeck.vue'
+import { CardViewModel, StackedDeckBehaviour, Vector3d, CardsDeck } from '@/app/decks/shared'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)
-const appearance = useAppearanceStore()
 userGradesCards.open()
 
-const swipeDirections = computed(() => {
-  return userGradesCards.count > 1
-    ? ['top', 'bottom', 'left', 'right']
-    : ['left', 'right']
-})
+const deck = new StackedDeckBehaviour()
+const cardsToShow = computed(() =>
+  userGradesCards.cards.filter(x => x.index.value < 3)
+)
 
-function onCardGraded(grade: ReviewGrade) {
-  setTimeout(() => { userGradesCards.gradeCard(grade) }, 100)
+function onCardPlaced(card: CardViewModel) {
+  deck.updateInactiveCard(card)
+}
+
+function onCardMoving(card: ReviewCardViewModel, vector: Vector3d, vectorD: Vector3d) {
+  if (vectorD.length > deck.swipeThreshold) {
+    card.grade.value = getGrade(vectorD.direction)
+  }
+  deck.updateMovingCard(card, vector)
+}
+
+function onCardMoved(card: ReviewCardViewModel, vector: Vector3d) {
+  card.grade.value = undefined
+  deck.updateMovedCard(card, vector)
+  if (vector.length < deck.swipeThreshold) { return }
+  setTimeout(() => {
+    userGradesCards.gradeCard(getGrade(vector.direction))
+  }, 250)
+}
+
+function getGrade(direction: string) : ReviewGrade {
+  return {
+    'top': ReviewGrade.Forgot,
+    'bottom': ReviewGrade.Hard,
+    'left': ReviewGrade.Good,
+    'right': ReviewGrade.Easy
+  }[direction] as ReviewGrade
+}
+
+function onCardGraded(card: ReviewCardViewModel, grade: ReviewGrade) {
+  deck.updateMovingCard(card, new Vector3d(-deck.swipeThreshold * 2, 0, 0))
+  deck.updateMovedCard(card, new Vector3d(-deck.swipeThreshold, 0, 0))
+  setTimeout(() => { userGradesCards.gradeCard(grade) }, 250)
 }
 </script>

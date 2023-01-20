@@ -1,14 +1,14 @@
 import { ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
-import { ViewModel } from '@/app/DomainViewModel'
-import { CardViewModel } from '@/app/decks/CardViewModel'
+import { CardViewModel } from '@/app/decks/shared'
 
-export class ReviewCardViewModel extends CardViewModel implements ViewModel {
+export class ReviewCardViewModel extends CardViewModel {
   private readonly _card: ReviewCard
 
-  constructor(card: ReviewCard, verse: Verse) {
+  constructor(card: ReviewCard, verse: Verse, index: number) {
     super(verse)
     this._card = card
+    this.index.value = index
   }
 
   /* -------------------------------------------------------------------------- */
@@ -16,14 +16,13 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   /* -------------------------------------------------------------------------- */
 
   get card()     { return this._card }
-  get id()       { return this._card.id }
+  get id()       { return this._card.id.value }
   get dueTo()    { return this._card.dueTo }
   get type()     { return this._card.type }
   get interval() { return this._card.interval }
   get ease()     { return this._card.ease }
 
-  targetX = ref(0)
-  targetY = ref(0)
+  grade = ref<ReviewGrade|undefined>(undefined)
 
   nextIntervals = computed(() => {
     const sc = new Scheduler()
@@ -48,17 +47,7 @@ export class ReviewCardViewModel extends CardViewModel implements ViewModel {
   }
 
   swipeAway() {
-    this.targetX.value = -500
-    setTimeout(() => { this.targetX.value = 0 }, 400)
+    this.position.x = -500
+    setTimeout(() => { this.position.x = 0 }, 400)
   }
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    Sync                                    */
-  /* -------------------------------------------------------------------------- */
-
-  sync(): void {
-    super.sync()
-    // this._card.sync()
-  }
-
 }

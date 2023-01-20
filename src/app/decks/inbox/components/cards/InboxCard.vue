@@ -1,92 +1,78 @@
 <template>
   <FlipCard
-    :index="props.index"
-    :swipe-threshold="50"
-    :swipe-directions="props.swipeDirections"
-    :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
-    :data-index="props.index"
-    @swiped="onSwiped"
-    @swiping="onSwiping"
+    :data-testid="testId(card.verseNumber, 'card', card.type)"
+    :data-index="card.index.value"
   >
     <template #overlay>
-      <InboxCardSwipeOverlay
-        :grade="grade"
-        :class="props.card.style"
-        class="side"
-      />
+      <CardSide
+        v-if="card.memorizingStatus.value !== MemorizingStatus.Unknown"
+        :class="style"
+      >
+        <InboxCardSwipeOverlay
+          :memorizing-status="card.memorizingStatus.value"
+        />
+      </CardSide>
     </template>
 
     <template #front>
-      <InboxCardVerseTextSide
-        v-if="props.card.type === InboxCardType.Text"
-        :verse-number="props.card.verseNumber"
-        :lines="props.card.text"
-        class="side"
-        :class="props.card.style"
-      />
+      <CardSide :class="style">
+        <InboxCardVerseTextSide
+          v-if="card.type === InboxCardType.Text"
+          :verse-number="card.verseNumber"
+          :lines="card.text"
+        />
 
-      <InboxCardTranslationSide
-        v-if="props.card.type === InboxCardType.Translation"
-        :verse-number="props.card.verseNumber"
-        :translation="props.card.translation"
-        :class="props.card.style"
-        class="side"
-      />
+        <InboxCardTranslationSide
+          v-if="card.type === InboxCardType.Translation"
+          :verse-number="card.verseNumber"
+          :translation="card.translation"
+        />
+      </CardSide>
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide
-        :words="props.card.synonyms"
-        class="side"
-        :class="props.card.style"
-      />
+      <CardSide :class="style">
+        <InboxCardSynonymsSide
+          :words="card.synonyms"
+        />
+      </CardSide>
     </template>
   </FlipCard>
 </template>
 
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, ref } from 'vue'
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
-import FlipCard from '@/app/decks/FlipCard.vue'
-import { testId } from '@/app/TestId'
+import { defineProps, toRefs } from 'vue'
+import { FlipCard, CardSide } from '@/app/decks/shared'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
-  InboxCardViewModel
+  InboxCardViewModel,
+MemorizingStatus
 } from '@/app/decks/inbox'
+import { testId } from '@/app/TestId'
+import { useAppearanceStore } from '@/app/settings'
+import { hashString } from '@/app/utils/hashString'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  index: number,
-  swipeDirections: string[],
   card: InboxCardViewModel
 }>()
+const { card } = toRefs(props)
 
-const emit = defineEmits<{
-  (event: 'swiped', direction: string, value: number): boolean
-}>()
-
-const grade = ref('')
 
 /* -------------------------------------------------------------------------- */
-/*                                 Handlers                                   */
+/*                                  Behaviour                                 */
 /* -------------------------------------------------------------------------- */
 
-function onSwiping(direction: string, value: number) {
-  grade.value = (
-    (direction === "top"  || direction === "bottom") && value !== 0 ? "finished" :
-    (direction === "left" || direction === "right")  && value !== 0 ? "inProgress" : ""
-  )
-}
-
-function onSwiped(direction: string, value: number) {
-  setTimeout(() => grade.value = "" , 50)
-  return emit('swiped', direction, value)
-}
+const appearance = useAppearanceStore()
+const style = appearance.colorfulCards
+  ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+  : "side-color-0"
 </script>
 
 
