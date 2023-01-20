@@ -76,26 +76,28 @@ function onCardPlaced(card: CardViewModel) {
   deck.updateInactiveCard(card)
 }
 
-function onCardMoving(card: InboxCardViewModel, vector: Vector3d, vecotorD: Vector3d) {
-  if (vecotorD.length > deck.swipeThreshold) {
-    if (["left", "right"].includes(vecotorD.direction)) {
-      card.memorizingStatus.value = MemorizingStatus.StillMemorizing
-    } else {
-      card.memorizingStatus.value = MemorizingStatus.Memorized
-    }
-  } else {
+function onCardMoving(
+  card: InboxCardViewModel,
+  deltaPos: Vector3d,
+  deltaPosTotal: Vector3d
+) {
+  deck.updateMovingCard(card, deltaPos)
+  if (deltaPosTotal.length < deck.swipeThreshold) {
     card.memorizingStatus.value = MemorizingStatus.Unknown
+  } else {
+    card.memorizingStatus.value = deltaPosTotal.isLeftOrRight
+      ? MemorizingStatus.StillMemorizing
+      : MemorizingStatus.Memorized
   }
-  deck.updateMovingCard(card, vector)
 }
 
-function onCardMoved(card: InboxCardViewModel, vector: Vector3d) {
-  deck.updateMovedCard(card, vector)
-  if (vector.length < deck.swipeThreshold) { return }
+function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
+  deck.updateMovedCard(card, deltaPos)
+  if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
-    if (vector.direction == "left" || vector.direction == "right") {
+    if (deltaPos.isLeftOrRight) {
       userLearningCards.shiftCard()
-    } else if (vector.direction == "top" || vector.direction == "bottom") {
+    } else {
       userLearningCards.cardMemorized()
     }
     card.memorizingStatus.value = MemorizingStatus.Unknown

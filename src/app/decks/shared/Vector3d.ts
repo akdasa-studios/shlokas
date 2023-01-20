@@ -22,4 +22,8 @@ export class Vector3d {
       !xaxis && this.y < 0 ? "top" : "unknown"
     )
   }
+
+  get isLeftOrRight() {
+    return ["left", "right"].includes(this.direction)
+  }
 }
