@@ -16,7 +16,7 @@ export class ReviewCardViewModel extends CardViewModel {
   /* -------------------------------------------------------------------------- */
 
   get card()     { return this._card }
-  get id()       { return this._card.id }
+  get id()       { return this._card.id.value }
   get dueTo()    { return this._card.dueTo }
   get type()     { return this._card.type }
   get interval() { return this._card.interval }
