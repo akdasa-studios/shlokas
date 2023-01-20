@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <ion-img
+    <DarkImage
       src="brahma.svg"
       class="img"
     />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IonImg } from '@ionic/vue'
+import DarkImage from '@/app/shared/DarkImage.vue'
 </script>
 
 <style scoped>
