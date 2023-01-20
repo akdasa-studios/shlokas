@@ -1,8 +1,9 @@
 <template>
   <div class="root">
-    <ion-img
+    <DarkImage
       src="brahma.svg"
       class="img"
+      :class="{'dark':isDark}"
     />
     <div class="text">
       <div>{{ $t('decks.inbox.empty') }}</div>
@@ -12,7 +13,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IonImg } from '@ionic/vue'
+import { usePreferredDark } from '@vueuse/core'
+import DarkImage from '@/app/shared/DarkImage.vue'
+
+const isDark = usePreferredDark()
 </script>
 
 <style scoped>
@@ -32,5 +36,9 @@ import { IonImg } from '@ionic/vue'
 
 .img {
     max-width: 50%;
+}
+
+.dark {
+  filter: grayscale(1) brightness(.85) contrast(1.2);
 }
 </style>
