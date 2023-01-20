@@ -48,17 +48,24 @@
 
 <script lang="ts" setup>
 import { Application } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/vue'
+import {
+  IonContent, IonHeader, IonPage, IonTitle,
+  IonToast, IonToolbar
+} from '@ionic/vue'
 import { computed, inject } from 'vue'
-import CardsDeck from '@/app/decks/shared/CardsDeck.vue'
-import { InboxCard, InboxCardViewModel, InboxDeckEmpty, MemorizingStatus, UserLearningCards } from '@/app/decks/inbox'
-import { StackedDeckBehaviour, Vector3d, CardViewModel } from '@/app/decks/shared'
+import {
+  CardsDeck , StackedDeckBehaviour, Vector3d, CardViewModel
+} from '@/app/decks/shared'
+import {
+  InboxCard, InboxCardViewModel, InboxDeckEmpty,
+  MemorizingStatus, UserLearningCards
+} from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const app = inject('app') as Application
+const userLearningCards = new UserLearningCards(inject('app') as Application)
 
-const userLearningCards = new UserLearningCards(app)
 const deck = new StackedDeckBehaviour()
+
 const cardsToShow = computed(() =>
   userLearningCards.cards.filter(x => x.index.value < 3)
 )

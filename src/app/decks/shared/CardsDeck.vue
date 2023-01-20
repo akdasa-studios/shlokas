@@ -16,20 +16,20 @@
 import { ref, computed, watch, defineEmits, defineProps} from 'vue'
 import interact from 'interactjs'
 import { Vector3d } from './Vector3d'
-import { CardViewModel } from './CardViewModel'
+// import { CardViewModel } from './CardViewModel'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  cards: CardViewModel[],
+  cards: any[],
 }>()
 
 const emit = defineEmits<{
-  (e: 'place',  state: CardViewModel): void
-  (e: 'moving', state: CardViewModel, deltaPos: Vector3d, allDeltaPos: Vector3d): void
-  (e: 'moved',  state: CardViewModel, deltaPos: Vector3d): void
+  (e: 'place',  state: any): void
+  (e: 'moving', state: any, deltaPos: Vector3d, allDeltaPos: Vector3d): void
+  (e: 'moved',  state: any, deltaPos: Vector3d): void
 }>()
 
 /* -------------------------------------------------------------------------- */
@@ -63,17 +63,17 @@ watch(items, () => {
 
 
 
-function calculateStyle(state: CardViewModel) {
-  if (state.style.value) { return state.style.value }
-  return `transform: translateX(${state.position.x}px)` +
-         `           translateY(${state.position.y}px)` +
-         `           translateZ(${state.position.z}px)` +
-         `           rotateX(${state.angle.x}deg)` +
-         `           rotateY(${state.angle.y}deg)` +
-         `           rotateZ(${state.angle.z}deg);` +
+function calculateStyle(card: any) {
+  if (card.style.value) { return card.style.value }
+  return `transform: translateX(${card.position.x}px)` +
+         `           translateY(${card.position.y}px)` +
+         `           translateZ(${card.position.z}px)` +
+         `           rotateX(${card.angle.x}deg)` +
+         `           rotateY(${card.angle.y}deg)` +
+         `           rotateZ(${card.angle.z}deg);` +
          `transition: .1s linear;`+
-         `opacity: ${state.opacity.value};`+
-         `z-index: ${10 - state.index.value}`
+         `opacity: ${card.opacity.value};`+
+         `z-index: ${10 - card.index.value}`
 }
 
 /* -------------------------------------------------------------------------- */
@@ -84,17 +84,19 @@ function enableInteraction(ref: any) {
   interact(ref).draggable({
     listeners: {
       move(event:any) {
-        const card = topCardObj.value as CardViewModel
         emit(
           "moving",
-          card,
+          topCardObj.value,
           new Vector3d(event.dx, event.dy, 0),
           new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
         )
       },
-      end() {
-        const card = topCardObj.value as CardViewModel
-        emit("moved", card, new Vector3d(card.position.x, card.position.y, 0))
+      end(event:any) {
+        emit(
+          "moved",
+          topCardObj.value,
+          new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
+        )
       }
     }
   })
