@@ -22,8 +22,6 @@ export class ReviewCardViewModel extends CardViewModel {
   get interval() { return this._card.interval }
   get ease()     { return this._card.ease }
 
-  targetX = ref(0)
-  targetY = ref(0)
   grade = ref<ReviewGrade|undefined>(undefined)
 
   nextIntervals = computed(() => {
@@ -49,7 +47,7 @@ export class ReviewCardViewModel extends CardViewModel {
   }
 
   swipeAway() {
-    this.targetX.value = -500
-    setTimeout(() => { this.targetX.value = 0 }, 400)
+    this.position.x = -500
+    setTimeout(() => { this.position.x = 0 }, 400)
   }
 }

@@ -1,6 +1,5 @@
 export * from "./theme/DeckBehaviour"
 export * from "./theme/StackedDeckBehaviour"
-export * from "./theme/DefaultDeckBehaviour"
 export * from "./CardViewModel"
 export * from "./SwipingEvent"
 export * from "./Vector3d"

@@ -22,7 +22,10 @@
         @moving="onCardMoving"
         @moved="onCardMoved"
       >
-        <ReviewCard :card="(card as ReviewCardViewModel)" />
+        <ReviewCard
+          :card="(card as ReviewCardViewModel)"
+          @graded="onCardGraded"
+        />
       </CardsDeck>
 
       <!-- Inbox deck is empty -->
@@ -78,5 +81,11 @@ function getGrade(direction: string) : ReviewGrade {
     'left': ReviewGrade.Good,
     'right': ReviewGrade.Easy
   }[direction] as ReviewGrade
+}
+
+function onCardGraded(card: ReviewCardViewModel, grade: ReviewGrade) {
+  deck.updateMovingCard(card, new Vector3d(-deck.swipeThreshold * 2, 0, 0))
+  deck.updateMovedCard(card, new Vector3d(-deck.swipeThreshold, 0, 0))
+  setTimeout(() => { userGradesCards.gradeCard(grade) }, 250)
 }
 </script>
