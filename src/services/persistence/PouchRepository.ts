@@ -13,14 +13,21 @@ PouchDB.plugin(PouchDBAdapterSqlLite)
 export class CouchDB {
   private _db: PouchDB.Database
 
-  constructor(dbName: string) {
-    this._db = new PouchDB(dbName, {
-      adapter: 'cordova-sqlite',
-      revs_limit: 1,
-      auto_compaction: true,
-      location: 'default',
-      // iosDatabaseLocation: 'default',
-    })
+  constructor(dbName: string, adapter?: string) {
+    if (adapter) {
+      this._db = new PouchDB(dbName, {
+        adapter: 'cordova-sqlite',
+        revs_limit: 1,
+        auto_compaction: true,
+        location: 'default',
+        // iosDatabaseLocation: 'default',
+      })
+    } else {
+      this._db = new PouchDB(dbName, {
+        revs_limit: 1,
+        auto_compaction: true,
+      })
+    }
   }
 
   async sync(to: string) {
