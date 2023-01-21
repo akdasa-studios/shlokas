@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage'
 import { App } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { BackgroundTask } from '@capawesome/capacitor-background-task'
+import { Capacitor } from '@capacitor/core'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
 import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
@@ -21,6 +22,9 @@ import { AUTH_HOST } from './Env'
 
 export let application: Application
 export let couchDB: CouchDB
+
+console.log()
+
 
 export async function createApplication() {
   const dev = process.env.NODE_ENV === "development"
@@ -101,24 +105,25 @@ export async function createApplication() {
     await loadState()
   })
 
-  App.addListener('appStateChange', async ({ isActive }) => {
-    if (isActive) { return }
-    const account = useAccountStore()
+  if (Capacitor.getPlatform() == 'ios') {
+    // beforeExit works on iOS only
+    App.addListener('appStateChange', async ({ isActive }) => {
+      if (isActive) { return }
+      const taskId = await BackgroundTask.beforeExit(async () => {
+        const account = useAccountStore()
+        if (!account?.token) { return }
 
-    const taskId = await BackgroundTask.beforeExit(async () => {
-      if (!account?.token) { return }
-
-      if (new Date().getTime() >= account.token.expires) {
-        // refresh token
-        const service = new AuthService(AUTH_HOST)
-        account.token.expires = (await service.refreshToken(account.token)).expires
-      } else if (account.syncHost?.value) {
-        // sync db
-        await couchDB.sync(account.syncHost.value)
-      }
-      BackgroundTask.finish({ taskId })
+        if (new Date().getTime() >= account.token.expires) {
+          // refresh token
+          const service = new AuthService(AUTH_HOST)
+          account.token.expires = (await service.refreshToken(account.token)).expires
+        } else if (account.syncHost?.value) {
+          // sync db
+          await couchDB.sync(account.syncHost.value)
+        }
+        BackgroundTask.finish({ taskId })
+      })
     })
-  })
-
+  }
   return application
 }
