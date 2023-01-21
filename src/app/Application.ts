@@ -2,6 +2,7 @@ import { InMemoryRepository } from '@akdasa-studios/framework'
 import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text } from "@akdasa-studios/shlokas-core"
 import { Storage } from '@ionic/storage'
 import { App } from '@capacitor/app'
+import { Capacitor } from '@capacitor/core'
 import { BackgroundTask } from '@capawesome/capacitor-background-task'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
@@ -33,7 +34,8 @@ export async function createApplication() {
     dev
     ? "local" //+ new Date().toISOString() // create new DB every page refresh
     // ? "http://admin:12345678@localhost:5984/test123"
-    : "local"
+    : "local",
+    Capacitor.getPlatform() == 'ios' ? 'cordova-sqlite' : undefined
   )
 
   const repositories = new Repositories(
