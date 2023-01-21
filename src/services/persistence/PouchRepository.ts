@@ -2,18 +2,32 @@ import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Que
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
+import PouchDBAdapterSqlLite from 'pouchdb-adapter-cordova-sqlite'
 import { deepMerge } from './deepMerge'
 import { ObjectMapper } from './ObjectMapper'
 
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)
+PouchDB.plugin(PouchDBAdapterSqlLite)
 
 export class CouchDB {
   private _db: PouchDB.Database
 
-  constructor(dbName: string) {
-    this._db = new PouchDB(dbName)
-    // LOCAL.allDocs().then((x) => x.rows.forEach(y => LOCAL.remove(y.id, y.value.rev)))
+  constructor(dbName: string, adapter?: string) {
+    if (adapter) {
+      this._db = new PouchDB(dbName, {
+        adapter: 'cordova-sqlite',
+        revs_limit: 1,
+        auto_compaction: true,
+        location: 'default',
+        // iosDatabaseLocation: 'default',
+      })
+    } else {
+      this._db = new PouchDB(dbName, {
+        revs_limit: 1,
+        auto_compaction: true,
+      })
+    }
   }
 
   async sync(to: string) {
@@ -30,20 +44,6 @@ export class CouchDB {
 
   get db(): PouchDB.Database { return this ._db }
 }
-
-// LOCAL.destroy()
-
-// const REMOTE = new PouchDB('http://127.0.0.1:5984/shlokas', {
-//   auth: {
-//     username: 'dbreader',
-//     password: '12345678'
-//   },
-//   revs_limit: 1,
-//   auto_compaction: true,
-// })
-
-// LOCAL.sync("http://dbreader:12345678@127.0.0.1:5984/shlokas", {live: true})
-// LOCAL.sync("http://dbreader:12345678@127.0.0.1:5984/shlokas")
 
 export class PouchRepository<
   TAggregate extends Aggregate<AnyIdentity>
