@@ -28,7 +28,7 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   /* -------------------------------------------------------------------------- */
 
   async function load() {
-    languageCode.value = await storage.get(KEY_LANGUAGE)
+    languageCode.value = (await storage.get(KEY_LANGUAGE)) || "en"
   }
 
   /* -------------------------------------------------------------------------- */
