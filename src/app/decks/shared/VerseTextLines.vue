@@ -2,7 +2,6 @@
   <div class="root">
     <svg
       ref="svg"
-      viewBox="0 0 300 300"
       width="100%"
       height="100%"
     >
@@ -34,7 +33,7 @@ const LINE_HEIGHT = 1.1
 const MARGIN = 10
 
 function getYPos(idx: number): number {
-  return MARGIN + (FONT_SIZE * LINE_HEIGHT * (idx+1)) - (FONT_SIZE/2)
+  return (MARGIN/2) + (FONT_SIZE * LINE_HEIGHT * (idx+1)) - (FONT_SIZE/2)
 }
 
 function recalculateSize() {

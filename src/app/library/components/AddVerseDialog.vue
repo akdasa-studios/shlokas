@@ -36,6 +36,16 @@
       class="verse"
     />
 
+    <div class="synonyms">
+      <span
+        v-for="word in props.verse.synonyms"
+        :key="word.word"
+      >
+        <span class="word">{{ word.word }}</span> –
+        {{ word.translation }};
+      </span>
+    </div>
+
     <div class="translation">
       {{ props.verse.translation }}
     </div>
@@ -86,6 +96,17 @@ function onAddClicked() {
 .translation {
   font-size: 1.2rem;
   line-height: 1.2;
+}
+
+.synonyms {
+  /* font-size: 1.2rem; */
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.word {
+  font-style: italic;
+  font-weight: bold;
 }
 
 .margin {

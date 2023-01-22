@@ -33,6 +33,7 @@ export class LibraryVerse implements ViewModel {
   get number()      { return this._v.number.toString() }
   get translation() { return this._v.translation.text }
   get text()        { return this._v.text.lines }
+  get synonyms()    { return this._v.synonyms }
 
   isAlreadyAdded = computed(() => this._s.inDeck !== Decks.None)
   statusId       = computed(() => this._s.id)
