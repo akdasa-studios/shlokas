@@ -31,14 +31,10 @@
     class="ion-padding"
     data-testid="verseViewDialog"
   >
-    <div class="text">
-      <div
-        v-for="line, id in props.verse.text"
-        :key="id"
-      >
-        {{ line }}
-      </div>
-    </div>
+    <VerseTextLines
+      :lines="props.verse.text"
+      class="verse"
+    />
 
     <div class="translation">
       {{ props.verse.translation }}
@@ -54,6 +50,7 @@ import {
 } from '@ionic/vue'
 import { defineProps } from 'vue'
 import { LibraryVerse } from '@/app/library'
+import { VerseTextLines } from '@/app/decks/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -93,5 +90,13 @@ function onAddClicked() {
 
 .margin {
   margin-top: 1rem;
+}
+
+.verse {
+  background-color:  var(--ion-color-light);
+  border: 1px solid  var(--ion-color-light-shade);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 </style>

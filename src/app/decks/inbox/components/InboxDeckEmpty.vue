@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { usePreferredDark } from '@vueuse/core'
-import DarkImage from '@/app/shared/DarkImage.vue'
+import { DarkImage } from '@/app/shared'
 
 const isDark = usePreferredDark()
 </script>
