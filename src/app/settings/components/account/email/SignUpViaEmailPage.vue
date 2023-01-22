@@ -7,10 +7,10 @@
             color="medium"
             @click="cancel"
           >
-            Cancel
+            {{ $t('common.cancel') }}
           </ion-button>
         </ion-buttons>
-        <ion-title>Sign Up</ion-title>
+        <ion-title>{{ $t('account.signUp') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -19,15 +19,14 @@
         v-if="showVerifyEmail"
         class="ion-padding alert"
       >
-        To complete your registration, please confirm that you have
-        received the email that was sent to you. Thank you
+        {{ $t('account.confirmEmail') }}
       </div>
 
       <ion-list>
         <!-- Name -->
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">
-            Name
+            {{ $t('account.name') }}
           </ion-label>
           <ion-input
             v-model="name"
@@ -37,7 +36,7 @@
         <!-- email -->
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">
-            EMail
+            {{ $t('account.email') }}
           </ion-label>
           <ion-input
             v-model="email"
@@ -48,7 +47,7 @@
         <!-- password -->
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">
-            Password
+            {{ $t('account.password') }}
           </ion-label>
           <ion-input
             v-model="password"
@@ -62,14 +61,14 @@
           expand="block"
           @click="onSignUp"
         >
-          Sign Up
+          {{ $t('account.signUp') }}
         </ion-button>
       </div>
 
       <ion-loading
         :is-open="inProgress"
         :duration="3000"
-        message="Please wait..."
+        :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
     </ion-content>

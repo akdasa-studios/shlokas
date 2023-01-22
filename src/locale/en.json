@@ -26,7 +26,8 @@
     "add": "Add",
     "cancel": "Cancel",
     "close": "Close",
-    "revert": "Revert"
+    "revert": "Revert",
+    "wait": "Please wait..."
   },
   "decks": {
     "inbox": {
@@ -47,6 +48,24 @@
   "settings": {
     "title": "Settings",
     "language": "Language",
-    "account": "Account"
+    "account": "Account",
+    "gradeButtons": "Show grade buttons",
+    "colorfulCards": "Colorful cards"
+  },
+  "account": {
+    "welcomeBack": "Welcome back!",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "logOut": "Log Out",
+    "syncData": "Force Syncing",
+    "deleteAllData": "Delete all data",
+    "token": {
+      "refresh": "Refresh Token",
+      "validTill": "Token is valid till"
+    },
+    "email": "EMail",
+    "password": "Password",
+    "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
+    "name": "Name"
   }
 }
