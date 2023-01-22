@@ -56,7 +56,7 @@
 
 
 <script lang="ts" setup>
-import { defineProps, toRefs, defineEmits } from 'vue'
+import { defineProps, toRefs, defineEmits, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import {
@@ -92,9 +92,12 @@ const emit = defineEmits<{
 /* -------------------------------------------------------------------------- */
 
 const appearance = useAppearanceStore()
-const style = appearance.colorfulCards
-  ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
-  : "side-color-0"
+const { colorfulCards } = toRefs(appearance)
+const style = computed(() => {
+  return colorfulCards.value
+    ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+    : "side-color-0"
+  })
 
 function getSideComponent(cardType: string, front: boolean) {
   const name = cardType.split('To')[front ? 0 : 1]
