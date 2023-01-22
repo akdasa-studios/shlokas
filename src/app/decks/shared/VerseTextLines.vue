@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
     <svg
       ref="svg"
       viewBox="0 0 300 300"
@@ -31,16 +31,15 @@ const props = defineProps<{
 const svg = ref()
 const FONT_SIZE = 15
 const LINE_HEIGHT = 1.1
+const MARGIN = 10
 
-function getYPos(idx: number) {
-  return (FONT_SIZE * LINE_HEIGHT * (idx+1)) - (FONT_SIZE/2)
+function getYPos(idx: number): number {
+  return MARGIN + (FONT_SIZE * LINE_HEIGHT * (idx+1)) - (FONT_SIZE/2)
 }
 
 function recalculateSize() {
-  console.log("recalculateSize")
   var  bbox = svg.value.getBBox()
-  svg.value.setAttribute("viewBox", `0 0 ${bbox.width} ${bbox.height}`)
-  // svg.value.setAttribute("viewBox", `0 0 150 150`)
+  svg.value.setAttribute("viewBox", `0 0 ${bbox.width+MARGIN} ${bbox.height+MARGIN}`)
   if (bbox.width === 0) { setTimeout(recalculateSize, 25) }
 }
 
@@ -50,6 +49,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.root {
+  width: 100%;
+}
 .line {
   fill: var(--ion-color-light-contrast);
   font-size: 15px;
