@@ -1,10 +1,8 @@
 <template>
-  <!-- Number -->
   <div class="number">
     {{ props.verseNumber }}
   </div>
 
-  <!-- Text -->
   <VerseTextLines
     :lines="props.lines"
   />
