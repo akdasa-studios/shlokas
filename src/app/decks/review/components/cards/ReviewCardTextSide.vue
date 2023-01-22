@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <div
-      v-for="line, idx in props.lines"
-      :key="idx"
-    >
-      {{ line }}
-    </div>
-  </div>
+  <VerseTextLines
+    :lines="props.lines"
+  />
 </template>
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { VerseTextLines } from '@/app/decks/shared'
 const props = defineProps<{
   lines: string[]
 }>()
