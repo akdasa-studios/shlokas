@@ -1,11 +1,13 @@
 <template>
-  <span
-    v-for="word in props.words"
-    :key="word.word"
-  >
-    <b>{{ word.word }}</b> –
-    {{ word.translation }};
-  </span>
+  <div>
+    <span
+      v-for="word in props.words"
+      :key="word.word"
+    >
+      <b>{{ word.word }}</b> –
+      {{ word.translation }};
+    </span>
+  </div>
 </template>
 
 
@@ -31,6 +33,6 @@ const props = defineProps<{
 
 .word {
   font-weight: bold;
-  margin-right: 10px;
+  font-style: italic;
 }
 </style>
