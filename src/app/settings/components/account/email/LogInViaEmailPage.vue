@@ -7,10 +7,10 @@
             color="medium"
             @click="cancel"
           >
-            Cancel
+            {{ $t('common.cancel') }}
           </ion-button>
         </ion-buttons>
-        <ion-title>Log In</ion-title>
+        <ion-title>{{ $t('account.logIn') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -22,7 +22,7 @@
         <!-- email -->
         <ion-item>
           <ion-label position="stacked">
-            EMail
+            {{ $t('account.email') }}
           </ion-label>
           <ion-input
             v-model="email"
@@ -33,7 +33,7 @@
         <!-- password -->
         <ion-item>
           <ion-label position="stacked">
-            Password
+            {{ $t('account.password') }}
           </ion-label>
           <ion-input
             v-model="password"
@@ -47,14 +47,14 @@
           expand="block"
           @click="onLogIn"
         >
-          Log In
+          {{ $t('account.logIn') }}
         </ion-button>
       </div>
 
       <ion-loading
         :is-open="inProgress"
         :duration="3000"
-        message="Please wait..."
+        :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
     </ion-content>

@@ -18,7 +18,7 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   const availableLanguages = [
     new Language("en", "English"),
     new Language("ru", "Русский"),
-    new Language("rs", "Српски")
+    // new Language("rs", "Српски")
   ]
 
   watch(languageCode, onLanguageChanged)

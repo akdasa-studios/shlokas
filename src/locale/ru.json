@@ -17,14 +17,17 @@
     },
     "memorized": "Карточка запомнена",
     "schedule": {
-      "inDays": "сегодня | + {count} день | + {count} дней"
+      "inDays": "сегодня | + {count} день | + {count} дней",
+      "inMonths": "{count} месяц | {count} месяцев",
+      "inYears": "{count} год | {count} лет"
     }
   },
   "common": {
     "add": "Добавить",
     "cancel": "Отмена",
     "close": "Закрыть",
-    "revert": "Отменить"
+    "revert": "Отменить",
+    "wait": "Пожалуйста подождите..."
   },
   "decks": {
     "inbox": {
@@ -44,6 +47,25 @@
   },
   "settings": {
     "title": "Настройки",
-    "language": "Язык"
+    "language": "Язык",
+    "account": "Аккаунт",
+    "colorfulCards": "Цветные карточки",
+    "gradeButtons": "Кнопки оценки"
+  },
+  "account": {
+    "confirmEmail": "Для завершения регистрации, пожалуйста, подтвердите, что вы получили электронное письмо, которое было отправлено вам.",
+    "deleteAllData": "Удалить все данные",
+    "email": "EMail",
+    "logIn": "Войти",
+    "logOut": "Выйти",
+    "name": "Имя",
+    "password": "Пароль",
+    "signUp": "Регистрация",
+    "syncData": "Синхронизация",
+    "token": {
+      "refresh": "Обновить токен",
+      "validTill": "Токен действителен до"
+    },
+    "welcomeBack": "Добро пожаловать!"
   }
 }

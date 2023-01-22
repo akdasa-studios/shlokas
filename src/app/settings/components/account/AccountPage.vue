@@ -5,17 +5,17 @@
         <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
-        <ion-title>Account</ion-title>
+        <ion-title>{{ $t('settings.account') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-padding">
       <h1 v-if="isAuthenticated">
-        Welcome back!
+        {{ $t('account.welcomeBack') }}
       </h1>
 
       <span v-if="token">
-        Token is valid till:
+        {{ $t('account.token.validTill') }}:
         {{ new Date(token.expires).toLocaleString() }}
       </span>
 
@@ -28,7 +28,7 @@
           slot="start"
           :icon="mail"
         />
-        Log In
+        {{ $t('account.logIn') }}
       </ion-button>
 
       <ion-button
@@ -37,7 +37,7 @@
         fill="clear"
         @click="openModal(SignUpViaEmailPage)"
       >
-        Sign Up
+        {{ $t('account.signUp') }}
       </ion-button>
 
       <ion-button
@@ -46,7 +46,7 @@
         expand="block"
         @click="logOut"
       >
-        Log Out
+        {{ $t('account.logOut') }}
       </ion-button>
 
       <ion-button
@@ -55,7 +55,7 @@
         fill="outline"
         @click="onSync"
       >
-        Force Syncing
+        {{ $t('account.syncData') }}
       </ion-button>
 
       <ion-button
@@ -64,7 +64,7 @@
         fill="outline"
         @click="onClean"
       >
-        Delete all data
+        {{ $t('account.deleteAllData') }}
       </ion-button>
 
       <ion-button
@@ -73,14 +73,14 @@
         fill="outline"
         @click="onRefreshToken"
       >
-        Refresh Token
+        {{ $t('account.token.refresh') }}
       </ion-button>
     </ion-content>
 
     <ion-loading
       :is-open="inProgress"
       :duration="3000"
-      message="Please wait..."
+      :message="$t('common.wait')"
       @did-dismiss="inProgress = false"
     />
   </ion-page>

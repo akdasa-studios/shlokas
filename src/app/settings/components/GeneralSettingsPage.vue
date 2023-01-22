@@ -39,7 +39,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>Grade buttons</ion-label>
+          <ion-label>{{ $t('settings.gradeButtons') }}</ion-label>
           <ion-toggle
             slot="end"
             v-model="appearance.gradeButtons"
@@ -47,7 +47,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>Colorful cards</ion-label>
+          <ion-label>{{ $t('settings.colorfulCards') }}</ion-label>
           <ion-toggle
             slot="end"
             v-model="appearance.colorfulCards"

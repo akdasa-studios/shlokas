@@ -35,7 +35,7 @@
       <ion-toast
         position="top"
         :message="$t('cards.memorized')"
-        :buttons="[{ text: 'Revert', role: 'cancel', handler: onRevert }]"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
         :is-open="userLearningCards.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
