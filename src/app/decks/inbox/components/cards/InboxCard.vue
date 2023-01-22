@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
-import { defineProps, toRefs } from 'vue'
+import { computed, defineProps, toRefs } from 'vue'
 import { FlipCard, CardSide } from '@/app/decks/shared'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
@@ -70,9 +70,12 @@ const { card } = toRefs(props)
 /* -------------------------------------------------------------------------- */
 
 const appearance = useAppearanceStore()
-const style = appearance.colorfulCards
-  ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
-  : "side-color-0"
+const { colorfulCards } = toRefs(appearance)
+const style = computed(() => {
+  return colorfulCards.value
+    ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+    : "side-color-0"
+  })
 </script>
 
 
