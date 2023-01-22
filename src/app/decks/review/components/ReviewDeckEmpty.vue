@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import DarkImage from '@/app/shared/DarkImage.vue'
+import { DarkImage } from '@/app/shared'
 </script>
 
 <style scoped>

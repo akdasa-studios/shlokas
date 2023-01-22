@@ -5,23 +5,14 @@
   </div>
 
   <!-- Text -->
-  <FitText
-    :min-size="12"
-    :max-size="25"
-    :multi-line="false"
-  >
-    <span
-      v-for="line, idx in props.lines"
-      :key="idx"
-    >
-      {{ line }}<br>
-    </span>
-  </FitText>
+  <VerseTextLines
+    :lines="props.lines"
+  />
 </template>
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import FitText from '@/app/FitText.vue'
+import { VerseTextLines } from '@/app/decks/shared'
 const props = defineProps<{
   verseNumber: string
   lines: string[]
