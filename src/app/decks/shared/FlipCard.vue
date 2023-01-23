@@ -19,14 +19,21 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, defineProps, toRefs, defineEmits } from 'vue'
 
-const flipped = ref<boolean>(false)
+const props = defineProps<{
+  flipped: boolean
+}>()
+const emit = defineEmits<{
+  (event: 'flip'): void
+}>()
+
+const { flipped } = toRefs(props) // ref<boolean>(false)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const flipAngleBack = computed(() => flipped.value ? 0 : -180)
 
 function onCardClicked() {
-  flipped.value = !flipped.value
+  emit('flip')
 }
 </script>
 

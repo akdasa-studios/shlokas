@@ -14,6 +14,7 @@ export abstract class CardViewModel {
   ) {}
 
   index    = ref<number>(0)
+  flipped  = ref<boolean>(false)
   position = reactive(new Vector3d(0, 0, 0))
   angle    = reactive(new Vector3d(0, 0, 0))
   state    = ref<CardState>(CardState.Inactive)
@@ -25,4 +26,7 @@ export abstract class CardViewModel {
   get text()        { return this.verse.text.lines }
   get translation() { return this.verse.translation.text }
   get synonyms()    { return this.verse.synonyms }
+
+  flip() { this.flipped.value = !this.flipped.value }
+  showFrontSide() { this.flipped.value = false }
 }

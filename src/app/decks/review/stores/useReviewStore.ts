@@ -40,7 +40,7 @@ export function useReviewDeckStore(app: Application) {
     function removeFromDeck() {
       const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
       if (topCardIndex !== -1) {
-        cards.value.forEach(x => x.index.value--)
+        cards.value.filter(x => x.index.value > 0).forEach(x => x.index.value--)
         return cards.value.splice(topCardIndex, 1)[0]
       }
     }

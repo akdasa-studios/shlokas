@@ -2,6 +2,8 @@
   <FlipCard
     :data-testid="testId(card.verseNumber, 'card', card.type)"
     :data-index="card.index.value"
+    :flipped="props.card.flipped.value"
+    @flip="props.card.flip()"
   >
     <template #overlay>
       <CardSide

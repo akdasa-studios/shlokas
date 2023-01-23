@@ -63,7 +63,7 @@
         color="dark"
         :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
         :is-open="addVerseScenario.toast.isOpen.value"
-        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: async () => await onRevert() }]"
         :duration="2000"
         @did-dismiss="addVerseScenario.toast.close()"
       />
