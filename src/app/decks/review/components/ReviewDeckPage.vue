@@ -59,9 +59,9 @@ function onCardPlaced(card: CardViewModel) {
 }
 
 function onCardMoving(card: ReviewCardViewModel, vector: Vector3d, vectorD: Vector3d) {
-  if (vectorD.length > deck.swipeThreshold) {
-    card.grade.value = getGrade(vectorD.direction)
-  }
+    card.grade.value = vectorD.length > deck.swipeThreshold
+      ? getGrade(vectorD.direction)
+      : undefined
   deck.updateMovingCard(card, vector)
 }
 
@@ -69,14 +69,7 @@ function onCardMoved(card: ReviewCardViewModel, vector: Vector3d) {
   card.grade.value = undefined
   deck.updateMovedCard(card, vector)
   if (vector.length < deck.swipeThreshold) { return }
-  setTimeout(() => {
-    userGradesCards.gradeTopCard(getGrade(vector.direction))
-    if (userGradesCards.cards.length === 1) {
-      onCardPlaced(userGradesCards.topCard)
-      userGradesCards.topCard.showFrontSide()
-    }
-    // deck.updateInactiveCard()
-  }, 250)
+  swipeCard(getGrade(vector.direction))
 }
 
 function getGrade(direction: string) : ReviewGrade {
@@ -91,6 +84,17 @@ function getGrade(direction: string) : ReviewGrade {
 function onCardGraded(card: ReviewCardViewModel, grade: ReviewGrade) {
   deck.updateMovingCard(card, new Vector3d(-deck.swipeThreshold * 2, 0, 0))
   deck.updateMovedCard(card, new Vector3d(-deck.swipeThreshold, 0, 0))
-  setTimeout(() => { userGradesCards.gradeCard(grade) }, 250)
+  setTimeout(() => { userGradesCards.gradeTopCard(grade) }, 250)
+  swipeCard(grade)
+}
+
+function swipeCard(grade: ReviewGrade) {
+  setTimeout(() => {
+    userGradesCards.gradeTopCard(grade)
+    if (userGradesCards.cards.length === 1) {
+      onCardPlaced(userGradesCards.topCard)
+      userGradesCards.topCard.showFrontSide()
+    }
+  }, 250)
 }
 </script>
