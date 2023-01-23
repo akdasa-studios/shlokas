@@ -22,6 +22,7 @@ export abstract class CardViewModel {
   style    = ref("")
 
   abstract get id(): string
+  get verseId()     { return this.verse.id }
   get verseNumber() { return this.verse.number.toString() }
   get text()        { return this.verse.text.lines }
   get translation() { return this.verse.translation.text }
