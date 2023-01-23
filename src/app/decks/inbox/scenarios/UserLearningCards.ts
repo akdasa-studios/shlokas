@@ -1,4 +1,4 @@
-import { Application, InboxCardMemorized } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
 import { useToast } from '@/app/composables'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from "../../review"
@@ -29,6 +29,7 @@ export class UserLearningCards {
     if (card) {
       const inboxCard = card._card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
+      await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
       await this._reviewDeckStore.refresh()
       this._cardMemorizedToast.open()
     }
