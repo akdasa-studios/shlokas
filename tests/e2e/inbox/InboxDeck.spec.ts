@@ -45,6 +45,16 @@ test.describe('Inbox Deck', () => {
       expect(inboxBagde).toEqual("1")
     })
 
+    test('Review badge', async () => {
+      const card = app.inboxDeck.getCard('BG 1.1', InboxCardType.Translation)
+      await card.swipe("top")
+      await app.tabsBar.libraryTab.click()
+
+      const verseItem  = await app.library.versesList.getByTestId('bg 1.1')
+      const verseBadge = await verseItem.badge.textContent()
+      expect(verseBadge).toEqual("REVIEW")
+    })
+
     test('Swipe all cards', async () => {
       const cardTypesToSwipe = [
         InboxCardType.Translation,

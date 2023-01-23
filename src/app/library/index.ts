@@ -9,3 +9,6 @@ export { default as AddVerseDialog } from './components/AddVerseDialog.vue'
 // scenarios
 export * from './scenarios/UserAddsVerseToInboxDeckScenario'
 export * from './scenarios/UserSearchesVersesScenario'
+
+// stores
+export * from './stores/useLibraryStore'
