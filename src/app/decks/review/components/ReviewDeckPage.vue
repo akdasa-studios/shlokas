@@ -70,7 +70,12 @@ function onCardMoved(card: ReviewCardViewModel, vector: Vector3d) {
   deck.updateMovedCard(card, vector)
   if (vector.length < deck.swipeThreshold) { return }
   setTimeout(() => {
-    userGradesCards.gradeCard(getGrade(vector.direction))
+    userGradesCards.gradeTopCard(getGrade(vector.direction))
+    if (userGradesCards.cards.length === 1) {
+      onCardPlaced(userGradesCards.topCard)
+      userGradesCards.topCard.showFrontSide()
+    }
+    // deck.updateInactiveCard()
   }, 250)
 }
 

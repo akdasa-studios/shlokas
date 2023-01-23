@@ -14,12 +14,11 @@ export class UserGradesCards {
     this._reviewDeckStore.refresh()
   }
 
-  async gradeCard(grade: ReviewGrade) {
+  async gradeTopCard(grade: ReviewGrade) {
     this._reviewDeckStore.reviewTopCard(grade)
   }
 
-
   get count() { return this._reviewDeckStore.count }
   get cards() { return this._reviewDeckStore.cards }
-
+  get topCard() { return this._reviewDeckStore.cards[0] }
 }
