@@ -26,16 +26,12 @@ export class UserSearchesVersesScenario {
     )
   }
 
-    // function createViewModel(verse: Verse, status: VerseStatus) {
-    //   const viewModel = markRaw(new LibraryVerse(verse, status))
-    //   library.set(verse.id.value, viewModel)
-    //   return viewModel
-    // }
   private async onQueryChanged() {
     const verses = await this._libraryStore.getByContent(this._language.value, this.query.value)
     const result = []
+
     for (const verse of verses) {
-      const status = await this._libraryStore.getStatus(verse.object.id)
+      const status    = await this._libraryStore.getStatus(verse.id)
       const viewModel = markRaw(new LibraryVerse(verse, status))
       result.push(viewModel)
     }

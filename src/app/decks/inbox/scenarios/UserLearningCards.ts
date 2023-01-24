@@ -34,9 +34,7 @@ export class UserLearningCards {
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
       await this._reviewDeckStore.refresh()
-
-      const status = await this._libraryStore.getStatus(card.verseId)
-      if (status) { await status.sync() }
+      this._libraryStore.sync(card.verseId)
 
       this._cardMemorizedToast.open()
     }

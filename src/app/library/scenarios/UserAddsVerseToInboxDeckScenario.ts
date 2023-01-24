@@ -1,33 +1,35 @@
 import { Transaction } from '@akdasa-studios/framework'
-import { AddVerseToInboxDeck, Application, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { AddVerseToInboxDeck, Application, UpdateVerseStatus, Verse, VerseId } from "@akdasa-studios/shlokas-core"
 import { useDialog, useToast } from "@/app/composables"
 import { useInboxDeckStore } from "@/app/decks/inbox"
-import { LibraryVerse, DummyLibraryVerse } from '@/app/library'
+import { LibraryVerse, DummyLibraryVerse, useLibraryStore } from '@/app/library'
 
 
 export class UserAddsVerseToInboxDeckScenario {
   private _app: Application
-  private _addedVerse: LibraryVerse = DummyLibraryVerse
+  private _addedVerseId: VerseId|undefined
   private _inboxDeck
+  private _libraryStore
   private _toast
   private _dialog
 
   constructor(app: Application) {
     this._app = app
     this._inboxDeck = useInboxDeckStore(app)
+    this._libraryStore = useLibraryStore(app)
     this._toast = useToast()
     this._dialog = useDialog<LibraryVerse>(DummyLibraryVerse)
   }
 
   async addVerseToInbox(verse: LibraryVerse) {
-    this._addedVerse = verse
+    this._addedVerseId = verse.verseId
 
     this._toast.open({data: { verseNumber: verse.number }})
 
     const transaction = new Transaction()
     await this._app.processor.execute(new AddVerseToInboxDeck(verse.verseId), transaction)
     await this._app.processor.execute(new UpdateVerseStatus(verse.verseId), transaction)
-    await verse.sync()
+    await this._libraryStore.sync(verse.verseId)
     await this._inboxDeck.refresh()
   }
 
@@ -36,9 +38,9 @@ export class UserAddsVerseToInboxDeckScenario {
   /* -------------------------------------------------------------------------- */
 
   async revert() {
-    if (!this._addedVerse) { return }
+    if (!this._addedVerseId) { return }
     await this._app.processor.revert()
-    await this._addedVerse.sync()
+    await this._libraryStore.sync(this._addedVerseId)
     await this._inboxDeck.refresh()
   }
 

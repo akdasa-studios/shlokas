@@ -1,17 +1,16 @@
 import {
   Decks, Verse, VerseStatus
 } from '@akdasa-studios/shlokas-core'
-import { computed } from 'vue'
-import { DomainViewModel, ViewModel } from '@/app/DomainViewModel'
+import { computed, Ref } from 'vue'
 
 /**
  * Library verse view model
  */
-export class LibraryVerse implements ViewModel {
+export class LibraryVerse {
 
   constructor(
-    private readonly _verse: DomainViewModel<Verse>,
-    private readonly _status: DomainViewModel<VerseStatus>
+    private readonly _verse: Verse,
+    private readonly _status: Ref<VerseStatus>
   ) { }
 
   /* -------------------------------------------------------------------------- */
@@ -30,12 +29,6 @@ export class LibraryVerse implements ViewModel {
   status         = computed(() => this._s.inDeck.toLocaleLowerCase())
 
   // shortcuts:
-  private get _v() { return this._verse.object }
-  private get _s() { return this._status.ref.value }
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    Sync                                    */
-  /* -------------------------------------------------------------------------- */
-
-  async sync() { await this._status.sync() }
+  private get _v() { return this._verse }
+  private get _s() { return this._status.value }
 }
