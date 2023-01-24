@@ -1,4 +1,5 @@
 import { Translation, VerseBuilder, VerseNumber, VerseStatus, VerseStatusId, Text, VerseId } from "@akdasa-studios/shlokas-core"
+import { DomainViewModel } from "@/app/DomainViewModel"
 import { LibraryVerse } from "./LibraryVerse"
 
 const dummyVerse = new VerseBuilder()
@@ -13,5 +14,5 @@ const dummyVerseStatus = new VerseStatus(
 )
 
 export const DummyLibraryVerse = new LibraryVerse(
-  dummyVerse, dummyVerseStatus
+  new DomainViewModel(dummyVerse), new DomainViewModel(dummyVerseStatus)
 )
