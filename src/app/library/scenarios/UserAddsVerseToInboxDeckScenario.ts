@@ -1,8 +1,8 @@
 import { Transaction } from '@akdasa-studios/framework'
-import { AddVerseToInboxDeck, Application, UpdateVerseStatus, Verse, VerseId } from "@akdasa-studios/shlokas-core"
+import { AddVerseToInboxDeck, Application, UpdateVerseStatus, VerseId } from "@akdasa-studios/shlokas-core"
 import { useDialog, useToast } from "@/app/composables"
 import { useInboxDeckStore } from "@/app/decks/inbox"
-import { LibraryVerse, DummyLibraryVerse, useLibraryStore } from '@/app/library'
+import { DummyLibraryVerse, LibraryVerse, useLibraryStore } from '@/app/library'
 
 
 export class UserAddsVerseToInboxDeckScenario {

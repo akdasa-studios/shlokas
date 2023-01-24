@@ -58,11 +58,11 @@ import {
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  MemorizingStatus, UserLearningCards
+  MemorizingStatus, UserMemorizingCardsScenario
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const userLearningCards = new UserLearningCards(inject('app') as Application)
+const userLearningCards = new UserMemorizingCardsScenario(inject('app') as Application)
 
 const deck = new StackedDeckBehaviour()
 

@@ -13,10 +13,6 @@ export class LibraryVerse {
     private readonly _status: Ref<VerseStatus>
   ) { }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                 Properties                                 */
-  /* -------------------------------------------------------------------------- */
-
   get verseId()     { return this._v.id }
   get number()      { return this._v.number.toString() }
   get translation() { return this._v.translation.text }
