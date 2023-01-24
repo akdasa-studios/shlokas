@@ -2,9 +2,9 @@ import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-stud
 import { useLibraryStore } from '@/app/library'
 import { useToast } from '@/app/composables'
 import { useInboxDeckStore } from '@/app/decks/inbox'
-import { useReviewDeckStore } from "../../review"
+import { useReviewDeckStore } from '@/app/decks/review'
 
-export class UserLearningCards {
+export class UserMemorizingCardsScenario {
   private readonly _app: Application
   private readonly _inboxDeckStore
   private readonly _reviewDeckStore
@@ -34,9 +34,8 @@ export class UserLearningCards {
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
       await this._reviewDeckStore.refresh()
+      this._libraryStore.sync(card.verseId)
 
-      const verse = this._libraryStore.getByVerseId(card.verseId)
-      if (verse) { await verse.sync() }
       this._cardMemorizedToast.open()
     }
   }

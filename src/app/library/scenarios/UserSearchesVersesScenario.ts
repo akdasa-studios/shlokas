@@ -1,6 +1,6 @@
 import { Application } from "@akdasa-studios/shlokas-core"
 import { storeToRefs } from "pinia"
-import { ref, Ref, watch } from "vue"
+import { markRaw, ref, Ref, watch } from "vue"
 import { useLocaleStore } from "@/app/settings"
 import { LibraryVerse, useLibraryStore } from '@/app/library'
 
@@ -27,6 +27,14 @@ export class UserSearchesVersesScenario {
   }
 
   private async onQueryChanged() {
-    this.verses.value = await this._libraryStore.findByContent(this._language.value, this.query.value)
+    const verses = await this._libraryStore.getByContent(this._language.value, this.query.value)
+    const result = []
+
+    for (const verse of verses) {
+      const status    = await this._libraryStore.getStatus(verse.id)
+      const viewModel = markRaw(new LibraryVerse(verse, status))
+      result.push(viewModel)
+    }
+    this.verses.value = result
   }
 }

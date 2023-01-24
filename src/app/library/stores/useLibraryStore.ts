@@ -1,39 +1,37 @@
 import { Application, Language, Verse, VerseId, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
-import { markRaw, reactive } from 'vue'
-import { LibraryVerse } from './../models/LibraryVerse'
+import { reactive, ref, Ref } from 'vue'
 
 
 export function useLibraryStore(app: Application) {
   return defineStore('library', () => {
-    const verses = reactive(new Map<string, LibraryVerse>())
+    const verses   = reactive<Record<string, Verse>>({})
+    const statuses = reactive<Record<string, Ref<VerseStatus>>>({})
 
-    function getViewModel(verse: Verse, status: VerseStatus) {
-      const viewModel = markRaw(new LibraryVerse(verse, status))
-      verses.set(verse.id.value, viewModel)
-      return viewModel
+    async function getStatus(verseId: VerseId): Promise<Ref<VerseStatus>> {
+      const statusIsCached = verseId.value in statuses
+      if (!statusIsCached) { sync(verseId) }
+      return statuses[verseId.value]
     }
 
-    function getByVerseId(verseId: VerseId) {
-      return verses.get(verseId.value)
+    async function getByContent(lang: Language, query: string) {
+      const foundVerses     = await app.library.findByContent(lang, query)
+      const relatedStatuses = await app.library.getStatuses(foundVerses.map(x => x.id))
+
+      // Cache loaded resources
+      foundVerses.forEach(x => verses[x.id.value] = x)
+      foundVerses.forEach(x => {
+        statuses[x.id.value] = ref({}) as Ref<VerseStatus>
+        statuses[x.id.value].value = relatedStatuses[x.id.value]
+      })
+
+      return foundVerses
     }
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Actions                                  */
-    /* -------------------------------------------------------------------------- */
-
-    async function findByContent(lang: Language, query: string) {
-      const loadedVerses = await app.library.findByContent(lang, query)
-      const loadedStatuses = await app.library.getStatuses(loadedVerses.map(x => x.id))
-      return loadedVerses.map(
-        (verse) => getViewModel(verse, loadedStatuses[verse.id.value])
-      )
+    async function sync(verseId: VerseId) {
+      statuses[verseId.value].value = await app.library.getStatus(verseId)
     }
 
-    /* -------------------------------------------------------------------------- */
-    /*                                  Interface                                 */
-    /* -------------------------------------------------------------------------- */
-
-    return { findByContent, getByVerseId, verses }
+    return { getByContent, getStatus, verses, statuses, sync }
   })()
 }
