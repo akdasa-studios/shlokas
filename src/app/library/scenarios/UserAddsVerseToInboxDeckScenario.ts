@@ -30,7 +30,8 @@ export class UserAddsVerseToInboxDeckScenario {
     await this._app.processor.execute(new AddVerseToInboxDeck(verse.verseId), transaction)
     await this._app.processor.execute(new UpdateVerseStatus(verse.verseId), transaction)
     await this._libraryStore.sync(verse.verseId)
-    await this._inboxDeck.refresh()
+    // todo:
+    // await this._inboxDeck.refresh()
   }
 
   /* -------------------------------------------------------------------------- */
@@ -41,7 +42,8 @@ export class UserAddsVerseToInboxDeckScenario {
     if (!this._addedVerseId) { return }
     await this._app.processor.revert()
     await this._libraryStore.sync(this._addedVerseId)
-    await this._inboxDeck.refresh()
+    // todo:
+    // await this._inboxDeck.refresh()
   }
 
   /* -------------------------------------------------------------------------- */

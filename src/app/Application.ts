@@ -91,7 +91,7 @@ export async function createApplication() {
     await Promise.all([
       useAccountStore().load(),
       useAppearanceStore().load(),
-      useInboxDeckStore(application).refresh(),
+      // useInboxDeckStore(application).refresh(),
       useReviewDeckStore(application).refresh(),
     ])
   }

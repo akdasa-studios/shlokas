@@ -8,6 +8,10 @@ export function useLibraryStore(app: Application) {
     const verses   = reactive<Record<string, Verse>>({})
     const statuses = reactive<Record<string, Ref<VerseStatus>>>({})
 
+    async function getVerse(verseId: VerseId) {
+      return (await app.library.getById(verseId)).value
+    }
+
     async function getStatus(verseId: VerseId): Promise<Ref<VerseStatus>> {
       const statusIsCached = verseId.value in statuses
       if (!statusIsCached) { sync(verseId) }
@@ -32,6 +36,6 @@ export function useLibraryStore(app: Application) {
       statuses[verseId.value].value = await app.library.getStatus(verseId)
     }
 
-    return { getByContent, getStatus, verses, statuses, sync }
+    return { getByContent, getStatus, getVerse, verses, statuses, sync }
   })()
 }

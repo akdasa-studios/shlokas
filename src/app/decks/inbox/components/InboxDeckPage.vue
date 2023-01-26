@@ -17,7 +17,7 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="userLearningCards.count > 0"
+        v-if="userMemorizingCards.count > 0"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
@@ -43,10 +43,10 @@
         position="top"
         :message="$t('cards.memorized')"
         :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
-        :is-open="userLearningCards.cardMemorizedToast.isOpen.value"
+        :is-open="userMemorizingCards.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="userLearningCards.cardMemorizedToast.close()"
+        @did-dismiss="userMemorizingCards.cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -61,23 +61,27 @@ import {
 } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import {
-  CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel
+  CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel,
+  TutorialCard, TutorialCardViewModel
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  MemorizingStatus, TutorialCard, TutorialCardViewModel, UserMemorizingCardsScenario
+  InboxDeckTutorialScenario,
+  MemorizingStatus, UserMemorizingCardsScenario
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const userLearningCards = new UserMemorizingCardsScenario(inject('app') as Application)
+const userMemorizingCards = new UserMemorizingCardsScenario(inject('app') as Application)
+const inboxDeckTutorialScenario = new InboxDeckTutorialScenario(inject('app') as Application)
 
 const deck = new StackedDeckBehaviour()
 
 const cardsToShow = computed(() =>
-  userLearningCards.cards.filter(x => x.index.value < 3)
+  userMemorizingCards.cards.filter(x => x.index.value < 3)
 )
 
-userLearningCards.open()
+inboxDeckTutorialScenario.open()
+userMemorizingCards.open()
 
 function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
@@ -105,12 +109,12 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
     if (deltaPos.isLeftOrRight) {
-      userLearningCards.shiftCard()
+      userMemorizingCards.shiftCard()
     } else {
       if (card.type !== "tutorial") {
-        userLearningCards.cardMemorized()
+        userMemorizingCards.cardMemorized()
       } else {
-        userLearningCards.removeCard()
+        userMemorizingCards.removeCard()
       }
     }
     if (card.type !== "tutorial") {
@@ -121,6 +125,6 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
 }
 
 async function onRevert() {
-  await userLearningCards.revert()
+  await userMemorizingCards.revert()
 }
 </script>

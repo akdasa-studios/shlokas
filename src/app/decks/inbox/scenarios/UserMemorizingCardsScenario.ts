@@ -1,7 +1,7 @@
-import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
 import { useLibraryStore } from '@/app/library'
 import { useToast } from '@/app/composables'
-import { useInboxDeckStore } from '@/app/decks/inbox'
+import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
 
 export class UserMemorizingCardsScenario {
@@ -19,8 +19,13 @@ export class UserMemorizingCardsScenario {
     this._cardMemorizedToast = useToast()
   }
 
-  open() {
-    this._inboxDeckStore.refresh()
+  async open() {
+    const cards = await this._app.inboxDeck.cards()
+    const viewModels = cards.map(async (card: InboxCard) =>
+      new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
+    )
+    const cvm = await Promise.all(viewModels)
+    cvm.forEach(x => this._inboxDeckStore.addCard(x))
   }
 
   async shiftCard() {
@@ -33,7 +38,7 @@ export class UserMemorizingCardsScenario {
 
   async cardMemorized() {
     const card = this._inboxDeckStore.removeCard()
-    if (card) {
+    if (card && card instanceof InboxVerseCardViewModel) {
       const inboxCard = card._card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
