@@ -8,7 +8,7 @@ export class ReviewCardViewModel extends VerseCardViewModel {
   constructor(card: ReviewCard, verse: Verse, index: number) {
     super(verse)
     this._card = card
-    this.index.value = index
+    this.index = index
   }
 
   /* -------------------------------------------------------------------------- */

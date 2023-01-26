@@ -1,9 +1,10 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
-import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
 import { Storage } from '@ionic/storage'
 import { App } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { BackgroundTask } from '@capawesome/capacitor-background-task'
+import { useLibraryStore } from '@/app/library'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
 import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
@@ -14,6 +15,7 @@ import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persi
 import { AuthService } from '@/services/AuthService'
 import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
+import { CardMemorizationUseCase } from './decks/inbox/useCases/CardMemorizationUseCase'
 import { useAppearanceStore } from './settings/stores/useAppearanceStore'
 import { useAccountStore } from './settings/stores/useAccountStore'
 import { useDeviceStore } from './useDeviceStorage'
@@ -21,9 +23,6 @@ import { AUTH_HOST } from './Env'
 
 export let application: Application
 export let couchDB: CouchDB
-
-console.log()
-
 
 export async function createApplication() {
   const dev = process.env.NODE_ENV === "development"
@@ -86,11 +85,13 @@ export async function createApplication() {
   }
 
   application = new Application(repositories)
+
   await loadState()
   async function loadState() {
     await Promise.all([
       useAccountStore().load(),
       useAppearanceStore().load(),
+      // await new UserMemorizingCardsScenario(app).open()
       // useInboxDeckStore(application).refresh(),
       useReviewDeckStore(application).refresh(),
     ])

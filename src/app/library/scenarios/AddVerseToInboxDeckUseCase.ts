@@ -5,17 +5,15 @@ import { useInboxDeckStore } from "@/app/decks/inbox"
 import { DummyLibraryVerse, LibraryVerse, useLibraryStore } from '@/app/library'
 
 
-export class UserAddsVerseToInboxDeckScenario {
+export class AddVerseToInboxDeckUseCase {
   private _app: Application
   private _addedVerseId: VerseId|undefined
-  private _inboxDeck
   private _libraryStore
   private _toast
   private _dialog
 
   constructor(app: Application) {
     this._app = app
-    this._inboxDeck = useInboxDeckStore(app)
     this._libraryStore = useLibraryStore(app)
     this._toast = useToast()
     this._dialog = useDialog<LibraryVerse>(DummyLibraryVerse)
@@ -29,9 +27,6 @@ export class UserAddsVerseToInboxDeckScenario {
     const transaction = new Transaction()
     await this._app.processor.execute(new AddVerseToInboxDeck(verse.verseId), transaction)
     await this._app.processor.execute(new UpdateVerseStatus(verse.verseId), transaction)
-    await this._libraryStore.sync(verse.verseId)
-    // todo:
-    // await this._inboxDeck.refresh()
   }
 
   /* -------------------------------------------------------------------------- */
@@ -41,9 +36,6 @@ export class UserAddsVerseToInboxDeckScenario {
   async revert() {
     if (!this._addedVerseId) { return }
     await this._app.processor.revert()
-    await this._libraryStore.sync(this._addedVerseId)
-    // todo:
-    // await this._inboxDeck.refresh()
   }
 
   /* -------------------------------------------------------------------------- */

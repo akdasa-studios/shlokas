@@ -16,7 +16,7 @@ export class InboxVerseCardViewModel extends VerseCardViewModel {
     this._card = card
   }
 
-  memorizingStatus = ref<MemorizingStatus>(MemorizingStatus.Unknown)
+  memorizingStatus = MemorizingStatus.Unknown
 
   get id()      { return this._card.id.value }
   get type()    { return this._card.type }

@@ -73,7 +73,6 @@
 
 
 <script lang="ts" setup>
-import { Application } from '@akdasa-studios/shlokas-core'
 import {
   IonBadge, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonPage,
   IonSearchbar, IonTitle, IonToast, IonToolbar
@@ -81,17 +80,16 @@ import {
 import { inject } from 'vue'
 import { testId } from '@/app/TestId'
 import {
-  AddVerseDialog, UserAddsVerseToInboxDeckScenario,
-  UserSearchesVersesScenario
+  AddVerseDialog, AddVerseToInboxDeckUseCase,
+  SearchVersesUseCase
 } from '@/app/library'
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
-const addVerseScenario = new UserAddsVerseToInboxDeckScenario(app)
-const searchScenario = new UserSearchesVersesScenario(app)
+const addVerseScenario = inject('AddVerseToInboxDeckUseCase') as AddVerseToInboxDeckUseCase
+const searchScenario = inject('SearchVersesUseCase') as SearchVersesUseCase
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

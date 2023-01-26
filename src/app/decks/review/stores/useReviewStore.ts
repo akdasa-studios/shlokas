@@ -30,17 +30,17 @@ export function useReviewDeckStore(app: Application) {
     }
 
     function putTopOnBottom() {
-      const topCard = cards.value.find(x => x.index.value === 0)
+      const topCard = cards.value.find(x => x.index === 0)
       if (topCard) {
-        topCard.index.value = cards.value.length
-        cards.value.forEach(x => x.index.value--)
+        topCard.index = cards.value.length
+        cards.value.forEach(x => x.index--)
       }
     }
 
     function removeFromDeck() {
-      const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
+      const topCardIndex = cards.value.findIndex(x => x.index === 0)
       if (topCardIndex !== -1) {
-        cards.value.filter(x => x.index.value > 0).forEach(x => x.index.value--)
+        cards.value.filter(x => x.index > 0).forEach(x => x.index--)
         return cards.value.splice(topCardIndex, 1)[0]
       }
     }

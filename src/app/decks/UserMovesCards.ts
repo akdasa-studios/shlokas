@@ -9,8 +9,8 @@ export class DeckCardInteraction {
 
   updateCardInactiveState(card: CardViewModel) {
     card.position.x = 0
-    card.position.y = card.index.value * 30
-    card.position.z = -(card.index.value * 80)
+    card.position.y = card.index * 30
+    card.position.z = -(card.index * 80)
     card.angle.x = 0
     card.angle.y = 0
     card.angle.z = 0
@@ -19,6 +19,7 @@ export class DeckCardInteraction {
   updateMovingCardState(card: CardViewModel, deltaPos: Vector3d) {
     card.position.x += deltaPos.x
     card.position.y += deltaPos.y
+    console.log(card.position)
     card.angle.z = 15 * (card.position.x / 300)
     if (card.angle.z > 15) { card.angle.z = 15 }
     if (card.angle.z < -15) { card.angle.z = -15 }

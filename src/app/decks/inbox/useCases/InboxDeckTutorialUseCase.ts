@@ -2,7 +2,7 @@ import { Application } from "@akdasa-studios/shlokas-core"
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { TutorialCardViewModel } from '@/app/decks/shared'
 
-export class InboxDeckTutorialScenario {
+export class InboxDeckTutorialUseCase {
   private readonly _app: Application
   private readonly _inboxDeckStore
 

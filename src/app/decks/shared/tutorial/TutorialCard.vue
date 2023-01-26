@@ -1,7 +1,7 @@
 <template>
   <FlipCard
     data-testid="inbox-tutorial-card-01"
-    :flipped="card.flipped.value"
+    :flipped="card.flipped"
     @flip="card.flip()"
   >
     <template #front>

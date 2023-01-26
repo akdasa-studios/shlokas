@@ -17,7 +17,7 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="userMemorizingCards.count > 0"
+        v-if="cardsMemorization.isAnyCardsToMemorize"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
@@ -30,7 +30,7 @@
         />
         <InboxCard
           v-else
-          :card="(data.card as InboxCardViewModel)"
+          :card="(data.card as InboxVerseCardViewModel)"
         />
       </CardsDeck>
 
@@ -43,10 +43,10 @@
         position="top"
         :message="$t('cards.memorized')"
         :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
-        :is-open="userMemorizingCards.cardMemorizedToast.isOpen.value"
+        :is-open="cardsMemorization.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="userMemorizingCards.cardMemorizedToast.close()"
+        @did-dismiss="cardsMemorization.cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -54,7 +54,6 @@
 
 
 <script lang="ts" setup>
-import { Application } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonPage, IonTitle,
   IonToast, IonToolbar
@@ -66,22 +65,20 @@ import {
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  InboxDeckTutorialScenario,
-  MemorizingStatus, UserMemorizingCardsScenario
+  InboxDeckTutorialUseCase,
+  InboxVerseCardViewModel,
+  MemorizingStatus, CardMemorizationUseCase
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const userMemorizingCards = new UserMemorizingCardsScenario(inject('app') as Application)
-const inboxDeckTutorialScenario = new InboxDeckTutorialScenario(inject('app') as Application)
+const cardsMemorization = inject('CardMemorizationUseCase') as CardMemorizationUseCase
+const inboxDeckTutorial = inject('InboxDeckTutorialUseCase') as InboxDeckTutorialUseCase
 
 const deck = new StackedDeckBehaviour()
 
 const cardsToShow = computed(() =>
-  userMemorizingCards.cards.filter(x => x.index.value < 3)
+  cardsMemorization.cards.filter(x => x.index < 3)
 )
-
-inboxDeckTutorialScenario.open()
-userMemorizingCards.open()
 
 function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
@@ -92,13 +89,14 @@ function onCardMoving(
   deltaPos: Vector3d,
   deltaPosTotal: Vector3d
 ) {
+  console.log("--->", card)
   deck.updateMovingCard(card, deltaPos)
 
   if (card.type === "tutorial") { return }
   if (deltaPosTotal.length < deck.swipeThreshold) {
-    card.memorizingStatus.value = MemorizingStatus.Unknown
+    card.memorizingStatus = MemorizingStatus.Unknown
   } else {
-    card.memorizingStatus.value = deltaPosTotal.isLeftOrRight
+    card.memorizingStatus = deltaPosTotal.isLeftOrRight
       ? MemorizingStatus.StillMemorizing
       : MemorizingStatus.Memorized
   }
@@ -109,22 +107,22 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
     if (deltaPos.isLeftOrRight) {
-      userMemorizingCards.shiftCard()
+      cardsMemorization.shiftCard()
     } else {
       if (card.type !== "tutorial") {
-        userMemorizingCards.cardMemorized()
+        cardsMemorization.cardMemorized()
       } else {
-        userMemorizingCards.removeCard()
+        cardsMemorization.removeCard()
       }
     }
     if (card.type !== "tutorial") {
-      card.memorizingStatus.value = MemorizingStatus.Unknown
+      card.memorizingStatus = MemorizingStatus.Unknown
       return
     }
   }, 250)
 }
 
 async function onRevert() {
-  await userMemorizingCards.revert()
+  await cardsMemorization.revert()
 }
 </script>

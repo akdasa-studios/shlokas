@@ -3,7 +3,7 @@
     <div
       v-for="item in cards"
       :key="item.id"
-      :ref="(el) => setRefs(item.index.value, el)"
+      :ref="(el) => setRefs(item.index, el)"
       class="card1"
       :style="calculateStyle(item)"
     >
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, defineEmits, defineProps} from 'vue'
+import { ref, computed, watch, defineEmits, defineProps, unref} from 'vue'
 import interact from 'interactjs'
 import { Vector3d } from './Vector3d'
 
@@ -36,10 +36,11 @@ const emit = defineEmits<{
 /* -------------------------------------------------------------------------- */
 
 const topCardRef = ref()
-const topCardObj = computed(() => props.cards.find(x => x.index.value === 0))
+const topCardObj = computed(() => props.cards.find(x => x.index === 0))
 const items = computed(() => props.cards.map(x=>x.id).toString())
 
 function setRefs(idx: number, el: any) {
+  console.log("setCardRef", idx)
   if (idx === 0 && el) { topCardRef.value = el }
 }
 
@@ -63,7 +64,7 @@ watch(items, () => {
 
 
 function calculateStyle(card: any) {
-  if (card.style.value) { return card.style.value }
+  if (card.style) { return card.style }
   return `transform: translateX(${card.position.x}px)` +
          `           translateY(${card.position.y}px)` +
          `           translateZ(${card.position.z}px)` +
@@ -83,9 +84,10 @@ function enableInteraction(ref: any) {
   interact(ref).draggable({
     listeners: {
       move(event:any) {
+        console.log("!!!")
         emit(
           "moving",
-          topCardObj.value,
+          unref(topCardObj),
           new Vector3d(event.dx, event.dy, 0),
           new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
         )
@@ -93,7 +95,7 @@ function enableInteraction(ref: any) {
       end(event:any) {
         emit(
           "moved",
-          topCardObj.value,
+          unref(topCardObj),
           new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
         )
       }

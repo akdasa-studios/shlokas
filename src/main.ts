@@ -29,6 +29,10 @@ import '@ionic/vue/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
+/* Init stages */
+import initStages from './init'
+
+
 async function initApp() {
   const pinia = createPinia()
   const storage = new Storage()
@@ -66,6 +70,21 @@ async function initApp() {
 
   const shlokasApp = await createApplication()
   app.provide("app", shlokasApp)
+
+  const services: {[name: string]: any} = {}
+
+  for (const initStage of initStages) {
+    const initResult = initStage({
+      app: shlokasApp,
+      get: <T>(x:string) => services[x] as T
+    })
+    if (initResult.inject) {
+      for (const [key, value] of Object.entries(initResult.inject)) {
+        app.provide(key, value)
+        services[key] = value
+      }
+    }
+  }
 
   router.isReady().then(() => {
     app.mount('#app')
