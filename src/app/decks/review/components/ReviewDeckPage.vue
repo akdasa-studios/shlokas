@@ -39,19 +39,18 @@
 
 
 <script lang="ts" setup>
-import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
+import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
-import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
+import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCardsUseCase } from '@/app/decks/review'
 import { VerseCardViewModel, StackedDeckBehaviour, Vector3d, CardsDeck } from '@/app/decks/shared'
 
-const app = inject('app') as Application
-const userGradesCards = new UserGradesCards(app)
+const userGradesCards = inject('UserGradesCardsUseCase') as UserGradesCardsUseCase
 userGradesCards.open()
 
 const deck = new StackedDeckBehaviour()
 const cardsToShow = computed(() =>
-  userGradesCards.cards.filter(x => x.index.value < 3)
+  userGradesCards.cards.filter(x => x.index < 3)
 )
 
 function onCardPlaced(card: VerseCardViewModel) {
@@ -59,14 +58,14 @@ function onCardPlaced(card: VerseCardViewModel) {
 }
 
 function onCardMoving(card: ReviewCardViewModel, vector: Vector3d, vectorD: Vector3d) {
-    card.grade.value = vectorD.length > deck.swipeThreshold
+    card.grade = vectorD.length > deck.swipeThreshold
       ? getGrade(vectorD.direction)
       : undefined
   deck.updateMovingCard(card, vector)
 }
 
 function onCardMoved(card: ReviewCardViewModel, vector: Vector3d) {
-  card.grade.value = undefined
+  card.grade = undefined
   deck.updateMovedCard(card, vector)
   if (vector.length < deck.swipeThreshold) { return }
   swipeCard(getGrade(vector.direction))

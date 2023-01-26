@@ -7,7 +7,7 @@ export function initInboxDeck({ app }: InitArgs): InitStageResult {
   const case2 = new InboxDeckTutorialUseCase(app)
 
   case1.open()
-  case2.open()
+  // case2.open()
 
   return {
     inject: {

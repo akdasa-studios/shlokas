@@ -44,7 +44,7 @@ export class CardMemorizationUseCase {
       const inboxCard = card._card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
-      await this._reviewDeckStore.refresh()
+      // await this._reviewDeckStore.refresh()
       this._cardMemorizedToast.open()
     }
   }

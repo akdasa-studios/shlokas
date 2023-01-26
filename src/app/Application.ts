@@ -93,7 +93,7 @@ export async function createApplication() {
       useAppearanceStore().load(),
       // await new UserMemorizingCardsScenario(app).open()
       // useInboxDeckStore(application).refresh(),
-      useReviewDeckStore(application).refresh(),
+      // useReviewDeckStore(application).refresh(),
     ])
   }
   /* -------------------------------------------------------------------------- */

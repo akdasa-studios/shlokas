@@ -1,14 +1,14 @@
 <template>
   <FlipCard
     :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
-    :data-index="props.card.index.value"
-    :flipped="props.card.flipped.value"
+    :data-index="props.card.index"
+    :flipped="props.card.flipped"
     @flip="props.card.flip()"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
-        :grade="props.card.grade.value"
-        :interval="nextIntervals[props.card.grade.value || 0]"
+        :grade="props.card.grade"
+        :interval="nextIntervals[props.card.grade || 0]"
         :class="style"
         class="side"
       />
