@@ -1,31 +1,26 @@
-import { Application } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
 import { computed, ref, Ref } from 'vue'
 import { appendItem, removeItem, shiftItem } from "@/app/decks/shared"
 import { InboxCardViewModel } from "@/app/decks/inbox"
 
+export const useInboxDeckStore = defineStore('decks/inbox', () => {
+  const cards: Ref<InboxCardViewModel[]> = ref([])
+  const count = computed(() => cards.value.length)
 
-export function useInboxDeckStore(app: Application) {
+  function clear() {
+    cards.value = []
+  }
 
-  return defineStore('decks/inbox', () => {
-    const cards: Ref<InboxCardViewModel[]> = ref([])
-    const count = computed(() => cards.value.length)
+  function addCard(card: InboxCardViewModel) {
+    appendItem(cards, card)
+  }
+  function shiftCard() {
+    shiftItem(cards)
+  }
 
-    function clear() {
-      cards.value = []
-    }
+  function removeCard(): InboxCardViewModel | undefined {
+    return removeItem(cards) as InboxCardViewModel | undefined
+  }
 
-    function addCard(card: InboxCardViewModel) {
-      appendItem(cards, card)
-    }
-    function shiftCard() {
-      shiftItem(cards)
-    }
-
-    function removeCard(): InboxCardViewModel | undefined {
-      return removeItem(cards) as InboxCardViewModel | undefined
-    }
-
-    return { cards, count, shiftCard, removeCard, addCard, clear }
-  })()
-}
+  return { cards, count, shiftCard, removeCard, addCard, clear }
+})

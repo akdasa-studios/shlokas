@@ -1,5 +1,5 @@
 import { InboxCardMemorized , UpdateVerseStatus , AddVerseToInboxDeck } from '@akdasa-studios/shlokas-core'
-import { CardMemorizationUseCase } from '@/app/decks/inbox'
+import { CardMemorizationUseCase, InboxDeckTutorialUseCase } from '@/app/decks/inbox'
 import { SearchVersesUseCase } from '@/app/library'
 import { UserGradesCardsUseCase } from '@/app/decks/review'
 import { InitArgs, InitStageResult } from './initialization'
@@ -14,6 +14,7 @@ export function initGlobalCommandHandler({ app, get }: InitArgs): InitStageResul
 function handle({ get }: InitArgs, cmd: any) {
   if (cmd instanceof AddVerseToInboxDeck) {
     get<CardMemorizationUseCase>("CardMemorizationUseCase").open()
+    get<InboxDeckTutorialUseCase>("InboxDeckTutorialUseCase").open()
   } else if (cmd instanceof UpdateVerseStatus) {
     get<SearchVersesUseCase>("SearchVersesUseCase").refreshVerse(cmd.verseId)
   } else if (cmd instanceof InboxCardMemorized) {

@@ -14,8 +14,8 @@ export class CardMemorizationUseCase {
 
   constructor(app: Application) {
     this._app = app
-    this._inboxDeckStore = useInboxDeckStore(this._app)
-    this._reviewDeckStore = useReviewDeckStore(this._app)
+    this._inboxDeckStore = useInboxDeckStore()
+    this._reviewDeckStore = useReviewDeckStore()
     this._libraryStore = useLibraryStore(this._app)
     this._cardMemorizedToast = useToast()
   }

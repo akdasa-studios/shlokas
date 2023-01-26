@@ -70,12 +70,9 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { Application } from '@akdasa-studios/shlokas-core'
-import { inject } from 'vue'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
 
-const app = inject('app') as Application
-const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore(app))
-const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore(app))
+const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore())
+const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore())
 </script>

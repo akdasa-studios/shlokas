@@ -8,7 +8,7 @@ export class InboxDeckTutorialUseCase {
 
   constructor(app: Application) {
     this._app = app
-    this._inboxDeckStore = useInboxDeckStore(this._app)
+    this._inboxDeckStore = useInboxDeckStore()
   }
 
   open() {
