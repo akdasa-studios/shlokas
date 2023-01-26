@@ -24,7 +24,14 @@
         @moving="onCardMoving"
         @moved="onCardMoved"
       >
-        <InboxCard :card="(data.card as InboxCardViewModel)" />
+        <TutorialCard
+          v-if="data.card.type === 'tutorial'"
+          :card="(data.card as TutorialCardViewModel)"
+        />
+        <InboxCard
+          v-else
+          :card="(data.card as InboxCardViewModel)"
+        />
       </CardsDeck>
 
       <InboxDeckEmpty
@@ -54,11 +61,11 @@ import {
 } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import {
-  CardsDeck , StackedDeckBehaviour, Vector3d, CardViewModel
+  CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  MemorizingStatus, UserMemorizingCardsScenario
+  MemorizingStatus, TutorialCard, TutorialCardViewModel, UserMemorizingCardsScenario
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
@@ -72,7 +79,7 @@ const cardsToShow = computed(() =>
 
 userLearningCards.open()
 
-function onCardPlaced(card: CardViewModel) {
+function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
 }
 
@@ -82,6 +89,8 @@ function onCardMoving(
   deltaPosTotal: Vector3d
 ) {
   deck.updateMovingCard(card, deltaPos)
+
+  if (card.type === "tutorial") { return }
   if (deltaPosTotal.length < deck.swipeThreshold) {
     card.memorizingStatus.value = MemorizingStatus.Unknown
   } else {
@@ -98,9 +107,16 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
     if (deltaPos.isLeftOrRight) {
       userLearningCards.shiftCard()
     } else {
-      userLearningCards.cardMemorized()
+      if (card.type !== "tutorial") {
+        userLearningCards.cardMemorized()
+      } else {
+        userLearningCards.removeCard()
+      }
     }
-    card.memorizingStatus.value = MemorizingStatus.Unknown
+    if (card.type !== "tutorial") {
+      card.memorizingStatus.value = MemorizingStatus.Unknown
+      return
+    }
   }, 250)
 }
 

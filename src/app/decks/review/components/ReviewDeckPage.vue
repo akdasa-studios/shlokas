@@ -43,7 +43,7 @@ import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, UserGradesCards } from '@/app/decks/review'
-import { CardViewModel, StackedDeckBehaviour, Vector3d, CardsDeck } from '@/app/decks/shared'
+import { VerseCardViewModel, StackedDeckBehaviour, Vector3d, CardsDeck } from '@/app/decks/shared'
 
 const app = inject('app') as Application
 const userGradesCards = new UserGradesCards(app)
@@ -54,7 +54,7 @@ const cardsToShow = computed(() =>
   userGradesCards.cards.filter(x => x.index.value < 3)
 )
 
-function onCardPlaced(card: CardViewModel) {
+function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
 }
 

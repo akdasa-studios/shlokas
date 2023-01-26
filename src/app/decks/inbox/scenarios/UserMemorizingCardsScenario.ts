@@ -27,15 +27,18 @@ export class UserMemorizingCardsScenario {
     this._inboxDeckStore.shiftCard()
   }
 
+  async removeCard() {
+    this._inboxDeckStore.removeCard()
+  }
+
   async cardMemorized() {
-    const card = this._inboxDeckStore.memorizeCard()
+    const card = this._inboxDeckStore.removeCard()
     if (card) {
       const inboxCard = card._card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))
       await this._app.processor.execute(new UpdateVerseStatus(inboxCard.verseId))
       await this._reviewDeckStore.refresh()
       this._libraryStore.sync(card.verseId)
-
       this._cardMemorizedToast.open()
     }
   }

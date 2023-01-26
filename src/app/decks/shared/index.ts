@@ -1,6 +1,7 @@
 export * from "./theme/DeckBehaviour"
 export * from "./theme/StackedDeckBehaviour"
 export * from "./CardViewModel"
+export * from "./VerseCardViewModel"
 export * from "./SwipingEvent"
 export * from "./Vector3d"
 export { default as CardsDeck } from "./CardsDeck.vue"

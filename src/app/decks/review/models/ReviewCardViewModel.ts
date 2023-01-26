@@ -1,8 +1,8 @@
 import { ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
 import { computed, ref } from 'vue'
-import { CardViewModel } from '@/app/decks/shared'
+import { VerseCardViewModel } from '@/app/decks/shared'
 
-export class ReviewCardViewModel extends CardViewModel {
+export class ReviewCardViewModel extends VerseCardViewModel {
   private readonly _card: ReviewCard
 
   constructor(card: ReviewCard, verse: Verse, index: number) {

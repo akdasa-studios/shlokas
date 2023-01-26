@@ -2,10 +2,14 @@ import { Application, InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
 import { computed, markRaw, ref, Ref } from 'vue'
 import { InboxCardViewModel } from '../models/InboxCardViewModel'
+import { TutorialCardViewModel } from './../models/TutorialCardViewModel'
+
+type InboxCards = InboxCardViewModel | TutorialCardViewModel
+
 
 export function useInboxDeckStore(app: Application) {
   return defineStore('decks/inbox', () => {
-    const cards: Ref<InboxCardViewModel[]> = ref([])
+    const cards: Ref<InboxCards[]> = ref([])
     const count = computed(() => cards.value.length)
 
     /* -------------------------------------------------------------------------- */
@@ -13,7 +17,18 @@ export function useInboxDeckStore(app: Application) {
     /* -------------------------------------------------------------------------- */
 
     async function refresh() {
-      cards.value = await getCards()
+      const tutorialCmpleted = false
+      const cardsToShow: InboxCards[] = []
+
+      if (!tutorialCmpleted) {
+        cardsToShow.push(markRaw(new TutorialCardViewModel("t01")))
+        cardsToShow.push(markRaw(new TutorialCardViewModel("t02")))
+      }
+
+      (await getCards()).forEach(x => cardsToShow.push(x))
+      cardsToShow.forEach((x, i) => x.index.value = i)
+      console.log(cardsToShow.map(x => x.index.value))
+      cards.value = cardsToShow
     }
 
     function shiftCard() {
@@ -24,11 +39,11 @@ export function useInboxDeckStore(app: Application) {
       }
     }
 
-    function memorizeCard(): InboxCardViewModel | undefined {
+    function removeCard(): InboxCardViewModel | undefined {
       const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
       if (topCardIndex !== -1) {
         cards.value.forEach(x => x.index.value--)
-        return cards.value.splice(topCardIndex, 1)[0]
+        return cards.value.splice(topCardIndex, 1)[0] as InboxCardViewModel // TODO!!
       }
     }
 
@@ -55,6 +70,6 @@ export function useInboxDeckStore(app: Application) {
     /*                                  Interface                                 */
     /* -------------------------------------------------------------------------- */
 
-    return { cards, count, refresh, shiftCard, memorizeCard }
+    return { cards, count, refresh, shiftCard, removeCard }
   })()
 }

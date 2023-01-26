@@ -1,6 +1,6 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
 import { ref } from 'vue'
-import { CardViewModel } from '@/app/decks/shared/CardViewModel'
+import { VerseCardViewModel } from '@/app/decks/shared'
 
 export enum MemorizingStatus {
   Unknown,
@@ -8,7 +8,7 @@ export enum MemorizingStatus {
   Memorized
 }
 
-export class InboxCardViewModel extends CardViewModel {
+export class InboxCardViewModel extends VerseCardViewModel {
   public readonly _card: InboxCard
 
   constructor(card: InboxCard, verse: Verse, index: number) {

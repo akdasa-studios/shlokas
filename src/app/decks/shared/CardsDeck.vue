@@ -16,7 +16,6 @@
 import { ref, computed, watch, defineEmits, defineProps} from 'vue'
 import interact from 'interactjs'
 import { Vector3d } from './Vector3d'
-// import { CardViewModel } from './CardViewModel'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
