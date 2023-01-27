@@ -17,7 +17,6 @@ export class StackedDeckBehaviour extends DeckBehaviour {
   }
 
   updateMovingCard(card: CardViewModel, deltaPos: Vector3d) {
-    console.log("!!!===", card)
     card.state = CardState.Moving
     card.position.x += deltaPos.x
     card.position.y += deltaPos.y

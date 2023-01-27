@@ -12,15 +12,24 @@ export function shiftItem(items: Ref<IndexedItem[]>) {
   }
 }
 
-export function removeItem(items: Ref<IndexedItem[]>): IndexedItem | undefined {
-  const topItemIndex = items.value.findIndex(x => x.index === 0)
+export function removeItem(items: Ref<IndexedItem[]>, index = 0): IndexedItem | undefined {
+  const topItemIndex = items.value.findIndex(x => x.index === index)
   if (topItemIndex !== -1) {
-    items.value.forEach(x => x.index--)
+    items.value.filter(x => x.index > index).forEach(x => x.index--)
     return items.value.splice(topItemIndex, 1)[0]
+  } else {
+    console.log("!!!")
   }
 }
 
-export function appendItem(items: Ref<IndexedItem[]>, item: IndexedItem) {
-  item.index = items.value.length
+export function appendItem(items: Ref<IndexedItem[]>, item: IndexedItem, pos?: number) {
+  if (pos !== undefined) {
+    items.value
+      .filter(x => x.index >= pos)
+      .forEach(x => x.index += 1)
+  }
+  item.index = pos === undefined ? items.value.length : pos
   items.value.push(item)
+  // @ts-ignore
+  // console.log(items.value.map(x => ({x:x.index, t:x.type})))
 }

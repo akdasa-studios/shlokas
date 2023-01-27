@@ -5,7 +5,7 @@ import { UserGradesCardsUseCase } from '@/app/decks/review'
 import { InitArgs, InitStageResult } from './initialization'
 
 
-export function initGlobalCommandHandler({ app, get }: InitArgs): InitStageResult {
+export async function initGlobalCommandHandler({ app, get }: InitArgs): Promise<InitStageResult> {
   app.processor.commandExecuted.subscribe((cmd: any) => handle({app, get}, cmd))
   app.processor.commandReverted.subscribe((cmd: any) => handle({app, get}, cmd))
   return {}

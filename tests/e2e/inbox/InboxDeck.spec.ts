@@ -2,7 +2,6 @@ import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
 import { ApplicationPage } from '$/e2e/components'
 
-
 let app: ApplicationPage
 
 test.beforeEach(async ({ page }) => {

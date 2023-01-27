@@ -19,12 +19,23 @@ export class CardMemorizationUseCase {
 
   async open() {
     const cards = await this._app.inboxDeck.cards()
-    const viewModels = cards.map(async (card: InboxCard) =>
-      new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
-    )
-    this._inboxDeckStore.clear()
-    const cvm = await Promise.all(viewModels)
-    cvm.forEach(x => this._inboxDeckStore.addCard(x))
+
+    for (const card of cards) {
+      const index = this._inboxDeckStore.cards.findIndex(x => x.id === card.id.value)
+      if (index === -1) {
+          const newCard = new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
+          this._inboxDeckStore.addCard(newCard)
+      }
+    }
+    // const viewModels = cards.map(async (card: InboxCard) =>
+    //   new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
+    // )
+    // this._inboxDeckStore.deleteEach(x => x.type !== "tutorial")
+    // const cvm = await Promise.all(viewModels)
+    // cvm.forEach(x => {
+    //   // if ()
+    //   this._inboxDeckStore.addCard(x)
+    // })
   }
 
   async shiftCard() {

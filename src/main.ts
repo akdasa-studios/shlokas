@@ -74,7 +74,7 @@ async function initApp() {
   const services: {[name: string]: any} = {}
 
   for (const initStage of initStages) {
-    const initResult = initStage({
+    const initResult = await initStage({
       app: shlokasApp,
       get: <T>(x:string) => services[x] as T
     })

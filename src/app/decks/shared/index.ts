@@ -6,6 +6,7 @@ export * from "./SwipingEvent"
 export * from "./Vector3d"
 export * from "./tutorial/TutorialCardViewModel"
 export * from "./OrderedCollection"
+export * from './stores/useTutorialStore'
 
 export { default as CardsDeck } from "./CardsDeck.vue"
 export { default as CardSide } from "./CardSide.vue"

@@ -67,5 +67,51 @@
     "password": "Password",
     "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
     "name": "Name"
+  },
+  "tutorial": {
+    "inbox": {
+      "cards": {
+        "title": "Cards",
+        "front": {
+          "text": "This is an Inbox deck - the plays there cards of verses which are you learning are placed.",
+          "action": "Tap to flip a card"
+        },
+        "back": {
+          "text": "To go to the next card swipe card to the left or right",
+          "action": "Swipe card to the left"
+        }
+      },
+      "overall": {
+        "title": "Inbox",
+        "front": {
+          "text": "This is an Inbox deck - the plays there cards of verses which are you learning are placed.",
+          "action": "Tap to flip a card"
+        },
+        "back": {
+          "text": "To go to the next card swipe card to the left or right",
+          "action": "Swipe card to the left"
+        }
+      },
+      "final": {
+        "back": {
+          "action": "Swipe up",
+          "text": "For this, a system of spaced repetitions is used."
+        },
+        "front": {
+          "action": "Tap",
+          "text": "Memorized cards go to the “Overview” deck for long-term fixation in memory."
+        }
+      },
+      "verse": {
+        "back": {
+          "action": "Swipe up",
+          "text": "You can add multiple verses and learn them at the same time."
+        },
+        "front": {
+          "action": "Tap",
+          "text": "In the inbox for each verse there are two cards: the text and the translation, and on the reverse side there is a word-for-word translation."
+        }
+      }
+    }
   }
 }

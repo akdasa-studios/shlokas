@@ -40,7 +40,6 @@ const topCardObj = computed(() => props.cards.find(x => x.index === 0))
 const items = computed(() => props.cards.map(x=>x.id).toString())
 
 function setRefs(idx: number, el: any) {
-  console.log("setCardRef", idx)
   if (idx === 0 && el) { topCardRef.value = el }
 }
 
@@ -84,7 +83,6 @@ function enableInteraction(ref: any) {
   interact(ref).draggable({
     listeners: {
       move(event:any) {
-        console.log("!!!")
         emit(
           "moving",
           unref(topCardObj),

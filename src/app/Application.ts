@@ -16,6 +16,7 @@ import { AUTH_HOST } from './Env'
 import { useAccountStore } from './settings/stores/useAccountStore'
 import { useAppearanceStore } from './settings/stores/useAppearanceStore'
 import { useDeviceStore } from './useDeviceStorage'
+import { useTutorialStore } from './decks/shared'
 
 export let application: Application
 export let couchDB: CouchDB
@@ -87,6 +88,7 @@ export async function createApplication() {
     await Promise.all([
       useAccountStore().load(),
       useAppearanceStore().load(),
+      useTutorialStore().load(),
       // await new UserMemorizingCardsScenario(app).open()
       // useInboxDeckStore(application).refresh(),
       // useReviewDeckStore(application).refresh(),

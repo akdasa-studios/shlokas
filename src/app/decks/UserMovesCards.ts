@@ -19,7 +19,6 @@ export class DeckCardInteraction {
   updateMovingCardState(card: CardViewModel, deltaPos: Vector3d) {
     card.position.x += deltaPos.x
     card.position.y += deltaPos.y
-    console.log(card.position)
     card.angle.z = 15 * (card.position.x / 300)
     if (card.angle.z > 15) { card.angle.z = 15 }
     if (card.angle.z < -15) { card.angle.z = -15 }
@@ -30,7 +29,6 @@ export class DeckCardInteraction {
     card.position.x *= 5
     card.position.y *= 5
     setTimeout(() => {
-      console.log(this)
       this.onCardSwiped(card, vector)
     }, 250)
   }

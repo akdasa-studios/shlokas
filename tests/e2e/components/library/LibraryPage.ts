@@ -19,7 +19,7 @@ export class LibraryPage {
   }
 
   async open() {
-    await this.page.goto('/home/library')
+    await this.page.goto('/home/library?tutorialEnabled=false')
   }
 
   async openVerse(number: string) {

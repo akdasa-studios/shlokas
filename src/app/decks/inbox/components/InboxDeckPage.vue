@@ -89,7 +89,6 @@ function onCardMoving(
   deltaPos: Vector3d,
   deltaPosTotal: Vector3d
 ) {
-  console.log("--->", card)
   deck.updateMovingCard(card, deltaPos)
 
   if (card.type === "tutorial") { return }
@@ -106,6 +105,10 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   deck.updateMovedCard(card, deltaPos)
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
+    if (card.type === "tutorial") {
+      inboxDeckTutorial.cardSwiped(card as TutorialCardViewModel)
+    }
+
     if (deltaPos.isLeftOrRight) {
       cardsMemorization.shiftCard()
     } else {

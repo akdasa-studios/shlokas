@@ -2,12 +2,12 @@ import { CardMemorizationUseCase, InboxDeckTutorialUseCase } from '@/app/decks/i
 import { InitStageResult, InitArgs } from './initialization'
 
 
-export function initInboxDeck({ app }: InitArgs): InitStageResult {
+export async function initInboxDeck({ app }: InitArgs): Promise<InitStageResult> {
   const case1 = new CardMemorizationUseCase(app)
   const case2 = new InboxDeckTutorialUseCase(app)
 
-  case1.open()
-  // case2.open()
+  await case1.open()
+  await case2.open()
 
   return {
     inject: {

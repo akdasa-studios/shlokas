@@ -5,14 +5,14 @@ import { InboxCardViewModel } from "@/app/decks/inbox"
 
 export const useInboxDeckStore = defineStore('decks/inbox', () => {
   const cards: Ref<InboxCardViewModel[]> = ref([])
-  const count = computed(() => cards.value.length)
+  const count = computed(() => cards.value.filter(x => x.type !== "tutorial").length)
 
   function clear() {
     cards.value = []
   }
 
   function addCard(card: InboxCardViewModel) {
-    appendItem(cards, card)
+    appendItem(cards, card, card.type === "tutorial" ? 0 : undefined)
   }
   function shiftCard() {
     shiftItem(cards)
