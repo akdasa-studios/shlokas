@@ -1,8 +1,8 @@
 import { useTutorialStore } from '@/app/decks/shared'
-import { InitStageResult, InitArgs } from './initialization'
+import { InitStageResult } from './initialization'
 
 
-export async function initParams({ app }: InitArgs): Promise<InitStageResult> {
+export async function initParams(): Promise<InitStageResult> {
   const tutorialSore = useTutorialStore()
 
   const params = new URLSearchParams(window.location.search)

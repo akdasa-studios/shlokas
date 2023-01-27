@@ -1,4 +1,4 @@
-import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
 import { useToast } from '@/app/composables'
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
 import { useLibraryStore } from '@/app/library'
@@ -28,24 +28,13 @@ export class CardMemorizationUseCase {
       }
     }
 
-
     const cardsToDelete = []
     for (const vm of this._inboxDeckStore.cards) {
       const index = cards.findIndex(x => x.id.value === vm.id)
       console.log(vm, index)
       if (index === -1) { cardsToDelete.push(vm.id) }
     }
-    cardsToDelete.forEach(x => this._inboxDeckStore.removeCardById(x) )
-
-    // const viewModels = cards.map(async (card: InboxCard) =>
-    //   new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
-    // )
-    // this._inboxDeckStore.deleteEach(x => x.type !== "tutorial")
-    // const cvm = await Promise.all(viewModels)
-    // cvm.forEach(x => {
-    //   // if ()
-    //   this._inboxDeckStore.addCard(x)
-    // })
+    cardsToDelete.forEach(x => this._inboxDeckStore.removeCardById(x))
   }
 
   async shiftCard() {
