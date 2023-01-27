@@ -18,9 +18,17 @@ export const useInboxDeckStore = defineStore('decks/inbox', () => {
     shiftItem(cards)
   }
 
-  function removeCard(): InboxCardViewModel | undefined {
-    return removeItem(cards) as InboxCardViewModel | undefined
+  function removeCard(idx=0): InboxCardViewModel | undefined {
+    return removeItem(cards, idx) as InboxCardViewModel | undefined
   }
 
-  return { cards, count, shiftCard, removeCard, addCard, clear }
+  function removeCardById(id:any): InboxCardViewModel | undefined {
+    const idx = cards.value.findIndex(x => x.id === id)
+    if (idx !== -1) {
+      return removeItem(cards, idx) as InboxCardViewModel | undefined
+    }
+    return undefined
+  }
+
+  return { cards, count, shiftCard, removeCard, addCard, clear, removeCardById }
 })

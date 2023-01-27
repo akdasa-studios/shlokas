@@ -27,6 +27,16 @@ export class CardMemorizationUseCase {
           this._inboxDeckStore.addCard(newCard)
       }
     }
+
+
+    const cardsToDelete = []
+    for (const vm of this._inboxDeckStore.cards) {
+      const index = cards.findIndex(x => x.id.value === vm.id)
+      console.log(vm, index)
+      if (index === -1) { cardsToDelete.push(vm.id) }
+    }
+    cardsToDelete.forEach(x => this._inboxDeckStore.removeCardById(x) )
+
     // const viewModels = cards.map(async (card: InboxCard) =>
     //   new InboxVerseCardViewModel(card, await this._libraryStore.getVerse(card.verseId))
     // )

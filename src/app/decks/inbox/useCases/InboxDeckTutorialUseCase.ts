@@ -14,7 +14,6 @@ export class InboxDeckTutorialUseCase {
   }
 
   async open() {
-    console.log("enbld", this._tutorialStore.enabled)
     if (!this._tutorialStore.enabled) { return }
     const count = await this._app.inboxDeck.cardsCount()
     if (count > 0) {
