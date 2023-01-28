@@ -36,6 +36,7 @@ test.describe('Review Deck', () => {
       }
 
       await page.getByTestId('review-tab').click()
+      await page.waitForTimeout(200) // firefox, webkit
     })
 
 
@@ -46,9 +47,8 @@ test.describe('Review Deck', () => {
 
     test('Swipe card right', async ({ page }) => {
       const cardLocator = page.getByTestId("bg 1.1-card-numbertotranslation")
-      await cardLocator.waitFor({state: 'visible'})
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 40, y: 60 },
+        sourcePosition: { x: 60, y: 60 },
         targetPosition: { x: 0,  y: 60 }
       })
       await expect(page.getByTestId('review-tab-badge')).toContainText("1")
