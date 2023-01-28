@@ -71,45 +71,43 @@
   "tutorial": {
     "inbox": {
       "cards": {
-        "title": "Cards",
         "front": {
-          "text": "This is an Inbox deck - the plays there cards of verses which are you learning are placed.",
-          "action": "Tap to flip a card"
+          "text": "Each verse is divided into several cards. This makes them easier to learn. Cards can be flipped and swiped.",
+          "action": "Tap"
         },
         "back": {
-          "text": "To go to the next card swipe card to the left or right",
-          "action": "Swipe card to the left"
+          "text": "Swipe left or right to move to the next card.",
+          "action": "Swipe left"
         }
       },
       "overall": {
-        "title": "Inbox",
         "front": {
-          "text": "This is an Inbox deck - the plays there cards of verses which are you learning are placed.",
-          "action": "Tap to flip a card"
+          "text": "In the “inbox” are the cards of the verses that you are learning. It may take you a few days to learn the card well.",
+          "action": "Tap"
         },
         "back": {
-          "text": "To go to the next card swipe card to the left or right",
-          "action": "Swipe card to the left"
-        }
-      },
-      "final": {
-        "back": {
-          "action": "Swipe up",
-          "text": "For this, a system of spaced repetitions is used."
-        },
-        "front": {
-          "action": "Tap",
-          "text": "Memorized cards go to the “Overview” deck for long-term fixation in memory."
+          "text": "When you have memorized a card, swipe it up.",
+          "action": "Swipe up"
         }
       },
       "verse": {
-        "back": {
-          "action": "Swipe up",
-          "text": "You can add multiple verses and learn them at the same time."
-        },
         "front": {
-          "action": "Tap",
-          "text": "In the inbox for each verse there are two cards: the text and the translation, and on the reverse side there is a word-for-word translation."
+          "text": "In the inbox for each verse there are two cards: the text and the translation, and on the reverse side there is a word-for-word translation.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "You can add multiple verses and learn them at the same time.",
+          "action": "Swipe up"
+        }
+      },
+      "final": {
+        "front": {
+          "text": "Memorized cards fall into the “Overview” deck for long-term fixation in memory.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "A system of spaced repetitions is used for that.",
+          "action": "Swipe up"
         }
       }
     }
