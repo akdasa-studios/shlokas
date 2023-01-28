@@ -1,61 +1,57 @@
-import { ReviewCardType , InboxCardType } from '@akdasa-studios/shlokas-core'
+import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { ApplicationPage } from '$/e2e/components'
+import { testId } from '@/app/TestId'
 
 
-let app: ApplicationPage
-
-test.beforeEach(async ({ page }) => {
-  app = new ApplicationPage(page)
-  await app.library.open()
-})
 
 test.describe('Review Deck', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/home/library?tutorialEnabled=false')
+  })
 
-  test('Deck is empty', async () => {
-    await app.tabsBar.reviewTab.click()
-    await app.reviewDeck.empty.waitFor("visible")
-    const visible = await app.reviewDeck.empty.isVisible()
-    expect(visible).toBeTruthy()
+  test('Deck is empty', async ({ page }) => {
+    await page.getByTestId('review-tab').click()
+    await expect(page.getByTestId("reviewEmpty")).toBeVisible()
   })
 
 
   test.describe('Swipe Cards', () => {
 
-    test.beforeEach(async () => {
+    test.beforeEach(async ({ page }) => {
       const versesToAdd = ['BG 1.1', 'BG 2.13']
       for (const v of versesToAdd) {
-        await app.library.openVerse(v)
-        await app.library.verseDialog.addVerse.click()
-        await app.library.verseDialog.waitFor('hidden')
+        await page.getByRole('heading', { name: v }).click()
+        await page.getByRole('button', { name: 'Add' }).click()
       }
 
-      await app.tabsBar.inboxTab.click()
+      await page.getByTestId('inbox-tab').click()
       for (const v of versesToAdd) {
-        const card1 = app.inboxDeck.getCard(v, InboxCardType.Translation)
-        await card1.swipe("top")
-        await app.page.getByText("Card memorized").waitFor({state:"detached"})
-
-        const card2 = app.inboxDeck.getCard(v, InboxCardType.Text)
-        await card2.swipe("top")
-        await app.page.getByText("Card memorized").waitFor({state:"detached"})
+        for (const t of [InboxCardType.Translation, InboxCardType.Text]) {
+          const cardLocator = page.getByTestId(testId(v, 'card', t))
+          await cardLocator.dragTo(cardLocator, {
+            sourcePosition: { x: 0, y: 60 },
+            targetPosition: { x: 0, y: 0 }
+          })
+        }
       }
-      await app.tabsBar.reviewTab.click()
+
+      await page.getByTestId('review-tab').click()
     })
 
-    test('Deck is not empty', async () => {
-      await app.tabsBar.reviewTab.click()
-      await app.reviewDeck.empty.waitFor("hidden")
-      const visible = await app.reviewDeck.empty.isVisible()
-      expect(visible).toBeFalsy()
+
+    test('Deck is not empty', async ({ page }) => {
+      await page.getByTestId('review-tab').click()
+      await expect(page.getByTestId("reviewEmpty")).toBeHidden()
     })
 
-    test('Swipe card right', async () => {
-      const card = app.reviewDeck.getCard('BG 1.1', ReviewCardType.NumberToTranslation)
-      await card.swipe("right")
-
-      const inboxBagde = await app.tabsBar.reviewTab.badge.textContent()
-      expect(inboxBagde).toEqual("1")
+    test('Swipe card right', async ({ page }) => {
+      const cardLocator = page.getByTestId("bg 1.1-card-numbertotranslation")
+      await cardLocator.waitFor({state: 'visible'})
+      await cardLocator.dragTo(cardLocator, {
+        sourcePosition: { x: 40, y: 60 },
+        targetPosition: { x: 0,  y: 60 }
+      })
+      await expect(page.getByTestId('review-tab-badge')).toContainText("1")
     })
   })
 })

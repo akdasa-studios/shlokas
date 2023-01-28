@@ -1,26 +1,22 @@
 import { test, expect } from '@playwright/test'
-import { ApplicationPage } from '$/e2e/components'
 
-let app: ApplicationPage
 
 test.beforeEach(async ({ page }) => {
-  app = new ApplicationPage(page)
-  await app.library.open()
-  await app.tabsBar.settingsTab.click()
+  await page.goto('/home/library?tutorialEnabled=false')
+  await page.getByTestId('settings-tab').click()
 })
 
 test.describe('Settings › Language', () => {
-  test('Change language', async () => {
-    await app.settings.changeLanguage("Русский")
-    const header = await app.page.getByRole("banner").textContent()
-    expect(header).toEqual("Настройки")
+  test('Change language', async ({ page }) => {
+    await page.getByTestId('language').click()
+    await page.getByRole('button', { name: 'Русский' }).click()
+    await expect(page.getByRole("banner")).toHaveText("Настройки")
   })
 
-  test('Saves settings', async () => {
-    await app.settings.changeLanguage("Русский")
-    await app.page.reload()
-
-    const header = await app.page.getByRole("banner").textContent()
-    expect(header).toEqual("Настройки")
+  test('Saves settings', async ({ page }) => {
+    await page.getByTestId('language').click()
+    await page.getByRole('button', { name: 'Русский' }).click()
+    await page.reload()
+    await expect(page.getByRole("banner")).toHaveText("Настройки")
   })
 })
