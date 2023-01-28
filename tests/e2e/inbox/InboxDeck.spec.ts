@@ -23,7 +23,10 @@ test.describe('Inbox Deck', () => {
 
     test('Swipe card right', async ({ page }) => {
       const cardLocator = page.getByTestId("bg 1.1-card-translation")
-      await cardLocator.dragTo(cardLocator, { targetPosition: { x: 120, y: 0 } })
+      await cardLocator.dragTo(cardLocator, {
+        sourcePosition: { x: 40, y: 60 },
+        targetPosition: { x: 0,  y: 60 }
+      })
 
       await expect(cardLocator).toHaveAttribute("data-index", "1")
       await expect(page.getByTestId('inbox-tab-badge')).toContainText("2")
