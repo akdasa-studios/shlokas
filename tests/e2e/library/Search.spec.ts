@@ -1,12 +1,8 @@
 import { test, expect } from '@playwright/test'
-import { testId } from '@/app/TestId'
-import { ApplicationPage } from '$/e2e/components'
 
-let app: ApplicationPage
 
 test.beforeEach(async ({ page }) => {
-  app = new ApplicationPage(page)
-  await app.library.open()
+  await page.goto('/home/library?tutorialEnabled=false')
 })
 
 test.describe('Library › Search', () => {
@@ -46,17 +42,17 @@ test.describe('Library › Search', () => {
   })
 
   test('Ignores diacritics', async ({ page }) => {
-    await app.library.searchbar.search('Dhrtarastra')
+    await page.getByPlaceholder('Search').fill('Dhrtarastra')
     await expect(page.getByRole('listitem')).toHaveCount(1)
     await expect(page.getByTestId('bg 1.1')).toBeVisible()
   })
 
   test.describe('Change language', () => {
-    test.beforeEach(async () => {
-      await app.tabsBar.settingsTab.click()
-      await app.settings.changeLanguage("Русский")
-      await app.tabsBar.libraryTab.click()
-      await app.page.waitForTimeout(1000)
+    test.beforeEach(async ({ page }) => {
+      await page.getByTestId('settings-tab').click()
+      await page.getByTestId('language').click()
+      await page.getByRole('button', { name: 'Русский' }).click()
+      await page.getByTestId('library-tab').click()
     })
 
     test('Library updated', async ({ page }) => {

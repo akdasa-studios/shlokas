@@ -29,8 +29,8 @@ test.describe('Review Deck', () => {
         for (const t of [InboxCardType.Translation, InboxCardType.Text]) {
           const cardLocator = page.getByTestId(testId(v, 'card', t))
           await cardLocator.dragTo(cardLocator, {
-            sourcePosition: { x: 0, y: 60 },
-            targetPosition: { x: 0, y: 0 }
+            sourcePosition: { x: 40, y: 60 },
+            targetPosition: { x: 40, y: 0 }
           })
         }
       }
