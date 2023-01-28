@@ -36,6 +36,7 @@ test.describe('Review Deck', () => {
       }
 
       await page.getByTestId('review-tab').click()
+      // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(200) // firefox, webkit
     })
 
