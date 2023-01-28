@@ -1,6 +1,6 @@
 export { default as ReviewDeckPage } from './components/ReviewDeckPage.vue'
 export { default as ReviewDeckEmpty } from './components/ReviewDeckEmpty.vue'
 export * from './components/cards'
-export * from './models/ReviewCardViewModel'
+export * from './viewModels/ReviewCardViewModel'
 export * from './stores/useReviewStore'
-export * from './scenarios/UserGradesCards'
+export * from './useCases/UserGradesCards'

@@ -1,74 +1,35 @@
-import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, VerseId } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
-import { computed, markRaw, ref, Ref } from 'vue'
-import { ReviewCardViewModel } from '../models/ReviewCardViewModel'
+import { computed, ref, Ref } from 'vue'
+import { appendItem, removeItem, shiftItem } from "@/app/decks/shared"
+import { ReviewCardViewModel } from '../viewModels/ReviewCardViewModel'
 
 
-export function useReviewDeckStore(app: Application) {
-  return defineStore('decks/review', () => {
-    const cards: Ref<ReviewCardViewModel[]> = ref([])
-    const count = computed(() => cards.value.length)
+export const useReviewDeckStore = defineStore('decks/review', () => {
+  const cards: Ref<ReviewCardViewModel[]> = ref([])
+  const count = computed(() => cards.value.length)
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Actions                                  */
-    /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
 
-    async function refresh() {
-      cards.value = await getCards()
-    }
+  function clear() {
+    cards.value = []
+  }
 
-    async function reviewTopCard(grade: ReviewGrade) {
-      const topCard = cards.value[0]
+  function addCard(card: ReviewCardViewModel) {
+    appendItem(cards, card)
+  }
+  function shiftCard() {
+    shiftItem(cards)
+  }
 
-      await app.processor.execute(new ReviewCardReviewed(topCard.card, grade))
+  function removeCard(): ReviewCardViewModel | undefined {
+    return removeItem(cards) as ReviewCardViewModel | undefined
+  }
 
-      if (topCard.card.dueTo.getTime() !== app.timeMachine.today.getTime()) {
-        removeFromDeck()
-      } else {
-        putTopOnBottom()
-      }
-    }
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
 
-    function putTopOnBottom() {
-      const topCard = cards.value.find(x => x.index.value === 0)
-      if (topCard) {
-        topCard.index.value = cards.value.length
-        cards.value.forEach(x => x.index.value--)
-      }
-    }
-
-    function removeFromDeck() {
-      const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
-      if (topCardIndex !== -1) {
-        cards.value.filter(x => x.index.value > 0).forEach(x => x.index.value--)
-        return cards.value.splice(topCardIndex, 1)[0]
-      }
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /*                                   Private                                  */
-    /* -------------------------------------------------------------------------- */
-
-    async function getCards() : Promise<ReviewCardViewModel[]> {
-      const getVerse = async (verseId: VerseId) => {
-        return (await app.library.getById(verseId)).value
-      }
-
-      const cards  = await app.reviewDeck.dueToCards(app.timeMachine.now)
-      const sorted = Array.from(cards).sort((a, b) => a.addedAt.getTime() - b.addedAt.getTime())
-
-      // TODO: should be sorting by date be extracted to shlokas-core?
-      const viewModels = sorted.map(async (card: ReviewCard, index: number) => {
-        return markRaw(new ReviewCardViewModel(card, await getVerse(card.verseId), index)) as ReviewCardViewModel
-      })
-      return await Promise.all(viewModels)
-    }
-
-
-    /* -------------------------------------------------------------------------- */
-    /*                                  Interface                                 */
-    /* -------------------------------------------------------------------------- */
-
-    return { cards, count, refresh, reviewTopCard }
-  })()
-}
+  return { cards, count, clear, addCard, shiftCard, removeCard }
+})

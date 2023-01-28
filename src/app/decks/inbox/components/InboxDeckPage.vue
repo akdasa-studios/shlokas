@@ -17,14 +17,21 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="userLearningCards.count > 0"
+        v-if="cardsMemorization.cards.length > 0"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
         @moving="onCardMoving"
         @moved="onCardMoved"
       >
-        <InboxCard :card="(data.card as InboxCardViewModel)" />
+        <TutorialCard
+          v-if="data.card.type === 'tutorial'"
+          :card="(data.card as TutorialCardViewModel)"
+        />
+        <InboxCard
+          v-else
+          :card="(data.card as InboxVerseCardViewModel)"
+        />
       </CardsDeck>
 
       <InboxDeckEmpty
@@ -36,10 +43,10 @@
         position="top"
         :message="$t('cards.memorized')"
         :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
-        :is-open="userLearningCards.cardMemorizedToast.isOpen.value"
+        :is-open="cardsMemorization.cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="userLearningCards.cardMemorizedToast.close()"
+        @did-dismiss="cardsMemorization.cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -47,32 +54,33 @@
 
 
 <script lang="ts" setup>
-import { Application } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonPage, IonTitle,
   IonToast, IonToolbar
 } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import {
-  CardsDeck , StackedDeckBehaviour, Vector3d, CardViewModel
+  CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel,
+  TutorialCard, TutorialCardViewModel
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  MemorizingStatus, UserMemorizingCardsScenario
+  InboxDeckTutorialUseCase,
+  InboxVerseCardViewModel,
+  MemorizingStatus, CardMemorizationUseCase
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const userLearningCards = new UserMemorizingCardsScenario(inject('app') as Application)
+const cardsMemorization = inject('CardMemorizationUseCase') as CardMemorizationUseCase
+const inboxDeckTutorial = inject('InboxDeckTutorialUseCase') as InboxDeckTutorialUseCase
 
 const deck = new StackedDeckBehaviour()
 
 const cardsToShow = computed(() =>
-  userLearningCards.cards.filter(x => x.index.value < 3)
+  cardsMemorization.cards.filter(x => x.index < 3)
 )
 
-userLearningCards.open()
-
-function onCardPlaced(card: CardViewModel) {
+function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
 }
 
@@ -82,10 +90,12 @@ function onCardMoving(
   deltaPosTotal: Vector3d
 ) {
   deck.updateMovingCard(card, deltaPos)
+
+  if (card.type === "tutorial") { return }
   if (deltaPosTotal.length < deck.swipeThreshold) {
-    card.memorizingStatus.value = MemorizingStatus.Unknown
+    card.memorizingStatus = MemorizingStatus.Unknown
   } else {
-    card.memorizingStatus.value = deltaPosTotal.isLeftOrRight
+    card.memorizingStatus = deltaPosTotal.isLeftOrRight
       ? MemorizingStatus.StillMemorizing
       : MemorizingStatus.Memorized
   }
@@ -95,16 +105,30 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   deck.updateMovedCard(card, deltaPos)
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
-    if (deltaPos.isLeftOrRight) {
-      userLearningCards.shiftCard()
-    } else {
-      userLearningCards.cardMemorized()
+    if (card.type === "tutorial") {
+      inboxDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
+      return
     }
-    card.memorizingStatus.value = MemorizingStatus.Unknown
+
+    if (deltaPos.isLeftOrRight) {
+      cardsMemorization.shiftTopCard()
+    } else {
+      if (card.type !== "tutorial") {
+        cardsMemorization.memorizeTopCard()
+      }
+    }
+    if (card.type !== "tutorial") {
+      card.memorizingStatus = MemorizingStatus.Unknown
+    }
+
+    if (cardsMemorization.cards.length === 1) {
+      onCardPlaced(cardsMemorization.topCard)
+      cardsMemorization.topCard.showFrontSide()
+    }
   }, 250)
 }
 
 async function onRevert() {
-  await userLearningCards.revert()
+  await cardsMemorization.revert()
 }
 </script>

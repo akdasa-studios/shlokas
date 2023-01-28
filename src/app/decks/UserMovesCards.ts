@@ -9,8 +9,8 @@ export class DeckCardInteraction {
 
   updateCardInactiveState(card: CardViewModel) {
     card.position.x = 0
-    card.position.y = card.index.value * 30
-    card.position.z = -(card.index.value * 80)
+    card.position.y = card.index * 30
+    card.position.z = -(card.index * 80)
     card.angle.x = 0
     card.angle.y = 0
     card.angle.z = 0
@@ -29,7 +29,6 @@ export class DeckCardInteraction {
     card.position.x *= 5
     card.position.y *= 5
     setTimeout(() => {
-      console.log(this)
       this.onCardSwiped(card, vector)
     }, 250)
   }

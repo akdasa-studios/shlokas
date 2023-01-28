@@ -1,17 +1,17 @@
 <template>
   <FlipCard
     :data-testid="testId(card.verseNumber, 'card', card.type)"
-    :data-index="card.index.value"
-    :flipped="props.card.flipped.value"
+    :data-index="card.index"
+    :flipped="props.card.flipped || false"
     @flip="props.card.flip()"
   >
     <template #overlay>
       <CardSide
-        v-if="card.memorizingStatus.value !== MemorizingStatus.Unknown"
+        v-if="card.memorizingStatus !== MemorizingStatus.Unknown"
         :class="style"
       >
         <InboxCardSwipeOverlay
-          :memorizing-status="card.memorizingStatus.value"
+          :memorizing-status="card.memorizingStatus"
         />
       </CardSide>
     </template>
@@ -50,8 +50,7 @@ import { FlipCard, CardSide } from '@/app/decks/shared'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
-  InboxCardViewModel,
-MemorizingStatus
+  InboxVerseCardViewModel, MemorizingStatus
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 import { useAppearanceStore } from '@/app/settings'
@@ -62,7 +61,7 @@ import { hashString } from '@/app/utils/hashString'
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  card: InboxCardViewModel
+  card: InboxVerseCardViewModel
 }>()
 const { card } = toRefs(props)
 

@@ -1,60 +1,38 @@
-import { Application, InboxCard, VerseId } from '@akdasa-studios/shlokas-core'
 import { defineStore } from 'pinia'
-import { computed, markRaw, ref, Ref } from 'vue'
-import { InboxCardViewModel } from '../models/InboxCardViewModel'
+import { computed, ref, Ref } from 'vue'
+import { appendItem, removeItem, shiftItem } from "@/app/decks/shared"
+import { InboxCardViewModel } from "@/app/decks/inbox"
 
-export function useInboxDeckStore(app: Application) {
-  return defineStore('decks/inbox', () => {
-    const cards: Ref<InboxCardViewModel[]> = ref([])
-    const count = computed(() => cards.value.length)
+export const useInboxDeckStore = defineStore('decks/inbox', () => {
+  const cards: Ref<InboxCardViewModel[]> = ref([])
+  const count = computed(() => cards.value.filter(x => x.type !== "tutorial").length)
 
-    /* -------------------------------------------------------------------------- */
-    /*                                   Actions                                  */
-    /* -------------------------------------------------------------------------- */
+  function clear() {
+    cards.value = []
+  }
 
-    async function refresh() {
-      cards.value = await getCards()
+  function hasCard(id: string) {
+    return cards.value.findIndex(x => x.id === id) !== -1
+  }
+
+  function addCard(card: InboxCardViewModel) {
+    appendItem(cards, card, card.type === "tutorial" ? 0 : undefined)
+  }
+  function shiftCard() {
+    shiftItem(cards)
+  }
+
+  function removeCard(idx=0): InboxCardViewModel | undefined {
+    return removeItem(cards, idx) as InboxCardViewModel | undefined
+  }
+
+  function removeCardById(id:any): InboxCardViewModel | undefined {
+    const idx = cards.value.findIndex(x => x.id === id)
+    if (idx !== -1) {
+      return removeItem(cards, idx) as InboxCardViewModel | undefined
     }
+    return undefined
+  }
 
-    function shiftCard() {
-      const topCard = cards.value.find(x => x.index.value === 0)
-      if (topCard) {
-        topCard.index.value = cards.value.length
-        cards.value.forEach(x => x.index.value--)
-      }
-    }
-
-    function memorizeCard(): InboxCardViewModel | undefined {
-      const topCardIndex = cards.value.findIndex(x => x.index.value === 0)
-      if (topCardIndex !== -1) {
-        cards.value.forEach(x => x.index.value--)
-        return cards.value.splice(topCardIndex, 1)[0]
-      }
-    }
-
-
-    /* -------------------------------------------------------------------------- */
-    /*                                   Private                                  */
-    /* -------------------------------------------------------------------------- */
-
-    async function getCards() : Promise<InboxCardViewModel[]> {
-      const getVerse = async (verseId: VerseId) => {
-        return (await app.library.getById(verseId)).value
-      }
-
-      const cards = await app.inboxDeck.cards()
-      const viewModels = cards.map(async (card: InboxCard, idx: number) =>
-        markRaw(new InboxCardViewModel(card, await getVerse(card.verseId), idx))
-      )
-
-      return await Promise.all(viewModels)
-    }
-
-
-    /* -------------------------------------------------------------------------- */
-    /*                                  Interface                                 */
-    /* -------------------------------------------------------------------------- */
-
-    return { cards, count, refresh, shiftCard, memorizeCard }
-  })()
-}
+  return { cards, count, shiftCard, removeCard, addCard, clear, removeCardById, hasCard }
+})

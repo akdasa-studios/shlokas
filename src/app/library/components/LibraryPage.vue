@@ -58,12 +58,11 @@
 
       <!-- Toast -->
       <ion-toast
-        data-testid="verse-added-toast"
         position="top"
         color="dark"
         :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
         :is-open="addVerseScenario.toast.isOpen.value"
-        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: async () => await onRevert() }]"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
         :duration="2000"
         @did-dismiss="addVerseScenario.toast.close()"
       />
@@ -73,7 +72,6 @@
 
 
 <script lang="ts" setup>
-import { Application } from '@akdasa-studios/shlokas-core'
 import {
   IonBadge, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonPage,
   IonSearchbar, IonTitle, IonToast, IonToolbar
@@ -81,17 +79,16 @@ import {
 import { inject } from 'vue'
 import { testId } from '@/app/TestId'
 import {
-  AddVerseDialog, UserAddsVerseToInboxDeckScenario,
-  UserSearchesVersesScenario
+  AddVerseDialog, AddVerseToInboxDeckUseCase,
+  SearchVersesUseCase
 } from '@/app/library'
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
-const addVerseScenario = new UserAddsVerseToInboxDeckScenario(app)
-const searchScenario = new UserSearchesVersesScenario(app)
+const addVerseScenario = inject('AddVerseToInboxDeckUseCase') as AddVerseToInboxDeckUseCase
+const searchScenario = inject('SearchVersesUseCase') as SearchVersesUseCase
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

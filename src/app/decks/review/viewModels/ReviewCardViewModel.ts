@@ -1,28 +1,27 @@
 import { ReviewCard, ReviewGrade, Scheduler, Verse } from '@akdasa-studios/shlokas-core'
-import { computed, ref } from 'vue'
-import { CardViewModel } from '@/app/decks/shared'
+import { computed, unref } from 'vue'
+import { VerseCardViewModel } from '@/app/decks/shared'
 
-export class ReviewCardViewModel extends CardViewModel {
+export class ReviewCardViewModel extends VerseCardViewModel {
   private readonly _card: ReviewCard
 
-  constructor(card: ReviewCard, verse: Verse, index: number) {
+  constructor(card: ReviewCard, verse: Verse) {
     super(verse)
     this._card = card
-    this.index.value = index
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                 Properties                                 */
   /* -------------------------------------------------------------------------- */
 
-  get card()     { return this._card }
+  get card(): ReviewCard { return unref(this._card) as ReviewCard }
   get id()       { return this._card.id.value }
   get dueTo()    { return this._card.dueTo }
   get type()     { return this._card.type }
   get interval() { return this._card.interval }
   get ease()     { return this._card.ease }
 
-  grade = ref<ReviewGrade|undefined>(undefined)
+  grade: ReviewGrade|undefined = undefined
 
   nextIntervals = computed(() => {
     const sc = new Scheduler()

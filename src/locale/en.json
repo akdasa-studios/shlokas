@@ -67,5 +67,49 @@
     "password": "Password",
     "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
     "name": "Name"
+  },
+  "tutorial": {
+    "inbox": {
+      "cards": {
+        "front": {
+          "text": "Each verse is divided into several cards. This makes them easier to learn. Cards can be flipped and swiped.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "Swipe left or right to move to the next card.",
+          "action": "Swipe left"
+        }
+      },
+      "overall": {
+        "front": {
+          "text": "In the “inbox” are the cards of the verses that you are learning. It may take you a few days to learn the card well.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "When you have memorized a card, swipe it up.",
+          "action": "Swipe up"
+        }
+      },
+      "verse": {
+        "front": {
+          "text": "In the inbox for each verse there are two cards: the text and the translation, and on the reverse side there is a word-for-word translation.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "You can add multiple verses and learn them at the same time.",
+          "action": "Swipe up"
+        }
+      },
+      "final": {
+        "front": {
+          "text": "Memorized cards fall into the “Overview” deck for long-term fixation in memory.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "A system of spaced repetitions is used for that.",
+          "action": "Swipe up"
+        }
+      }
+    }
   }
 }

@@ -1,29 +1,25 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
-import { Application, InboxCard, Language, Repositories, ReviewCard, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus, Text } from "@akdasa-studios/shlokas-core"
-import { Storage } from '@ionic/storage'
+import { Application, InboxCard, Language, Repositories, ReviewCard, Text, Translation, Verse, VerseBuilder, VerseId, VerseNumber, VerseStatus } from "@akdasa-studios/shlokas-core"
 import { App } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { BackgroundTask } from '@capawesome/capacitor-background-task'
-import { useInboxDeckStore } from '@/app/decks/inbox'
-import { useReviewDeckStore } from '@/app/decks/review'
-import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
-import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository"
-import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
+import { Storage } from '@ionic/storage'
 import { VerseStatusDeserializer, VerseStatusSerializer } from '@/services/persistence/VerseStatusSerializer'
+import { ReviewCardDeserializer, ReviewCardSerializer } from '@/services/persistence/ReviewCardSerializer'
+import { CouchDB, PouchRepository } from "@/services/persistence/PouchRepository"
+import { InboxCardDeserializer, InboxCardSerializer } from '@/services/persistence/InboxCardSerializer'
 
 import { AuthService } from '@/services/AuthService'
-import versesRu from '../verses.ru.json'
 import versesEn from '../verses.en.json'
-import { useAppearanceStore } from './settings/stores/useAppearanceStore'
-import { useAccountStore } from './settings/stores/useAccountStore'
-import { useDeviceStore } from './useDeviceStorage'
+import versesRu from '../verses.ru.json'
 import { AUTH_HOST } from './Env'
+import { useAccountStore } from './settings/stores/useAccountStore'
+import { useAppearanceStore } from './settings/stores/useAppearanceStore'
+import { useDeviceStore } from './useDeviceStorage'
+import { useTutorialStore } from './decks/shared'
 
 export let application: Application
 export let couchDB: CouchDB
-
-console.log()
-
 
 export async function createApplication() {
   const dev = process.env.NODE_ENV === "development"
@@ -86,13 +82,16 @@ export async function createApplication() {
   }
 
   application = new Application(repositories)
+
   await loadState()
   async function loadState() {
     await Promise.all([
       useAccountStore().load(),
       useAppearanceStore().load(),
-      useInboxDeckStore(application).refresh(),
-      useReviewDeckStore(application).refresh(),
+      useTutorialStore().load(),
+      // await new UserMemorizingCardsScenario(app).open()
+      // useInboxDeckStore(application).refresh(),
+      // useReviewDeckStore(application).refresh(),
     ])
   }
   /* -------------------------------------------------------------------------- */
