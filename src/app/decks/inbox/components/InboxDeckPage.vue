@@ -17,7 +17,7 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="cardsMemorization.isAnyCardsToMemorize"
+        v-if="cardsMemorization.cards.length > 0"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
@@ -106,21 +106,24 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
     if (card.type === "tutorial") {
-      inboxDeckTutorial.cardSwiped(card as TutorialCardViewModel)
+      inboxDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
+      return
     }
 
     if (deltaPos.isLeftOrRight) {
-      cardsMemorization.shiftCard()
+      cardsMemorization.shiftTopCard()
     } else {
       if (card.type !== "tutorial") {
-        cardsMemorization.cardMemorized()
-      } else {
-        cardsMemorization.removeCard()
+        cardsMemorization.memorizeTopCard()
       }
     }
     if (card.type !== "tutorial") {
       card.memorizingStatus = MemorizingStatus.Unknown
-      return
+    }
+
+    if (cardsMemorization.cards.length === 1) {
+      onCardPlaced(cardsMemorization.topCard)
+      cardsMemorization.topCard.showFrontSide()
     }
   }, 250)
 }

@@ -1,20 +1,17 @@
 import { Transaction } from '@akdasa-studios/framework'
 import { AddVerseToInboxDeck, Application, UpdateVerseStatus, VerseId } from "@akdasa-studios/shlokas-core"
 import { useDialog, useToast } from "@/app/composables"
-import { useInboxDeckStore } from "@/app/decks/inbox"
-import { DummyLibraryVerse, LibraryVerse, useLibraryStore } from '@/app/library'
+import { DummyLibraryVerse, LibraryVerse } from '@/app/library'
 
 
 export class AddVerseToInboxDeckUseCase {
   private _app: Application
   private _addedVerseId: VerseId|undefined
-  private _libraryStore
   private _toast
   private _dialog
 
   constructor(app: Application) {
     this._app = app
-    this._libraryStore = useLibraryStore(app)
     this._toast = useToast()
     this._dialog = useDialog<LibraryVerse>(DummyLibraryVerse)
   }

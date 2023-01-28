@@ -1,37 +1,50 @@
-import { Application } from "@akdasa-studios/shlokas-core"
 import { useTutorialStore , TutorialCardViewModel } from '@/app/decks/shared'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 
+
 export class InboxDeckTutorialUseCase {
-  private readonly _app: Application
   private readonly _inboxDeckStore
   private readonly _tutorialStore
+  private readonly TUTORIAL_CARDS = [
+    "inbox.cards",
+    "inbox.overall",
+    "inbox.verse",
+    "inbox.final"
+  ]
 
-  constructor(app: Application) {
-    this._app = app
+  constructor() {
     this._inboxDeckStore = useInboxDeckStore()
     this._tutorialStore = useTutorialStore()
   }
 
-  async open() {
+  /**
+   * Adds tutorial cards to the Inbox deck
+   */
+  async addTutorialCards() {
     if (!this._tutorialStore.enabled) { return }
-    const count = await this._app.inboxDeck.cardsCount()
-    if (count > 0) {
-      this.addCard("inbox.final")
-      this.addCard("inbox.verse")
-      this.addCard("inbox.overall")
-      this.addCard("inbox.cards")
-    }
+    this.TUTORIAL_CARDS.reverse().forEach(
+      cardId => this.addTutorialCard(cardId)
+    )
   }
 
-  cardSwiped(card: TutorialCardViewModel) {
-    this._tutorialStore.completedSteps.push(card.id)
+  /**
+   * Tutorial card has been swiped. Mark it is as completed
+   * and remove it from the Inbox deck.
+   * @param card The card that has been swiped.
+   */
+  tutorialCardSwiped(card: TutorialCardViewModel) {
+    this._tutorialStore.completeStep(card.id)
+    this._inboxDeckStore.removeCard()
   }
 
-  private addCard(id: string) {
-    const inDeck = this._inboxDeckStore.cards.find(x => x.id === id)
-    const isCompleted = this._tutorialStore.completedSteps.includes(id)
-    if (!inDeck && !isCompleted) {
+  /**
+   * Adds tutorial card to the Inbox deck.
+   * @param id Id of the tutorial card.
+   */
+  private addTutorialCard(id: string) {
+    const isAlreadyInInbox = this._inboxDeckStore.hasCard(id)
+    const isCompleted      = this._tutorialStore.isStepCompleted(id)
+    if (!isAlreadyInInbox && !isCompleted) {
       this._inboxDeckStore.addCard(new TutorialCardViewModel(id))
     }
   }

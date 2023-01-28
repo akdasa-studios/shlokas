@@ -34,8 +34,11 @@ test.describe('Review Deck', () => {
       for (const v of versesToAdd) {
         const card1 = app.inboxDeck.getCard(v, InboxCardType.Translation)
         await card1.swipe("top")
+        await app.page.getByText("Card memorized").waitFor({state:"detached"})
+
         const card2 = app.inboxDeck.getCard(v, InboxCardType.Text)
         await card2.swipe("top")
+        await app.page.getByText("Card memorized").waitFor({state:"detached"})
       }
       await app.tabsBar.reviewTab.click()
     })

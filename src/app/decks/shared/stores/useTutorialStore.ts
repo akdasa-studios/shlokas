@@ -19,6 +19,14 @@ export const useTutorialStore = defineStore('settings/tutorial', () => {
   watch(enabled, onEnabledChanged)
 
   /* -------------------------------------------------------------------------- */
+  /*                                   Getters                                  */
+  /* -------------------------------------------------------------------------- */
+
+  function isStepCompleted(id: string) {
+    return completedSteps.value.includes(id)
+  }
+
+  /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
@@ -26,6 +34,11 @@ export const useTutorialStore = defineStore('settings/tutorial', () => {
     const storedValue = await storage.get(TUTORIAL_COMPLETED_STEPS)
     completedSteps.value = JSON.parse(storedValue || "[]")
     enabled.value = (await storage.get(TUTORIAL_ENABLED)) || true
+  }
+
+  function completeStep(id: string) {
+    if (isStepCompleted(id)) { return }
+    completedSteps.value.push(id)
   }
 
   /* -------------------------------------------------------------------------- */
@@ -44,5 +57,5 @@ export const useTutorialStore = defineStore('settings/tutorial', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { completedSteps, load, enabled }
+  return { completedSteps, load, enabled, completeStep, isStepCompleted }
 })

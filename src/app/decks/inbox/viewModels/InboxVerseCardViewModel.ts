@@ -9,16 +9,16 @@ export enum MemorizingStatus {
 }
 
 export class InboxVerseCardViewModel extends VerseCardViewModel {
-  public readonly _card: InboxCard
+  public readonly card: InboxCard
 
   constructor(card: InboxCard, verse: Verse) {
     super(verse)
-    this._card = card
+    this.card = card
   }
 
   memorizingStatus = MemorizingStatus.Unknown
 
-  get id()      { return this._card.id.value }
-  get type()    { return this._card.type }
-  get addedAt() { return this._card.addedAt }
+  get id()      { return this.card.id.value }
+  get type()    { return this.card.type }
+  get addedAt() { return this.card.addedAt }
 }

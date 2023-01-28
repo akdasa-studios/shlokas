@@ -11,6 +11,10 @@ export const useInboxDeckStore = defineStore('decks/inbox', () => {
     cards.value = []
   }
 
+  function hasCard(id: string) {
+    return cards.value.findIndex(x => x.id === id) !== -1
+  }
+
   function addCard(card: InboxCardViewModel) {
     appendItem(cards, card, card.type === "tutorial" ? 0 : undefined)
   }
@@ -30,5 +34,5 @@ export const useInboxDeckStore = defineStore('decks/inbox', () => {
     return undefined
   }
 
-  return { cards, count, shiftCard, removeCard, addCard, clear, removeCardById }
+  return { cards, count, shiftCard, removeCard, addCard, clear, removeCardById, hasCard }
 })

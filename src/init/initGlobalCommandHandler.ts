@@ -13,8 +13,8 @@ export async function initGlobalCommandHandler({ app, get }: InitArgs): Promise<
 
 function handle({ get }: InitArgs, cmd: any) {
   if (cmd instanceof AddVerseToInboxDeck) {
-    get<CardMemorizationUseCase>("CardMemorizationUseCase").open()
-    get<InboxDeckTutorialUseCase>("InboxDeckTutorialUseCase").open()
+    get<CardMemorizationUseCase>("CardMemorizationUseCase").addCardsToDeck()
+    get<InboxDeckTutorialUseCase>("InboxDeckTutorialUseCase").addTutorialCards()
   } else if (cmd instanceof UpdateVerseStatus) {
     get<SearchVersesUseCase>("SearchVersesUseCase").refreshVerse(cmd.verseId)
   } else if (cmd instanceof InboxCardMemorized) {

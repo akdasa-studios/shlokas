@@ -4,10 +4,10 @@ import { InitStageResult, InitArgs } from './initialization'
 
 export async function initInboxDeck({ app }: InitArgs): Promise<InitStageResult> {
   const case1 = new CardMemorizationUseCase(app)
-  const case2 = new InboxDeckTutorialUseCase(app)
+  const case2 = new InboxDeckTutorialUseCase()
 
-  await case1.open()
-  await case2.open()
+  await case1.addCardsToDeck()
+  await case2.addTutorialCards()
 
   return {
     inject: {
