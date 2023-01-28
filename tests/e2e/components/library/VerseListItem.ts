@@ -6,6 +6,6 @@ export class VerseListItem extends ListItem {
 
   constructor(page: Page, locator: Locator) {
     super(page, locator)
-    this.badge = new Badge(page, locator.getByRole('status'))
+    this.badge = new Badge(page, locator.getByRole('status').locator('slot'))
   }
 }

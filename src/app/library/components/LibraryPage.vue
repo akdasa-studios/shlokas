@@ -58,12 +58,11 @@
 
       <!-- Toast -->
       <ion-toast
-        data-testid="verse-added-toast"
         position="top"
         color="dark"
         :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
         :is-open="addVerseScenario.toast.isOpen.value"
-        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: async () => await onRevert() }]"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
         :duration="2000"
         @did-dismiss="addVerseScenario.toast.close()"
       />

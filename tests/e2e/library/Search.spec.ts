@@ -10,52 +10,45 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Library › Search', () => {
-  test('By verse number', async () => {
-    await app.library.searchbar.search('BG 1.1')
-    const count = await app.library.versesList.count()
-
-    expect(count).toEqual(1)
+  test('By verse number', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('BG 1.1')
+    await expect(page.getByRole('listitem')).toHaveCount(1)
   })
 
-  test('By text', async () => {
-    await app.library.searchbar.search('army')
-    const item = await app.library.versesList.getByTestId(testId('BG 9.2'))
-
-    const isVisible  = await item.isVisible()
-    const itemsCount = await app.library.versesList.count()
-
-    expect(isVisible).toBeTruthy()
-    expect(itemsCount).toEqual(1)
+  test('By text', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('army')
+    await expect(page.getByRole('listitem')).toHaveCount(1)
+    await expect(page.getByTestId('bg 9.2')).toBeVisible()
   })
 
-  test('By verse', async () => {
-    await app.library.searchbar.search('kim akurvata')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1)
+  test('By verse', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('kim akurvata')
+    await expect(page.getByRole('listitem')).toHaveCount(1)
+    await expect(page.getByTestId('bg 1.1')).toBeVisible()
   })
 
-  test('Nothing found', async () => {
-    await app.library.searchbar.search('NOTHING FOUND')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(0)
+  test('Nothing found', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('<NOTHING FOUND>')
+    await expect(page.getByRole('listitem')).toHaveCount(0)
+    await expect(page.getByTestId('bg 1.1')).toBeHidden()
   })
 
-  test('Respects diacritics', async () => {
-    await app.library.searchbar.search('Dhṛtarāṣṭra')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1)
+  test('Respects diacritics', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('Dhṛtarāṣṭra')
+    await expect(page.getByRole('listitem')).toHaveCount(1)
+    await expect(page.getByTestId('bg 1.1')).toBeVisible()
   })
 
-  test('Ignores case', async () => {
-    await app.library.searchbar.search('bg 1.1')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1)
+  test('Ignores case', async ({ page }) => {
+    await page.getByPlaceholder('Search').fill('bg 1.1')
+    await expect(page.getByRole('listitem')).toHaveCount(1)
+    await expect(page.getByTestId('bg 1.1')).toBeVisible()
   })
 
-  test('Ignores diacritics', async () => {
+  test('Ignores diacritics', async ({ page }) => {
     await app.library.searchbar.search('Dhrtarastra')
-    const itemsCount = await app.library.versesList.count()
-    expect(itemsCount).toEqual(1)
+    await expect(page.getByRole('listitem')).toHaveCount(1)
+    await expect(page.getByTestId('bg 1.1')).toBeVisible()
   })
 
   test.describe('Change language', () => {
@@ -66,21 +59,14 @@ test.describe('Library › Search', () => {
       await app.page.waitForTimeout(1000)
     })
 
-    test('Library updated', async () => {
-      const item = await app.library.versesList.getByTestId("бг 1.1")
-      const visible = await item.isVisible()
-      expect(visible).toBeTruthy()
+    test('Library updated', async ({ page }) => {
+      await expect(page.getByTestId('бг 1.1')).toBeVisible()
     })
 
-    test('Search by text', async () => {
-      await app.library.searchbar.search('будет изобилие')
-      const item = await app.library.versesList.getByTestId(testId('бг 18.78'))
-
-      const isVisible  = await item.isVisible()
-      const itemsCount = await app.library.versesList.count()
-
-      expect(isVisible).toBeTruthy()
-      expect(itemsCount).toEqual(1)
+    test('Search by text', async ({ page }) => {
+      await page.getByPlaceholder('Поиск').fill('будет изобилие')
+      await expect(page.getByRole('listitem')).toHaveCount(1)
+      await expect(page.getByTestId('бг 18.78')).toBeVisible()
     })
   })
 })

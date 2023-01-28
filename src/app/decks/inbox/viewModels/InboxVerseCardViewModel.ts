@@ -1,5 +1,4 @@
 import { InboxCard, Verse } from '@akdasa-studios/shlokas-core'
-import { ref } from 'vue'
 import { VerseCardViewModel } from '@/app/decks/shared'
 
 export enum MemorizingStatus {
