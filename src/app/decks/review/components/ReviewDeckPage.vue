@@ -29,13 +29,22 @@
         <ReviewCard
           v-else
           :card="(data.card as ReviewVerseCardViewModel)"
-          @graded="onCardGraded"
         />
       </CardsDeck>
 
+      <div
+        :class="{ 'closed' : !showGradeButtons }"
+        class="buttons"
+      >
+        <ReviewCardAnswerButtons
+          :intervals="gradeButtonIntervals"
+          @graded="onGradeButtonClicked"
+        />
+      </div>
+
       <!-- Inbox deck is empty -->
       <ReviewDeckEmpty
-        v-else
+        v-if="userGradesCards.count <= 0"
         data-testid="reviewEmpty"
       />
     </ion-content>
@@ -48,15 +57,29 @@ import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import { CardsDeck, StackedDeckBehaviour, TutorialCard, TutorialCardViewModel, Vector3d, VerseCardViewModel } from '@/app/decks/shared'
-import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialUseCase, ReviewVerseCardViewModel, UserGradesCardsUseCase } from '@/app/decks/review'
+import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialUseCase, ReviewVerseCardViewModel, UserGradesCardsUseCase, ReviewCardAnswerButtons } from '@/app/decks/review'
+import { useAppearanceStore } from '@/app/settings'
 
 const userGradesCards = inject('UserGradesCardsUseCase') as UserGradesCardsUseCase
 const reviewDeckTutorial = inject('ReviewDeckTutorialUseCase') as ReviewDeckTutorialUseCase
+const appearance = useAppearanceStore()
 
 const deck = new StackedDeckBehaviour()
 const cardsToShow = computed(() =>
   userGradesCards.cards.filter(x => x.index < 3)
 )
+const topCard = computed(() => userGradesCards.cards.find(x => x.index === 0))
+
+const showGradeButtons = computed(() => {
+  if (!appearance.gradeButtons) { return false }
+  if (!topCard.value) { return false }
+  if (topCard.value.isTutorialCard) { return false }
+  return topCard.value.flipped
+})
+const gradeButtonIntervals = computed(() => {
+  if (!topCard.value) return [0, 0, 0, 0]
+  return topCard.value.nextIntervals
+})
 
 function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
@@ -94,8 +117,12 @@ function getGrade(direction: string) : ReviewGrade {
 function onCardGraded(card: ReviewCardViewModel, grade: ReviewGrade) {
   deck.updateMovingCard(card, new Vector3d(-deck.swipeThreshold * 2, 0, 0))
   deck.updateMovedCard(card, new Vector3d(-deck.swipeThreshold, 0, 0))
-  setTimeout(() => { userGradesCards.gradeTopCard(grade) }, 250)
+  // setTimeout(() => { userGradesCards.gradeTopCard(grade) }, 250)
   swipeCard(grade, card)
+}
+
+function onGradeButtonClicked(grade: ReviewGrade) {
+  onCardGraded(topCard.value, grade)
 }
 
 function swipeCard(grade: ReviewGrade, card: ReviewCardViewModel) {
@@ -105,11 +132,27 @@ function swipeCard(grade: ReviewGrade, card: ReviewCardViewModel) {
       return
     }
 
+    card.showFrontSide()
     userGradesCards.gradeTopCard(grade)
     if (userGradesCards.cards.length === 1) {
       onCardPlaced(userGradesCards.topCard)
-      userGradesCards.topCard.showFrontSide()
     }
   }, 250)
 }
 </script>
+
+
+<style scoped>
+.buttons {
+  width: 100%;
+  position:absolute;
+  bottom: 0px;
+  background-color: rgba(var(--ion-color-light-rgb), .75);
+  backdrop-filter: blur(5px);
+  transition: .2s ease-in-out;
+}
+.closed {
+  bottom: -50px;
+  opacity: 0;
+}
+</style>
