@@ -77,7 +77,9 @@ const showGradeButtons = computed(() => {
   return topCard.value.flipped
 })
 const gradeButtonIntervals = computed(() => {
+  const day = 1800
   if (!topCard.value) return [0, 0, 0, 0]
+  if (topCard.value instanceof TutorialCardViewModel) { return [0, day, day*2, day*3] }
   return topCard.value.nextIntervals || [0, 0, 0, 0]
 })
 
@@ -148,6 +150,7 @@ function swipeCard(grade: ReviewGrade, card: ReviewCardViewModel) {
   position:absolute;
   bottom: 0px;
   background-color: rgba(var(--ion-color-light-rgb), .75);
+  border-top: 1px solid var(--ion-color-light-shade);
   backdrop-filter: blur(5px);
   transition: .2s ease-in-out;
 }
