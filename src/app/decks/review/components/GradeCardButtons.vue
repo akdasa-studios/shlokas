@@ -4,28 +4,28 @@
       class="forgot"
       @click.stop="emit('graded', ReviewGrade.Forgot)"
     >
-      Forgot
+      {{ $t('cards.grade.forgot') }}
       <div>{{ intervalToText(props.intervals[0]) }}</div>
     </div>
     <div
       class="hard"
       @click.stop="emit('graded', ReviewGrade.Hard)"
     >
-      Hard
+      {{ $t('cards.grade.hard') }}
       <div>{{ intervalToText(props.intervals[1]) }}</div>
     </div>
     <div
       class="good"
       @click.stop="emit('graded', ReviewGrade.Good)"
     >
-      Good
+      {{ $t('cards.grade.good') }}
       <div>{{ intervalToText(props.intervals[2]) }}</div>
     </div>
     <div
       class="easy"
       @click.stop="emit('graded', ReviewGrade.Easy)"
     >
-      Easy
+      {{ $t('cards.grade.easy') }}
       <div>{{ intervalToText(props.intervals[3]) }}</div>
     </div>
   </div>
