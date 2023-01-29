@@ -113,13 +113,9 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
     if (deltaPos.isLeftOrRight) {
       cardsMemorization.shiftTopCard()
     } else {
-      if (card.type !== "tutorial") {
-        cardsMemorization.memorizeTopCard()
-      }
+      cardsMemorization.memorizeTopCard()
     }
-    if (card.type !== "tutorial") {
-      card.memorizingStatus = MemorizingStatus.Unknown
-    }
+    card.memorizingStatus = MemorizingStatus.Unknown
 
     if (cardsMemorization.cards.length === 1) {
       onCardPlaced(cardsMemorization.topCard)

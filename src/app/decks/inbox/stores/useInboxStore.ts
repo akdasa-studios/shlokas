@@ -1,38 +1,24 @@
 import { defineStore } from 'pinia'
-import { computed, ref, Ref } from 'vue'
-import { appendItem, removeItem, shiftItem } from "@/app/decks/shared"
 import { InboxCardViewModel } from "@/app/decks/inbox"
+import { Deck, CardViewModel } from '@/app/decks/shared'
+
 
 export const useInboxDeckStore = defineStore('decks/inbox', () => {
-  const cards: Ref<InboxCardViewModel[]> = ref([])
-  const count = computed(() => cards.value.filter(x => x.type !== "tutorial").length)
+  const deck = new Deck<InboxCardViewModel>()
 
-  function clear() {
-    cards.value = []
-  }
+  function hasCard(id: string) { return deck.hasCard(id) }
+  function addCard(card: CardViewModel) { deck.addCard(card) }
+  function shiftTopCard() { deck.shiftTopCard() }
+  function removeTopCard() { return deck.removeTopCard() }
+  function removeCardById(id: string) { return deck.removeCardById(id) }
 
-  function hasCard(id: string) {
-    return cards.value.findIndex(x => x.id === id) !== -1
+  return {
+    cards: deck.cards,
+    count: deck.count,
+    shiftTopCard: shiftTopCard,
+    removeTopCard: removeTopCard,
+    addCard: addCard,
+    removeCardById: removeCardById,
+    hasCard: hasCard
   }
-
-  function addCard(card: InboxCardViewModel) {
-    appendItem(cards, card, card.type === "tutorial" ? 0 : undefined)
-  }
-  function shiftCard() {
-    shiftItem(cards)
-  }
-
-  function removeCard(idx=0): InboxCardViewModel | undefined {
-    return removeItem(cards, idx) as InboxCardViewModel | undefined
-  }
-
-  function removeCardById(id:any): InboxCardViewModel | undefined {
-    const idx = cards.value.findIndex(x => x.id === id)
-    if (idx !== -1) {
-      return removeItem(cards, idx) as InboxCardViewModel | undefined
-    }
-    return undefined
-  }
-
-  return { cards, count, shiftCard, removeCard, addCard, clear, removeCardById, hasCard }
 })

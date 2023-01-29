@@ -19,4 +19,8 @@ export abstract class CardViewModel {
   abstract get type(): string
   flip() { this.flipped = !this.flipped }
   showFrontSide() { this.flipped = false }
+
+  get isTutorialCard(): boolean {
+    return this.type === "tutorial"
+  }
 }

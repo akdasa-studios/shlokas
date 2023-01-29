@@ -44,14 +44,14 @@ export class CardMemorizationUseCase {
    * Shifts the top card to the bottom of the deck.
    */
   async shiftTopCard() {
-    this._inboxDeckStore.shiftCard()
+    this._inboxDeckStore.shiftTopCard()
   }
 
   /**
    * Removes the top card from the deck and marks it as memorized.
    */
   async memorizeTopCard() {
-    const cardViewModel = this._inboxDeckStore.removeCard() as InboxVerseCardViewModel
+    const cardViewModel = this._inboxDeckStore.removeTopCard() as InboxVerseCardViewModel
     if (cardViewModel) {
       const inboxCard = cardViewModel.card
       await this._app.processor.execute(new InboxCardMemorized(inboxCard))

@@ -1,19 +1,19 @@
+import { useReviewDeckStore } from '@/app/decks/review'
 import { useTutorialStore , TutorialCardViewModel } from '@/app/decks/shared'
-import { useInboxDeckStore } from '@/app/decks/inbox'
 
 
-export class InboxDeckTutorialUseCase {
-  private readonly _inboxDeckStore
+export class ReviewDeckTutorialUseCase {
+  private readonly _reviewDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
-    "inbox.cards",
-    "inbox.overall",
-    "inbox.verse",
-    "inbox.final"
+    "review.cards",
+    "review.overall",
+    "review.verse",
+    "review.final"
   ]
 
   constructor() {
-    this._inboxDeckStore = useInboxDeckStore()
+    this._reviewDeckStore = useReviewDeckStore()
     this._tutorialStore = useTutorialStore()
   }
 
@@ -29,23 +29,23 @@ export class InboxDeckTutorialUseCase {
 
   /**
    * Tutorial card has been swiped. Mark it is as completed
-   * and remove it from the Inbox deck.
+   * and remove it from the Review deck.
    * @param card The card that has been swiped.
    */
   tutorialCardSwiped(card: TutorialCardViewModel) {
     this._tutorialStore.completeStep(card.id)
-    this._inboxDeckStore.removeTopCard()
+    this._reviewDeckStore.removeTopCard()
   }
 
   /**
-   * Adds tutorial card to the Inbox deck.
+   * Adds tutorial card to the Review deck.
    * @param id Id of the tutorial card.
    */
   private addTutorialCard(id: string) {
-    const isAlreadyInInbox = this._inboxDeckStore.hasCard(id)
-    const isCompleted      = this._tutorialStore.isStepCompleted(id)
-    if (!isAlreadyInInbox && !isCompleted) {
-      this._inboxDeckStore.addCard(new TutorialCardViewModel(id))
+    const isAlreadyInDeck = this._reviewDeckStore.hasCard(id)
+    const isCompleted     = this._tutorialStore.isStepCompleted(id)
+    if (!isAlreadyInDeck && !isCompleted) {
+      this._reviewDeckStore.addCard(new TutorialCardViewModel(id))
     }
   }
 }
