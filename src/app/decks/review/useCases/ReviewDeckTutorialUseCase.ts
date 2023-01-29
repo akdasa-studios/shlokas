@@ -6,10 +6,8 @@ export class ReviewDeckTutorialUseCase {
   private readonly _reviewDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
-    "review.cards",
-    "review.overall",
-    "review.verse",
-    "review.final"
+    "review.questionAnswer",
+    "review.intervals",
   ]
 
   constructor() {

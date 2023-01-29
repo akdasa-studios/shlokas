@@ -73,12 +73,12 @@ const topCard = computed(() => userGradesCards.cards.find(x => x.index === 0))
 const showGradeButtons = computed(() => {
   if (!appearance.gradeButtons) { return false }
   if (!topCard.value) { return false }
-  if (topCard.value.isTutorialCard) { return false }
+  // if (topCard.value.isTutorialCard) { return false }
   return topCard.value.flipped
 })
 const gradeButtonIntervals = computed(() => {
   if (!topCard.value) return [0, 0, 0, 0]
-  return topCard.value.nextIntervals
+  return topCard.value.nextIntervals || [0, 0, 0, 0]
 })
 
 function onCardPlaced(card: VerseCardViewModel) {
