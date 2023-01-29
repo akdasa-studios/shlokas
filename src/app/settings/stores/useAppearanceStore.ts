@@ -13,7 +13,7 @@ export const useAppearanceStore = defineStore('settings/appearance', () => {
   /* -------------------------------------------------------------------------- */
 
   const colorfulCards = ref(false)
-  const gradeButtons = ref(false)
+  const gradeButtons = ref(true)
 
   watch(colorfulCards, onColorfulCardsChanged)
   watch(gradeButtons, onGradeButtonsChanged)
@@ -24,7 +24,7 @@ export const useAppearanceStore = defineStore('settings/appearance', () => {
 
   async function load() {
     colorfulCards.value = await storage.get(KEY_COLORFUL_CARDS)
-    gradeButtons.value = await storage.get(KEY_GRADE_BUTTONS)
+    gradeButtons.value = (await storage.get(KEY_GRADE_BUTTONS)) || true
   }
 
   /* -------------------------------------------------------------------------- */
