@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import { defineEmits, defineProps } from 'vue'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import intervalToText from './IntervalToText'
+import intervalToText from './cards/IntervalToText'
 
 const props = defineProps<{
   intervals: number[]
@@ -51,8 +51,9 @@ const emit = defineEmits<{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-around;
-  margin: 10px;
+  padding: 10px;
+  gap: 10px;
+  text-align: center;
 
   div {
     padding: 10px;
@@ -60,6 +61,8 @@ const emit = defineEmits<{
     padding-bottom: 5px;
     border-radius: 5px;
     text-transform: lowercase;
+    flex-basis: 25%;
+    font-weight: bold;
 
     &.forgot {
       background-color: var(--ion-color-danger-tint);
@@ -77,6 +80,7 @@ const emit = defineEmits<{
     div {
       padding: 2px;
       font-size: small;
+      font-weight: normal;
     }
   }
 }

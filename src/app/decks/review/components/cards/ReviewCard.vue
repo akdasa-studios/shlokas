@@ -42,15 +42,6 @@
           :lines="text"
           :translation="translation"
         />
-        <div
-          v-if="appearance.gradeButtons"
-          class="buttons"
-        >
-          <ReviewCardAnswerButtons
-            :intervals="nextIntervals"
-            @graded="onGradeButtonClicked"
-          />
-        </div>
       </CardSide>
     </template>
   </FlipCard>
@@ -58,12 +49,11 @@
 
 
 <script lang="ts" setup>
-import { defineProps, toRefs, defineEmits, computed } from 'vue'
+import { computed, defineProps, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import {
   ReviewCardSwipeOverlay, ReviewCardTextSide, ReviewCardTranslationSide,
-  ReviewCardVerseNumberSide, ReviewCardViewModel, ReviewCardAnswerButtons
+  ReviewCardVerseNumberSide, ReviewVerseCardViewModel
 } from '@/app/decks/review'
 import { CardSide, FlipCard } from '@/app/decks/shared'
 import { useAppearanceStore } from '@/app/settings'
@@ -77,17 +67,13 @@ const { t } = useI18n()
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  card: ReviewCardViewModel,
+  card: ReviewVerseCardViewModel,
 }>()
 
 const { card: { value: {
   verseNumber, translation, nextIntervals,
   type, text
 }}} = toRefs(props)
-
-const emit = defineEmits<{
-  (event: 'graded', card: ReviewCardViewModel, grade: ReviewGrade): boolean
-}>()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -118,19 +104,8 @@ function getQuestion(cardType: string) {
     'Translation': t('cards.questions.translation')
   }[name]
 }
-
-function onGradeButtonClicked(grade: ReviewGrade) {
-  emit('graded', props.card, grade)
-}
 </script>
 
 
 <style src="@/app/decks/Card.scss" lang="scss" scoped />
 
-<style scoped>
-.buttons {
-  width: 100%;
-  position:absolute;
-  bottom:10px;
-}
-</style>

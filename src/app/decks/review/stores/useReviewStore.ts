@@ -1,35 +1,24 @@
 import { defineStore } from 'pinia'
-import { computed, ref, Ref } from 'vue'
-import { appendItem, removeItem, shiftItem } from "@/app/decks/shared"
+import { CardViewModel, Deck } from "@/app/decks/shared"
 import { ReviewCardViewModel } from '../viewModels/ReviewCardViewModel'
 
 
 export const useReviewDeckStore = defineStore('decks/review', () => {
-  const cards: Ref<ReviewCardViewModel[]> = ref([])
-  const count = computed(() => cards.value.length)
+  const deck = new Deck<ReviewCardViewModel>()
 
-  /* -------------------------------------------------------------------------- */
-  /*                                   Actions                                  */
-  /* -------------------------------------------------------------------------- */
+  function hasCard(id: string) { return deck.hasCard(id) }
+  function addCard(card: CardViewModel) { deck.addCard(card) }
+  function shiftTopCard() { deck.shiftTopCard() }
+  function removeTopCard() { return deck.removeTopCard() }
+  function removeCardById(id: string) { return deck.removeCardById(id) }
 
-  function clear() {
-    cards.value = []
+  return {
+    cards: deck.cards,
+    count: deck.count,
+    shiftTopCard: shiftTopCard,
+    removeTopCard: removeTopCard,
+    addCard: addCard,
+    removeCardById: removeCardById,
+    hasCard: hasCard
   }
-
-  function addCard(card: ReviewCardViewModel) {
-    appendItem(cards, card)
-  }
-  function shiftCard() {
-    shiftItem(cards)
-  }
-
-  function removeCard(): ReviewCardViewModel | undefined {
-    return removeItem(cards) as ReviewCardViewModel | undefined
-  }
-
-  /* -------------------------------------------------------------------------- */
-  /*                                  Interface                                 */
-  /* -------------------------------------------------------------------------- */
-
-  return { cards, count, clear, addCard, shiftCard, removeCard }
 })

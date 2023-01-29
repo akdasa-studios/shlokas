@@ -110,6 +110,28 @@
           "action": "Swipe up"
         }
       }
+    },
+    "review": {
+      "questionAnswer": {
+        "front": {
+          "text": "Each verse in this deck is divided into several cards with a question on one side and an answer on the other.",
+          "action": "Tap"
+        },
+        "back": {
+          "text": "The answer is on this side of the card. Now you can evaluate how well you answered and rate yourself.",
+          "action": "Rate card"
+        }
+      },
+      "intervals": {
+        "front": {
+          "text": "If you answered “Good” or “Excellent”, then the intervals between repetitions increase, otherwise they decrease.",
+          "action": "Нажмите"
+        },
+        "back": {
+          "text": "You will repeat only those cards that you do not remember well. And cards that you know well - repeat less often.",
+          "action": "Swipe"
+        }
+      }
     }
   }
 }
