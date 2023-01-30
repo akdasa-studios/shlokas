@@ -1,5 +1,6 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
+import { LibraryPage, TabsBar } from '../components'
 
 
 test.describe('Inbox Deck', () => {
@@ -8,17 +9,21 @@ test.describe('Inbox Deck', () => {
   })
 
   test('Inbox is empty', async ({ page }) => {
-    await page.getByTestId('inbox-tab').click()
-    await expect(page.getByTestId("inboxEmpty")).toBeVisible()
+    const tabsBar = new TabsBar(page)
+    await tabsBar.inboxTab.click()
+    await expect(tabsBar.inboxEmpty).toBeVisible()
   })
 
 
   test.describe('Swipe Cards', () => {
 
     test.beforeEach(async ({ page }) => {
-      await page.getByRole('heading', { name: 'BG 1.1' }).click()
-      await page.getByRole('button', { name: 'Add' }).click()
-      await page.getByTestId('inbox-tab').click()
+      const tabsBar = new TabsBar(page)
+      const libraryPage = new LibraryPage(page)
+
+      await libraryPage.verse('BG 1.1').click()
+      await libraryPage.addVerseButton.click()
+      await tabsBar.inboxTab.click()
     })
 
     test('Swipe card right', async ({ page }) => {

@@ -1,6 +1,6 @@
 <template>
   <FlipCard
-    data-testid="inbox-tutorial-card-01"
+    :data-testid="'tutorial.' + card.id"
     :flipped="card.flipped"
     @flip="card.flip()"
   >
