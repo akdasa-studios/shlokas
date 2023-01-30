@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test"
-import { testId } from "@/app/TestId"
 
 export class InboxDeckPage {
   constructor(private readonly page: Page) {}
