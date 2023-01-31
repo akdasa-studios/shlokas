@@ -72,7 +72,7 @@
     "inbox": {
       "cards": {
         "front": {
-          "text": "Each verse is divided into several cards. This makes them easier to learn. Cards can be flipped and swiped.",
+          "text": "Each verse is divided into several cards. This makes them easier to memorize. Cards can be flipped and swiped.",
           "action": "Tap"
         },
         "back": {
@@ -82,7 +82,7 @@
       },
       "overall": {
         "front": {
-          "text": "In the “inbox” are the cards of the verses that you are learning. It may take you a few days to learn the card well.",
+          "text": "The 'Inbox' deck contains cards of the verses you are memorizing. It may take several days to master the card.",
           "action": "Tap"
         },
         "back": {
@@ -92,21 +92,21 @@
       },
       "verse": {
         "front": {
-          "text": "In the inbox for each verse there are two cards: the text and the translation, and on the reverse side there is a word-for-word translation.",
+          "text": "There are two cards in the Inbox for each verse: the text or the translation on the front and a word-for-word translation on the reverse side.",
           "action": "Tap"
         },
         "back": {
-          "text": "You can add multiple verses and learn them at the same time.",
+          "text": "You can add multiple verses and learn them simultaneously.",
           "action": "Swipe up"
         }
       },
       "final": {
         "front": {
-          "text": "Memorized cards fall into the “Overview” deck for long-term fixation in memory.",
+          "text": "Memorized cards are transferred to the 'Review' deck for long-term memorization.",
           "action": "Tap"
         },
         "back": {
-          "text": "A system of spaced repetitions is used for that.",
+          "text": "A system of spaced repetitions is used for long-term memorization.",
           "action": "Swipe up"
         }
       }
@@ -114,21 +114,21 @@
     "review": {
       "questionAnswer": {
         "front": {
-          "text": "Each verse in this deck is divided into several cards with a question on one side and an answer on the other.",
+          "text": "Each verse in this deck is divided into several cards, with a question on the front side and an answer on the other.",
           "action": "Tap"
         },
         "back": {
-          "text": "The answer is on this side of the card. Now you can evaluate how well you answered and rate yourself.",
+          "text": "The answer is on this side of the card. Now you can evaluate how well your answer was.",
           "action": "Rate card"
         }
       },
       "intervals": {
         "front": {
-          "text": "If you answered “Good” or “Excellent”, then the intervals between repetitions increase, otherwise they decrease.",
-          "action": "Нажмите"
+          "text": "If you answered “Good” or “Easy,” then the intervals between repetitions increase; otherwise, they decrease.",
+          "action": "Tap"
         },
         "back": {
-          "text": "You will repeat only those cards that you do not remember well. And cards that you know well - repeat less often.",
+          "text": "This reduces the number of daily repetitions and the learning process becomes more efficient.",
           "action": "Swipe"
         }
       }

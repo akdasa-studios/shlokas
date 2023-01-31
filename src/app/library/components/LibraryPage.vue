@@ -9,7 +9,6 @@
       <ion-toolbar>
         <ion-searchbar
           v-model="searchScenario.query.value"
-          data-testid="searchbar"
           :placeholder="$t('library.search')"
           animated
         />

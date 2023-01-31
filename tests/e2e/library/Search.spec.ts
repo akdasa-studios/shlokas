@@ -1,50 +1,59 @@
 import { test, expect } from '@playwright/test'
+import { Application, LibraryPage } from '../components'
 
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/home/library?tutorialEnabled=false')
+    await new Application(page)
+      .goto("/home/library", { tutorialEnabled: false })
 })
 
 test.describe('Library › Search', () => {
   test('By verse number', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('BG 1.1')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('BG 1.1')
+    await expect(library.listItems).toHaveCount(1)
   })
 
   test('By text', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('army')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('army')
+    await expect(library.listItems).toHaveCount(1)
     await expect(page.getByTestId('bg 9.2')).toBeVisible()
   })
 
   test('By verse', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('kim akurvata')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
-    await expect(page.getByTestId('bg 1.1')).toBeVisible()
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('kim akurvata')
+    await expect(library.listItems).toHaveCount(1)
+    await expect(library.verse('bg 1.1')).toBeVisible()
   })
 
   test('Nothing found', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('<NOTHING FOUND>')
-    await expect(page.getByRole('listitem')).toHaveCount(0)
-    await expect(page.getByTestId('bg 1.1')).toBeHidden()
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('<NOTHING FOUND>')
+    await expect(library.listItems).toHaveCount(0)
+    await expect(library.verse('bg 1.1')).toBeHidden()
   })
 
   test('Respects diacritics', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('Dhṛtarāṣṭra')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
-    await expect(page.getByTestId('bg 1.1')).toBeVisible()
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('Dhṛtarāṣṭra')
+    await expect(library.listItems).toHaveCount(1)
+    await expect(library.verse('bg 1.1')).toBeVisible()
   })
 
   test('Ignores case', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('bg 1.1')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
-    await expect(page.getByTestId('bg 1.1')).toBeVisible()
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('bg 1.1')
+    await expect(library.listItems).toHaveCount(1)
+    await expect(library.verse('bg 1.1')).toBeVisible()
   })
 
   test('Ignores diacritics', async ({ page }) => {
-    await page.getByPlaceholder('Search').fill('Dhrtarastra')
-    await expect(page.getByRole('listitem')).toHaveCount(1)
-    await expect(page.getByTestId('bg 1.1')).toBeVisible()
+    const library = new LibraryPage(page)
+    await library.searchbar.fill('Dhrtarastra')
+    await expect(library.listItems).toHaveCount(1)
+    await expect(library.verse('bg 1.1')).toBeVisible()
   })
 
   test.describe('Change language', () => {
@@ -60,8 +69,11 @@ test.describe('Library › Search', () => {
     })
 
     test('Search by text', async ({ page }) => {
+      const library = new LibraryPage(page)
       await page.getByPlaceholder('Поиск').fill('будет изобилие')
-      await expect(page.getByRole('listitem')).toHaveCount(1)
+
+      // expect:
+      await expect(library.listItems).toHaveCount(1)
       await expect(page.getByTestId('бг 18.78')).toBeVisible()
     })
   })

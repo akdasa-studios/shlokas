@@ -15,7 +15,7 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="userGradesCards.count > 0"
+        v-if="userGradesCards.cards.length > 0"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"

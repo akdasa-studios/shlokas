@@ -2,6 +2,7 @@
   <div class="group">
     <div
       class="forgot"
+      data-testid="forgot"
       @click.stop="emit('graded', ReviewGrade.Forgot)"
     >
       {{ $t('cards.grade.forgot') }}
@@ -9,6 +10,7 @@
     </div>
     <div
       class="hard"
+      data-testid="hard"
       @click.stop="emit('graded', ReviewGrade.Hard)"
     >
       {{ $t('cards.grade.hard') }}
@@ -16,6 +18,7 @@
     </div>
     <div
       class="good"
+      data-testid="good"
       @click.stop="emit('graded', ReviewGrade.Good)"
     >
       {{ $t('cards.grade.good') }}
@@ -23,6 +26,7 @@
     </div>
     <div
       class="easy"
+      data-testid="easy"
       @click.stop="emit('graded', ReviewGrade.Easy)"
     >
       {{ $t('cards.grade.easy') }}
