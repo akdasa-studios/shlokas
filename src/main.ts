@@ -5,9 +5,10 @@ import { createPinia } from 'pinia'
 import * as Sentry from '@sentry/capacitor'
 import * as SentrySibling from '@sentry/vue'
 import { BrowserTracing } from '@sentry/tracing'
+import { App } from '@capacitor/app'
 import { createApplication } from './app/Application'
 import { initI18n } from './i18n'
-import App from './App.vue'
+import ShlokasApp from './App.vue'
 import router from './router'
 
 /* Core CSS required for Ionic components to work properly */
@@ -39,7 +40,7 @@ async function initApp() {
   await storage.create()
   const lang = (await storage.get("language")) || 'en'
 
-  const app = createApp(App)
+  const app = createApp(ShlokasApp)
     .use(IonicVue)
     .use(router)
     .use(pinia)
@@ -85,6 +86,17 @@ async function initApp() {
       }
     }
   }
+
+  App.addListener('appStateChange', async ({ isActive }) => {
+    if (!isActive) { return }
+    console.log("App is active again, reinitializing")
+    for (const initStage of initStages) {
+      initStage({
+        app: shlokasApp,
+        get: <T>(x:string) => services[x] as T
+      })
+    }
+  })
 
   router.isReady().then(() => {
     app.mount('#app')

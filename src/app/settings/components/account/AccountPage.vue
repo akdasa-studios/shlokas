@@ -94,16 +94,20 @@ import {
   IonIcon, modalController
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
+import { UserGradesCardsUseCase } from '@/app/decks/review'
+import { CardMemorizationUseCase } from '@/app/decks/inbox'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
+const cardsMemorization = inject('CardMemorizationUseCase') as CardMemorizationUseCase
+const userGradesCards = inject('UserGradesCardsUseCase') as UserGradesCardsUseCase
 
 const account = useAccountStore()
 const { isAuthenticated, syncHost, token } = storeToRefs(account)
@@ -119,12 +123,16 @@ async function openModal(component: any) {
 async function onSync() {
   inProgress.value = true
   await couchDB.sync(syncHost.value)
+  await cardsMemorization.addCardsToDeck()
+  await userGradesCards.addCardsToDeck()
   inProgress.value = false
 }
 
 async function onClean() {
   inProgress.value = true
   await couchDB.deleteAll()
+  await cardsMemorization.addCardsToDeck()
+  await userGradesCards.addCardsToDeck()
   inProgress.value = false
 }
 

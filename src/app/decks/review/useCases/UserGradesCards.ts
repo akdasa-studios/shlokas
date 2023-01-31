@@ -13,7 +13,7 @@ export class UserGradesCardsUseCase {
     this._libraryStore = useLibraryStore(this._app)
   }
 
-  async open() {
+  async addCardsToDeck() {
     const cards  = await this._app.reviewDeck.dueToCards(this._app.timeMachine.now)
     const sorted = Array.from(cards).sort((a, b) => a.addedAt.getTime() - b.addedAt.getTime())
 

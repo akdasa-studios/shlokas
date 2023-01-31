@@ -18,6 +18,6 @@ function handle({ get }: InitArgs, cmd: any) {
   } else if (cmd instanceof UpdateVerseStatus) {
     get<SearchVersesUseCase>("SearchVersesUseCase").refreshVerse(cmd.verseId)
   } else if (cmd instanceof InboxCardMemorized) {
-    get<UserGradesCardsUseCase>("UserGradesCardsUseCase").open()
+    get<UserGradesCardsUseCase>("UserGradesCardsUseCase").addCardsToDeck()
   }
 }
