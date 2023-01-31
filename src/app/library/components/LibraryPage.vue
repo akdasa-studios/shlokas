@@ -32,13 +32,13 @@
                 {{ verse.number }}
               </h2>
               <ion-badge
-                v-if="verse.showStatus.value"
+                v-if="verse.showStatus"
                 class="badge"
                 color="primary"
                 role="status"
                 :data-testid="testId(verse.number, 'badge')"
               >
-                {{ $t(`decks.${verse.status.value}.title`).toUpperCase() }}
+                {{ $t(`decks.${verse.status}.title`).toUpperCase() }}
               </ion-badge>
             </div>
             <p>{{ verse.translation }}</p>

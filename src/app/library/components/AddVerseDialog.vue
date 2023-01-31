@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons slot="primary">
         <ion-button
-          v-if="!props.verse.isAlreadyAdded.value"
+          v-if="!props.verse.isAlreadyAdded"
           data-testid="addVerseToInbox"
           @click="onAddClicked"
         >

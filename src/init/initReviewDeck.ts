@@ -7,7 +7,7 @@ export async function initReviewDeck({ app }: InitArgs): Promise<InitStageResult
   const case1 = new UserGradesCardsUseCase(app)
   const case2 = new ReviewDeckTutorialUseCase()
 
-  await case1.open()
+  await case1.addCardsToDeck()
   await case2.addTutorialCards()
 
   return {
