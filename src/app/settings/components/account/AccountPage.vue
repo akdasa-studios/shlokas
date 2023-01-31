@@ -59,6 +59,7 @@
       </ion-button>
 
       <ion-button
+        v-if="isAuthenticated"
         expand="block"
         fill="outline"
         @click="onClean"
