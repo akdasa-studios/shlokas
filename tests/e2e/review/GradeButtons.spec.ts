@@ -1,54 +1,48 @@
-import { InboxCardType } from '@akdasa-studios/shlokas-core'
+import { ReviewCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { testId } from '@/app/TestId'
-import { ReviewDeckPage } from '../components'
-import { InboxDeckPage } from './../components/InboxDeckPage'
-import { LibraryPage } from './../components/LibraryPage'
-import { TabsBar } from './../components/TabsBar'
+import { Application, ReviewDeckPage , TabsBar } from '../components'
+import { addCardsToReview } from '../scenarios'
 
-
-
-test.describe('Grade Buttons', () => {
+test.describe('Review Deck › Grade Buttons', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/home/library?tutorialEnabled=false')
+    await new Application(page)
+      .goto("/home/library", { tutorialEnabled: false })
+    await addCardsToReview(page, ['BG 1.1'])
+    await new TabsBar(page).reviewTab.click()
   })
 
-  test.beforeEach(async ({ page }) => {
-    const library = new LibraryPage(page)
-    const inbox = new InboxDeckPage(page)
-    const tabs = new TabsBar(page)
-    await library.verse('BG 1.1').click()
-    await library.addVerseButton.click()
-    await tabs.inboxTab.click()
+  /**
+   * When user clics "Good" button, the card should be removed from the
+   * review deck, because it is scheduled for another day.
+   */
+  test('Answer "Good"', async ({ page }) => {
+    const review = new ReviewDeckPage(page)
+    const card   = review.card('BG 1.1', ReviewCardType.NumberToTranslation)
 
-    for (const t of [InboxCardType.Translation, InboxCardType.Text]) {
-      const cardLocator = page.getByTestId(testId('BG 1.1', 'card', t))
-      await inbox.swipeCardTop(cardLocator)
-    }
+    // act:
+    await card.click()
+    await review.good.click()
 
-    await page.getByTestId('review-tab').click()
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await page.waitForTimeout(200) // firefox, webkit
+    // assert:
+    await expect(review.reviewEmpty).toBeVisible()
   })
 
+  /**
+   * When user clicks "Forgot" button, the card should be shown again
+   * in the review deck.
+   */
+  test('Answer "Forgot" for the last card', async ({ page }) => {
+    const review = new ReviewDeckPage(page)
+    const card   = review.card('BG 1.1', ReviewCardType.NumberToTranslation)
 
-  test('Answer card', async ({ page }) => {
-    const reviewEmpty = new ReviewDeckPage(page)
-    const cardLocator = page.getByTestId("bg 1.1-card-numbertotranslation")
-    await cardLocator.click()
-    await page.getByTestId('good').click()
+    // act:
+    await card.click()
+    await review.forgot.click()
 
-    await expect(reviewEmpty.reviewEmpty).toBeVisible()
-  })
-
-  test('Last card forgot', async ({ page }) => {
-    const reviewEmpty = new ReviewDeckPage(page)
-    const cardLocator = page.getByTestId("bg 1.1-card-numbertotranslation")
-    await cardLocator.click()
-    await page.getByTestId('forgot').click()
-
-    await expect(reviewEmpty.reviewEmpty).toBeHidden()
-    await expect(cardLocator).toBeVisible()
-    await expect(cardLocator).toHaveAttribute('data-index', "0")
+    // assert:
+    // 1. card is still in the review deck
+    await expect(review.reviewEmpty).toBeHidden()
+    await expect(card).toBeVisible()
+    await expect(card).toHaveAttribute('data-index', "0")
   })
 })
