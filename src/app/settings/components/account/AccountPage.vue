@@ -14,10 +14,14 @@
         {{ $t('account.welcomeBack') }}
       </h1>
 
-      <span v-if="token">
+      <div v-if="token">
         {{ $t('account.token.validTill') }}:
         {{ new Date(token.expires).toLocaleString() }}
-      </span>
+      </div>
+      <div v-if="token">
+        {{ $t('account.syncTime') }}:
+        {{ syncTime.toLocaleString() }}
+      </div>
 
       <ion-button
         v-if="!isAuthenticated"
@@ -94,26 +98,21 @@ import {
   IonIcon, modalController
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
-import { UserGradesCardsUseCase } from '@/app/decks/review'
-import { CardMemorizationUseCase } from '@/app/decks/inbox'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
-const cardsMemorization = inject('CardMemorizationUseCase') as CardMemorizationUseCase
-const userGradesCards = inject('UserGradesCardsUseCase') as UserGradesCardsUseCase
 
 const account = useAccountStore()
-const { isAuthenticated, syncHost, token } = storeToRefs(account)
-const { logOut, load } = account
+const { isAuthenticated, syncHost, token, syncTime } = storeToRefs(account)
+const { logOut } = account
 
-load()
 
 async function openModal(component: any) {
   const modal = await modalController.create({ component })
@@ -123,16 +122,14 @@ async function openModal(component: any) {
 async function onSync() {
   inProgress.value = true
   await couchDB.sync(syncHost.value)
-  await cardsMemorization.addCardsToDeck()
-  await userGradesCards.addCardsToDeck()
+  syncTime.value = new Date()
   inProgress.value = false
 }
 
 async function onClean() {
   inProgress.value = true
   await couchDB.deleteAll()
-  await cardsMemorization.addCardsToDeck()
-  await userGradesCards.addCardsToDeck()
+  syncTime.value = new Date()
   inProgress.value = false
 }
 

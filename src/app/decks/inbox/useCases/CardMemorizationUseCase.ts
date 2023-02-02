@@ -1,12 +1,16 @@
+import { watch } from 'vue'
 import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { storeToRefs } from 'pinia'
 import { useToast } from '@/app/composables'
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
 import { useLibraryStore } from '@/app/library'
+import { useAccountStore } from "@/app/settings"
 
 
 export class CardMemorizationUseCase {
   private readonly _app: Application
   private readonly _inboxDeckStore
+  private readonly _accountStore
   private readonly _libraryStore
   private readonly _cardMemorizedToast
 
@@ -15,6 +19,11 @@ export class CardMemorizationUseCase {
     this._inboxDeckStore = useInboxDeckStore()
     this._libraryStore = useLibraryStore(this._app)
     this._cardMemorizedToast = useToast()
+    this._accountStore = useAccountStore()
+
+    const { syncTime } = storeToRefs(this._accountStore)
+
+    watch(syncTime, () => this.addCardsToDeck())
   }
 
   /**

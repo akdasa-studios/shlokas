@@ -17,15 +17,15 @@ export class CouchDB {
     if (adapter) {
       this._db = new PouchDB(dbName, {
         adapter: 'cordova-sqlite',
-        revs_limit: 1,
-        auto_compaction: true,
+        // revs_limit: 1,
+        // auto_compaction: true,
         location: 'default',
-        // iosDatabaseLocation: 'default',
+        iosDatabaseLocation: 'default',
       })
     } else {
       this._db = new PouchDB(dbName, {
-        revs_limit: 1,
-        auto_compaction: true,
+        // revs_limit: 1,
+        // auto_compaction: true,
       })
     }
   }
@@ -37,8 +37,8 @@ export class CouchDB {
 
   async deleteAll() {
     const docs = await this._db.allDocs()
-    docs.rows.forEach(y => {
-      this._db.remove(y.id, y.value.rev)
+    docs.rows.forEach(async y => {
+      await this._db.remove(y.id, y.value.rev)
     })
   }
 
@@ -80,11 +80,7 @@ export class PouchRepository<
     const serializedDoc = this._serializer.map(entity).value
     await this._db.db.upsert(
       entity.id.value,
-      (_) => {
-        // @ts-ignore
-        serializedDoc._rev = _?._rev // TODO: neeed?
-        return serializedDoc as any
-      }
+      () => { return serializedDoc as any }
     )
     return Result.ok()
   }
@@ -113,7 +109,7 @@ export class PouchRepository<
 
   async delete(id: TAggregate['id']): Promise<Result<void, string>> {
     try {
-      const doc = await this._db.db.get(id.value)
+      const doc = await this._db.db.get(id.value, { latest: true })
       await this._db.db.remove(doc)
     } catch(e) { console.log('CANT DELETE', e, this._collectionName) }
     return Result.ok()

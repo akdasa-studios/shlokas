@@ -10,7 +10,7 @@ export class UserGradesCardsUseCase {
   constructor(app: Application) {
     this._app = app
     this._reviewDeckStore = useReviewDeckStore()
-    this._libraryStore = useLibraryStore(this._app)
+    this._libraryStore    = useLibraryStore(this._app)
   }
 
   async addCardsToDeck() {
