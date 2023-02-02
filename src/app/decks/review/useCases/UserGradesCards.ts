@@ -1,16 +1,25 @@
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade } from "@akdasa-studios/shlokas-core"
 import { ReviewVerseCardViewModel, useReviewDeckStore } from "@/app/decks/review"
 import { useLibraryStore } from "@/app/library"
+import { useAccountStore } from "@/app/settings"
 
 export class UserGradesCardsUseCase {
   private readonly _app: Application
   private readonly _reviewDeckStore
   private readonly _libraryStore
+  private readonly _accountStore
 
   constructor(app: Application) {
     this._app = app
     this._reviewDeckStore = useReviewDeckStore()
     this._libraryStore    = useLibraryStore(this._app)
+    this._accountStore = useAccountStore()
+
+    const { syncTime } = storeToRefs(this._accountStore)
+
+    watch(syncTime, () => this.addCardsToDeck())
   }
 
   async addCardsToDeck() {

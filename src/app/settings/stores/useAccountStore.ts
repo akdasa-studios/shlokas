@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, Ref, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useDeviceStore } from '@/app/useDeviceStorage'
 import { HOST } from '../../Env'
 
