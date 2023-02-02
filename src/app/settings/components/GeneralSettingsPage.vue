@@ -27,6 +27,7 @@
             interface="action-sheet"
             placeholder="Language"
             data-testid="language"
+            @ion-change="x => onLocaleChanged(x.detail.value)"
           >
             <ion-select-option
               v-for="lang in locale.availableLanguages"
@@ -64,11 +65,14 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
+import { inject } from 'vue'
 import { useAppearanceStore, useLocaleStore } from '@/app/settings'
 
+const i18n = inject("i18n") as any
 const locale = useLocaleStore()
 const appearance = useAppearanceStore()
 
-locale.load()
-appearance.load()
+function onLocaleChanged(lang: string) {
+  i18n.locale.value = lang
+}
 </script>

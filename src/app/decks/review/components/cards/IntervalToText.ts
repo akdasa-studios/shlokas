@@ -1,8 +1,5 @@
-import { i18n } from '@/i18n'
 
-export default function intervalToText(interval: number): string {
-  const t = i18n.global.t
-
+export default function intervalToText(t:any, interval: number): string {
   if (interval === 0) { return t('cards.schedule.inDays', { count: 0 }) }
   const days   = Math.floor(interval / 1440)
   const months = parseFloat((interval / 43200).toFixed(1))

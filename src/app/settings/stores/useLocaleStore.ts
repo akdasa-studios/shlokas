@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, watch, computed, Ref } from 'vue'
 import { Language } from '@akdasa-studios/shlokas-core'
-import { i18n } from '@/i18n'
 import { useDeviceStore } from '@/app/useDeviceStorage'
+// import { i18n } from '@/i18n'
 
 
 export const useLocaleStore = defineStore('settings/locale', () => {
@@ -13,7 +13,7 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const languageCode: Ref<string> = ref(i18n.global.locale.value)
+  const languageCode: Ref<string> = ref("en") //i18n.global.locale.value)
   const language = computed(() => availableLanguages.find(x => x.code === languageCode.value) || availableLanguages[0])
   const availableLanguages = [
     new Language("en", "English"),
@@ -36,7 +36,7 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   /* -------------------------------------------------------------------------- */
 
   async function onLanguageChanged(lang: string) {
-    i18n.global.locale.value = lang
+    // i18n.global.locale.value = lang
     await storage.set("language", lang)
   }
 

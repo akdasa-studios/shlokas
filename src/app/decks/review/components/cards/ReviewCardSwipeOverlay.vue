@@ -10,7 +10,7 @@
       {{ t("cards.grade." + reviewGradeToName) }}
     </div>
     <div class="interval">
-      {{ intervalToText(props.interval) }}
+      {{ intervalToText($t, props.interval) }}
     </div>
   </div>
 </template>

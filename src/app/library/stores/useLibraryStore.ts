@@ -14,7 +14,7 @@ export function useLibraryStore(app: Application) {
 
     async function getStatus(verseId: VerseId): Promise<Ref<VerseStatus>> {
       const statusIsCached = verseId.value in statuses
-      if (!statusIsCached) { sync(verseId) }
+      if (!statusIsCached) { await sync(verseId) }
       return statuses[verseId.value]
     }
 
