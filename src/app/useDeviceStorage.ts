@@ -15,11 +15,11 @@ export const useDeviceStore = function() {
   }
 
   async function get(key: string): Promise<any> {
-    return await deviceStorage.get(key)
+    return await deviceStorage?.get(key)
   }
 
   async function set(key: string, value: any) {
-    await deviceStorage.set(key, value)
+    await deviceStorage?.set(key, value)
   }
 
   /* -------------------------------------------------------------------------- */
