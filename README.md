@@ -5,10 +5,12 @@
 <p align="center"><i>Enhance your spiritual practice and deepen your understanding of the Vedas with Shlokas, the mobile app that makes it easy to memorize and recite Vedic verses. <a href='https://shlokas.app'>Try it out</a> today and take your spiritual journey to the next level</i></p><br>
 
 <p align="center">
-  <img src="docs/showcase.png"/>
-    <a href="https://apps.apple.com/rs/app/learn-shlokas/id1663506324">
-      <img src="docs/download-app-store.png" height="50">
-    </a>
+  <a href="https://shlokas.app">
+    <img src="docs/showcase.png"/>
+  </a>
+  <a href="https://apps.apple.com/rs/app/learn-shlokas/id1663506324">
+    <img src="docs/download-app-store.png" height="50">
+  </a>
 </p>
 
 
