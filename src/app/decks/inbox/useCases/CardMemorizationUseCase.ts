@@ -18,8 +18,8 @@ export class CardMemorizationUseCase {
     this._app = app
     this._inboxDeckStore = useInboxDeckStore()
     this._libraryStore = useLibraryStore(this._app)
-    this._cardMemorizedToast = useToast()
     this._accountStore = useAccountStore()
+    this._cardMemorizedToast = useToast()
 
     const { syncTime } = storeToRefs(this._accountStore)
 
