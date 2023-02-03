@@ -13,5 +13,8 @@
     "inbox": {
       "title": "Инбок"
     }
+  },
+  "common": {
+    "ok": "OK"
   }
 }
