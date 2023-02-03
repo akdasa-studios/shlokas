@@ -28,8 +28,7 @@
 If you'd like to help develop the project, here's a list of links to get you started:
 
 1. [Good first issues](https://github.com/akdasa-studios/shlokas/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) – list of simple issues any developer could start from.
-2. [Milestone](https://github.com/orgs/akdasa-studios/projects/1/views/5) - The current focus of development.
-3. [Backlog](https://github.com/orgs/akdasa-studios/projects/1/views/1) - All the tasks.
+2. [Roadmap](https://github.com/orgs/akdasa-studios/projects/1/views/7) - list of tasks we are working on.
 
 
 ## Documentation
