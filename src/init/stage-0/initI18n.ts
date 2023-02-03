@@ -4,6 +4,10 @@ import rs from '@/locale/rs.json'
 import ru from '@/locale/ru.json'
 import { InitArgs, InitStageResult } from '../initialization'
 
+
+/**
+ * Initialize the i18n plugin to support multiple languages
+ */
 export async function initI18n(
   { vue }: InitArgs
 ): Promise<InitStageResult> {

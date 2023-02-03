@@ -5,20 +5,21 @@ import { HOST } from '../../Env'
 
 
 export const useAccountStore = defineStore('settings/account', () => {
-  const KEY_NAME = 'name'
-  const KEY_EMAIL = 'email'
+  const KEY_NAME     = 'name'
+  const KEY_EMAIL    = 'email'
   const KEY_PASSWORD = 'password'
-  const KEY_TOKEN = 'token'
-  const storage = useDeviceStore()
+  const KEY_TOKEN    = 'token'
+  const storage      = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const name = ref("")
-  const email = ref("")
+  const name     = ref("")
+  const email    = ref("")
   const password = ref("")
-  const token = ref()
+  const syncTime = ref(new Date())
+  const token    = ref()
   const isAuthenticated = computed(() => !!token.value)
 
   const syncHost = computed(() => {
@@ -42,10 +43,10 @@ export const useAccountStore = defineStore('settings/account', () => {
   /* -------------------------------------------------------------------------- */
 
   async function load() {
-    name.value = await storage.get(KEY_NAME)
-    email.value = await storage.get(KEY_EMAIL)
+    name.value     = await storage.get(KEY_NAME)
+    email.value    = await storage.get(KEY_EMAIL)
     password.value = await storage.get(KEY_PASSWORD)
-    token.value = JSON.parse(await storage.get(KEY_TOKEN))
+    token.value    = JSON.parse(await storage.get(KEY_TOKEN))
   }
 
   function logOut() {
@@ -79,5 +80,5 @@ export const useAccountStore = defineStore('settings/account', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { name, email, password, load, logOut, isAuthenticated, token, syncHost }
+  return { name, email, password, load, logOut, isAuthenticated, token, syncHost, syncTime }
 })

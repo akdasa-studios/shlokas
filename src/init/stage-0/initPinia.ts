@@ -1,9 +1,12 @@
 import { createPinia } from 'pinia'
 import { InitArgs } from '../initialization'
 
+
+/**
+ * Initialize the pinia plugin to store application state
+ */
 export async function initPinia(
   { vue }: InitArgs
 ) {
-  const pinia = createPinia()
-  vue.use(pinia)
+  vue.use(createPinia())
 }

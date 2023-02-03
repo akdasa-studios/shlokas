@@ -35,16 +35,6 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'account',
             component: () => import('@/app/settings/components/account/AccountPage.vue'),
-            // children: [
-            //   {
-            //     path: 'login',
-            //     component: () => import('@/app/settings/account/LogInPage.vue'),
-            //   },
-            //   {
-            //     path: 'signup',
-            //     component: () => import('@/app/settings/account/SignUpPage.vue'),
-            //   }
-            // ]
           }
         ]
       },

@@ -3,7 +3,9 @@ import { BrowserTracing } from '@sentry/tracing'
 import * as SentrySibling from '@sentry/vue'
 import { InitArgs } from '../initialization'
 
-
+/**
+ * Initialize the sentry plugin to track errors
+ */
 export async function initSentry({ vue }: InitArgs) {
   if (process.env.NODE_ENV === 'development') {
     return
@@ -14,7 +16,7 @@ export async function initSentry({ vue }: InitArgs) {
 
   Sentry.init({
     app: vue,
-    dsn:DSN,
+    dsn: DSN,
     release: `shlokas@${VERSION}`,
     dist: '1',
     tracesSampleRate: 1.0,
