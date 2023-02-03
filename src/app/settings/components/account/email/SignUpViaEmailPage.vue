@@ -15,13 +15,6 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-      <div
-        v-if="showVerifyEmail"
-        class="ion-padding alert"
-      >
-        {{ $t('account.confirmEmail') }}
-      </div>
-
       <ion-list>
         <!-- Name -->
         <ion-item class="ion-no-padding">
@@ -92,26 +85,17 @@ const account = useAccountStore()
 const { name, email, password } = storeToRefs(account)
 
 const inProgress = ref(false)
-const showVerifyEmail = ref(false)
 
 async function onSignUp() {
   inProgress.value = true
   await new AuthService(AUTH_HOST).signUp(
     name.value, email.value, password.value,
   )
+  modalController.dismiss(null, 'ok')
   inProgress.value = false
-  showVerifyEmail.value = true
 }
 
 function cancel() {
   return modalController.dismiss(null, 'cancel')
 }
 </script>
-
-<style scoped>
-.alert {
-  background-color: var(--ion-color-warning);
-  border: 1px solid var(--ion-color-warning-shade);
-  border-radius: 10px;
-}
-</style>

@@ -10,6 +10,13 @@
     </ion-header>
 
     <ion-content class="ion-padding">
+      <div
+        v-if="showVerifyEmail"
+        class="ion-padding alert"
+      >
+        {{ $t('account.confirmEmail') }}
+      </div>
+
       <h1 v-if="isAuthenticated">
         {{ $t('account.welcomeBack') }}
       </h1>
@@ -98,7 +105,7 @@ import {
   IonIcon, modalController
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
@@ -110,9 +117,10 @@ import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 const inProgress = ref(false)
 
 const account = useAccountStore()
-const { isAuthenticated, syncHost, token, syncTime } = storeToRefs(account)
+const { isAuthenticated, syncHost, token, syncTime, email } = storeToRefs(account)
 const { logOut } = account
 
+const showVerifyEmail = computed(() => email.value && !token.value)
 
 async function openModal(component: any) {
   const modal = await modalController.create({ component })
@@ -138,3 +146,13 @@ async function onRefreshToken() {
   token.value.expires = (await service.refreshToken(token.value)).expires
 }
 </script>
+
+
+<style scoped>
+.alert {
+  color: var(--ion-color-warning-contrast);
+  background-color: var(--ion-color-warning);
+  border: 1px solid var(--ion-color-warning-shade);
+  border-radius: 10px;
+}
+</style>
