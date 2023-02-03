@@ -14,10 +14,13 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
-      <ion-list>
+    <ion-content>
+      <ion-list
+        lines="full"
+        class="ion-no-margin ion-no-padding"
+      >
         <!-- Name -->
-        <ion-item class="ion-no-padding">
+        <ion-item>
           <ion-label position="stacked">
             {{ $t('account.name') }}
           </ion-label>
@@ -27,7 +30,7 @@
         </ion-item>
 
         <!-- email -->
-        <ion-item class="ion-no-padding">
+        <ion-item>
           <ion-label position="stacked">
             {{ $t('account.email') }}
           </ion-label>
@@ -38,7 +41,7 @@
         </ion-item>
 
         <!-- password -->
-        <ion-item class="ion-no-padding">
+        <ion-item>
           <ion-label position="stacked">
             {{ $t('account.password') }}
           </ion-label>
@@ -49,7 +52,7 @@
         </ion-item>
       </ion-list>
 
-      <div>
+      <div class="ion-padding">
         <ion-button
           expand="block"
           @click="onSignUp"
