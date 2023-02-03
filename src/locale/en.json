@@ -27,7 +27,8 @@
     "cancel": "Cancel",
     "close": "Close",
     "revert": "Revert",
-    "wait": "Please wait..."
+    "wait": "Please wait...",
+    "ok": "OK"
   },
   "decks": {
     "inbox": {
@@ -67,7 +68,13 @@
     "password": "Password",
     "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
     "name": "Name",
-    "syncTime": "Sync time"
+    "syncTime": "Sync time",
+    "logInFailed": {
+      "title": "Login failed"
+    },
+    "loginFailed": {
+      "message": "Unable to log in using these credentials"
+    }
   },
   "tutorial": {
     "inbox": {

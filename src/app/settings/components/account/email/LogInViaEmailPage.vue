@@ -57,6 +57,14 @@
         :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
+
+      <ion-alert
+        :is-open="loginFailedDialogOpen"
+        :header="$t('account.logInFailed.title')"
+        :message="$t('account.loginFailed.message')"
+        :buttons="[$t('common.ok')]"
+        @did-dismiss="loginFailedDialogOpen=false"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -66,7 +74,7 @@
 import {
   IonButton, IonContent, IonHeader, IonInput, IonItem,
   IonLabel, IonList, IonLoading, IonPage, IonTitle,
-  IonToolbar, IonButtons, modalController
+  IonToolbar, IonButtons, modalController, IonAlert
 } from '@ionic/vue'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -78,6 +86,7 @@ const account = useAccountStore()
 const { email, password, token } = storeToRefs(account)
 
 const inProgress = ref(false)
+const loginFailedDialogOpen = ref(false)
 
 async function onLogIn() {
   inProgress.value = true
@@ -89,7 +98,7 @@ async function onLogIn() {
     token.value = result.value
     modalController.dismiss(null, 'ok')
   } else {
-    console.log("Ero")
+    loginFailedDialogOpen.value = true
   }
   inProgress.value = false
 }
