@@ -6,6 +6,7 @@ brew link node@18
 cd "$CI_WORKSPACE"
 npm install
 npm run build
+npx capacitor-set-version set:ios -v $(npm pkg get version) -b $CI_BUILD_NUMBER
 npx cap sync
 
 cd ./ios/App
