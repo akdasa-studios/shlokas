@@ -20,7 +20,7 @@ export class CouchDB {
         // revs_limit: 1,
         // auto_compaction: true,
         location: 'default',
-        iosDatabaseLocation: 'default',
+        // iosDatabaseLocation: 'default',
       })
     } else {
       this._db = new PouchDB(dbName, {
