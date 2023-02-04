@@ -6,6 +6,5 @@ coverage
 test-results/
 coverage/
 .idea
-ios/
 .DS_Store
 resources/ios/**/*
