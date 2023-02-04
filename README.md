@@ -2,7 +2,7 @@
     <img src="docs/logo.svg" height="184px"/>
 </p>
 
-<p align="center"><i>Enhance your spiritual practice and deepen your understanding of the Vedas with Shlokas, the mobile app that makes it easy to memorize and recite Vedic verses. <a href='https://shlokas.app'>Try it out</a> today and take your spiritual journey to the next level</i></p><br>
+<p align="center"><i>Enhance your spiritual practice and deepen your understanding of the Vedas with Shlokas, the mobile app that makes it easy to memorize and recite Vedic verses. <a href='https://shlokas.app'>Try it out</a> today and take your spiritual journey to the next level.</i></p><br>
 
 <p align="center">
   <a href="https://shlokas.app">
