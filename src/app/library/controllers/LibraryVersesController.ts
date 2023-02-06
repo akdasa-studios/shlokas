@@ -30,6 +30,7 @@ export class LibraryVersesController {
     emitter.on('commandExecuted', e => {
       if (e instanceof UpdateVerseStatus) { this.refreshVerse(e.verseId)}
     })
+    emitter.on('syncCompleted', () => { this.onQueryChanged() })
   }
 
   refreshVerse(verseId: VerseId) { this._libraryStore.sync(verseId) }
