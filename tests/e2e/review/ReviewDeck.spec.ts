@@ -20,5 +20,6 @@ test.describe('Review Deck', () => {
 
     // assert:
     await expect(review.reviewEmpty).toBeVisible()
+    await expect(review.cardsCountDueToTomorrow).toBeHidden()
   })
 })

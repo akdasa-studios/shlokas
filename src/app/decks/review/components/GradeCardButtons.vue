@@ -72,7 +72,7 @@ const emit = defineEmits<{
       background-color: var(--ion-color-danger-tint);
     }
     &.hard {
-      background-color: var(--ion-color-warning-tint);
+      background-color: var(--ion-color-warning-shade);
     }
     &.good {
       background-color: var(--ion-color-success-shade);

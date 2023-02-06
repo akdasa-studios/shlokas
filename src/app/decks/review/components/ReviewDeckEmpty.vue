@@ -6,12 +6,23 @@
     />
     <div class="text">
       <div>{{ $t('decks.review.empty') }}</div>
+      <div
+        v-if="cardsCountDueToTomorrow > 0"
+        data-testid="cardsCountDueToTomorrow"
+      >
+        {{ $t('decks.review.dueToTomorrow', { count: cardsCountDueToTomorrow }) }}
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
 import { DarkImage } from '@/app/shared'
+import { useStatisticsStore } from '@/app/statistics'
+
+const statisticsStore = useStatisticsStore()
+const { cardsCountDueToTomorrow } = storeToRefs(statisticsStore)
 </script>
 
 <style scoped>

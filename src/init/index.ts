@@ -4,6 +4,7 @@ import { initDeviceStorage } from "./stage-0/initDeviceStorage"
 import { initI18n } from "./stage-0/initI18n"
 import { initPinia } from "./stage-0/initPinia"
 import { initEmitter } from "./stage-0/initEmitter"
+import { initAppStateChange } from "./stage-0/initAppStateChange"
 
 // stage 1: logic
 import { initCommands } from "./stage-1/initCommands"
@@ -15,6 +16,7 @@ import { initStores } from "./stage-1/initStores"
 import { initStaticData } from "./stage-1/initStaticData"
 import { initLocale } from "./stage-1/initLocale"
 import { initSyncTask } from "./stage-1/initSyncTask"
+import { initSchedule } from "./stage-1/initSchedule"
 
 
 const initStages = [
@@ -23,6 +25,7 @@ const initStages = [
   initPinia,
   initI18n,
   initEmitter,
+  initAppStateChange,
 
   initLocale,
   initStores,
@@ -32,7 +35,8 @@ const initStages = [
   initLibrary,
   initInboxDeck,
   initReviewDeck,
-  initSyncTask
+  initSyncTask,
+  initSchedule
 ]
 
 export default initStages

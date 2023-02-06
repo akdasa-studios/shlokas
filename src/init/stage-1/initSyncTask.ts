@@ -16,15 +16,15 @@ export async function initSyncTask(
     if (isActive) { return }
     const taskId = await BackgroundTask.beforeExit(async () => {
       const account = useAccountStore()
-      if (!account?.token) { return }
+      if (account.token === undefined) { return }
 
       if (new Date().getTime() >= account.token.expires) {
         // refresh token
         const service = new AuthService(AUTH_HOST)
         account.token.expires = (await service.refreshToken(account.token)).expires
-      } else if (account.syncHost?.value) {
+      } else if (account.syncHost) {
         // sync db
-        await (get("couchDB") as any).sync(account.syncHost.value)
+        await (get("couchDB") as any).sync(account.syncHost)
       }
       BackgroundTask.finish({ taskId })
     })
