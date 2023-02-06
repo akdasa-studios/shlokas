@@ -18,12 +18,10 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { inject } from 'vue'
-import { Application } from '@akdasa-studios/shlokas-core'
 import { DarkImage } from '@/app/shared'
 import { useStatisticsStore } from '@/app/statistics'
 
-const statisticsStore = useStatisticsStore(inject('app') as Application)
+const statisticsStore = useStatisticsStore()
 const { cardsCountDueToTomorrow } = storeToRefs(statisticsStore)
 </script>
 

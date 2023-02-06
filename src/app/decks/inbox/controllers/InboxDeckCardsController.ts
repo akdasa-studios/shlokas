@@ -1,29 +1,27 @@
-import { watch } from 'vue'
-import { Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
-import { storeToRefs } from 'pinia'
+import { AddVerseToInboxDeck, Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { Emitter } from 'mitt'
 import { useToast } from '@/app/composables'
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
+import { Events } from '@/app/Events'
 import { useLibraryStore } from '@/app/library'
-import { useAccountStore } from "@/app/settings"
 
 
-export class CardMemorizationUseCase {
+export class InboxDeckCardsController {
   private readonly _app: Application
   private readonly _inboxDeckStore
-  private readonly _accountStore
   private readonly _libraryStore
   private readonly _cardMemorizedToast
 
-  constructor(app: Application) {
+  constructor(app: Application, emitter: Emitter<Events>) {
     this._app = app
     this._inboxDeckStore = useInboxDeckStore()
     this._libraryStore = useLibraryStore(this._app)
-    this._accountStore = useAccountStore()
     this._cardMemorizedToast = useToast()
 
-    const { syncTime } = storeToRefs(this._accountStore)
-
-    watch(syncTime, () => this.addCardsToDeck())
+    emitter.on('commandExecuted', e => {
+      if (e instanceof AddVerseToInboxDeck) { this.addCardsToDeck() }
+    })
+    emitter.on('syncCompleted', () => { this.addCardsToDeck() })
   }
 
   /**

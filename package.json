@@ -35,6 +35,7 @@
     "core-js": "^3.6.5",
     "interactjs": "^1.10.17",
     "ionicons": "^6.0.3",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.28",
     "pouchdb": "^8.0.0",
     "pouchdb-adapter-cordova-sqlite": "^2.0.8",

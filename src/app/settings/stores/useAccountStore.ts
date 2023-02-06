@@ -19,7 +19,6 @@ export const useAccountStore = defineStore('settings/account', () => {
   const name     = ref("")
   const email    = ref("")
   const password = ref("")
-  const syncTime = ref(new Date())
   const token: Ref<AuthToken|undefined> = ref()
   const isAuthenticated = computed(() => !!token.value)
 
@@ -81,5 +80,5 @@ export const useAccountStore = defineStore('settings/account', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { name, email, password, load, logOut, isAuthenticated, token, syncHost, syncTime }
+  return { name, email, password, load, logOut, isAuthenticated, token, syncHost }
 })

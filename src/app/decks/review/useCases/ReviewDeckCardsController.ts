@@ -1,25 +1,25 @@
-import { watch } from 'vue'
-import { storeToRefs } from 'pinia'
-import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCardMemorized, ReviewCard, ReviewCardReviewed, ReviewGrade } from "@akdasa-studios/shlokas-core"
+import { Emitter } from 'mitt'
 import { ReviewVerseCardViewModel, useReviewDeckStore } from "@/app/decks/review"
+import { Events } from '@/app/Events'
 import { useLibraryStore } from "@/app/library"
-import { useAccountStore } from "@/app/settings"
 
-export class UserGradesCardsUseCase {
+export class ReviewDeckCardsController {
   private readonly _app: Application
   private readonly _reviewDeckStore
   private readonly _libraryStore
-  private readonly _accountStore
 
-  constructor(app: Application) {
+  constructor(app: Application, emitter: Emitter<Events>) {
     this._app = app
     this._reviewDeckStore = useReviewDeckStore()
     this._libraryStore    = useLibraryStore(this._app)
-    this._accountStore = useAccountStore()
 
-    const { syncTime } = storeToRefs(this._accountStore)
 
-    watch(syncTime, () => this.addCardsToDeck())
+    emitter.on('commandExecuted', e => {
+      if (e instanceof InboxCardMemorized) { this.addCardsToDeck()}
+    })
+    emitter.on('syncCompleted', () => { this.addCardsToDeck() })
+    emitter.on('appOpened', () => this.addCardsToDeck())
   }
 
   async addCardsToDeck() {

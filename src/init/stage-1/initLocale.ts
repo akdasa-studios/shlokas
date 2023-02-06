@@ -24,7 +24,6 @@ export async function initLocale(
   store.languageCode = finalLang
 }
 
-
 function check(lang: string) {
   // TODO: one place to store available languages
   if (lang === "ru") return "ru"

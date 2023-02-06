@@ -1,8 +1,10 @@
+import { Emitter } from 'mitt'
 import { useTutorialStore , TutorialCardViewModel } from '@/app/decks/shared'
 import { useInboxDeckStore } from '@/app/decks/inbox'
+import { Events } from '@/app/Events'
 
 
-export class InboxDeckTutorialUseCase {
+export class InboxDeckTutorialController {
   private readonly _inboxDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
@@ -12,9 +14,10 @@ export class InboxDeckTutorialUseCase {
     "inbox.final"
   ]
 
-  constructor() {
+  constructor(emitter: Emitter<Events>) {
     this._inboxDeckStore = useInboxDeckStore()
     this._tutorialStore = useTutorialStore()
+    emitter.on('appOpened', () => this.addTutorialCards())
   }
 
   /**

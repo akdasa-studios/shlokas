@@ -61,6 +61,7 @@ async function initApp() {
     }
   }
   console.groupEnd()
+  services["emitter"].emit("appOpened")
 
   router.isReady().then(() => {
     vue.mount('#app')
