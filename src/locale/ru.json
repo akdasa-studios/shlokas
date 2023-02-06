@@ -38,8 +38,9 @@
       "verseAdded": "{verseNumber} добавлен во \"Входящие\""
     },
     "review": {
-      "empty": "Пусто.",
-      "title": "Обзор"
+      "empty": "На сегодня у вас нет карточек.",
+      "title": "Обзор",
+      "dueToTomorrow": "Карточек на завтра: {count}"
     }
   },
   "library": {

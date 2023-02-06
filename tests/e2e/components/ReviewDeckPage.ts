@@ -19,6 +19,7 @@ export class ReviewDeckPage {
     ]
   }
   get reviewEmpty() { return this.page.getByTestId("reviewEmpty") }
+  get cardsCountDueToTomorrow() { return this.page.getByTestId("cardsCountDueToTomorrow") }
 
   async swipeCardLeft(locator: Locator) {
     await locator.dragTo(locator, {

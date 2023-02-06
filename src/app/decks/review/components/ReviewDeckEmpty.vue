@@ -6,12 +6,24 @@
     />
     <div class="text">
       <div>{{ $t('decks.review.empty') }}</div>
+      <div
+        data-testid="cardsCountDueToTomorrow"
+      >
+        {{ $t('decks.review.dueToTomorrow', { count: cardsCountDueToTomorrow }) }}
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
+import { inject } from 'vue'
+import { Application } from '@akdasa-studios/shlokas-core'
 import { DarkImage } from '@/app/shared'
+import { useStatisticsStore } from '@/app/statistics'
+
+const statisticsStore = useStatisticsStore(inject('app') as Application)
+const { cardsCountDueToTomorrow } = storeToRefs(statisticsStore)
 </script>
 
 <style scoped>
