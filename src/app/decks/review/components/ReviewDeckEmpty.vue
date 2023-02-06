@@ -7,6 +7,7 @@
     <div class="text">
       <div>{{ $t('decks.review.empty') }}</div>
       <div
+        v-if="cardsCountDueToTomorrow > 0"
         data-testid="cardsCountDueToTomorrow"
       >
         {{ $t('decks.review.dueToTomorrow', { count: cardsCountDueToTomorrow }) }}
