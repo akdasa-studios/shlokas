@@ -71,8 +71,8 @@ import {
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const cardsMemorization = inject('CardMemorizationUseCase') as InboxDeckCardsController
-const inboxDeckTutorial = inject('InboxDeckTutorialUseCase') as InboxDeckTutorialController
+const cardsMemorization = inject('inboxDeckCardsController') as InboxDeckCardsController
+const inboxDeckTutorial = inject('inboxDeckTutorialController') as InboxDeckTutorialController
 
 const deck = new StackedDeckBehaviour()
 

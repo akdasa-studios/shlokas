@@ -60,8 +60,8 @@ import { CardsDeck, StackedDeckBehaviour, TutorialCard, TutorialCardViewModel, V
 import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialController, ReviewVerseCardViewModel, ReviewDeckCardsController, ReviewCardAnswerButtons } from '@/app/decks/review'
 import { useAppearanceStore } from '@/app/settings'
 
-const userGradesCards = inject('UserGradesCardsUseCase') as ReviewDeckCardsController
-const reviewDeckTutorial = inject('ReviewDeckTutorialUseCase') as ReviewDeckTutorialController
+const userGradesCards = inject('reviewDeckCardsController') as ReviewDeckCardsController
+const reviewDeckTutorial = inject('reviewDeckTutorialController') as ReviewDeckTutorialController
 const appearance = useAppearanceStore()
 
 const deck = new StackedDeckBehaviour()

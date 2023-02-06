@@ -9,7 +9,6 @@ import { initAppStateChange } from "./stage-0/initAppStateChange"
 // stage 1: logic
 import { initCommands } from "./stage-1/initCommands"
 import { initControllers } from "./stage-1/initControllers"
-import { initLibrary } from "./stage-1/initLibrary"
 import { initParams } from "./stage-1/initParams"
 import { initStores } from "./stage-1/initStores"
 import { initStaticData } from "./stage-1/initStaticData"
@@ -30,7 +29,6 @@ const initStages = [
   initParams,
   initCommands,
   initStaticData,
-  initLibrary,
   initControllers,
   initSyncTask,
 ]

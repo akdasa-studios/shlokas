@@ -86,8 +86,8 @@ import {
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
-const addVerseScenario = inject('AddVerseToInboxDeckUseCase') as LibraryAddVerseController
-const searchScenario = inject('SearchVersesUseCase') as LibraryVersesController
+const addVerseScenario = inject('libraryAddVerseController') as LibraryAddVerseController
+const searchScenario = inject('libraryVersesController') as LibraryVersesController
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

@@ -14,12 +14,12 @@ export async function initControllers(
 
   return {
     inject: {
-      "AddVerseToInboxDeckUseCase": new LibraryAddVerseController(shlokas),
-      "SearchVersesUseCase": new LibraryVersesController(shlokas, emitter),
-      "CardMemorizationUseCase": new InboxDeckCardsController(shlokas, emitter),
-      "InboxDeckTutorialUseCase": new InboxDeckTutorialController(emitter),
-      "UserGradesCardsUseCase":  new ReviewDeckCardsController(shlokas, emitter),
-      "ReviewDeckTutorialUseCase": new ReviewDeckTutorialController(emitter),
+      "libraryAddVerseController": new LibraryAddVerseController(shlokas),
+      "libraryVersesController": new LibraryVersesController(shlokas, emitter),
+      "inboxDeckCardsController": new InboxDeckCardsController(shlokas, emitter),
+      "inboxDeckTutorialController": new InboxDeckTutorialController(emitter),
+      "reviewDeckCardsController":  new ReviewDeckCardsController(shlokas, emitter),
+      "reviewDeckTutorialController": new ReviewDeckTutorialController(emitter),
       "statisticsController": new StatisticsController(shlokas, emitter)
     }
   }
