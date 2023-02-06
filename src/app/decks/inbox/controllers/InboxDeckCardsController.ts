@@ -6,7 +6,7 @@ import { Events } from '@/app/Events'
 import { useLibraryStore } from '@/app/library'
 
 
-export class CardMemorizationUseCase {
+export class InboxDeckCardsController {
   private readonly _app: Application
   private readonly _inboxDeckStore
   private readonly _libraryStore

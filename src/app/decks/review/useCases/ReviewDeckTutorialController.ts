@@ -1,8 +1,10 @@
+import { Emitter } from 'mitt'
 import { useReviewDeckStore } from '@/app/decks/review'
 import { useTutorialStore , TutorialCardViewModel } from '@/app/decks/shared'
+import { Events } from '@/app/Events'
 
 
-export class ReviewDeckTutorialUseCase {
+export class ReviewDeckTutorialController {
   private readonly _reviewDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
@@ -10,9 +12,10 @@ export class ReviewDeckTutorialUseCase {
     "review.intervals",
   ]
 
-  constructor() {
+  constructor(emitter: Emitter<Events>) {
     this._reviewDeckStore = useReviewDeckStore()
     this._tutorialStore = useTutorialStore()
+    emitter.on('appOpened', () => this.addTutorialCards())
   }
 
   /**

@@ -65,14 +65,14 @@ import {
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  InboxDeckTutorialUseCase,
+  InboxDeckTutorialController,
   InboxVerseCardViewModel,
-  MemorizingStatus, CardMemorizationUseCase
+  MemorizingStatus, InboxDeckCardsController
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const cardsMemorization = inject('CardMemorizationUseCase') as CardMemorizationUseCase
-const inboxDeckTutorial = inject('InboxDeckTutorialUseCase') as InboxDeckTutorialUseCase
+const cardsMemorization = inject('CardMemorizationUseCase') as InboxDeckCardsController
+const inboxDeckTutorial = inject('InboxDeckTutorialUseCase') as InboxDeckTutorialController
 
 const deck = new StackedDeckBehaviour()
 

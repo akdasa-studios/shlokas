@@ -57,11 +57,11 @@ import { ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
 import { CardsDeck, StackedDeckBehaviour, TutorialCard, TutorialCardViewModel, Vector3d, VerseCardViewModel } from '@/app/decks/shared'
-import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialUseCase, ReviewVerseCardViewModel, UserGradesCardsUseCase, ReviewCardAnswerButtons } from '@/app/decks/review'
+import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialController, ReviewVerseCardViewModel, ReviewDeckCardsController, ReviewCardAnswerButtons } from '@/app/decks/review'
 import { useAppearanceStore } from '@/app/settings'
 
-const userGradesCards = inject('UserGradesCardsUseCase') as UserGradesCardsUseCase
-const reviewDeckTutorial = inject('ReviewDeckTutorialUseCase') as ReviewDeckTutorialUseCase
+const userGradesCards = inject('UserGradesCardsUseCase') as ReviewDeckCardsController
+const reviewDeckTutorial = inject('ReviewDeckTutorialUseCase') as ReviewDeckTutorialController
 const appearance = useAppearanceStore()
 
 const deck = new StackedDeckBehaviour()

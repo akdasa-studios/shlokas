@@ -7,7 +7,7 @@ import { LibraryVerse, useLibraryStore } from '@/app/library'
 import { Events } from "@/app/Events"
 
 
-export class SearchVersesUseCase {
+export class LibraryVersesController {
   public verses: Ref<LibraryVerse[]> = ref([])
   public query = ref("")
 

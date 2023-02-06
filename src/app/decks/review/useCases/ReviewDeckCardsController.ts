@@ -4,7 +4,7 @@ import { ReviewVerseCardViewModel, useReviewDeckStore } from "@/app/decks/review
 import { Events } from '@/app/Events'
 import { useLibraryStore } from "@/app/library"
 
-export class UserGradesCardsUseCase {
+export class ReviewDeckCardsController {
   private readonly _app: Application
   private readonly _reviewDeckStore
   private readonly _libraryStore
@@ -19,6 +19,7 @@ export class UserGradesCardsUseCase {
       if (e instanceof InboxCardMemorized) { this.addCardsToDeck()}
     })
     emitter.on('syncCompleted', () => { this.addCardsToDeck() })
+    emitter.on('appOpened', () => this.addCardsToDeck())
   }
 
   async addCardsToDeck() {

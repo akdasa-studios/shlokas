@@ -4,7 +4,7 @@ import { useDialog, useToast } from "@/app/composables"
 import { DummyLibraryVerse, LibraryVerse } from '@/app/library'
 
 
-export class AddVerseToInboxDeckUseCase {
+export class LibraryAddVerseController {
   private _app: Application
   private _addedVerseId: VerseId|undefined
   private _toast

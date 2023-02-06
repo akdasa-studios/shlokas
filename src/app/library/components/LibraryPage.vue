@@ -78,16 +78,16 @@ import {
 import { inject } from 'vue'
 import { testId } from '@/app/TestId'
 import {
-  AddVerseDialog, AddVerseToInboxDeckUseCase,
-  SearchVersesUseCase
+  AddVerseDialog, LibraryAddVerseController,
+  LibraryVersesController
 } from '@/app/library'
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
-const addVerseScenario = inject('AddVerseToInboxDeckUseCase') as AddVerseToInboxDeckUseCase
-const searchScenario = inject('SearchVersesUseCase') as SearchVersesUseCase
+const addVerseScenario = inject('AddVerseToInboxDeckUseCase') as LibraryAddVerseController
+const searchScenario = inject('SearchVersesUseCase') as LibraryVersesController
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

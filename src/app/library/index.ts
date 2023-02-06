@@ -7,8 +7,8 @@ export { default as LibraryPage } from './components/LibraryPage.vue'
 export { default as AddVerseDialog } from './components/AddVerseDialog.vue'
 
 // scenarios
-export * from './scenarios/AddVerseToInboxDeckUseCase'
-export * from './scenarios/SearchVersesUseCase'
+export * from './controllers/LibraryAddVerseController'
+export * from './controllers/LibraryVersesController'
 
 // stores
 export * from './stores/useLibraryStore'
