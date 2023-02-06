@@ -105,19 +105,21 @@ import {
   IonIcon, modalController
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { Emitter } from 'mitt'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
+import { Events } from '@/app/Events'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
-
+const emitter = inject("emitter") as Emitter<Events>
 const account = useAccountStore()
-const { isAuthenticated, syncHost, token, syncTime, email } = storeToRefs(account)
+const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account
 
 const showVerifyEmail = computed(() => email.value && !token.value)
@@ -130,14 +132,14 @@ async function openModal(component: any) {
 async function onSync() {
   inProgress.value = true
   await couchDB.sync(syncHost.value)
-  syncTime.value = new Date()
+  emitter.emit('syncCompleted')
   inProgress.value = false
 }
 
 async function onClean() {
   inProgress.value = true
   await couchDB.deleteAll()
-  syncTime.value = new Date()
+  emitter.emit('syncCompleted')
   inProgress.value = false
 }
 

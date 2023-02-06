@@ -1,11 +1,14 @@
+import { Emitter } from 'mitt'
 import { UserGradesCardsUseCase , ReviewDeckTutorialUseCase } from '@/app/decks/review'
+import { Events } from '@/app/Events'
 import { InitArgs, InitStageResult } from '../initialization'
 
 
 export async function initReviewDeck(
-  { shlokas }: InitArgs
+  { get, shlokas }: InitArgs
 ): Promise<InitStageResult> {
-  const case1 = new UserGradesCardsUseCase(shlokas)
+  const emitter = get<Emitter<Events>>("emitter")
+  const case1 = new UserGradesCardsUseCase(shlokas, emitter)
   const case2 = new ReviewDeckTutorialUseCase()
 
   await case1.addCardsToDeck()

@@ -3,6 +3,7 @@ import { initSentry } from "./stage-0/initSentry"
 import { initDeviceStorage } from "./stage-0/initDeviceStorage"
 import { initI18n } from "./stage-0/initI18n"
 import { initPinia } from "./stage-0/initPinia"
+import { initEmitter } from "./stage-0/initEmitter"
 
 // stage 1: logic
 import { initCommands } from "./stage-1/initCommands"
@@ -21,6 +22,7 @@ const initStages = [
   initDeviceStorage,
   initPinia,
   initI18n,
+  initEmitter,
 
   initLocale,
   initStores,
