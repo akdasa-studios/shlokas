@@ -1,6 +1,6 @@
 import { Result } from '@akdasa-studios/framework'
 
-interface AuthToken {
+export interface AuthToken {
   issued: number
   expires: number
   token: string
