@@ -17,7 +17,7 @@ export class InboxDeckTutorialController {
   constructor(emitter: Emitter<Events>) {
     this._inboxDeckStore = useInboxDeckStore()
     this._tutorialStore = useTutorialStore()
-    emitter.on('appOpened', () => this.addTutorialCards())
+    emitter.on('appOpened', async () => await this.addTutorialCards())
   }
 
   /**

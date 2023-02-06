@@ -15,11 +15,11 @@ export class ReviewDeckCardsController {
     this._libraryStore    = useLibraryStore(this._app)
 
 
-    emitter.on('commandExecuted', e => {
-      if (e instanceof InboxCardMemorized) { this.addCardsToDeck()}
+    emitter.on('commandExecuted', async (e) => {
+      if (e instanceof InboxCardMemorized) { await this.addCardsToDeck()}
     })
-    emitter.on('syncCompleted', () => { this.addCardsToDeck() })
-    emitter.on('appOpened', () => this.addCardsToDeck())
+    emitter.on('syncCompleted', async () => await this.addCardsToDeck())
+    emitter.on('appOpened', async () => await this.addCardsToDeck())
   }
 
   async addCardsToDeck() {

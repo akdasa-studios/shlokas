@@ -27,10 +27,10 @@ export class LibraryVersesController {
       { immediate: true }
     )
 
-    emitter.on('commandExecuted', e => {
-      if (e instanceof UpdateVerseStatus) { this.refreshVerse(e.verseId)}
+    emitter.on('commandExecuted', async (e) => {
+      if (e instanceof UpdateVerseStatus) { await this.refreshVerse(e.verseId)}
     })
-    emitter.on('syncCompleted', () => { this.onQueryChanged() })
+    emitter.on('syncCompleted', async () => { await this.onQueryChanged() })
   }
 
   refreshVerse(verseId: VerseId) { this._libraryStore.sync(verseId) }
