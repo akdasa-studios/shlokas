@@ -12,11 +12,12 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const languageCode: Ref<string> = ref("en") //i18n.global.locale.value)
+  const languageCode: Ref<string> = ref("en")
   const language = computed(() => availableLanguages.find(x => x.code === languageCode.value) || availableLanguages[0])
   const availableLanguages = [
     new Language("en", "English"),
     new Language("ru", "Русский"),
+    new Language("uk", "Українська мова"),
     // new Language("rs", "Српски")
   ]
 
