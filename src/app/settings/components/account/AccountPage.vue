@@ -25,10 +25,6 @@
         {{ $t('account.token.validTill') }}:
         {{ new Date(token.expires).toLocaleString() }}
       </div>
-      <div v-if="token">
-        {{ $t('account.syncTime') }}:
-        {{ syncTime.toLocaleString() }}
-      </div>
 
       <ion-button
         v-if="!isAuthenticated"

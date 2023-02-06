@@ -15,7 +15,7 @@ export class ReviewDeckTutorialController {
   constructor(emitter: Emitter<Events>) {
     this._reviewDeckStore = useReviewDeckStore()
     this._tutorialStore = useTutorialStore()
-    emitter.on('appOpened', () => this.addTutorialCards())
+    emitter.on('appOpened', async () => await this.addTutorialCards())
   }
 
   /**

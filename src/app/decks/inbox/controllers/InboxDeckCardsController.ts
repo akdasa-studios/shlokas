@@ -18,10 +18,10 @@ export class InboxDeckCardsController {
     this._libraryStore = useLibraryStore(this._app)
     this._cardMemorizedToast = useToast()
 
-    emitter.on('commandExecuted', e => {
-      if (e instanceof AddVerseToInboxDeck) { this.addCardsToDeck() }
+    emitter.on('commandExecuted', async (e) => {
+      if (e instanceof AddVerseToInboxDeck) { await this.addCardsToDeck() }
     })
-    emitter.on('syncCompleted', () => { this.addCardsToDeck() })
+    emitter.on('syncCompleted', async () => { await this.addCardsToDeck() })
   }
 
   /**
