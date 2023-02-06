@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { computed, ref, watch } from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { useDeviceStore } from '@/app/useDeviceStorage'
+import { AuthToken } from '@/services/AuthService'
 import { HOST } from '../../Env'
 
 
@@ -19,7 +20,7 @@ export const useAccountStore = defineStore('settings/account', () => {
   const email    = ref("")
   const password = ref("")
   const syncTime = ref(new Date())
-  const token    = ref()
+  const token: Ref<AuthToken|undefined> = ref()
   const isAuthenticated = computed(() => !!token.value)
 
   const syncHost = computed(() => {
@@ -53,7 +54,7 @@ export const useAccountStore = defineStore('settings/account', () => {
     name.value = ""
     email.value = ""
     password.value = ""
-    token.value = ""
+    token.value = undefined
   }
 
   /* -------------------------------------------------------------------------- */
