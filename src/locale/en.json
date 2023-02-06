@@ -39,7 +39,8 @@
     },
     "review": {
       "empty": "Your have nothing to review today.",
-      "title": "Review"
+      "title": "Review",
+      "dueToTomorrow": "You have {count} card scheduled for tomorrow.|You have {count} cards scheduled for tomorrow."
     }
   },
   "library": {
