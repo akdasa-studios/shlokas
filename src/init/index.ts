@@ -14,6 +14,7 @@ import { initStores } from "./stage-1/initStores"
 import { initStaticData } from "./stage-1/initStaticData"
 import { initLocale } from "./stage-1/initLocale"
 import { initSyncTask } from "./stage-1/initSyncTask"
+import { initSchedule } from "./stage-1/initSchedule"
 
 
 const initStages = [
@@ -30,7 +31,8 @@ const initStages = [
   initLibrary,
   initInboxDeck,
   initReviewDeck,
-  initSyncTask
+  initSyncTask,
+  initSchedule
 ]
 
 export default initStages
