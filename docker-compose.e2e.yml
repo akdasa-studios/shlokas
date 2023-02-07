@@ -2,6 +2,7 @@ version: "3"
 services:
   db:
     image: ghcr.io/akdasa-studios/shlokas-db:latest
+    restart: always
     expose:
       - 5984
     env_file:
@@ -14,6 +15,7 @@ services:
 
   auth:
     image: ghcr.io/akdasa-studios/shlokas-auth:latest
+    restart: always
     expose:
       - 3000
     env_file:
