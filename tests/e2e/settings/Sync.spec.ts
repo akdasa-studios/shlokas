@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Settings › Account › Sync', () => {
   test('Sync data', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36).substr(2, 5)
+    const uniqueEmail = Math.random().toString(36)
     const email       = `${uniqueEmail}@test.rs`
 
     // device1: register and login

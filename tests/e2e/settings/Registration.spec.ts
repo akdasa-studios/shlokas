@@ -6,7 +6,7 @@ import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 test.describe('Settings › Account › Email', () => {
   test('Register new account', async ({ page, context }) => {
     const accountPage = new Account(page)
-    const uniqueEmail = Math.random().toString(36).substr(2, 5)
+    const uniqueEmail = Math.random().toString(36)
     const email       = `${uniqueEmail}@test.rs`
 
     await signUp(context, page, email)
@@ -16,7 +16,7 @@ test.describe('Settings › Account › Email', () => {
   })
 
   test('Log In on another device', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36).substr(2, 5)
+    const uniqueEmail = Math.random().toString(36)
     const email       = `${uniqueEmail}@test.rs`
 
     // device1: register and login
