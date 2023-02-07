@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Page } from "@playwright/test"
-import { Account, Settings } from "../components"
+import { Account } from "../components"
 
 export async function signUp(
   context: BrowserContext,
