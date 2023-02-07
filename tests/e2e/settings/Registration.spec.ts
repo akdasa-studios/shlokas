@@ -1,43 +1,33 @@
-import { test, expect } from '@playwright/test'
-import { Account, Application, Settings, TabsBar } from '../components'
+import { expect, test } from '@playwright/test'
+import { Account } from '../components'
+import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 
-
-test.beforeEach(async ({ page }) => {
-  const tabs = new TabsBar(page)
-  await new Application(page)
-      .goto("/home/library", { tutorialEnabled: false })
-  await tabs.settingsTab.click()
-})
 
 test.describe('Settings › Account › Email', () => {
   test('Register new account', async ({ page, context }) => {
-    const settings = new Settings(page)
-    const account = new Account(page)
+    const accountPage = new Account(page)
     const uniqueEmail = Math.random().toString(36).substr(2, 5)
-    const login = `${uniqueEmail}@test.rs`
+    const email       = `${uniqueEmail}@test.rs`
 
-    // act
-    await settings.account.click()
-    await account.signUpViaEmail.click()
-    await account.sumbitAccount(login)
-
-    //
-    await expect(account.verifyEmail).toBeVisible()
-
-    // 1. open mail client and confirm email
-    const mailPage = await context.newPage()
-    await mailPage.goto('http://localhost:1080/')
-    await mailPage.getByRole('cell', { name: `<${uniqueEmail}@test.rs>` }).first().click()
-    await mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
-    await mailPage.frameLocator('iframe').getByText('Email has been confirmed!').click()
-
-    // 2. log in
-    await page.bringToFront()
-    await page.getByRole('button', { name: 'Log In' }).click()
-    await page.getByRole('dialog').waitFor()
-    await page.getByRole('button', { name: 'Log In' }).click()
-
-    // assert:
+    await signUp(context, page, email)
+    await expect(accountPage.verifyEmail).toBeVisible()
+    await logIn(page, email)
     await expect(page.getByText("Welcome back!")).toBeVisible()
+  })
+
+  test('Log In on another device', async ({ page, context, browser }) => {
+    const uniqueEmail = Math.random().toString(36).substr(2, 5)
+    const email       = `${uniqueEmail}@test.rs`
+
+    // device1: register and login
+    await signUp(context, page, email)
+    await logIn(page, email)
+
+    // device2: login
+    const [context2, page2] = await logInNewDevice(browser, email)
+    await expect(page2.getByText("Welcome back!")).toBeVisible()
+
+    page2.close()
+    context2.close()
   })
 })
