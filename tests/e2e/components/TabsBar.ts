@@ -10,4 +10,6 @@ export class TabsBar {
 
   get inboxBadge() { return this.page.getByTestId("inbox-tab-badge") }
   get reviewBadge() { return this.page.getByTestId("review-tab-badge") }
+
+  get settingsTab() { return this.page.getByTestId("settings-tab") }
 }

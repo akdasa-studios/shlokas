@@ -13,6 +13,7 @@
       <div
         v-if="showVerifyEmail"
         class="ion-padding alert"
+        data-testid="verifyEmail"
       >
         {{ $t('account.confirmEmail') }}
       </div>
