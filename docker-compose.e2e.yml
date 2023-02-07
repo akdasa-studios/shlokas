@@ -4,11 +4,8 @@ services:
     image: ghcr.io/akdasa-studios/shlokas-db:latest
     expose:
       - 5984
-    ports:
-      - "5984:5984"
     env_file:
-      - environment.env
-      - environment.local.env
+      - environment.e2e.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5984/"]
       interval: 10s
@@ -20,8 +17,7 @@ services:
     expose:
       - 3000
     env_file:
-      - environment.env
-      - environment.local.env
+      - environment.e2e.env
     depends_on:
       db:
         condition: service_healthy
@@ -46,8 +42,7 @@ services:
       - 80:80
       - 443:443
     env_file:
-      - environment.env
-      - environment.local.env
+      - environment.e2e.env
     depends_on:
       - db
       - auth
