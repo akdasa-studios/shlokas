@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test'
+import { Application } from '../components'
 
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/home/library?tutorialEnabled=false')
+    await new Application(page)
+      .goto("/home/library", { tutorialEnabled: false })
   await page.getByTestId('settings-tab').click()
 })
 

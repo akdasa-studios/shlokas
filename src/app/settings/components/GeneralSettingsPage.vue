@@ -14,6 +14,7 @@
           :detail="true"
           router-link="/home/settings/account"
           router-direction="forward"
+          data-testid="account"
         >
           <ion-label>{{ $t('settings.account') }}</ion-label>
         </ion-item>

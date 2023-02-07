@@ -52,6 +52,12 @@ jobs:
     - name: 📥 Checkout
       uses: actions/checkout@v3
 
+    - name: 🌍 Environment
+      uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: "./docker-compose.e2e.yml"
+        down-flags: "--volumes"
+
     - name: 📦 Install Node
       uses: actions/setup-node@v3
       with:
