@@ -3,6 +3,7 @@ import { Page } from "@playwright/test"
 export class TabsBar {
   constructor(private readonly page: Page) {}
 
+  get libraryTab() { return this.page.getByTestId('library-tab') }
   get inboxEmpty() { return this.page.getByTestId("inboxEmpty") }
 
   get inboxTab() { return this.page.getByTestId('inbox-tab') }

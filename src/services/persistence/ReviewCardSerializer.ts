@@ -1,5 +1,5 @@
 import { Result } from "@akdasa-studios/framework"
-import { CardId, ReviewCard, ReviewCardType, VerseId } from "@akdasa-studios/shlokas-core"
+import { ReviewCard, ReviewCardType, VerseId } from "@akdasa-studios/shlokas-core"
 import { ObjectMapper } from "./ObjectMapper"
 
 
@@ -19,7 +19,6 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
 export class ReviewCardDeserializer implements ObjectMapper<any, ReviewCard> {
   map(from: any): Result<ReviewCard, string> {
     return Result.ok(new ReviewCard(
-      new CardId(from["_id"]),
       new VerseId(from["verseId"]),
       from['type'] as ReviewCardType,
       new Date(from['addedAt']),

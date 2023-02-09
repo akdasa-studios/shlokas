@@ -28,3 +28,16 @@ export async function addCardsToReview(page: Page, verses: string[]) {
   // eslint-disable-next-line playwright/no-wait-for-timeout
   await page.waitForTimeout(250) // give time to save
 }
+
+
+
+export async function addCardsToInbox(page: Page, verses: string[]) {
+  const library = new LibraryPage(page)
+
+  // add verses to inbox
+  for (const verse of verses) {
+    await library.verse(verse).click()
+    await library.addVerseButton.click()
+  }
+}
+

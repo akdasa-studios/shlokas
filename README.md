@@ -39,7 +39,7 @@ If you'd like to help develop the project, here's a list of links to get you sta
 1. `npm run serve` – run the application at `http://localhost:8080`
 2. `npm run test:unit` – run unit tests for logic
 3. `npm run test:component` – run tests for componens
-4. `npm run test:e2e` – run end to end tests
+4. `npm run test:e2e` – run end to end tests. Run `docker compose -f ./docker-compose.e2e.yml up` before running e2e tests.
 
 ## Links
 1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application

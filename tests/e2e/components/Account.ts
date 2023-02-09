@@ -12,7 +12,7 @@ export class Account {
   get sync()     { return this.page.getByRole('button',  { name: 'Force Syncing'}) }
   get verifyEmail() { return this.page.getByTestId('verifyEmail') }
 
-  open() {
-    this.page.goto("/home/settings/account")
+  async open() {
+    await this.page.goto("/home/settings/account?tutorialEnabled=false")
   }
 }

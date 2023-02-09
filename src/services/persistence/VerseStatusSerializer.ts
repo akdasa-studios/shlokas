@@ -17,7 +17,6 @@ export class VerseStatusSerializer implements ObjectMapper<VerseStatus, any> {
 export class VerseStatusDeserializer implements ObjectMapper<any, VerseStatus> {
   map(from: any): Result<VerseStatus, string> {
     return Result.ok(new VerseStatus(
-      new VerseStatusId(from["_id"]),
       new VerseId(from["verseId"]),
       from['inDeck'] as Decks
     ))
