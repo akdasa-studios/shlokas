@@ -1,5 +1,5 @@
 import { Result } from "@akdasa-studios/framework"
-import { CardId, InboxCard, InboxCardType, VerseId } from "@akdasa-studios/shlokas-core"
+import { InboxCard, InboxCardType, VerseId } from "@akdasa-studios/shlokas-core"
 import { ObjectMapper } from "./ObjectMapper"
 
 
@@ -18,7 +18,6 @@ export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
 export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
   map(from: any): Result<InboxCard, string> {
     return Result.ok(new InboxCard(
-      new CardId(from["_id"]),
       new VerseId(from["verseId"]),
       from['type'] as InboxCardType,
       new Date(from['addedAt'])

@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Page } from "@playwright/test"
-import { Account } from "../components"
+import { Account, Settings, TabsBar } from "../components"
 
 export async function signUp(
   context: BrowserContext,
@@ -28,8 +28,6 @@ export async function logIn(
   appPage: Page,
   email: string,
 ) {
-  await appPage.goto("/home/settings/account")
-
   await appPage.bringToFront()
   const account = new Account(appPage)
 
@@ -50,8 +48,18 @@ export async function logInNewDevice(
   const context = await browser.newContext()
   const page    = await context.newPage()
 
-  await page.goto("/home/settings")
+  await page.goto("/home/settings?tutorialEnabled=false")
   await logIn(page, email)
 
   return [context, page]
+}
+
+export async function sync(page: Page) {
+  const account  = new Account(page)
+  // const tabs     = new TabsBar(page)
+  // const settings = new Settings(page)
+
+  // await tabs.settingsTab.click()
+  // await settings.account.click()
+  await account.sync.click()
 }
