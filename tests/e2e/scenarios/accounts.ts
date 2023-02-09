@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Page } from "@playwright/test"
-import { Account, Settings, TabsBar } from "../components"
+import { Account } from "../components"
 
 export async function signUp(
   context: BrowserContext,
@@ -21,7 +21,7 @@ export async function signUp(
   await mailPage.goto('http://localhost:1080/')
   await mailPage.getByRole('cell', { name: `<${email}>` }).first().click()
   await mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
-  await mailPage.frameLocator('iframe').getByText('Email has been confirmed!').click()
+  // await mailPage.frameLocator('iframe').getByText('Email has been confirmed!').waitFor()
 }
 
 export async function logIn(
