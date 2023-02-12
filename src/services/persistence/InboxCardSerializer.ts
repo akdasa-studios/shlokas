@@ -22,12 +22,10 @@ export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
     const card = new InboxCard(
       new VerseId(from["verseId"]),
       from['type'] as InboxCardType,
-      new Date(from['addedAt'])
+      new Date(from['addedAt']),
+      new Date(from['memorizedAt'])
     )
     card.version = from['version']
-    if (from['memorizedAt']) {
-      card.memorized() // TODO: !!!
-    }
     return Result.ok(card)
   }
 }
