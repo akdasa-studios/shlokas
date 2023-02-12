@@ -30,8 +30,8 @@ test.describe('Settings › Account › Sync', () => {
       await account2.sync.click()
       await expect(tabs2.reviewBadge).toHaveText("1")
     } finally {
-      page2.close()
-      context2.close()
+      await page2.close()
+      await context2.close()
     }
   })
 
@@ -57,8 +57,8 @@ test.describe('Settings › Account › Sync', () => {
 
       await expect(library2.verseBadge("BG 1.1")).toHaveText("REVIEW")
     } finally {
-      page2.close()
-      context2.close()
+      await page2.close()
+      await context2.close()
     }
   })
 
@@ -91,8 +91,8 @@ test.describe('Settings › Account › Sync', () => {
       await page2.waitForTimeout(1000) // wait sync to complete
       await expect(tabs2.reviewBadge).toHaveText("1")
     } finally {
-      page2.close()
-      context2.close()
+      await page2.close()
+      await context2.close()
     }
 
   })
