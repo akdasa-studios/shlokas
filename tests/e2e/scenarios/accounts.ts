@@ -6,7 +6,7 @@ export async function signUp(
   appPage: Page,
   email: string
 ) {
-  const account  = new Account(appPage)
+  const account = new Account(appPage)
 
   // act
   await account.open()
@@ -20,8 +20,14 @@ export async function signUp(
   const mailPage = await context.newPage()
   await mailPage.goto('http://localhost:1080/')
   await mailPage.getByRole('cell', { name: `<${email}>` }).first().click()
+
   await mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
-  // await mailPage.frameLocator('iframe').getByText('Email has been confirmed!').waitFor()
+  await mailPage.waitForTimeout(1000) // code below doesn't work for some reason
+  // const [popup] = await Promise.all([
+  //   mailPage.waitForEvent('popup'),
+  //  mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
+  // ])
+  // popup.getByText('Email has been confirmed!').waitFor()
 }
 
 export async function logIn(
