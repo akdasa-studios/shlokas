@@ -11,18 +11,21 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
       "verseId": from.verseId.value,
       "type": from.type,
       "addedAt": from.addedAt,
-      "dueTo": from.dueTo
+      "dueTo": from.dueTo,
+      "version": from.version,
     })
   }
 }
 
 export class ReviewCardDeserializer implements ObjectMapper<any, ReviewCard> {
   map(from: any): Result<ReviewCard, string> {
-    return Result.ok(new ReviewCard(
+    const ob = new ReviewCard(
       new VerseId(from["verseId"]),
       from['type'] as ReviewCardType,
       new Date(from['addedAt']),
       new Date(from['dueTo']),
-    ))
+    )
+    ob.version = from['version']
+    return Result.ok(ob)
   }
 }

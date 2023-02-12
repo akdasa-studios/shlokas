@@ -11,7 +11,8 @@ export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
       "verseId": from.verseId.value,
       "type": from.type,
       "addedAt": from.addedAt,
-      "memorizedAt": from.memorizedAt
+      "memorizedAt": from.memorizedAt,
+      "version": from.version,
     })
   }
 }
@@ -23,6 +24,7 @@ export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
       from['type'] as InboxCardType,
       new Date(from['addedAt'])
     )
+    card.version = from['version']
     if (from['memorizedAt']) {
       card.memorized() // TODO: !!!
     }
