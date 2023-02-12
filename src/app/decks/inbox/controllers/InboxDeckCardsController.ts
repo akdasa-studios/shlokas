@@ -22,6 +22,7 @@ export class InboxDeckCardsController {
       if (e instanceof AddVerseToInboxDeck) { await this.addCardsToDeck() }
     })
     emitter.on('syncCompleted', async () => { await this.addCardsToDeck() })
+    emitter.on('appOpened', async () => { await this.addCardsToDeck() })
   }
 
   /**

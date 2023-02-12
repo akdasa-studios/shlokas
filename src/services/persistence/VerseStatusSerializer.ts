@@ -1,5 +1,5 @@
 import { Result } from "@akdasa-studios/framework"
-import { Decks, VerseId, VerseStatus, VerseStatusId } from "@akdasa-studios/shlokas-core"
+import { Decks, VerseId, VerseStatus } from "@akdasa-studios/shlokas-core"
 import { ObjectMapper } from "./ObjectMapper"
 
 
