@@ -22,7 +22,7 @@ export async function signUp(
   await mailPage.getByRole('cell', { name: `<${email}>` }).first().click()
 
   await mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
-  await mailPage.waitForTimeout(1000) // code below doesn't work for some reason
+  await mailPage.waitForTimeout(4000) // code below doesn't work for some reason
   await mailPage.close()
   // const [popup] = await Promise.all([
   //   mailPage.waitForEvent('popup'),
