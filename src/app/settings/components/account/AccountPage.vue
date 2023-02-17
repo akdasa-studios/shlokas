@@ -132,6 +132,7 @@ async function openModal(component: any) {
 async function onSync() {
   inProgress.value = true
   const remoteRepos = createRepositories(syncHost.value as string)
+  console.log("remote:", JSON.stringify((await remoteRepos.inboxCards.all()).value))
   await app.sync(remoteRepos)
   emitter.emit('syncCompleted')
   inProgress.value = false

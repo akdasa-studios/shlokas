@@ -99,19 +99,17 @@ test.describe('Settings › Account › Sync', () => {
 
     // device2: login
     const [context2, page2] = await logInNewDevice(browser, email)
-    const tabs = new TabsBar(page2)
-    const settings = new Settings(page2)
-
-    await tabs.libraryTab.click()
+    const tabs2     = new TabsBar(page2)
+    const settings2 = new Settings(page2)
+    await tabs2.libraryTab.click()
     await addCardsToInbox(page2, ['BG 1.1'])
-
-    await tabs.settingsTab.click()
-    await settings.account.click()
+    await tabs2.settingsTab.click()
+    await settings2.account.click()
     await sync(page2)
     await page2.waitForTimeout(2000) // wait sync to complete
 
-    await expect(tabs.inboxBadge).toBeHidden() // already removed on device1. But still on device2
-    await expect(tabs.reviewBadge).toHaveText("1")
+    await expect(tabs2.inboxBadge).toBeHidden() // already removed on device1. But still on device2
+    await expect(tabs2.reviewBadge).toHaveText("1")
 
     await context2.close()
   })
