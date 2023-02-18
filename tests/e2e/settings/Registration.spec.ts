@@ -27,7 +27,7 @@ test.describe('Settings › Account › Email', () => {
     const [context2, page2] = await logInNewDevice(browser, email)
     await expect(page2.getByText("Welcome back!")).toBeVisible()
 
-    page2.close()
-    context2.close()
+    await page2.close()
+    await context2.close()
   })
 })
