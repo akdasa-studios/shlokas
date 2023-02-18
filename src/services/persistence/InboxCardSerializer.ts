@@ -23,7 +23,7 @@ export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
       new VerseId(from["verseId"]),
       from['type'] as InboxCardType,
       new Date(from['addedAt']),
-      new Date(from['memorizedAt'])
+      from['memorizedAt'] ? new Date(from['memorizedAt']) : undefined
     )
     card.version = from['version']
     return Result.ok(card)
