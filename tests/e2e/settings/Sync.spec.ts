@@ -95,7 +95,6 @@ test.describe('Settings › Account › Sync', () => {
     await signUp(context, page, email)
     await logIn(page, email)
     await account1.sync.click()
-    await page.waitForTimeout(2000) // wait sync to complete
 
     // device2: login
     const [context2, page2] = await logInNewDevice(browser, email)
