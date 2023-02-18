@@ -4,6 +4,7 @@ import { ReviewDeckCardsController, ReviewDeckTutorialController } from '@/app/d
 import { Events } from '@/app/Events'
 import { LibraryAddVerseController, LibraryVersesController } from '@/app/library'
 import { StatisticsController } from '@/app/statistics'
+import { AuthController } from '@/app/shared'
 import { InitArgs, InitStageResult } from '../initialization'
 
 
@@ -19,6 +20,7 @@ export async function initControllers(
     'inboxDeckTutorialController': new InboxDeckTutorialController(emitter),
     'reviewDeckCardsController':  new ReviewDeckCardsController(shlokas, emitter),
     'reviewDeckTutorialController': new ReviewDeckTutorialController(emitter),
-    'statisticsController': new StatisticsController(shlokas, emitter)
+    'statisticsController': new StatisticsController(shlokas, emitter),
+    'authController': new AuthController(emitter),
   }
 }

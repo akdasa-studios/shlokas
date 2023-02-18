@@ -14,7 +14,6 @@ import { initParams } from './stage-1/initParams'
 import { initStores } from './stage-1/initStores'
 import { initStaticData } from './stage-1/initStaticData'
 import { initLocale } from './stage-1/initLocale'
-import { initSyncTask } from './stage-1/initSyncTask'
 
 
 const initStages = [
@@ -32,7 +31,6 @@ const initStages = [
   initCommands,
   initStaticData,
   initControllers,
-  initSyncTask,
 ]
 
 export default initStages

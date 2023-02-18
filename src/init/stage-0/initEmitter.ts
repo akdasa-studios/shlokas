@@ -7,6 +7,5 @@ import { InitStageResult } from '../initialization'
  * Initialize event bus
  */
 export async function initEmitter(): Promise<InitStageResult> {
-  const emitter = mitt<Events>()
-  return { emitter }
+  return { 'emitter': mitt<Events>() }
 }

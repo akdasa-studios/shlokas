@@ -30,7 +30,6 @@ export class InboxDeckCardsController {
    */
   async addCardsToDeck() {
     const cards = await this._app.inboxDeck.cards()
-    console.log('addCardsToDeck', JSON.stringify(cards))
 
     for (const card of cards) {
       const isAlreadyInDeck = this._inboxDeckStore.hasCard(card.id.value)
