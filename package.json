@@ -13,7 +13,7 @@
     "gen:resources": "npx capacitor-assets generate --assetPath 'resources' --ios"
   },
   "dependencies": {
-    "@akdasa-studios/shlokas-core": "1.0.4",
+    "@akdasa-studios/shlokas-core": "1.0.5",
     "@capacitor/app": "4.1.0",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.4.0",
