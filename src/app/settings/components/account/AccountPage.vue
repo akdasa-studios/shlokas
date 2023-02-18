@@ -105,16 +105,19 @@ import { mail } from 'ionicons/icons'
 import { computed, inject, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Emitter } from 'mitt'
+import { Application } from '@akdasa-studios/shlokas-core'
 import { useAccountStore } from '@/app/settings'
 import { couchDB } from '@/app/Application'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
 import { Events } from '@/app/Events'
+import { createRepositories } from '@/app/utils/sync'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 const emitter = inject("emitter") as Emitter<Events>
+const app = inject("app") as Application
 const account = useAccountStore()
 const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account
@@ -128,7 +131,8 @@ async function openModal(component: any) {
 
 async function onSync() {
   inProgress.value = true
-  await couchDB.sync(syncHost.value)
+  const remoteRepos = createRepositories(syncHost.value as string)
+  await app.sync(remoteRepos)
   emitter.emit('syncCompleted')
   inProgress.value = false
 }

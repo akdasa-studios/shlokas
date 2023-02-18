@@ -1,5 +1,6 @@
 // stage 0: infrastructure
 import { initSentry } from "./stage-0/initSentry"
+import { initLogging } from "./stage-0/initLogging"
 import { initDeviceStorage } from "./stage-0/initDeviceStorage"
 import { initI18n } from "./stage-0/initI18n"
 import { initPinia } from "./stage-0/initPinia"
@@ -17,6 +18,7 @@ import { initSyncTask } from "./stage-1/initSyncTask"
 
 
 const initStages = [
+  initLogging,
   initSentry,
   initDeviceStorage,
   initPinia,

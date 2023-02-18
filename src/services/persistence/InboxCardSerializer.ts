@@ -10,17 +10,22 @@ export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
       "@type": "inbox",
       "verseId": from.verseId.value,
       "type": from.type,
-      "addedAt": from.addedAt
+      "addedAt": from.addedAt,
+      "memorizedAt": from.memorizedAt,
+      "version": from.version,
     })
   }
 }
 
 export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
   map(from: any): Result<InboxCard, string> {
-    return Result.ok(new InboxCard(
+    const card = new InboxCard(
       new VerseId(from["verseId"]),
       from['type'] as InboxCardType,
-      new Date(from['addedAt'])
-    ))
+      new Date(from['addedAt']),
+      from['memorizedAt'] ? new Date(from['memorizedAt']) : undefined
+    )
+    card.version = from['version']
+    return Result.ok(card)
   }
 }

@@ -1,4 +1,4 @@
-import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, Result } from '@akdasa-studios/framework'
+import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, Result, LogicalOperators } from '@akdasa-studios/framework'
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
@@ -127,19 +127,25 @@ class QueryConverter {
   }
 
   convert(query: Query<any>): any {
-    return {
-      "selector": this._visit(query)
-    }
+    return { "selector": this._visit(query) }
   }
 
   _visit(query: Query<any>): any {
     if (query instanceof Predicate) {
+      if (query.operator === Operators.Equal && query.value === undefined) {
+        return { [query.field]: { "$exists": false } }
+      }
+
       return {
         [query.field]: {
           [this.operatorsMap[query.operator]] : this.getValue(query.value)
         }
       }
     } else if (query instanceof Expression) {
+      if (query.operator === LogicalOperators.Not) {
+        return { "$not": deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
+      }
+
       return deepMerge(
         {},
         ...query.query.map(x => this._visit(x))
