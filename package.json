@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@akdasa-studios/shlokas-core": "1.0.10",
-    "@capacitor/app": "4.1.0",
+    "@capacitor/app": "^4.1.0",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.4.0",
     "@capacitor/device": "^4.1.0",
