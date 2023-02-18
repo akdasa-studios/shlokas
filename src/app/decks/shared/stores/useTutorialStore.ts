@@ -32,7 +32,7 @@ export const useTutorialStore = defineStore('settings/tutorial', () => {
 
   async function load() {
     const storedValue = await storage.get(TUTORIAL_COMPLETED_STEPS)
-    completedSteps.value = JSON.parse(storedValue || "[]")
+    completedSteps.value = JSON.parse(storedValue || '[]')
     enabled.value = (await storage.get(TUTORIAL_ENABLED)) || true
   }
 

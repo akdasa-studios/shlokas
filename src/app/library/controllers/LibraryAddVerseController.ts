@@ -1,6 +1,6 @@
 import { Transaction } from '@akdasa-studios/framework'
-import { AddVerseToInboxDeck, Application, UpdateVerseStatus, VerseId } from "@akdasa-studios/shlokas-core"
-import { useDialog, useToast } from "@/app/composables"
+import { AddVerseToInboxDeck, Application, UpdateVerseStatus, VerseId } from '@akdasa-studios/shlokas-core'
+import { useDialog, useToast } from '@/app/composables'
 import { DummyLibraryVerse, LibraryVerse } from '@/app/library'
 
 

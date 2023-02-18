@@ -13,7 +13,7 @@ export abstract class CardViewModel {
   angle    = new Vector3d(0, 0, 0)
   state    = CardState.Inactive
   opacity  = 1
-  style    = ""
+  style    = ''
 
   abstract get id(): string
   abstract get type(): string
@@ -21,6 +21,6 @@ export abstract class CardViewModel {
   showFrontSide() { this.flipped = false }
 
   get isTutorialCard(): boolean {
-    return this.type === "tutorial"
+    return this.type === 'tutorial'
   }
 }

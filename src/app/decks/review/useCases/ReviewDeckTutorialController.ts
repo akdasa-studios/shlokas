@@ -8,14 +8,14 @@ export class ReviewDeckTutorialController {
   private readonly _reviewDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
-    "review.questionAnswer",
-    "review.intervals",
+    'review.questionAnswer',
+    'review.intervals',
   ]
 
   constructor(emitter: Emitter<Events>) {
     this._reviewDeckStore = useReviewDeckStore()
     this._tutorialStore = useTutorialStore()
-    emitter.on('appOpened', async () => await this.addTutorialCards())
+    emitter.on('appStateChanged', async () => await this.addTutorialCards())
   }
 
   /**

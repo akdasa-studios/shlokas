@@ -31,7 +31,7 @@ export class CouchDB {
   }
 
   async sync(to: string) {
-    console.log("syncing to", to)
+    console.log('syncing to', to)
     await this._db.sync(to)
   }
 
@@ -70,7 +70,7 @@ export class PouchRepository<
     const allDocs = await this.find(
       new QueryBuilder<TAggregate>()
         // @ts-ignore
-        .eq("@type", this._collectionName) // @ts-ignore
+        .eq('@type', this._collectionName) // @ts-ignore
     ) // .allDocs({ include_docs: true })
     // const mappedDoc = allDocs.value.map(x => this._deserializer.map(x.doc).value)
     return Result.ok(allDocs.value)
@@ -90,7 +90,7 @@ export class PouchRepository<
       const document = await this._db.db.get(id.value)
       return Result.ok(this._deserializer.map(document).value)
     } catch {
-      return Result.fail("404?")
+      return Result.fail('404?')
     }
   }
 
@@ -101,7 +101,7 @@ export class PouchRepository<
 
   async find(query: Query<TAggregate>): Promise<Result<TAggregate[], string>> {
     const convertedQuery = new QueryConverter().convert(query)
-    convertedQuery.selector["@type"] = this._collectionName
+    convertedQuery.selector['@type'] = this._collectionName
     const items = await this._db.db.find(convertedQuery)
     const objs = items.docs.map(x => this._deserializer.map(x).value)
     return Result.ok(objs)
@@ -127,13 +127,13 @@ class QueryConverter {
   }
 
   convert(query: Query<any>): any {
-    return { "selector": this._visit(query) }
+    return { 'selector': this._visit(query) }
   }
 
   _visit(query: Query<any>): any {
     if (query instanceof Predicate) {
       if (query.operator === Operators.Equal && query.value === undefined) {
-        return { [query.field]: { "$exists": false } }
+        return { [query.field]: { '$exists': false } }
       }
 
       return {
@@ -143,7 +143,7 @@ class QueryConverter {
       }
     } else if (query instanceof Expression) {
       if (query.operator === LogicalOperators.Not) {
-        return { "$not": deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
+        return { '$not': deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
       }
 
       return deepMerge(

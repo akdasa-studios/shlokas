@@ -8,5 +8,5 @@ export interface InitArgs {
 }
 
 export interface InitStageResult {
-  inject?: { [name:string]: any }
+  [name:string]: unknown
 }

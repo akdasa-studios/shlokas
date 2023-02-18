@@ -9,5 +9,5 @@ export class TutorialCardViewModel extends CardViewModel {
   }
 
   get id() { return this._id }
-  get type() { return "tutorial" }
+  get type() { return 'tutorial' }
 }

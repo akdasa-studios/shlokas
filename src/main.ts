@@ -35,17 +35,13 @@ async function initApp() {
 
   const aaa = await createShlokasApplication()
   const shlokas = aaa[0]
-  vue.provide("app", shlokas)
+  vue.provide('app', shlokas)
 
   const services: {[name: string]: any} = {
-    "couchDB": aaa[1]
+    'couchDB': aaa[1]
   }
 
-  console.group("Init...")
-
   for (const initStage of initStages) {
-    console.log(initStage.name)
-
     const initResult = await initStage({
       shlokas: shlokas,
       vue: vue,
@@ -53,15 +49,14 @@ async function initApp() {
     } as InitArgs)
 
 
-    if (initResult?.inject) {
-      for (const [key, value] of Object.entries(initResult.inject)) {
+    if (initResult) {
+      for (const [key, value] of Object.entries(initResult)) {
         vue.provide(key, value)
         services[key] = value
       }
     }
   }
-  console.groupEnd()
-  services["emitter"].emit("appOpened")
+  services['emitter'].emit('appStateChanged', { isActive: true })
 
   router.isReady().then(() => {
     vue.mount('#app')

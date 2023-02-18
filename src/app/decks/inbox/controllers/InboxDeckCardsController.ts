@@ -1,4 +1,4 @@
-import { AddVerseToInboxDeck, Application, InboxCardMemorized, UpdateVerseStatus } from "@akdasa-studios/shlokas-core"
+import { AddVerseToInboxDeck, Application, InboxCardMemorized, UpdateVerseStatus } from '@akdasa-studios/shlokas-core'
 import { Emitter } from 'mitt'
 import { useToast } from '@/app/composables'
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
@@ -22,7 +22,7 @@ export class InboxDeckCardsController {
       if (e instanceof AddVerseToInboxDeck) { await this.addCardsToDeck() }
     })
     emitter.on('syncCompleted', async () => { await this.addCardsToDeck() })
-    emitter.on('appOpened', async () => { await this.addCardsToDeck() })
+    emitter.on('appStateChanged', async () => { await this.addCardsToDeck() })
   }
 
   /**
@@ -44,7 +44,7 @@ export class InboxDeckCardsController {
     const cardsToDelete = []
     for (const vm of this._inboxDeckStore.cards) {
       const index = cards.findIndex(x => x.id.value === vm.id)
-      if (index === -1 && vm.type !== "tutorial") { cardsToDelete.push(vm.id) }
+      if (index === -1 && vm.type !== 'tutorial') { cardsToDelete.push(vm.id) }
     }
     cardsToDelete.forEach(x => this._inboxDeckStore.removeCardById(x))
   }

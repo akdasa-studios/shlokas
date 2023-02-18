@@ -12,7 +12,7 @@ export async function initStaticData(
 }
 
 function loadVerses(
-  { shlokas }: Pick<InitArgs, "shlokas">,
+  { shlokas }: Pick<InitArgs, 'shlokas'>,
   lang: Language,
   verses: any[]
 ) {

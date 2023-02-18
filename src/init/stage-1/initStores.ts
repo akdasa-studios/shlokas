@@ -7,7 +7,7 @@ export async function initStores(
   { get }: InitArgs
 ) {
   const storage = useDeviceStore()
-  storage.init(get("deviceStorage"))
+  storage.init(get('deviceStorage'))
 
   await Promise.all([
     useLocaleStore().load(),

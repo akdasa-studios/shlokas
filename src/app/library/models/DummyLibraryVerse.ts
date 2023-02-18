@@ -1,6 +1,6 @@
-import { Text, Translation, VerseBuilder, VerseId, VerseNumber, VerseStatus } from "@akdasa-studios/shlokas-core"
-import { Ref, ref } from "vue"
-import { LibraryVerse } from "./LibraryVerse"
+import { Text, Translation, VerseBuilder, VerseId, VerseNumber, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Ref, ref } from 'vue'
+import { LibraryVerse } from './LibraryVerse'
 
 const dummyVerse = new VerseBuilder()
   .withId(new VerseId('00000000-0000-0000-0000-000000000000'))

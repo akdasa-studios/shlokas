@@ -23,5 +23,5 @@ export async function initI18n(
   })
   vue.use(i18n)
 
-  return { inject: { "i18n": i18n.global } }
+  return { 'i18n': i18n.global }
 }

@@ -24,7 +24,7 @@ export async function initSyncTask(
         account.token.expires = (await service.refreshToken(account.token)).expires
       } else if (account.syncHost) {
         // sync db
-        await (get("couchDB") as any).sync(account.syncHost)
+        await (get('couchDB') as any).sync(account.syncHost)
       }
       BackgroundTask.finish({ taskId })
     })

@@ -16,14 +16,14 @@ export class Vector3d {
   get direction() {
     const xaxis = Math.abs(this.x) > Math.abs(this.y)
     return (
-      xaxis &&  this.x > 0 ? "right" :
-      xaxis &&  this.x < 0 ? "left" :
-      !xaxis && this.y > 0 ? "bottom" :
-      !xaxis && this.y < 0 ? "top" : "unknown"
+      xaxis &&  this.x > 0 ? 'right' :
+      xaxis &&  this.x < 0 ? 'left' :
+      !xaxis && this.y > 0 ? 'bottom' :
+      !xaxis && this.y < 0 ? 'top' : 'unknown'
     )
   }
 
   get isLeftOrRight() {
-    return ["left", "right"].includes(this.direction)
+    return ['left', 'right'].includes(this.direction)
   }
 }

@@ -9,7 +9,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue'
 
 // Notch!
 try {
-  if (window.location.search.includes("demo")) {
+  if (window.location.search.includes('demo')) {
     var css = `:root {
       --ion-safe-area-top: 20px;
       --ion-safe-area-bottom: 22px;

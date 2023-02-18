@@ -1,4 +1,4 @@
-import { computed, ref, Ref } from "vue"
+import { computed, ref, Ref } from 'vue'
 import { CardViewModel } from './CardViewModel'
 type Maybe<T> = T | undefined
 
@@ -51,7 +51,7 @@ export function removeItem(items: Ref<IndexedItem[]>, index = 0): IndexedItem | 
     items.value.filter(x => x.index > index).forEach(x => x.index--)
     return items.value.splice(topItemIndex, 1)[0]
   } else {
-    console.log("!!!")
+    console.log('!!!')
   }
 }
 

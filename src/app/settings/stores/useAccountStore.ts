@@ -16,9 +16,9 @@ export const useAccountStore = defineStore('settings/account', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const name     = ref("")
-  const email    = ref("")
-  const password = ref("")
+  const name     = ref('')
+  const email    = ref('')
+  const password = ref('')
   const token: Ref<AuthToken|undefined> = ref()
   const isAuthenticated = computed(() => !!token.value)
 
@@ -50,9 +50,9 @@ export const useAccountStore = defineStore('settings/account', () => {
   }
 
   function logOut() {
-    name.value = ""
-    email.value = ""
-    password.value = ""
+    name.value = ''
+    email.value = ''
+    password.value = ''
     token.value = undefined
   }
 

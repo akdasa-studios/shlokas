@@ -20,8 +20,8 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<Result<boolean, string>> {
-    const response = await this._post("register", {
-      name, email, password, "confirmPassword": password,
+    const response = await this._post('register', {
+      name, email, password, 'confirmPassword': password,
     })
     if (response.error) { return Result.fail(response.error) }
     return Result.ok()
@@ -31,7 +31,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<Result<AuthToken, string>> {
-    const response = await this._post("login", { "username": email, password })
+    const response = await this._post('login', { 'username': email, password })
     if (response.error) { return Result.fail(response.error) }
     return Result.ok({
       issued: response.issued,
@@ -43,8 +43,8 @@ export class AuthService {
   }
 
   async refreshToken(token: any): Promise<any> {
-    const response = await this._post("refresh", token, {
-      "Authorization": `Bearer ${token.token}:${token.password}`
+    const response = await this._post('refresh', token, {
+      'Authorization': `Bearer ${token.token}:${token.password}`
     })
     return {
       expires: response.expires,

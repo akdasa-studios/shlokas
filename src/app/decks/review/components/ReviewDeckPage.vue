@@ -129,7 +129,7 @@ function onGradeButtonClicked(grade: ReviewGrade) {
 
 function swipeCard(grade: ReviewGrade, card: ReviewCardViewModel) {
   setTimeout(() => {
-    if (card.type === "tutorial") {
+    if (card.type === 'tutorial') {
       reviewDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
       return
     }

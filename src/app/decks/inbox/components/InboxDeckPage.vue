@@ -91,7 +91,7 @@ function onCardMoving(
 ) {
   deck.updateMovingCard(card, deltaPos)
 
-  if (card.type === "tutorial") { return }
+  if (card.type === 'tutorial') { return }
   if (deltaPosTotal.length < deck.swipeThreshold) {
     card.memorizingStatus = MemorizingStatus.Unknown
   } else {
@@ -105,7 +105,7 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   deck.updateMovedCard(card, deltaPos)
   if (deltaPos.length < deck.swipeThreshold) { return }
   setTimeout(() => {
-    if (card.type === "tutorial") {
+    if (card.type === 'tutorial') {
       inboxDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
       return
     }

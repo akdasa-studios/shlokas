@@ -14,7 +14,7 @@ export class StatisticsController {
     emitter.on('commandExecuted', async (e) => {
       if (e instanceof ReviewCardReviewed) { await this.updateStatistics() }
     })
-    emitter.on('appOpened', async () => await this.updateStatistics())
+    emitter.on('appStateChanged', async () => await this.updateStatistics())
   }
 
   private async updateStatistics() {

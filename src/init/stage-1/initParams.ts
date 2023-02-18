@@ -4,7 +4,7 @@ import { InitArgs, InitStageResult } from '../initialization'
 
 export async function initParams(
   { shlokas }: InitArgs
-): Promise<InitStageResult> {
+) {
   const tutorialSore = useTutorialStore()
   const params = new URLSearchParams(window.location.search)
   const tutorialEnabled = params.get('tutorialEnabled')
@@ -18,6 +18,4 @@ export async function initParams(
     console.debug('[params] date', date)
     shlokas.timeMachine.set(new Date(date))
   }
-
-  return {}
 }

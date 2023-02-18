@@ -95,7 +95,7 @@ const searchScenario = inject('libraryVersesController') as LibraryVersesControl
 
 async function onVerseDialogDismiss(action: string) {
   addVerseScenario.dialog.close()
-  if (action === "confirm") {
+  if (action === 'confirm') {
     await addVerseScenario.addVerseToInbox(addVerseScenario.dialog.data.value)
   }
 }

@@ -116,8 +116,8 @@ import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
-const emitter = inject("emitter") as Emitter<Events>
-const app = inject("app") as Application
+const emitter = inject('emitter') as Emitter<Events>
+const app = inject('app') as Application
 const account = useAccountStore()
 const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account

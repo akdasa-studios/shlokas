@@ -1,15 +1,15 @@
-import { Application, UpdateVerseStatus, VerseId } from "@akdasa-studios/shlokas-core"
-import { Emitter } from "mitt"
-import { storeToRefs } from "pinia"
-import { ref, Ref, watch } from "vue"
-import { useLocaleStore } from "@/app/settings"
+import { Application, UpdateVerseStatus, VerseId } from '@akdasa-studios/shlokas-core'
+import { Emitter } from 'mitt'
+import { storeToRefs } from 'pinia'
+import { ref, Ref, watch } from 'vue'
+import { useLocaleStore } from '@/app/settings'
 import { LibraryVerse, useLibraryStore } from '@/app/library'
-import { Events } from "@/app/Events"
+import { Events } from '@/app/Events'
 
 
 export class LibraryVersesController {
   public verses: Ref<LibraryVerse[]> = ref([])
-  public query = ref("")
+  public query = ref('')
 
   private _language
   private readonly _localeStore

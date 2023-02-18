@@ -8,16 +8,16 @@ export class InboxDeckTutorialController {
   private readonly _inboxDeckStore
   private readonly _tutorialStore
   private readonly TUTORIAL_CARDS = [
-    "inbox.cards",
-    "inbox.overall",
-    "inbox.verse",
-    "inbox.final"
+    'inbox.cards',
+    'inbox.overall',
+    'inbox.verse',
+    'inbox.final'
   ]
 
   constructor(emitter: Emitter<Events>) {
     this._inboxDeckStore = useInboxDeckStore()
     this._tutorialStore = useTutorialStore()
-    emitter.on('appOpened', async () => await this.addTutorialCards())
+    emitter.on('appStateChanged', async () => await this.addTutorialCards())
   }
 
   /**

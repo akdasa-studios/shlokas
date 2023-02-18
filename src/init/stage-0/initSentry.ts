@@ -4,6 +4,7 @@ import * as SentrySibling from '@sentry/vue'
 import { App } from '@capacitor/app'
 import { InitArgs } from '../initialization'
 
+
 /**
  * Initialize the sentry plugin to track errors
  */

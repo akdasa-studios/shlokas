@@ -28,7 +28,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const isVisible = computed(() => props.grade !== undefined)
 const reviewGradeToName = computed(() =>
-  props.grade !== undefined ? ReviewGrade[props.grade].toLowerCase() : ""
+  props.grade !== undefined ? ReviewGrade[props.grade].toLowerCase() : ''
 )
 </script>
 

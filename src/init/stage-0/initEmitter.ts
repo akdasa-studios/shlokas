@@ -8,9 +8,5 @@ import { InitStageResult } from '../initialization'
  */
 export async function initEmitter(): Promise<InitStageResult> {
   const emitter = mitt<Events>()
-  return {
-    inject: {
-      "emitter": emitter
-    }
-  }
+  return { emitter }
 }

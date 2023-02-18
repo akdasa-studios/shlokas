@@ -1,8 +1,8 @@
-import { Application, InboxCardMemorized, ReviewCard, ReviewCardReviewed, ReviewGrade } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCardMemorized, ReviewCard, ReviewCardReviewed, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { Emitter } from 'mitt'
-import { ReviewVerseCardViewModel, useReviewDeckStore } from "@/app/decks/review"
+import { ReviewVerseCardViewModel, useReviewDeckStore } from '@/app/decks/review'
 import { Events } from '@/app/Events'
-import { useLibraryStore } from "@/app/library"
+import { useLibraryStore } from '@/app/library'
 
 export class ReviewDeckCardsController {
   private readonly _app: Application
@@ -19,7 +19,7 @@ export class ReviewDeckCardsController {
       if (e instanceof InboxCardMemorized) { await this.addCardsToDeck()}
     })
     emitter.on('syncCompleted', async () => await this.addCardsToDeck())
-    emitter.on('appOpened', async () => await this.addCardsToDeck())
+    emitter.on('appStateChanged', async () => await this.addCardsToDeck())
   }
 
   async addCardsToDeck() {
@@ -38,7 +38,7 @@ export class ReviewDeckCardsController {
     const cardsToDelete = []
     for (const vm of this._reviewDeckStore.cards) {
       const index = cards.findIndex(x => x.id.value === vm.id)
-      if (index === -1 && vm.type !== "tutorial") { cardsToDelete.push(vm.id) }
+      if (index === -1 && vm.type !== 'tutorial') { cardsToDelete.push(vm.id) }
     }
     cardsToDelete.forEach(x => this._reviewDeckStore.removeCardById(x))
   }

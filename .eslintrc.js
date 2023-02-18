@@ -5,8 +5,8 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/vue3-essential',
-    "plugin:vue/vue3-strongly-recommended",
-    "plugin:vue/vue3-recommended",
+    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/vue3-recommended',
     'eslint:recommended',
     'plugin:import/recommended',
     '@vue/typescript/recommended',
@@ -25,18 +25,19 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-deprecated-slot-attribute': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    "import/order": [
-      "error",
+    'import/order': [
+      'error',
       {
         groups: [
-          "builtin", "external", "internal", "parent", "sibling", "index", "object"
+          'builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'
         ]
       }
     ],
-    "semi": ["error", "never"],
-    "@typescript-eslint/ban-ts-comment": "off"
+    'semi': ['error', 'never'],
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'quotes': ['error', 'single'],
   },
-  ignorePatterns: ["dist/**"],
+  ignorePatterns: ['dist/**'],
   overrides: [
     {
       files: [
