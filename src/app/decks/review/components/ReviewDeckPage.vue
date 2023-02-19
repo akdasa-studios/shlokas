@@ -15,9 +15,9 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="userGradesCards.cards.length > 0"
+        v-if="!isEmpty"
         v-slot="data"
-        :cards="cardsToShow"
+        :cards="cards"
         @place="onCardPlaced"
         @moving="onCardMoving"
         @moved="onCardMoved"
@@ -44,7 +44,7 @@
 
       <!-- Inbox deck is empty -->
       <ReviewDeckEmpty
-        v-if="userGradesCards.count <= 0"
+        v-if="isEmpty"
         data-testid="reviewEmpty"
       />
     </ion-content>
@@ -53,22 +53,31 @@
 
 
 <script lang="ts" setup>
-import { ReviewGrade } from '@akdasa-studios/shlokas-core'
+import { Application, ReviewGrade } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { computed, inject } from 'vue'
-import { CardsDeck, StackedDeckBehaviour, TutorialCard, TutorialCardViewModel, Vector3d, VerseCardViewModel } from '@/app/decks/shared'
-import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewDeckTutorialController, ReviewVerseCardViewModel, ReviewDeckCardsController, ReviewCardAnswerButtons } from '@/app/decks/review'
+import { CardsDeck, TutorialCard, TutorialCardViewModel, useStackedDeck, Vector3d, VerseCardViewModel } from '@/app/decks/shared'
+import { ReviewCard, ReviewCardViewModel, ReviewDeckEmpty, ReviewVerseCardViewModel, ReviewCardAnswerButtons, useReviewDeck, useReviewDeckTutorial } from '@/app/decks/review'
 import { useAppearanceStore } from '@/app/settings'
 
-const userGradesCards = inject('reviewDeckCardsController') as ReviewDeckCardsController
-const reviewDeckTutorial = inject('reviewDeckTutorialController') as ReviewDeckTutorialController
 const appearance = useAppearanceStore()
+const app = inject('app') as Application
 
-const deck = new StackedDeckBehaviour()
-const cardsToShow = computed(() =>
-  userGradesCards.cards.filter(x => x.index < 3)
-)
-const topCard = computed(() => userGradesCards.cards.find(x => x.index === 0))
+const {
+  updateInactiveCard,
+  updateMovingCard,
+  updateMovedCard,
+  swipeThreshold
+} = useStackedDeck()
+const {
+  topCard, cards, isEmpty, gradeTopCard
+} = useReviewDeck(app)
+const {
+  addTutorialCards,
+  tutorialCardSwiped
+} = useReviewDeckTutorial()
+
+addTutorialCards()
 
 const showGradeButtons = computed(() => {
   if (!appearance.gradeButtons) { return false }
@@ -84,25 +93,25 @@ const gradeButtonIntervals = computed(() => {
 })
 
 function onCardPlaced(card: VerseCardViewModel) {
-  deck.updateInactiveCard(card)
+  updateInactiveCard(card)
 }
 
 function onCardMoving(card: ReviewCardViewModel, vector: Vector3d, vectorD: Vector3d) {
   if (card instanceof ReviewVerseCardViewModel) {
-    card.grade = vectorD.length > deck.swipeThreshold
+    card.grade = vectorD.length > swipeThreshold
       ? getGrade(vectorD.direction)
       : undefined
   }
-  deck.updateMovingCard(card, vector)
+  updateMovingCard(card, vector)
 }
 
 function onCardMoved(card: ReviewCardViewModel, vector: Vector3d) {
   if (card instanceof ReviewVerseCardViewModel) {
     card.grade = undefined
   }
-  deck.updateMovedCard(card, vector)
+  updateMovedCard(card, vector)
 
-  if (vector.length >= deck.swipeThreshold) {
+  if (vector.length >= swipeThreshold) {
     swipeCard(getGrade(vector.direction), card)
   }
 }
@@ -117,8 +126,8 @@ function getGrade(direction: string) : ReviewGrade {
 }
 
 function onCardGraded(card: ReviewCardViewModel, grade: ReviewGrade) {
-  deck.updateMovingCard(card, new Vector3d(-deck.swipeThreshold * 2, 0, 0))
-  deck.updateMovedCard(card, new Vector3d(-deck.swipeThreshold, 0, 0))
+  updateMovingCard(card, new Vector3d(-swipeThreshold * 2, 0, 0))
+  updateMovedCard(card, new Vector3d(-swipeThreshold, 0, 0))
   // setTimeout(() => { userGradesCards.gradeTopCard(grade) }, 250)
   swipeCard(grade, card)
 }
@@ -129,15 +138,15 @@ function onGradeButtonClicked(grade: ReviewGrade) {
 
 function swipeCard(grade: ReviewGrade, card: ReviewCardViewModel) {
   setTimeout(() => {
-    if (card.type === "tutorial") {
-      reviewDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
+    if (card.type === 'tutorial') {
+      tutorialCardSwiped(card as TutorialCardViewModel)
       return
     }
 
     card.showFrontSide()
-    userGradesCards.gradeTopCard(grade)
-    if (userGradesCards.cards.length === 1) {
-      onCardPlaced(userGradesCards.topCard)
+    gradeTopCard(grade)
+    if (cards.value.length === 1) {
+      onCardPlaced(topCard.value)
     }
   }, 250)
 }

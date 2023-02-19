@@ -83,8 +83,8 @@ const appearance = useAppearanceStore()
 const { colorfulCards } = toRefs(appearance)
 const style = computed(() => {
   return colorfulCards.value
-    ? "side-color-" + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
-    : "side-color-0"
+    ? 'side-color-' + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
+    : 'side-color-0'
   })
 
 function getSideComponent(cardType: string, front: boolean) {

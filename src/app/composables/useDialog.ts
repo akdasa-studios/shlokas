@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue"
+import { Ref, ref } from 'vue'
 
 export function useDialog<T>(defaultData: any) {
   const isOpen = ref(false)

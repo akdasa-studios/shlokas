@@ -53,11 +53,11 @@ watch(topCardRef, (newTopCard, prevTopCard) => {
 })
 
 watch(topCardObj, () => {
-  props.cards.forEach(x => emit("place", x))
+  props.cards.forEach(x => emit('place', x))
 })
 
 watch(items, () => {
-  props.cards.forEach(x => emit("place", x))
+  props.cards.forEach(x => emit('place', x))
 }, {immediate: true})
 
 
@@ -70,7 +70,7 @@ function calculateStyle(card: any) {
          `           rotateX(${card.angle.x}deg)` +
          `           rotateY(${card.angle.y}deg)` +
          `           rotateZ(${card.angle.z}deg);` +
-         `transition: .1s linear;`+
+         'transition: .1s linear;'+
          `opacity: ${card.opacity.value};`+
          `z-index: ${10 - card.index.value}`
 }
@@ -84,7 +84,7 @@ function enableInteraction(ref: any) {
     listeners: {
       move(event:any) {
         emit(
-          "moving",
+          'moving',
           unref(topCardObj),
           new Vector3d(event.dx, event.dy, 0),
           new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
@@ -92,7 +92,7 @@ function enableInteraction(ref: any) {
       },
       end(event:any) {
         emit(
-          "moved",
+          'moved',
           unref(topCardObj),
           new Vector3d(event.pageX - event.x0, event.pageY - event.y0, 0)
         )

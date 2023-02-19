@@ -3,11 +3,12 @@ import { Emitter } from 'mitt'
 import { Events } from '@/app/Events'
 import { InitArgs } from '../initialization'
 
+
 export async function initAppStateChange(
   { get }: InitArgs
 ) {
-  const emitter = get<Emitter<Events>>("emitter")
+  const emitter = get<Emitter<Events>>('emitter')
   App.addListener('appStateChange', async ({ isActive }) => {
-    if (isActive) { emitter.emit("appOpened") }
+    emitter.emit('appStateChanged', { isActive: isActive })
   })
 }

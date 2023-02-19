@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test"
+import { Page } from '@playwright/test'
 
 export class Account {
   constructor(private readonly page: Page) {}
@@ -13,6 +13,6 @@ export class Account {
   get verifyEmail() { return this.page.getByTestId('verifyEmail') }
 
   async open() {
-    await this.page.goto("/home/settings/account?tutorialEnabled=false")
+    await this.page.goto('/home/settings/account?tutorialEnabled=false')
   }
 }

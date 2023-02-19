@@ -69,7 +69,7 @@ import {
 import { inject } from 'vue'
 import { useAppearanceStore, useLocaleStore } from '@/app/settings'
 
-const i18n = inject("i18n") as any
+const i18n = inject('i18n') as any
 const locale = useLocaleStore()
 const appearance = useAppearanceStore()
 

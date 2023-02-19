@@ -1,6 +1,6 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
-import { Application, InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
+import { Application, InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { Capacitor } from '@capacitor/core'
 import {
   CouchDB, InboxCardDeserializer,
@@ -13,7 +13,7 @@ export let couchDB: CouchDB
 
 export async function createShlokasApplication() {
   couchDB = new CouchDB(
-    "local",
+    'local',
     Capacitor.getPlatform() == 'ios' ? 'cordova-sqlite' : undefined
   )
 
@@ -22,19 +22,19 @@ export async function createShlokasApplication() {
     // @ts-ignore
     new PouchRepository<VerseStatus>(
       couchDB,
-      "verseStatus",
+      'verseStatus',
       new VerseStatusSerializer(),
       new VerseStatusDeserializer()
     ),
     new SyncRepository(new PouchRepository<InboxCard>(
       couchDB,
-      "inbox",
+      'inbox',
       new InboxCardSerializer(),
       new InboxCardDeserializer()
     )),
     new SyncRepository(new PouchRepository<ReviewCard>(
       couchDB,
-      "review",
+      'review',
       new ReviewCardSerializer(),
       new ReviewCardDeserializer()
     )),

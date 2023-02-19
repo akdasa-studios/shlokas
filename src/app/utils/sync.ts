@@ -1,6 +1,6 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
-import { InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from "@akdasa-studios/shlokas-core"
+import { InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   CouchDB, InboxCardDeserializer,
   InboxCardSerializer, PouchRepository, ReviewCardDeserializer,
@@ -14,19 +14,19 @@ export function createRepositories(remote: string) {
     new InMemoryRepository<Verse>(),
     new SyncRepository(new PouchRepository<VerseStatus>(
       couchDB,
-      "verseStatus",
+      'verseStatus',
       new VerseStatusSerializer(),
       new VerseStatusDeserializer()
     )),
     new SyncRepository(new PouchRepository<InboxCard>(
       couchDB,
-      "inbox",
+      'inbox',
       new InboxCardSerializer(),
       new InboxCardDeserializer()
     )),
     new SyncRepository(new PouchRepository<ReviewCard>(
       couchDB,
-      "review",
+      'review',
       new ReviewCardSerializer(),
       new ReviewCardDeserializer()
     )),

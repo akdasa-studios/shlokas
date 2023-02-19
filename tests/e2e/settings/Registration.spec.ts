@@ -12,7 +12,7 @@ test.describe('Settings › Account › Email', () => {
     await signUp(context, page, email)
     await expect(accountPage.verifyEmail).toBeVisible()
     await logIn(page, email)
-    await expect(page.getByText("Welcome back!")).toBeVisible()
+    await expect(page.getByText('Welcome back!')).toBeVisible()
   })
 
   test('Log In on another device', async ({ page, context, browser }) => {
@@ -25,7 +25,7 @@ test.describe('Settings › Account › Email', () => {
 
     // device2: login
     const [context2, page2] = await logInNewDevice(browser, email)
-    await expect(page2.getByText("Welcome back!")).toBeVisible()
+    await expect(page2.getByText('Welcome back!')).toBeVisible()
 
     await page2.close()
     await context2.close()

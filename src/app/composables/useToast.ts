@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue"
+import { Ref, ref } from 'vue'
 
 interface ToastArgs {
   message?: string
@@ -7,11 +7,11 @@ interface ToastArgs {
 
 export function useToast() {
   const isOpen = ref(false)
-  const message = ref("")
+  const message = ref('')
   const data: Ref<Record<string, unknown>> = ref({})
 
   function open(options?: ToastArgs) {
-    message.value = options?.message || ""
+    message.value = options?.message || ''
     data.value = options?.data
     isOpen.value = true
   }

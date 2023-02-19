@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, defineProps, ref } from "vue"
+import { onMounted, defineProps, ref } from 'vue'
 
 const props = defineProps<{
   lines: string[]
@@ -38,7 +38,7 @@ function getYPos(idx: number): number {
 
 function recalculateSize() {
   var  bbox = svg.value.getBBox()
-  svg.value.setAttribute("viewBox", `0 0 ${bbox.width+MARGIN} ${bbox.height+MARGIN}`)
+  svg.value.setAttribute('viewBox', `0 0 ${bbox.width+MARGIN} ${bbox.height+MARGIN}`)
   if (bbox.width === 0) { setTimeout(recalculateSize, 25) }
 }
 

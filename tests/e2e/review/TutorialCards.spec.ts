@@ -5,7 +5,7 @@ import { Application, ReviewDeckPage } from '../components'
 test.describe('Review Deck › Tutorial Cards', () => {
   test.beforeEach(async ({ page }) => {
     await new Application(page)
-      .goto("/home/review", { tutorialEnabled: true })
+      .goto('/home/review', { tutorialEnabled: true })
   })
 
   /**

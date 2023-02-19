@@ -6,7 +6,7 @@ import { addCardsToReview, nextDays } from '../scenarios'
 test.describe('Review Deck › Schedule', () => {
   test.beforeEach(async ({ page }) => {
     await new Application(page)
-      .goto("/home/library", { tutorialEnabled: false })
+      .goto('/home/library', { tutorialEnabled: false })
   })
 
   test.beforeEach(async ({ page }) => {
@@ -26,7 +26,7 @@ test.describe('Review Deck › Schedule', () => {
 
     // assert:
     // 1. we create 6 cards per verse, so we should see 6 cards
-    await (expect(tabs.reviewBadge)).toHaveText("6")
+    await (expect(tabs.reviewBadge)).toHaveText('6')
   })
 
  /**
@@ -43,7 +43,7 @@ test.describe('Review Deck › Schedule', () => {
 
    // assert:
    // 1. one card scheduled for today and one card from yesterday
-    await expect(review.cardsCountDueToTomorrow).toHaveText("You have 2 cards scheduled for tomorrow.")
+    await expect(review.cardsCountDueToTomorrow).toHaveText('You have 2 cards scheduled for tomorrow.')
  })
 
   /**
@@ -62,6 +62,6 @@ test.describe('Review Deck › Schedule', () => {
 
     // assert:
     // 1. one card scheduled for today and one card from yesterday
-    await (expect(tabs.reviewBadge)).toHaveText("2")
+    await (expect(tabs.reviewBadge)).toHaveText('2')
   })
 })

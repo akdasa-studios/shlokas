@@ -1,6 +1,6 @@
-import { ReviewCardType } from "@akdasa-studios/shlokas-core"
-import { Locator, Page } from "@playwright/test"
-import { testId } from "@/app/TestId"
+import { ReviewCardType } from '@akdasa-studios/shlokas-core'
+import { Locator, Page } from '@playwright/test'
+import { testId } from '@/app/TestId'
 
 export class ReviewDeckPage {
   constructor(private readonly page: Page) {}
@@ -14,12 +14,12 @@ export class ReviewDeckPage {
 
   get tutorialCardIds() {
     return [
-      "tutorial.review.questionAnswer",
-      "tutorial.review.intervals",
+      'tutorial.review.questionAnswer',
+      'tutorial.review.intervals',
     ]
   }
-  get reviewEmpty() { return this.page.getByTestId("reviewEmpty") }
-  get cardsCountDueToTomorrow() { return this.page.getByTestId("cardsCountDueToTomorrow") }
+  get reviewEmpty() { return this.page.getByTestId('reviewEmpty') }
+  get cardsCountDueToTomorrow() { return this.page.getByTestId('cardsCountDueToTomorrow') }
 
   async swipeCardLeft(locator: Locator) {
     await locator.dragTo(locator, {

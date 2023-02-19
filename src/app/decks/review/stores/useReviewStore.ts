@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { CardViewModel, Deck } from "@/app/decks/shared"
+import { CardViewModel, Deck } from '@/app/decks/shared'
 import { ReviewCardViewModel } from '../viewModels/ReviewCardViewModel'
 
 

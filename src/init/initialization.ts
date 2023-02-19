@@ -7,6 +7,6 @@ export interface InitArgs {
   get: <T>(name: string) => T
 }
 
-export interface InitStageResult {
-  inject?: { [name:string]: any }
+export interface InitResult {
+  [name:string]: unknown
 }
