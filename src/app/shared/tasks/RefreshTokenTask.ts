@@ -11,16 +11,20 @@ import { AuthService } from '@/services/AuthService'
 export function runRefreshTokenTask(emitter: Emitter<Events>) {
   const service = new AuthService(AUTH_HOST)
   const log = new Logger('auth')
+  const supportedPlatforms = ['ios', 'android']
+  const currentPlatform = Capacitor.getPlatform()
 
-    emitter.on('appStateChanged', async ({ isActive }) => {
-      if (isActive) { return }
-      if (Capacitor.getPlatform() !== 'ios') { return }
-
+  emitter.on('appStateChanged', async ({ isActive }) => {
+    if (isActive) { return }
+    if (supportedPlatforms.includes(currentPlatform)) {
       const taskId = await BackgroundTask.beforeExit(async () => {
         await refreshToken()
       })
       BackgroundTask.finish({ taskId })
-    })
+    } else {
+      await refreshToken()
+    }
+  })
 
   async function refreshToken() {
     const now     = new Date().getTime()
@@ -33,9 +37,9 @@ export function runRefreshTokenTask(emitter: Emitter<Events>) {
       const token = await service.refreshToken(account.token)
       if (!token) { log.error('Failed to refresh token') }
       account.token.expires = token.expires
-      log.debug('auth token refreshed', account.token)
+      log.debug('Auth token refreshed', account.token)
     } else {
-      log.debug('token still valid')
+      log.debug('Token still valid')
     }
   }
 }

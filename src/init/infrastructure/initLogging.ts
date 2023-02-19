@@ -11,14 +11,20 @@ export async function initLogging() {
 
 class ConsoleLogTransport implements LogTransport {
   log(record: LogRecord): void {
+    const context = `[${record.context}]`
+    const data = record.data
+    const styles = {
+      context: 'color: #9E9E9E; font-weight: bold',
+    }
+
     if (record.level === LogLevel.DEBUG) {
-      console.debug(record.context, record.message, JSON.stringify(record.data))
+      console.debug('%c'+context, styles.context, record.message, data)
     } else if (record.level === LogLevel.INFO) {
-      console.info(record.context, record.message, JSON.stringify(record.data))
+      console.info('%c'+context, record.message, data)
     } else if (record.level === LogLevel.WARN) {
-      console.warn(record.context, record.message, JSON.stringify(record.data))
+      console.warn('%c'+context, record.message, data)
     } else if (record.level === LogLevel.ERROR || record.level === LogLevel.FATAL) {
-      console.error(record.context, record.message, JSON.stringify(record.data))
+      console.error('%c'+context, record.message, data)
     }
   }
 }
