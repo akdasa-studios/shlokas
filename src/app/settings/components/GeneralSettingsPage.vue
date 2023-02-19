@@ -55,6 +55,14 @@
             v-model="appearance.colorfulCards"
           />
         </ion-item>
+
+        <ion-item>
+          <ion-label
+            @click="onSendEmail"
+          >
+            {{ $t('settings.contactUs') }}
+          </ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -75,5 +83,8 @@ const appearance = useAppearanceStore()
 
 function onLocaleChanged(lang: string) {
   i18n.locale.value = lang
+}
+function onSendEmail() {
+  window.open('mailto:feedback@shlokas.app', '_system')
 }
 </script>
