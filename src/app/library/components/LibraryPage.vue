@@ -8,7 +8,7 @@
 
       <ion-toolbar>
         <ion-searchbar
-          v-model="searchScenario.query.value"
+          v-model="searchQuery"
           :placeholder="$t('library.search')"
           animated
         />
@@ -19,12 +19,12 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item
-          v-for="verse in searchScenario.verses.value"
+          v-for="verse in filteredVerses"
           :key="verse.number.toString()"
           :data-testid="testId(verse.number)"
           text-wrap
           role="listitem"
-          @click="addVerseScenario.dialog.open(verse)"
+          @click="dialogAddVerse.open(verse)"
         >
           <ion-label class="ion-text-wrap">
             <div class="header">
@@ -48,22 +48,22 @@
 
       <!-- Modal -->
       <ion-modal
-        :is-open="addVerseScenario.dialog.isOpen.value"
+        :is-open="dialogAddVerse.isOpen.value"
         role="dialog"
         @will-dismiss="(e) => onVerseDialogDismiss(e.detail.role)"
       >
-        <AddVerseDialog :verse="addVerseScenario.dialog.data.value" />
+        <AddVerseDialog :verse="dialogAddVerse.data.value" />
       </ion-modal>
 
       <!-- Toast -->
       <ion-toast
         position="top"
         color="dark"
-        :message="$t('decks.inbox.verseAdded', addVerseScenario.toast.data.value)"
-        :is-open="addVerseScenario.toast.isOpen.value"
-        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
+        :message="$t('decks.inbox.verseAdded', toastVerseAdded.data.value)"
+        :is-open="toastVerseAdded.isOpen.value"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: revert }]"
         :duration="2000"
-        @did-dismiss="addVerseScenario.toast.close()"
+        @did-dismiss="toastVerseAdded.close()"
       />
     </ion-content>
   </ion-page>
@@ -76,32 +76,30 @@ import {
   IonSearchbar, IonTitle, IonToast, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
+import { Application } from '@akdasa-studios/shlokas-core'
+import { Emitter } from 'mitt'
 import { testId } from '@/app/TestId'
-import {
-  AddVerseDialog, LibraryAddVerseController,
-  LibraryVersesController
-} from '@/app/library'
+import { AddVerseDialog,  useAddVerse, useLibrary } from '@/app/library'
+import { Events } from '@/app/Events'
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
-const addVerseScenario = inject('libraryAddVerseController') as LibraryAddVerseController
-const searchScenario = inject('libraryVersesController') as LibraryVersesController
+const app = inject('app') as Application
+const emitter = inject('emitter') as Emitter<Events>
+const { toastVerseAdded, dialogAddVerse, addVerseToInbox, revert } = useAddVerse(app)
+const { searchQuery, filteredVerses } = useLibrary(app, emitter)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 async function onVerseDialogDismiss(action: string) {
-  addVerseScenario.dialog.close()
+  dialogAddVerse.close()
   if (action === 'confirm') {
-    await addVerseScenario.addVerseToInbox(addVerseScenario.dialog.data.value)
+    await addVerseToInbox(dialogAddVerse.data.value)
   }
-}
-
-async function onRevert() {
-  await addVerseScenario.revert()
 }
 </script>
 
