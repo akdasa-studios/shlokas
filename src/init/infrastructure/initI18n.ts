@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 import en from '@/locale/en.json'
 import rs from '@/locale/rs.json'
 import ru from '@/locale/ru.json'
-import { InitArgs, InitStageResult } from '../initialization'
+import { InitArgs, InitResult } from '../initialization'
 
 
 /**
@@ -10,7 +10,7 @@ import { InitArgs, InitStageResult } from '../initialization'
  */
 export async function initI18n(
   { vue }: InitArgs
-): Promise<InitStageResult> {
+): Promise<InitResult> {
   const i18n = createI18n({
     legacy: false,
     locale: 'en',

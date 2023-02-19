@@ -5,12 +5,12 @@ import { Events } from '@/app/Events'
 import { LibraryAddVerseController, LibraryVersesController } from '@/app/library'
 import { StatisticsController } from '@/app/statistics'
 import { AuthController } from '@/app/shared'
-import { InitArgs, InitStageResult } from '../initialization'
+import { InitArgs, InitResult } from '../initialization'
 
 
 export async function initControllers(
   { get, shlokas }: InitArgs
-): Promise<InitStageResult> {
+): Promise<InitResult> {
   const emitter = get<Emitter<Events>>('emitter')
 
   return {

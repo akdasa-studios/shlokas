@@ -1,5 +1,5 @@
 import { useTutorialStore } from '@/app/decks/shared'
-import { InitArgs, InitStageResult } from '../initialization'
+import { InitArgs, InitResult } from '../initialization'
 
 
 export async function initParams(
