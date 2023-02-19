@@ -1,7 +1,7 @@
-import { InboxCardType } from "@akdasa-studios/shlokas-core"
-import { Page } from "@playwright/test"
-import { testId } from "@/app/TestId"
-import { InboxDeckPage, LibraryPage, TabsBar } from "../components"
+import { InboxCardType } from '@akdasa-studios/shlokas-core'
+import { Page } from '@playwright/test'
+import { testId } from '@/app/TestId'
+import { InboxDeckPage, LibraryPage, TabsBar } from '../components'
 
 export async function addCardsToReview(page: Page, verses: string[]) {
   const library = new LibraryPage(page)

@@ -9,7 +9,7 @@ import { initAppStateChange } from './infrastructure/initAppStateChange'
 
 // stage 1: logic
 import { initCommands } from './app/initCommands'
-import { initControllers } from './app/initControllers'
+import { initTasks } from './app/initTasks'
 import { initParams } from './app/initParams'
 import { initStores } from './app/initStores'
 import { initStaticData } from './app/initStaticData'
@@ -30,7 +30,7 @@ const initStages = [
   initParams,
   initCommands,
   initStaticData,
-  initControllers,
+  initTasks,
 ]
 
 export default initStages

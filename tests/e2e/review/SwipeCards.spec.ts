@@ -7,7 +7,7 @@ import { addCardsToReview } from '../scenarios'
 test.describe('Review Deck › Swipe Cards', () => {
   test.beforeEach(async ({ page }) => {
     await new Application(page)
-      .goto("/home/library", { tutorialEnabled: false })
+      .goto('/home/library', { tutorialEnabled: false })
     await addCardsToReview(page, ['BG 1.1', 'BG 2.13'])
   })
 

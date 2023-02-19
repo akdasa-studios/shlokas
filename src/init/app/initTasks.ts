@@ -7,7 +7,7 @@ import { runUpdateStatisticsTask } from '@/app/statistics'
 import { InitArgs } from '../initialization'
 
 
-export async function initControllers(
+export async function initTasks(
   { get, shlokas }: InitArgs
 ) {
   const emitter = get<Emitter<Events>>('emitter')

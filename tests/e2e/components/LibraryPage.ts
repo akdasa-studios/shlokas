@@ -1,5 +1,5 @@
-import { Page } from "@playwright/test"
-import { testId } from "@/app/TestId"
+import { Page } from '@playwright/test'
+import { testId } from '@/app/TestId'
 
 export class LibraryPage {
   constructor(private readonly page: Page) {}
@@ -8,7 +8,7 @@ export class LibraryPage {
   get listItems() { return this.page.getByRole('listitem') }
 
   verse(title: string) { return this.page.getByRole('heading', { name: title }) }
-  verseBadge(number: string) { return this.page.getByTestId(testId(number, "badge")) }
+  verseBadge(number: string) { return this.page.getByTestId(testId(number, 'badge')) }
   verseAddedBadge(number: string) { return this.page.getByText(`Verse ${number} added to inbox`)}
 
   get revertButton() { return this.page.getByRole('button', { name: 'Revert' }) }

@@ -6,7 +6,7 @@ import { addCardsToReview } from '../scenarios'
 test.describe('Review Deck › Grade Buttons', () => {
   test.beforeEach(async ({ page }) => {
     await new Application(page)
-      .goto("/home/library", { tutorialEnabled: false })
+      .goto('/home/library', { tutorialEnabled: false })
     await addCardsToReview(page, ['BG 1.1'])
     await new TabsBar(page).reviewTab.click()
   })
@@ -43,6 +43,6 @@ test.describe('Review Deck › Grade Buttons', () => {
     // 1. card is still in the review deck
     await expect(review.reviewEmpty).toBeHidden()
     await expect(card).toBeVisible()
-    await expect(card).toHaveAttribute('data-index', "0")
+    await expect(card).toHaveAttribute('data-index', '0')
   })
 })

@@ -1,5 +1,5 @@
-import { Browser, BrowserContext, Page } from "@playwright/test"
-import { Account } from "../components"
+import { Browser, BrowserContext, Page } from '@playwright/test'
+import { Account } from '../components'
 
 export async function signUp(
   context: BrowserContext,
@@ -11,9 +11,9 @@ export async function signUp(
   // act
   await account.open()
   await account.signUpViaEmail.click()
-  await account.name.type("Ivan Petrović")
+  await account.name.type('Ivan Petrović')
   await account.email.type(email)
-  await account.password.type("12345678")
+  await account.password.type('12345678')
   await account.signUp.click()
 
   // 1. open mail client and confirm email
@@ -44,7 +44,7 @@ export async function logIn(
   await account.email.clear()
   await account.password.clear()
   await account.email.type(email)
-  await account.password.type("12345678")
+  await account.password.type('12345678')
   await account.logIn.click()
 }
 
@@ -55,7 +55,7 @@ export async function logInNewDevice(
   const context = await browser.newContext()
   const page    = await context.newPage()
 
-  await page.goto("/home/settings?tutorialEnabled=false")
+  await page.goto('/home/settings?tutorialEnabled=false')
   await logIn(page, email)
 
   return [context, page]

@@ -16,8 +16,8 @@ test.describe('Library › Add to Inbox', () => {
     await libraryPage.addVerseButton.click()
     await libraryPage.verseAddedBadge('BG 1.1').waitFor()
 
-    await expect(libraryPage.verseBadge('BG 1.1')).toContainText("INBOX")
-    await expect(tabsBar.inboxBadge).toContainText("2")
+    await expect(libraryPage.verseBadge('BG 1.1')).toContainText('INBOX')
+    await expect(tabsBar.inboxBadge).toContainText('2')
   })
 
   test('Revert adding verse to the Inbox deck', async ({ page }) => {

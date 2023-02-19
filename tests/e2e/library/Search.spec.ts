@@ -4,7 +4,7 @@ import { Application, LibraryPage } from '../components'
 
 test.beforeEach(async ({ page }) => {
     await new Application(page)
-      .goto("/home/library", { tutorialEnabled: false })
+      .goto('/home/library', { tutorialEnabled: false })
 })
 
 test.describe('Library › Search', () => {
