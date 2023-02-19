@@ -11,5 +11,8 @@ export * from './viewModels/InboxCardViewModel'
 export * from './viewModels/InboxVerseCardViewModel'
 
 // useCases:
-export * from './controllers/InboxDeckCardsController'
+export * from './composables/useInboxDeck'
 export * from './controllers/InboxDeckTutorialController'
+
+// tasks:
+export * from './tasks/SyncInboxDeckTask'

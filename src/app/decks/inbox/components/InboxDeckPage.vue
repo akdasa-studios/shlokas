@@ -17,7 +17,7 @@
       :scroll-x="false"
     >
       <CardsDeck
-        v-if="cardsMemorization.cards.length > 0"
+        v-if="!isEmpty"
         v-slot="data"
         :cards="cardsToShow"
         @place="onCardPlaced"
@@ -42,11 +42,11 @@
       <ion-toast
         position="top"
         :message="$t('cards.memorized')"
-        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: onRevert }]"
-        :is-open="cardsMemorization.cardMemorizedToast.isOpen.value"
+        :buttons="[{ text: $t('common.revert'), role: 'cancel', handler: revert }]"
+        :is-open="cardMemorizedToast.isOpen.value"
         :duration="2000"
         color="dark"
-        @did-dismiss="cardsMemorization.cardMemorizedToast.close()"
+        @did-dismiss="cardMemorizedToast.close()"
       />
     </ion-content>
   </ion-page>
@@ -58,7 +58,8 @@ import {
   IonContent, IonHeader, IonPage, IonTitle,
   IonToast, IonToolbar
 } from '@ionic/vue'
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
+import { Application } from '@akdasa-studios/shlokas-core'
 import {
   CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel,
   TutorialCard, TutorialCardViewModel
@@ -67,18 +68,18 @@ import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
   InboxDeckTutorialController,
   InboxVerseCardViewModel,
-  MemorizingStatus, InboxDeckCardsController
+  MemorizingStatus, useInboxDeck
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
-const cardsMemorization = inject('inboxDeckCardsController') as InboxDeckCardsController
+const app = inject('app') as Application
+
+const { isEmpty, cardsToShow, cardMemorizedToast, shiftTopCard, memorizeTopCard, topCard, revert } = useInboxDeck(app)
 const inboxDeckTutorial = inject('inboxDeckTutorialController') as InboxDeckTutorialController
 
 const deck = new StackedDeckBehaviour()
 
-const cardsToShow = computed(() =>
-  cardsMemorization.cards.filter(x => x.index < 3)
-)
+
 
 function onCardPlaced(card: VerseCardViewModel) {
   deck.updateInactiveCard(card)
@@ -111,20 +112,16 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
     }
 
     if (deltaPos.isLeftOrRight) {
-      cardsMemorization.shiftTopCard()
+      shiftTopCard()
     } else {
-      cardsMemorization.memorizeTopCard()
+      memorizeTopCard()
     }
     card.memorizingStatus = MemorizingStatus.Unknown
 
-    if (cardsMemorization.cards.length === 1) {
-      onCardPlaced(cardsMemorization.topCard)
-      cardsMemorization.topCard.showFrontSide()
+    if (cardsToShow.value.length === 1) {
+      onCardPlaced(topCard.value)
+      topCard.value.showFrontSide()
     }
   }, 250)
-}
-
-async function onRevert() {
-  await cardsMemorization.revert()
 }
 </script>

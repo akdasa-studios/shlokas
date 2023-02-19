@@ -1,5 +1,5 @@
 import { Emitter } from 'mitt'
-import { InboxDeckCardsController, InboxDeckTutorialController } from '@/app/decks/inbox'
+import { InboxDeckTutorialController } from '@/app/decks/inbox'
 import { ReviewDeckCardsController, ReviewDeckTutorialController } from '@/app/decks/review'
 import { Events } from '@/app/Events'
 import { StatisticsController } from '@/app/statistics'
@@ -13,7 +13,6 @@ export async function initControllers(
   const emitter = get<Emitter<Events>>('emitter')
 
   return {
-    'inboxDeckCardsController': new InboxDeckCardsController(shlokas, emitter),
     'inboxDeckTutorialController': new InboxDeckTutorialController(emitter),
     'reviewDeckCardsController':  new ReviewDeckCardsController(shlokas, emitter),
     'reviewDeckTutorialController': new ReviewDeckTutorialController(emitter),
