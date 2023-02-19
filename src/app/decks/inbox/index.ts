@@ -12,7 +12,7 @@ export * from './viewModels/InboxVerseCardViewModel'
 
 // useCases:
 export * from './composables/useInboxDeck'
-export * from './controllers/InboxDeckTutorialController'
+export * from './composables/useInboxDeckTutorial'
 
 // tasks:
 export * from './tasks/SyncInboxDeckTask'

@@ -61,28 +61,40 @@ import {
 import { inject } from 'vue'
 import { Application } from '@akdasa-studios/shlokas-core'
 import {
-  CardsDeck , StackedDeckBehaviour, Vector3d, VerseCardViewModel,
-  TutorialCard, TutorialCardViewModel
+  CardsDeck, Vector3d, VerseCardViewModel,
+  TutorialCard, TutorialCardViewModel, useStackedDeck
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
-  InboxDeckTutorialController,
   InboxVerseCardViewModel,
-  MemorizingStatus, useInboxDeck
+  MemorizingStatus, useInboxDeck, useInboxDeckTutorial,
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 
 const app = inject('app') as Application
 
-const { isEmpty, cardsToShow, cardMemorizedToast, shiftTopCard, memorizeTopCard, topCard, revert } = useInboxDeck(app)
-const inboxDeckTutorial = inject('inboxDeckTutorialController') as InboxDeckTutorialController
+const {
+  isEmpty, cardsToShow, cardMemorizedToast,
+  shiftTopCard, memorizeTopCard, topCard, revert
+} = useInboxDeck(app)
+const {
+  tutorialCardSwiped, addTutorialCards
+} = useInboxDeckTutorial()
+const {
+  updateInactiveCard,
+  updateMovingCard,
+  updateMovedCard,
+  swipeThreshold
+} = useStackedDeck()
 
-const deck = new StackedDeckBehaviour()
+addTutorialCards()
+
+
 
 
 
 function onCardPlaced(card: VerseCardViewModel) {
-  deck.updateInactiveCard(card)
+  updateInactiveCard(card)
 }
 
 function onCardMoving(
@@ -90,10 +102,10 @@ function onCardMoving(
   deltaPos: Vector3d,
   deltaPosTotal: Vector3d
 ) {
-  deck.updateMovingCard(card, deltaPos)
+  updateMovingCard(card, deltaPos)
 
-  if (card.type === 'tutorial') { return }
-  if (deltaPosTotal.length < deck.swipeThreshold) {
+  if (card instanceof TutorialCardViewModel) { return }
+  if (deltaPosTotal.length < swipeThreshold) {
     card.memorizingStatus = MemorizingStatus.Unknown
   } else {
     card.memorizingStatus = deltaPosTotal.isLeftOrRight
@@ -103,11 +115,11 @@ function onCardMoving(
 }
 
 function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
-  deck.updateMovedCard(card, deltaPos)
-  if (deltaPos.length < deck.swipeThreshold) { return }
+  updateMovedCard(card, deltaPos)
+  if (deltaPos.length < swipeThreshold) { return }
   setTimeout(() => {
-    if (card.type === 'tutorial') {
-      inboxDeckTutorial.tutorialCardSwiped(card as TutorialCardViewModel)
+    if (card instanceof TutorialCardViewModel) {
+      tutorialCardSwiped(card as TutorialCardViewModel)
       return
     }
 
