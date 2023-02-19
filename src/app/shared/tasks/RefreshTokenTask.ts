@@ -8,23 +8,21 @@ import { useAccountStore } from '@/app/settings'
 import { AuthService } from '@/services/AuthService'
 
 
-export class AuthController {
-  private service = new AuthService(AUTH_HOST)
-  private log = new Logger('auth')
+export function runRefreshTokenTask(emitter: Emitter<Events>) {
+  const service = new AuthService(AUTH_HOST)
+  const log = new Logger('auth')
 
-  constructor(emitter: Emitter<Events>) {
     emitter.on('appStateChanged', async ({ isActive }) => {
       if (isActive) { return }
       if (Capacitor.getPlatform() !== 'ios') { return }
 
       const taskId = await BackgroundTask.beforeExit(async () => {
-        await this.refreshToken()
+        await refreshToken()
       })
       BackgroundTask.finish({ taskId })
     })
-  }
 
-  async refreshToken() {
+  async function refreshToken() {
     const now     = new Date().getTime()
     const account = useAccountStore()
     if (!account.token) { return }
@@ -32,12 +30,12 @@ export class AuthController {
     const expires = account.token?.expires ?? 0
 
     if (now >= expires) {
-      const token = await this.service.refreshToken(account.token)
-      if (!token) { this.log.error('Failed to refresh token') }
+      const token = await service.refreshToken(account.token)
+      if (!token) { log.error('Failed to refresh token') }
       account.token.expires = token.expires
-      this.log.debug('auth token refreshed', account.token)
+      log.debug('auth token refreshed', account.token)
     } else {
-      this.log.debug('token still valid')
+      log.debug('token still valid')
     }
   }
 }
