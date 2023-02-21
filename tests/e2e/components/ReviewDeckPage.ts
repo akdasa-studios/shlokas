@@ -26,6 +26,7 @@ export class ReviewDeckPage {
       sourcePosition: { x: 40, y: 160 },
       targetPosition: { x: 0,  y: 160 }
     })
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await this.page.waitForTimeout(250)
   }
 }
