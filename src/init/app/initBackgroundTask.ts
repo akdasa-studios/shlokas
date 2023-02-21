@@ -10,7 +10,7 @@ export async function initBackgroundTask(
 ) {
   const log = new Logger('sys')
   const emitter = get<EventEmitter2>('emitter')
-  const supportedPlatforms = ['ios', 'android']
+  const supportedPlatforms = ['404']
   const currentPlatform = Capacitor.getPlatform()
 
   emitter.on('appStateChanged', async ({ isActive }) => {
