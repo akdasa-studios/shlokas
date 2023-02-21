@@ -29,8 +29,8 @@ test.describe('Inbox Deck', () => {
     test('Swipe card right', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 40, y: 60 },
-        targetPosition: { x: 0,  y: 60 }
+        sourcePosition: { x: 40, y: 160 },
+        targetPosition: { x: 0,  y: 160 }
       })
 
       await expect(cardLocator).toHaveAttribute('data-index', '1')
@@ -40,7 +40,7 @@ test.describe('Inbox Deck', () => {
     test('Swipe card top', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 0, y: 60 },
+        sourcePosition: { x: 0, y: 160 },
         targetPosition: { x: 0, y: 0 }
       })
 
@@ -50,7 +50,7 @@ test.describe('Inbox Deck', () => {
     test('Review badge', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 0, y: 60 },
+        sourcePosition: { x: 0, y: 160 },
         targetPosition: { x: 0, y: 0 }
       })
       await page.getByTestId('library-tab').click()
@@ -66,8 +66,8 @@ test.describe('Inbox Deck', () => {
       for (const cardTypeToSwipe of cardTypesToSwipe) {
         const cardLocator = page.getByTestId('bg 1.1-card-' + cardTypeToSwipe.toLowerCase())
         await cardLocator.dragTo(cardLocator, {
-          sourcePosition: { x: 0, y: 60 },
-          targetPosition: { x: 0, y: 0 }
+          sourcePosition: { x: 0, y: 160 },
+          targetPosition: { x: 0, y: 10 }
         })
       }
 

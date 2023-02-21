@@ -23,8 +23,8 @@ export class ReviewDeckPage {
 
   async swipeCardLeft(locator: Locator) {
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 60 },
-      targetPosition: { x: 0,  y: 60 }
+      sourcePosition: { x: 40, y: 160 },
+      targetPosition: { x: 0,  y: 160 }
     })
   }
 }
