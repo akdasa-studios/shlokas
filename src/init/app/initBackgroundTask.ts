@@ -10,7 +10,7 @@ export async function initBackgroundTask(
 ) {
   const log = new Logger('sys')
   const emitter = get<EventEmitter2>('emitter')
-  const supportedPlatforms = ['404']
+  const supportedPlatforms = ['ios', 'android']
   const currentPlatform = Capacitor.getPlatform()
 
   emitter.on('appStateChanged', async ({ isActive }) => {
@@ -25,8 +25,8 @@ export async function initBackgroundTask(
         } finally {
           log.debug('Background tasks completed')
         }
+        BackgroundTask.finish({ taskId })
       })
-      BackgroundTask.finish({ taskId })
     } else {
       try {
         log.debug('Emulating background tasks')
