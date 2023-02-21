@@ -9,10 +9,10 @@ import { AuthService } from '@/services/AuthService'
 
 
 export function runRefreshTokenTask(emitter: Emitter<Events>) {
-  const service = new AuthService(AUTH_HOST)
-  const log = new Logger('auth')
+  const service            = new AuthService(AUTH_HOST)
+  const log                = new Logger('auth')
   const supportedPlatforms = ['ios', 'android']
-  const currentPlatform = Capacitor.getPlatform()
+  const currentPlatform    = Capacitor.getPlatform()
 
   emitter.on('appStateChanged', async ({ isActive }) => {
     if (isActive) { return }

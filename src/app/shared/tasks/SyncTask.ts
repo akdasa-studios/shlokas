@@ -9,9 +9,9 @@ import { Events } from '@/app/Events'
 
 
 export function runSyncTask(app: Application, emitter: Emitter<Events>) {
-  const log = new Logger('sync')
+  const log                = new Logger('sync')
   const supportedPlatforms = ['ios', 'android']
-  const currentPlatform = Capacitor.getPlatform()
+  const currentPlatform    = Capacitor.getPlatform()
 
   emitter.on('appStateChanged', async ({ isActive }) => {
     if (isActive) { return }
