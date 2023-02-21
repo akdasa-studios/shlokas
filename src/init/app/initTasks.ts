@@ -11,7 +11,7 @@ export async function initTasks(
   { get, shlokas }: InitArgs
 ) {
   const emitter = get<Emitter<Events>>('emitter')
-  runRefreshTokenTask(emitter)
+  // runRefreshTokenTask(emitter)
   runUpdateStatisticsTask(shlokas, emitter)
   runSyncInboxDeckTask(shlokas, emitter)
   runSyncReviewDeckTask(shlokas, emitter)

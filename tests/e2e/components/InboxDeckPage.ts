@@ -18,6 +18,7 @@ export class InboxDeckPage {
       sourcePosition: { x: 90, y: 160 },
       targetPosition: { x: 10,  y: 160 }
     })
+    // @ts-ignore
     await this.page.waitForTimeout(250)
   }
 
@@ -26,6 +27,7 @@ export class InboxDeckPage {
       sourcePosition: { x: 40, y: 160 },
       targetPosition: { x: 40, y: 0 }
     })
+    // @ts-ignore
     await this.page.waitForTimeout(250)
   }
 }
