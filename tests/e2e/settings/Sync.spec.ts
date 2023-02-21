@@ -7,6 +7,9 @@ import { logIn, logInNewDevice, signUp, sync } from '../scenarios/accounts'
 test.beforeEach(async ({ page }) => {
   await new Application(page)
     .goto('/home/library', { tutorialEnabled: false })
+  await page.evaluate(() =>
+    localStorage.setItem('mailcatcherSeparatorHeight', '400')
+  )
 })
 
 test.describe('Settings › Account › Sync', () => {
