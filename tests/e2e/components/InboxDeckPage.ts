@@ -15,15 +15,19 @@ export class InboxDeckPage {
 
   async swipeCardLeft(locator: Locator) {
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 60 },
-      targetPosition: { x: 0,  y: 60 }
+      sourcePosition: { x: 90, y: 160 },
+      targetPosition: { x: 10,  y: 160 }
     })
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await this.page.waitForTimeout(250)
   }
 
   async swipeCardTop(locator: Locator) {
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 60 },
+      sourcePosition: { x: 40, y: 160 },
       targetPosition: { x: 40, y: 0 }
     })
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await this.page.waitForTimeout(250)
   }
 }

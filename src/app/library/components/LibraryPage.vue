@@ -77,17 +77,17 @@ import {
 } from '@ionic/vue'
 import { inject } from 'vue'
 import { Application } from '@akdasa-studios/shlokas-core'
-import { Emitter } from 'mitt'
+import { EventEmitter2 } from 'eventemitter2'
 import { testId } from '@/app/TestId'
 import { AddVerseDialog,  useAddVerse, useLibrary } from '@/app/library'
-import { Events } from '@/app/Events'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                 Scenarios                                  */
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
-const emitter = inject('emitter') as Emitter<Events>
+const emitter = inject('emitter') as EventEmitter2
 const { toastVerseAdded, dialogAddVerse, addVerseToInbox, revert } = useAddVerse(app)
 const { searchQuery, filteredVerses } = useLibrary(app, emitter)
 

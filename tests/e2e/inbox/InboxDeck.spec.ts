@@ -1,6 +1,6 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { LibraryPage, TabsBar } from '../components'
+import { InboxDeckPage, LibraryPage, TabsBar } from '../components'
 
 
 test.describe('Inbox Deck', () => {
@@ -29,8 +29,8 @@ test.describe('Inbox Deck', () => {
     test('Swipe card right', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 40, y: 60 },
-        targetPosition: { x: 0,  y: 60 }
+        sourcePosition: { x: 40, y: 160 },
+        targetPosition: { x: 0,  y: 160 }
       })
 
       await expect(cardLocator).toHaveAttribute('data-index', '1')
@@ -40,7 +40,7 @@ test.describe('Inbox Deck', () => {
     test('Swipe card top', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 0, y: 60 },
+        sourcePosition: { x: 0, y: 160 },
         targetPosition: { x: 0, y: 0 }
       })
 
@@ -48,16 +48,15 @@ test.describe('Inbox Deck', () => {
     })
 
     test('Review badge', async ({ page }) => {
+      const inboxDeck = new InboxDeckPage(page)
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
-      await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 0, y: 60 },
-        targetPosition: { x: 0, y: 0 }
-      })
+      await inboxDeck.swipeCardTop(cardLocator)
       await page.getByTestId('library-tab').click()
       await expect(page.getByTestId('bg 1.1-badge')).toHaveText('REVIEW')
     })
 
     test('Swipe all cards', async ({ page }) => {
+      const inboxDeck = new InboxDeckPage(page)
       const cardTypesToSwipe = [
         InboxCardType.Translation,
         InboxCardType.Text,
@@ -65,10 +64,7 @@ test.describe('Inbox Deck', () => {
 
       for (const cardTypeToSwipe of cardTypesToSwipe) {
         const cardLocator = page.getByTestId('bg 1.1-card-' + cardTypeToSwipe.toLowerCase())
-        await cardLocator.dragTo(cardLocator, {
-          sourcePosition: { x: 0, y: 60 },
-          targetPosition: { x: 0, y: 0 }
-        })
+        await inboxDeck.swipeCardTop(cardLocator)
       }
 
       await expect(page.getByTestId('inboxEmpty')).toBeVisible()

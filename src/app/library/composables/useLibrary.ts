@@ -1,13 +1,12 @@
 import { Application, UpdateVerseStatus, VerseId } from '@akdasa-studios/shlokas-core'
-import { Emitter } from 'mitt'
+import { EventEmitter2 } from 'eventemitter2'
 import { storeToRefs } from 'pinia'
 import { ref, Ref, watch } from 'vue'
 import { useLocaleStore } from '@/app/settings'
 import { LibraryVerse, useLibraryStore } from '@/app/library'
-import { Events } from '@/app/Events'
 
 
-export function useLibrary(app: Application, emitter: Emitter<Events>) {
+export function useLibrary(app: Application, emitter: EventEmitter2) {
   const filteredVerses: Ref<LibraryVerse[]> = ref([])
   const searchQuery  = ref('')
   const localeStore  = useLocaleStore()
