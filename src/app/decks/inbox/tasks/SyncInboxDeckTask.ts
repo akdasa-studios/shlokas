@@ -1,11 +1,11 @@
 import { AddVerseToInboxDeck, Application } from '@akdasa-studios/shlokas-core'
-import { Emitter } from 'mitt'
-import { Events } from '@/app/Events'
+import { EventEmitter2 } from 'eventemitter2'
+
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
 import { useLibraryStore } from '@/app/library'
 
 
-export function runSyncInboxDeckTask(app: Application, emitter: Emitter<Events>) {
+export function runSyncInboxDeckTask(app: Application, emitter: EventEmitter2) {
   const inboxDeckStore = useInboxDeckStore()
   const libraryStore   = useLibraryStore(app)
 

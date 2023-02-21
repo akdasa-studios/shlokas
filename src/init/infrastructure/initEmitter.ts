@@ -1,5 +1,4 @@
-import mitt from 'mitt'
-import { Events } from '@/app/Events'
+import { EventEmitter2 } from 'eventemitter2'
 import { InitResult } from '../initialization'
 
 
@@ -7,5 +6,5 @@ import { InitResult } from '../initialization'
  * Initialize event bus
  */
 export async function initEmitter(): Promise<InitResult> {
-  return { 'emitter': mitt<Events>() }
+  return { 'emitter': new EventEmitter2() }
 }

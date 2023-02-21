@@ -1,10 +1,10 @@
 import { Application, InboxCardMemorized } from '@akdasa-studios/shlokas-core'
-import { Emitter } from 'mitt'
+import { EventEmitter2 } from 'eventemitter2'
 import { ReviewVerseCardViewModel, useReviewDeckStore } from '@/app/decks/review'
-import { Events } from '@/app/Events'
+
 import { useLibraryStore } from '@/app/library'
 
-export function runSyncReviewDeckTask(app: Application, emitter: Emitter<Events>) {
+export function runSyncReviewDeckTask(app: Application, emitter: EventEmitter2) {
   const _reviewDeckStore = useReviewDeckStore()
   const _libraryStore    = useLibraryStore(app)
 

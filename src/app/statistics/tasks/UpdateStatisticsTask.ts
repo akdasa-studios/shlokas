@@ -1,10 +1,10 @@
 import { Application, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
-import { Emitter } from 'mitt'
-import { Events } from '@/app/Events'
+import { EventEmitter2 } from 'eventemitter2'
+
 import { useStatisticsStore } from '@/app/statistics'
 
 
-export function runUpdateStatisticsTask(app: Application, emitter: Emitter<Events>) {
+export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2) {
   const statisticsStore = useStatisticsStore()
 
   emitter.on('commandExecuted', async (e) => {

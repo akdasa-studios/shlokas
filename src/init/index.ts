@@ -6,6 +6,7 @@ import { initI18n } from './infrastructure/initI18n'
 import { initPinia } from './infrastructure/initPinia'
 import { initEmitter } from './infrastructure/initEmitter'
 import { initAppStateChange } from './infrastructure/initAppStateChange'
+import { initBackgroundTask } from './app/initBackgroundTask'
 
 // stage 1: logic
 import { initCommands } from './app/initCommands'
@@ -24,6 +25,7 @@ const initStages = [
   initI18n,
   initEmitter,
   initAppStateChange,
+  initBackgroundTask,
 
   initLocale,
   initStores,

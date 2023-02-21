@@ -1,7 +1,7 @@
-import { Emitter } from 'mitt'
+import { EventEmitter2 } from 'eventemitter2'
 import { runSyncInboxDeckTask } from '@/app/decks/inbox'
 import { runSyncReviewDeckTask } from '@/app/decks/review'
-import { Events } from '@/app/Events'
+
 import { runRefreshTokenTask, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
 import { InitArgs } from '../initialization'
@@ -10,8 +10,8 @@ import { InitArgs } from '../initialization'
 export async function initTasks(
   { get, shlokas }: InitArgs
 ) {
-  const emitter = get<Emitter<Events>>('emitter')
-  // runRefreshTokenTask(emitter)
+  const emitter = get<EventEmitter2>('emitter')
+  runRefreshTokenTask(emitter)
   runUpdateStatisticsTask(shlokas, emitter)
   runSyncInboxDeckTask(shlokas, emitter)
   runSyncReviewDeckTask(shlokas, emitter)
