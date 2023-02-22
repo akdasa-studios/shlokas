@@ -30,18 +30,19 @@ $colors: (
 
   > .number {
     text-transform: uppercase;
-    padding: .4em;
-    margin: .4em;
-    border-radius: .2em;
-    font-size: 6vw;
+    padding: .2em;
+    font-weight: bold;
+    font-size: 11vw;
   }
 
   > .question {
     text-transform: uppercase;
-    padding: .4em;
+    padding: 0.4em;
     margin: .4em;
+
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: .2em;
-    font-size: 6vw;
+    font-size: 4.5vw;
   }
 }
 
@@ -69,13 +70,6 @@ $colors: (
     background-color: $base-color;
     border-color: $darken-color;
     border-bottom-color: $darken-color;
-
-    > .number {
-      background-color: $darken-color;
-    }
-    > .question {
-      background-color: $darken-color;
-    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -83,13 +77,6 @@ $colors: (
       background-color: invert($base-color);
       border-color: invert($darken-color);
       border-bottom-color: invert($darken-color);
-
-      > .number {
-        background-color: invert($darken-color);
-      }
-      > .question {
-        background-color: invert($darken-color);
-      }
     }
   }
 }
