@@ -13,11 +13,12 @@
     "gen:resources": "npx capacitor-assets generate --assetPath 'resources' --ios"
   },
   "dependencies": {
-    "@akdasa-studios/shlokas-core": "1.0.10",
+    "@akdasa-studios/shlokas-core": "1.0.11",
     "@capacitor/app": "^4.1.1",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.6.3",
     "@capacitor/device": "^4.1.0",
+    "@capacitor/filesystem": "^4.1.4",
     "@capacitor/haptics": "4.1.0",
     "@capacitor/ios": "4.6.3",
     "@capacitor/keyboard": "4.1.1",
@@ -31,6 +32,7 @@
     "@sentry/capacitor": "^0.11.0",
     "@sentry/vue": "7.25.0",
     "@vueuse/core": "^9.13.0",
+    "capacitor-blob-writer": "^1.1.9",
     "cordova-sqlite-storage": "^6.1.0",
     "core-js": "^3.28.0",
     "eventemitter2": "^6.4.9",
