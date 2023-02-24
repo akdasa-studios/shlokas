@@ -8,3 +8,4 @@ coverage/
 .idea
 .DS_Store
 resources/ios/**/*
+content/

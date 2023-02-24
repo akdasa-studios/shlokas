@@ -23,6 +23,7 @@ function loadVerses(
       .withNumber(new VerseNumber(verse.number))
       .withText(new Text(verse.text))
       .withTranslation(new Translation(verse.translation))
+      .withTextAudioUri(verse.textAudioUri)
 
     for (const w of verse.synonyms) {
       builder.withSynonym(w.words.join(' '), w.translation)

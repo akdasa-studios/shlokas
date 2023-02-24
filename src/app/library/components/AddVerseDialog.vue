@@ -36,6 +36,12 @@
       class="verse"
     />
 
+    <VersePlayer
+      v-if="props.verse.textAudioUri"
+      class="player"
+      :src="props.verse.textAudioUri"
+    />
+
     <div class="synonyms">
       <span
         v-for="word in props.verse.synonyms"
@@ -61,6 +67,7 @@ import {
 import { defineProps } from 'vue'
 import { LibraryVerse } from '@/app/library'
 import { VerseTextLines } from '@/app/decks/shared'
+import VersePlayer from './VersePlayer.vue'
 
 
 /* -------------------------------------------------------------------------- */
@@ -118,6 +125,10 @@ function onAddClicked() {
   border: 1px solid  var(--ion-color-light-shade);
   border-radius: 5px;
   padding: 10px;
+  margin-bottom: 10px;
+}
+
+.player {
   margin-bottom: 10px;
 }
 </style>

@@ -38,8 +38,18 @@ services:
     expose:
       - 80
 
+  content:
+    image: ghcr.io/akdasa-studios/shlokas-landing:latest
+    # image: shlokas-content-content:latest
+    restart: always
+    expose:
+      - 80
+    volumes:
+      - ./content:/usr/share/nginx/html
+
   balancer:
     image: ghcr.io/akdasa-studios/shlokas-balancer:latest
+    # image: shlokas-balancer-balancer:latest
     ports:
       - 80:80
       - 443:443
