@@ -15,13 +15,14 @@
       @click="stop"
     />
     <ion-progress-bar
-      :value="playProgress"
+      :value="progressValue"
+      :type="progressType"
       color="light"
       class="progressBar"
     />
     <audio
       ref="audio"
-      :src="path"
+      :src="audioUri"
     />
   </div>
 </template>
@@ -31,22 +32,47 @@ import { computed, nextTick, ref, defineProps } from 'vue'
 import { useMediaControls } from '@vueuse/core'
 import { play as playFilled, stop as stopFilled } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
+import { MediaSession } from '@jofr/capacitor-media-session'
 import { DownloadService } from '@/services/DownloadService'
 
-const props = defineProps<{ src: string }>()
-const path = ref('')
-const audio = ref()
-const playProgress = computed(() => {
-  return currentTime.value / duration.value || 0
-})
+const props = defineProps<{
+  uri: string,
+  title: string,
+  artist: string
+}>()
 
-const { playing, currentTime, duration } = useMediaControls(audio, { src: path })
+const service = new DownloadService()
+
+const audio         = ref()
+const audioUri      = ref('')
+const isDownloading = ref(false)
+const progressValue = computed(() => currentTime.value / duration.value || 0)
+const progressType  = computed(() => isDownloading.value ? 'indeterminate' : 'determinate')
+const {
+  playing, currentTime, duration
+} = useMediaControls(audio, { src: audioUri })
 
 async function play() {
-  const service = new DownloadService()
-  path.value = await service.download(props.src)
+  // Download the audio file if it's not already downloaded
+  // and get the local file URI
+  isDownloading.value = true
+  audioUri.value = await service.download(props.uri)
+  isDownloading.value = false
+
+  // Play the audio
   nextTick(() => playing.value = true)
+
+  // Update the media session
+  MediaSession.setMetadata({
+    title: props.title,
+    artist: props.artist,
+    // artwork is not working on iOS for some reason :(
+    // artwork: [
+    //   { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' },
+    // ]
+  })
 }
+
 function stop() { playing.value = false }
 </script>
 
