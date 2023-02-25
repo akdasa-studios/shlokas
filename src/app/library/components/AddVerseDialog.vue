@@ -39,7 +39,9 @@
     <VersePlayer
       v-if="props.verse.textAudioUri"
       class="player"
-      :src="props.verse.textAudioUri"
+      :uri="props.verse.textAudioUri"
+      :title="props.verse.number"
+      :artist="$t('app.name')"
     />
 
     <div class="synonyms">
