@@ -67,9 +67,9 @@ async function play() {
     title: props.title,
     artist: props.artist,
     // artwork is not working on iOS for some reason :(
-    artwork: [
-      { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' },
-    ]
+    // artwork: [
+    //   { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' },
+    // ]
   })
 }
 
