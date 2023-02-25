@@ -1,36 +1,48 @@
 <template>
   <div
     class="root"
+    @click.stop="play"
   >
     <ion-icon
       v-if="!playing"
       :icon="playFilled"
       size="large"
-      @click="play"
+      color="dark"
+      @click.stop="play"
     />
     <ion-icon
       v-else
       :icon="stopFilled"
+      color="dark"
       size="large"
-      @click="stop"
+      @click.stop="stop"
+    />
+    <ion-icon
+      v-if="props.showRepeatButton"
+      :icon="repeatIcon"
+      size="large"
+      :color="isLooped ? 'primary' : 'medium'"
+      @click.stop="changeMode"
     />
     <ion-progress-bar
+      v-if="props.showProgressBar"
       :value="progressValue"
       :type="progressType"
-      color="light"
+      color="dark"
       class="progressBar"
     />
     <audio
       ref="audio"
       :src="audioUri"
+      :loop="isLooped"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref, defineProps } from 'vue'
+import { computed, nextTick, ref, defineProps, watch } from 'vue'
 import { useMediaControls } from '@vueuse/core'
-import { play as playFilled, stop as stopFilled } from 'ionicons/icons'
+import { playCircle as playFilled, stopCircle as stopFilled, reloadCircle as repeatIcon } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
 import { MediaSession } from '@jofr/capacitor-media-session'
 import { DownloadService } from '@/services/DownloadService'
@@ -38,14 +50,23 @@ import { DownloadService } from '@/services/DownloadService'
 const props = defineProps<{
   uri: string,
   title: string,
-  artist: string
+  artist: string,
+  showProgressBar?: boolean,
+  showRepeatButton?: boolean
 }>()
+
+watch(() => props.uri, async () => {
+  stop()
+  currentTime.value = 0
+})
+
 
 const service = new DownloadService()
 
 const audio         = ref()
 const audioUri      = ref('')
 const isDownloading = ref(false)
+const isLooped      = ref(false)
 const progressValue = computed(() => currentTime.value / duration.value || 0)
 const progressType  = computed(() => isDownloading.value ? 'indeterminate' : 'determinate')
 const {
@@ -74,13 +95,15 @@ async function play() {
 }
 
 function stop() { playing.value = false }
+
+function changeMode() {
+  isLooped.value = !isLooped.value
+}
 </script>
 
 
 <style lang="scss" scoped>
 .root {
-  background-color: var(--ion-color-dark);
-  color: var(--ion-color-medium-contrast);
   padding: .5rem;
   border-radius: 5px;
   display: flex;
@@ -91,5 +114,9 @@ function stop() { playing.value = false }
 .progressBar {
   margin-left: .5rem;
   margin-right: .5rem;
+}
+
+.off {
+  opacity: .5;
 }
 </style>

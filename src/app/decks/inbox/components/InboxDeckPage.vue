@@ -1,7 +1,5 @@
 <template>
-  <ion-page
-    :data-testid="testId('inboxPage')"
-  >
+  <ion-page :data-testid="testId('inboxPage')">
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
@@ -39,6 +37,19 @@
         data-testid="inboxEmpty"
       />
 
+      <div
+        :class="{ 'closed': !showPlayer }"
+        class="player"
+      >
+        <VersePlayer
+          :uri="(topCard as InboxVerseCardViewModel)?.textAudioUri"
+          :title="(topCard as InboxVerseCardViewModel)?.verseNumber"
+          :artist="$t('app.name')"
+          :show-progress-bar="true"
+          :show-repeat-button="true"
+        />
+      </div>
+
       <ion-toast
         position="top"
         :message="$t('cards.memorized')"
@@ -58,11 +69,11 @@ import {
   IonContent, IonHeader, IonPage, IonTitle,
   IonToast, IonToolbar
 } from '@ionic/vue'
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 import { Application } from '@akdasa-studios/shlokas-core'
 import {
   CardsDeck, Vector3d, VerseCardViewModel,
-  TutorialCard, TutorialCardViewModel, useStackedDeck
+  TutorialCard, TutorialCardViewModel, useStackedDeck,
 } from '@/app/decks/shared'
 import {
   InboxCard, InboxCardViewModel, InboxDeckEmpty,
@@ -70,6 +81,7 @@ import {
   MemorizingStatus, useInboxDeck, useInboxDeckTutorial,
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
+import { VersePlayer } from '@/app/shared'
 
 const app = inject('app') as Application
 
@@ -87,8 +99,12 @@ const {
   swipeThreshold
 } = useStackedDeck()
 
-addTutorialCards()
+const showPlayer = computed(() => {
+  return topCard.value && topCard.value.type === 'Text' && !!topCard.value.textAudioUri
+  // return !!topCard && topCard.type === 'Text' // && topCard.textAudioUri && topCard.type === 'Text'
+})
 
+addTutorialCards()
 
 
 
@@ -137,3 +153,20 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
   }, 250)
 }
 </script>
+
+<style scoped>
+.player {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  background-color: rgba(var(--ion-color-light-rgb), .75);
+  border-top: 1px solid var(--ion-color-light-shade);
+  backdrop-filter: blur(5px);
+  transition: .2s ease-in-out;
+}
+
+.closed {
+  bottom: -50px;
+  opacity: 0;
+}
+</style>

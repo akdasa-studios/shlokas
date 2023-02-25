@@ -42,6 +42,7 @@
       :uri="props.verse.textAudioUri"
       :title="props.verse.number"
       :artist="$t('app.name')"
+      :show-progress-bar="true"
     />
 
     <div class="synonyms">
@@ -69,7 +70,7 @@ import {
 import { defineProps } from 'vue'
 import { LibraryVerse } from '@/app/library'
 import { VerseTextLines } from '@/app/decks/shared'
-import VersePlayer from './VersePlayer.vue'
+import { VersePlayer } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -132,5 +133,8 @@ function onAddClicked() {
 
 .player {
   margin-bottom: 10px;
+  background-color: var(--ion-color-light);
+  border: 1px solid  var(--ion-color-light-shade);
+  color: var(--ion-color-medium-contrast);
 }
 </style>
