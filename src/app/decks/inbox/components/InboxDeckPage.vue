@@ -101,7 +101,6 @@ const {
 
 const showPlayer = computed(() => {
   return topCard.value && topCard.value.type === 'Text' && !!topCard.value.textAudioUri
-  // return !!topCard && topCard.type === 'Text' // && topCard.textAudioUri && topCard.type === 'Text'
 })
 
 addTutorialCards()
