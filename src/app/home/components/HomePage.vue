@@ -1,7 +1,10 @@
 <template>
   <ion-page>
-    <ion-tabs>
+    <ion-tabs
+      @ion-tabs-did-change="onTabChanged"
+    >
       <ion-router-outlet />
+
       <!-- Tabs -->
       <ion-tab-bar
         slot="bottom"
@@ -72,7 +75,15 @@ import {
 import { storeToRefs } from 'pinia'
 import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
+import { useAudioPlayerStore } from '@/app/shared'
 
 const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore())
 const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore())
+const audioPlayer = useAudioPlayerStore()
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+function onTabChanged() { audioPlayer.stop() }
 </script>

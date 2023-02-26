@@ -1,11 +1,15 @@
 <template>
   <ion-app>
     <ion-router-outlet />
+
+    <!-- Global audio player -->
+    <AudioPlayer />
   </ion-app>
 </template>
 
 <script lang="ts" setup>
 import { IonApp, IonRouterOutlet } from '@ionic/vue'
+import { AudioPlayer } from '@/app/shared'
 
 // Notch!
 try {
@@ -20,5 +24,4 @@ try {
     style.appendChild(document.createTextNode(css))
   }
 } catch(e) { console.log(e) }
-
 </script>
