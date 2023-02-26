@@ -133,6 +133,7 @@ function onAddClicked() {
 
 .player {
   margin-bottom: 10px;
+  border-radius: 5px;
   background-color: var(--ion-color-light);
   border: 1px solid  var(--ion-color-light-shade);
   color: var(--ion-color-medium-contrast);

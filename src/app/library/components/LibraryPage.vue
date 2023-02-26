@@ -80,6 +80,7 @@ import { Application } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 import { testId } from '@/app/TestId'
 import { AddVerseDialog,  useAddVerse, useLibrary } from '@/app/library'
+import { useAudioPlayerStore } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -90,6 +91,7 @@ const app = inject('app') as Application
 const emitter = inject('emitter') as EventEmitter2
 const { toastVerseAdded, dialogAddVerse, addVerseToInbox, revert } = useAddVerse(app)
 const { searchQuery, filteredVerses } = useLibrary(app, emitter)
+const { close } = useAudioPlayerStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -97,6 +99,7 @@ const { searchQuery, filteredVerses } = useLibrary(app, emitter)
 
 async function onVerseDialogDismiss(action: string) {
   dialogAddVerse.close()
+  close()
   if (action === 'confirm') {
     await addVerseToInbox(dialogAddVerse.data.value)
   }

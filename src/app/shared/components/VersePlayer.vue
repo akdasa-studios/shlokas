@@ -1,103 +1,74 @@
 <template>
-  <div
-    class="root"
-    @click.stop="play"
-  >
+  <div class="root">
     <ion-icon
       v-if="!playing"
-      :icon="playFilled"
+      :icon="playCircle"
       size="large"
       color="dark"
-      @click.stop="play"
+      @click.stop="audioPlayer.play"
     />
     <ion-icon
       v-else
-      :icon="stopFilled"
+      :icon="stopCircle"
       color="dark"
       size="large"
-      @click.stop="stop"
+      @click.stop="audioPlayer.stop"
     />
     <ion-icon
       v-if="props.showRepeatButton"
-      :icon="repeatIcon"
+      :icon="reloadCircle"
       size="large"
-      :color="isLooped ? 'primary' : 'medium'"
-      @click.stop="changeMode"
+      :color="loop ? 'primary' : 'medium'"
+      @click.stop="audioPlayer.toggleLoop"
     />
     <ion-progress-bar
       v-if="props.showProgressBar"
-      :value="progressValue"
+      :value="progress"
       :type="progressType"
       color="dark"
       class="progressBar"
-    />
-    <audio
-      ref="audio"
-      :src="audioUri"
-      :loop="isLooped"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref, defineProps, watch } from 'vue'
-import { useMediaControls } from '@vueuse/core'
-import { playCircle as playFilled, stopCircle as stopFilled, reloadCircle as repeatIcon } from 'ionicons/icons'
+import { computed, defineProps, watch, toRefs } from 'vue'
+import { playCircle, stopCircle, reloadCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
-import { MediaSession } from '@jofr/capacitor-media-session'
-import { DownloadService } from '@/services/DownloadService'
+import { storeToRefs } from 'pinia'
+import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
+
+/* -------------------------------------------------------------------------- */
+/*                                  Interface                                 */
+/* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
   uri: string,
-  title: string,
-  artist: string,
+  title?: string,
+  artist?: string,
   showProgressBar?: boolean,
   showRepeatButton?: boolean
 }>()
 
-watch(() => props.uri, async () => {
-  stop()
-  currentTime.value = 0
-})
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
 
+const downloadService = useDownloadService()
+const audioPlayer = useAudioPlayerStore()
+const { uri } = toRefs(props)
+const { playing, loop, progress } = storeToRefs(audioPlayer)
+const progressType  = computed(() => downloadService.isDownloading.value ? 'indeterminate' : 'determinate')
 
-const service = new DownloadService()
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
-const audio         = ref()
-const audioUri      = ref('')
-const isDownloading = ref(false)
-const isLooped      = ref(false)
-const progressValue = computed(() => currentTime.value / duration.value || 0)
-const progressType  = computed(() => isDownloading.value ? 'indeterminate' : 'determinate')
-const {
-  playing, currentTime, duration
-} = useMediaControls(audio, { src: audioUri })
+watch(uri, async (value) => onUriChanged(value), { immediate: true })
 
-async function play() {
-  // Download the audio file if it's not already downloaded
-  // and get the local file URI
-  isDownloading.value = true
-  audioUri.value = await service.download(props.uri)
-  isDownloading.value = false
-
-  // Play the audio
-  nextTick(() => playing.value = true)
-
-  // Update the media session
-  MediaSession.setMetadata({
-    title: props.title,
-    artist: props.artist,
-    // artwork is not working on iOS for some reason :(
-    // artwork: [
-    //   { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' },
-    // ]
-  })
-}
-
-function stop() { playing.value = false }
-
-function changeMode() {
-  isLooped.value = !isLooped.value
+async function onUriChanged(uri: string) {
+  const localUri = await downloadService.download(uri)
+  audioPlayer.open(localUri, props.title, props.artist)
 }
 </script>
 
@@ -105,7 +76,6 @@ function changeMode() {
 <style lang="scss" scoped>
 .root {
   padding: .5rem;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-items: baseline;
@@ -114,9 +84,5 @@ function changeMode() {
 .progressBar {
   margin-left: .5rem;
   margin-right: .5rem;
-}
-
-.off {
-  opacity: .5;
 }
 </style>
