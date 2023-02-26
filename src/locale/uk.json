@@ -2,101 +2,101 @@
   "cards": {
     "grade": {
       "forgot": "Забув",
-      "hard": "Hard",
-      "good": "Good",
-      "easy": "Easy"
+      "hard": "Жорстко",
+      "good": "Хороший",
+      "easy": "Просто"
     },
     "questions": {
-      "number": "Verse number",
-      "text": "Text",
-      "translation": "Translation"
+      "number": "Номер вірша",
+      "text": "Текст",
+      "translation": "Переклад"
     },
-    "memorized": "Card memorized",
+    "memorized": "Картку запам'ятовано",
     "inbox": {
-      "finished": "Finished",
-      "inProgress": "In Progress"
+      "finished": "Завершено",
+      "inProgress": "В процесі"
     },
     "schedule": {
-      "inDays": "today | + {count} day | + {count} days",
-      "inMonths": "+ {count} month | + {count} months",
-      "inYears": "+ {count} year | + {count} years"
+      "inDays": "сьогодні | + {count} день | + {count} днів",
+      "inMonths": "+ {count} місяць | + {count} місяців",
+      "inYears": "+ {count} рік | + {count} років"
     }
   },
   "common": {
-    "add": "Add",
-    "cancel": "Cancel",
-    "close": "Close",
-    "revert": "Revert",
+    "add": "Додати",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "revert": "Скасувати зміни",
     "wait": "Зачекайте...",
     "ok": "OK"
   },
   "decks": {
     "inbox": {
-      "empty": "Your inbox is empty.",
-      "goToLibrary": "Go to the Library and add a verse.",
+      "empty": "Ваша вхідна скринька порожня.",
+      "goToLibrary": "Перейдіть в Бібліотеку і додайте вірш.",
       "title": "Вхідні",
-      "verseAdded": "Verse {verseNumber} added to inbox"
+      "verseAdded": "Вірш {verseNumber} додано до папки Вхідні."
     },
     "review": {
-      "empty": "Your have nothing to review today.",
-      "title": "Review",
-      "dueToTomorrow": "You have {count} card scheduled for tomorrow.|You have {count} cards scheduled for tomorrow."
+      "empty": "У Вас сьогодні немає карток до розгляду.",
+      "title": "Переглянути",
+      "dueToTomorrow": "У вас {count} картка запланована на завтра.| У вас {count} карток запланованих на завтра."
     }
   },
   "library": {
     "title": "Бібліотека",
-    "search": "Search"
+    "search": "Пошук"
   },
   "settings": {
-    "title": "Settings",
-    "language": "Language",
-    "account": "Account",
-    "gradeButtons": "Show grade buttons",
-    "colorfulCards": "Colorful cards",
-    "contactUs": "Contact us"
+    "title": "Налаштування",
+    "language": "Мова",
+    "account": "Обліковий запис",
+    "gradeButtons": "Показувати кнопки оцінок",
+    "colorfulCards": "Кольорові картки",
+    "contactUs": "Зв'язатися з нами"
   },
   "account": {
-    "welcomeBack": "Welcome back!",
-    "logIn": "Log In",
-    "signUp": "Sign Up",
-    "logOut": "Log Out",
-    "syncData": "Force Syncing",
-    "deleteAllData": "Delete all data",
+    "welcomeBack": "З Поверненням!",
+    "logIn": "Увійти",
+    "signUp": "Зареєструватися",
+    "logOut": "Вийти",
+    "syncData": "Примусова синхронізація",
+    "deleteAllData": "Видалити всі дані",
     "token": {
-      "refresh": "Refresh Token",
-      "validTill": "Token is valid till"
+      "refresh": "Оновити токен",
+      "validTill": "Токен є валідним до"
     },
-    "email": "EMail",
-    "password": "Password",
-    "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
-    "name": "Name",
-    "syncTime": "Sync time",
+    "email": "Ел.пошта",
+    "password": "Пароль",
+    "confirmEmail": "Для завершення реєстрації, будь ласка, підтвердіть, що ви отримали електронний лист, який був надісланий вам. Дякуємо",
+    "name": "Ім’я",
+    "syncTime": "Час синхронізації",
     "logInFailed": {
-      "title": "Login failed"
+      "title": "Помилка входу"
     },
     "loginFailed": {
-      "message": "Unable to log in using these credentials"
+      "message": "Не вдається увійти в систему з використанням цих облікових даних (невірні логін або пароль)"
     }
   },
   "tutorial": {
     "inbox": {
       "cards": {
         "front": {
-          "text": "Each verse is divided into several cards. This makes them easier to memorize. Cards can be flipped and swiped.",
-          "action": "Tap"
+          "text": "Кожен вірш поділений на кілька карт. Це полегшує їх запам'ятовування. Карти можна перевертати і рухати вправо-вліво, вверх-вниз.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "Swipe left or right to move to the next card.",
-          "action": "Swipe left"
+          "text": "Проведіть пальцем вліво чи вправо по картці, щоб перейти на наступну картку.",
+          "action": "Проведіть пальцем вліво"
         }
       },
       "overall": {
         "front": {
-          "text": "The 'Inbox' deck contains cards of the verses you are memorizing. It may take several days to master the card.",
-          "action": "Tap"
+          "text": "У колоді \"Вхідні\" містяться карти віршів, які ви хочете запам'ятати. Це може зайняти кілька днів або більше, щоб освоїти картку.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "When you have memorized a card, swipe it up.",
+          "text": "Якщо Ви запам'ятали карту, проведіть пальцем угору по картці.",
           "action": "Swipe up"
         }
       },
