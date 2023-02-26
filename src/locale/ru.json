@@ -1,9 +1,9 @@
 {
   "cards": {
     "questions": {
-      "number": "Номер стиха",
-      "text": "Текст",
-      "translation": "Перевод"
+      "number": "Вспомните номер стиха",
+      "text": "Вспомните текст",
+      "translation": "Вспомните перевод"
     },
     "grade": {
       "easy": "Легко",
