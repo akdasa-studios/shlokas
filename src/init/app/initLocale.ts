@@ -28,5 +28,6 @@ function check(lang: string) {
   // TODO: one place to store available languages
   if (lang === 'ru') return 'ru'
   if (lang === 'en') return 'en'
+  if (lang === 'uk') return 'uk'
   return undefined
 }

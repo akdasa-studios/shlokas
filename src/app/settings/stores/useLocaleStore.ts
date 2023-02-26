@@ -17,6 +17,7 @@ export const useLocaleStore = defineStore('settings/locale', () => {
   const availableLanguages = [
     new Language('en', 'English'),
     new Language('ru', 'Русский'),
+    new Language('uk', 'Українська мова')
     // new Language("rs", "Српски")
   ]
 
