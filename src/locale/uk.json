@@ -34,7 +34,7 @@
     "inbox": {
       "empty": "Your inbox is empty.",
       "goToLibrary": "Go to the Library and add a verse.",
-      "title": "Inbox",
+      "title": "Вхідні",
       "verseAdded": "Verse {verseNumber} added to inbox"
     },
     "review": {
@@ -44,7 +44,7 @@
     }
   },
   "library": {
-    "title": "Library",
+    "title": "Бібліотека",
     "search": "Search"
   },
   "settings": {
