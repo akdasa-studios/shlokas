@@ -1,7 +1,7 @@
 {
   "cards": {
     "grade": {
-      "forgot": "Forgot",
+      "forgot": "Забув",
       "hard": "Hard",
       "good": "Good",
       "easy": "Easy"
@@ -27,7 +27,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "revert": "Revert",
-    "wait": "Please wait...",
+    "wait": "Зачекайте...",
     "ok": "OK"
   },
   "decks": {
