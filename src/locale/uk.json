@@ -1,10 +1,10 @@
 {
   "cards": {
     "grade": {
-      "forgot": "Забув",
-      "hard": "Жорстко",
-      "good": "Хороший",
-      "easy": "Просто"
+      "forgot": "Не пам'ятаю",
+      "hard": "Важко",
+      "good": "Добре",
+      "easy": "Легко"
     },
     "questions": {
       "number": "Номер вірша",
@@ -32,10 +32,10 @@
   },
   "decks": {
     "inbox": {
-      "empty": "Ваша вхідна скринька порожня.",
-      "goToLibrary": "Перейдіть в Бібліотеку і додайте вірш.",
+      "empty": "Ваша папка \"Вхідні\" порожня.",
+      "goToLibrary": "Перейдіть в \"Бібліотеку\" і додайте вірш.",
       "title": "Вхідні",
-      "verseAdded": "Вірш {verseNumber} додано до папки Вхідні."
+      "verseAdded": "Вірш {verseNumber} додано до папки \"Вхідні\"."
     },
     "review": {
       "empty": "У Вас сьогодні немає карток до розгляду.",
@@ -97,54 +97,54 @@
         },
         "back": {
           "text": "Якщо Ви запам'ятали карту, проведіть пальцем угору по картці.",
-          "action": "Swipe up"
+          "action": "Проведіть пальцем вгору"
         }
       },
       "verse": {
         "front": {
-          "text": "There are two cards in the Inbox for each verse: the text or the translation on the front and a word-for-word translation on the reverse side.",
-          "action": "Tap"
+          "text": "Є дві картки у папці \"Вхідні\" до кожного вірша: переклад з санскриту усього вірша спереду і послівний переклад на зворотньому боці.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "You can add multiple verses and learn them simultaneously.",
-          "action": "Swipe up"
+          "text": "Ви можете додати декілька віршів і вивчати їх одночасно.",
+          "action": "Проведіть пальцем вгору"
         }
       },
       "final": {
         "front": {
-          "text": "Memorized cards are transferred to the 'Review' deck for long-term memorization.",
-          "action": "Tap"
+          "text": "Запам'ятовані карти переміщаються в колоду \"Перевірка\" для довготривалого запам'ятовування.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "A system of spaced repetitions is used for long-term memorization.",
-          "action": "Swipe up"
+          "text": "Система інтервальних повторень використовується для довготривалої запам'ятовування.",
+          "action": "Проведіть пальцем вгору"
         }
       }
     },
     "review": {
       "questionAnswer": {
         "front": {
-          "text": "Each verse in this deck is divided into several cards, with a question on the front side and an answer on the other.",
-          "action": "Tap"
+          "text": "Кожен вірш у цій колоді поділений на декілька карт, із запитанням на передній стороні карти і відповіддю на іншій.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "The answer is on this side of the card. Now you can evaluate how well your answer was.",
-          "action": "Rate card"
+          "text": "Відповідь знаходиться на цій стороні картки. Тепер ви можете оцінити, наскільки гарною була ваша відповідь.",
+          "action": "Оцініть картку"
         }
       },
       "intervals": {
         "front": {
-          "text": "If you answered “Good” or “Easy,” then the intervals between repetitions increase; otherwise, they decrease.",
-          "action": "Tap"
+          "text": "Якщо ви відповіли на \"Добре\" або \"Легко\", то проміжки часу між повторенням збільшуються; в іншому випадку вони зменшуються.",
+          "action": "Торкніться"
         },
         "back": {
-          "text": "This reduces the number of daily repetitions and the learning process becomes more efficient.",
-          "action": "Swipe"
+          "text": "Це зменшує кількість щоденних повторень і процес навчання стає більш ефективним.",
+          "action": "Проведіть пальцем по екрану"
         }
       }
     }
   },
   "app": {
-    "name": "Shlokas"
+    "name": "Шлоки"
   }
 }
