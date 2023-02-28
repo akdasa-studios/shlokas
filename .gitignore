@@ -9,3 +9,4 @@ coverage/
 .DS_Store
 resources/ios/**/*
 content/
+.DS_Store

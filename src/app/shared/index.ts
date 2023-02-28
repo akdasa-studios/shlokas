@@ -1,4 +1,3 @@
-export { default as DarkImage } from './DarkImage.vue'
 export { default as AudioPlayer } from './components/AudioPlayer.vue'
 export * from './tasks/RefreshTokenTask'
 export * from './tasks/SyncTask'

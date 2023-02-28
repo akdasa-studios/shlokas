@@ -3,6 +3,7 @@
     <DarkImage
       src="brahma.svg"
       class="img"
+      :is-dark="isDark"
     />
     <div class="text">
       <div>{{ $t('decks.review.empty') }}</div>
@@ -18,9 +19,11 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { DarkImage } from '@/app/shared'
+import { DarkImage } from '@akdasa-studios/shlokas-uikit'
+import { usePreferredDark } from '@vueuse/core'
 import { useStatisticsStore } from '@/app/statistics'
 
+const isDark = usePreferredDark()
 const statisticsStore = useStatisticsStore()
 const { cardsCountDueToTomorrow } = storeToRefs(statisticsStore)
 </script>

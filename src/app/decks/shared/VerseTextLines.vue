@@ -3,6 +3,7 @@
     <DarkImage
       v-if="props.uri && localSvgUri"
       :src="localSvgUri"
+      :is-dark="isDark"
       mode="invert"
     />
 
@@ -35,7 +36,9 @@
 <script lang="ts" setup>
 import { onMounted, defineProps, ref } from 'vue'
 import { IonSpinner } from '@ionic/vue'
-import { DarkImage, useDownloadService } from '@/app/shared'
+import { DarkImage } from '@akdasa-studios/shlokas-uikit'
+import { usePreferredDark } from '@vueuse/core'
+import { useDownloadService } from '@/app/shared'
 
 const props = defineProps<{
   lines: string[]
@@ -43,6 +46,7 @@ const props = defineProps<{
 }>()
 
 const downloadService = useDownloadService()
+const isDark = usePreferredDark()
 
 const svg = ref()
 const FONT_SIZE = 15
