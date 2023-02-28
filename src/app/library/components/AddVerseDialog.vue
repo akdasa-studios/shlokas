@@ -33,6 +33,7 @@
   >
     <VerseTextLines
       :lines="props.verse.text"
+      :uri="props.verse.textImageUri"
       class="verse"
     />
 

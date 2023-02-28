@@ -1,3 +1,4 @@
+import { Logger } from '@akdasa-studios/framework'
 import { Capacitor } from '@capacitor/core'
 import { Directory, Filesystem } from '@capacitor/filesystem'
 import write_blob from 'capacitor-blob-writer'
@@ -5,6 +6,7 @@ import { ref } from 'vue'
 
 
 export function useDownloadService() {
+  const log = new Logger('download')
   const isDownloading = ref(false)
 
   /**
@@ -21,12 +23,14 @@ export function useDownloadService() {
 
 
     // Check if the file already downloaded
-    const fileName = new URL(url).pathname.split('/').pop()
-    const filePath = 'audio/' + fileName
+    const pathName = new URL(url).pathname.split('/')
+    const fileName = pathName.pop()
+    const filePath = pathName.join('/') + '/' + fileName
     try {
       const stat = await Filesystem.stat({
         path: filePath, directory: Directory.Data
       })
+      log.debug(`Already downloaded ${filePath}`)
       return Capacitor.convertFileSrc(stat.uri)
     } catch (e) {
       // File not found, continue to download
@@ -36,13 +40,11 @@ export function useDownloadService() {
     // because users should be able to play the audio file even
     // if they're offline.
     isDownloading.value = true
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: { 'Content-Type': 'audio/mpeg' },
-      mode: 'cors'
-    })
+    log.debug(`Downloading ${url}`)
+    const res = await fetch(url, { method: 'GET', mode: 'cors' })
 
     // Write file to the filesystem
+    log.debug(`Writing ${filePath}`)
     await write_blob({
       path: filePath,
       directory: Directory.Data,
