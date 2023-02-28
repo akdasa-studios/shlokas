@@ -22,6 +22,9 @@ export class LibraryVerse {
   get textAudioUri() { return this._verse.textAudioUri
                              ? getContentUrl(this._verse.textAudioUri)
                              : undefined }
+  get textImageUri() { return this._verse.textImageUri
+                             ? getContentUrl(this._verse.textImageUri)
+                             : undefined }
 
   isAlreadyAdded = computed(() => this._status.value.inDeck !== Decks.None)
   showStatus     = computed(() => this._status.value.inDeck !== Decks.None)

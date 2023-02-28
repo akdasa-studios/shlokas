@@ -3,7 +3,7 @@
     <DarkImage
       src="brahma.svg"
       class="img"
-      :class="{'dark':isDark}"
+      :is-dark="isDark"
     />
     <div class="text">
       <div>{{ $t('decks.inbox.empty') }}</div>
@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { usePreferredDark } from '@vueuse/core'
-import { DarkImage } from '@/app/shared'
+import { DarkImage } from '@akdasa-studios/shlokas-uikit'
 
 const isDark = usePreferredDark()
 </script>
