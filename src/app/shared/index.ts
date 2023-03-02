@@ -1,4 +1,4 @@
-export { default as AudioPlayer } from './components/AudioPlayer.vue'
+export { default as GlobalAudioPlayer } from './components/GlobalAudioPlayer.vue'
 export * from './tasks/RefreshTokenTask'
 export * from './tasks/SyncTask'
 export { default as VersePlayer } from './components/VersePlayer.vue'

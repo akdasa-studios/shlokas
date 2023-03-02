@@ -10,11 +10,13 @@
     "test:e2e:report": "playwright show-report --host 0.0.0.0",
     "lint": "vue-cli-service lint",
     "run:device": "npm run build && npx cap run ios",
+    "run:device:hot": "npx ionic capacitor run ios --livereload --external",
+    "run:services": "docker compose -f ./docker-compose.e2e.yml up",
     "gen:resources": "npx capacitor-assets generate --assetPath 'resources' --ios"
   },
   "dependencies": {
     "@akdasa-studios/shlokas-core": "1.0.12",
-    "@akdasa-studios/shlokas-uikit": "0.0.7",
+    "@akdasa-studios/shlokas-uikit": "0.0.11",
     "@capacitor/app": "^4.1.1",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.6.3",
@@ -30,7 +32,6 @@
     "@ionic/storage": "^3.0.6",
     "@ionic/vue": "^6.5.5",
     "@ionic/vue-router": "^6.5.5",
-    "@jofr/capacitor-media-session": "^2.0.1",
     "@sentry/capacitor": "^0.11.0",
     "@sentry/vue": "7.25.0",
     "@vueuse/core": "^9.13.0",
