@@ -22,7 +22,7 @@
       "label": "Device",
       "isBackground": true,
       "type": "npm",
-      "script": "run:device:hot",
+      "script": "run:device",
       "problemMatcher": []
     },
     {
