@@ -2,34 +2,28 @@
   <FlipCard
     :data-testid="'tutorial.' + card.id"
     :flipped="card.flipped"
-    @flip="card.flip()"
+    side-class="side side-color-t"
+    card-class="padding"
+    @click="card.flip()"
   >
     <template #front>
-      <CardSide class="side-color-t">
-        <!-- <div class="title">
-          {{ $t(`tutorial.${card.id}.title`) }}
-        </div> -->
+      <div class="text">
+        {{ $t(`tutorial.${card.id}.front.text`) }}
+      </div>
 
-        <div class="text">
-          {{ $t(`tutorial.${card.id}.front.text`) }}
-        </div>
-
-        <div class="action">
-          {{ $t(`tutorial.${card.id}.front.action`) }}
-        </div>
-      </CardSide>
+      <div class="action">
+        {{ $t(`tutorial.${card.id}.front.action`) }}
+      </div>
     </template>
 
     <template #back>
-      <CardSide class="side-color-t">
-        <div class="text">
-          {{ $t(`tutorial.${card.id}.back.text`) }}
-        </div>
+      <div class="text">
+        {{ $t(`tutorial.${card.id}.back.text`) }}
+      </div>
 
-        <div class="action">
-          {{ $t(`tutorial.${card.id}.back.action`) }}
-        </div>
-      </CardSide>
+      <div class="action">
+        {{ $t(`tutorial.${card.id}.back.action`) }}
+      </div>
     </template>
   </FlipCard>
 </template>
@@ -37,7 +31,8 @@
 
 <script lang="ts" setup>
 import { defineProps, toRefs } from 'vue'
-import { CardSide, FlipCard , TutorialCardViewModel } from '@/app/decks/shared'
+import { FlipCard } from '@akdasa-studios/shlokas-uikit'
+import { TutorialCardViewModel } from '@/app/decks/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -50,7 +45,7 @@ const { card } = toRefs(props)
 </script>
 
 
-<style src="@/app/decks/Card.scss" lang="scss" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" />
 
 <style scoped>
 .title {

@@ -33,7 +33,7 @@
       </CardsDeck>
 
       <InboxDeckEmpty
-        v-else
+        v-show="isEmpty"
         data-testid="inboxEmpty"
       />
 

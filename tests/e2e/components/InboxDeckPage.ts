@@ -25,7 +25,7 @@ export class InboxDeckPage {
   async swipeCardTop(locator: Locator) {
     await locator.dragTo(locator, {
       sourcePosition: { x: 40, y: 160 },
-      targetPosition: { x: 40, y: 0 }
+      targetPosition: { x: 40, y: 40 }
     })
     // eslint-disable-next-line playwright/no-wait-for-timeout
     await this.page.waitForTimeout(250)

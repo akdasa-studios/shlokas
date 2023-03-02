@@ -40,8 +40,8 @@ test.describe('Inbox Deck', () => {
     test('Swipe card top', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 0, y: 160 },
-        targetPosition: { x: 0, y: 0 }
+        sourcePosition: { x: 40, y: 160 },
+        targetPosition: { x: 40, y: 40 }
       })
 
       await expect(page.getByTestId('inbox-tab-badge')).toContainText('1')
