@@ -22,6 +22,7 @@
           v-if="card.type === InboxCardType.Text"
           :verse-number="card.verseNumber"
           :lines="card.text"
+          :uri="card.textImageUri"
         />
 
         <InboxCardTranslationSide

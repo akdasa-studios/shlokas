@@ -10,8 +10,8 @@
     <SVGTextLines
       v-else
       :lines="props.lines"
+      :line-height="20"
       line-class="line"
-      line-height="20"
     />
   </div>
 </template>
@@ -41,5 +41,6 @@ onMounted(async () => {
 /deep/ .line {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
+  font-size: 20px;
 }
 </style>
