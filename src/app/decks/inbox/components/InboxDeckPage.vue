@@ -41,7 +41,7 @@
         :class="{ 'closed': !showPlayer }"
         class="player"
       >
-        <VersePlayer
+        <VerseAudioPlayer
           :uri="(topCard as InboxVerseCardViewModel)?.textAudioUri"
           :title="(topCard as InboxVerseCardViewModel)?.verseNumber"
           :artist="$t('app.name')"
@@ -81,7 +81,7 @@ import {
   MemorizingStatus, useInboxDeck, useInboxDeckTutorial,
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
-import { VersePlayer } from '@/app/shared'
+import { VerseAudioPlayer } from '@/app/shared'
 
 const app = inject('app') as Application
 
