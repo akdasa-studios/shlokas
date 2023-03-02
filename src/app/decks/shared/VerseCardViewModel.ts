@@ -8,12 +8,19 @@ export abstract class VerseCardViewModel extends CardViewModel {
   ) { super() }
 
   abstract get id(): string
-  get verseId()     { return this.verse.id }
+  get verseId() { return this.verse.id }
   get verseNumber() { return this.verse.number.toString() }
-  get text()        { return this.verse.text.lines }
+  get text() { return this.verse.text.lines }
   get translation() { return this.verse.translation.text }
-  get synonyms()    { return this.verse.synonyms }
-  get textAudioUri() { return this.verse.textAudioUri
-                             ? getContentUrl(this.verse.textAudioUri)
-                             : undefined }
+  get synonyms() { return this.verse.synonyms }
+  get textAudioUri() {
+    return this.verse.textAudioUri
+      ? getContentUrl(this.verse.textAudioUri)
+      : undefined
+  }
+  get textImageUri() {
+    return this.verse.textImageUri
+      ? getContentUrl(this.verse.textImageUri)
+      : undefined
+  }
 }
