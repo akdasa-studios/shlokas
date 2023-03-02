@@ -43,7 +43,7 @@ import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  uri: string,
+  uri?: string,
   title?: string,
   artist?: string,
   showProgressBar?: boolean,
@@ -66,7 +66,8 @@ const progressType  = computed(() => downloadService.isDownloading.value ? 'inde
 
 watch(uri, async (value) => onUriChanged(value), { immediate: true })
 
-async function onUriChanged(uri: string) {
+async function onUriChanged(uri: string|undefined) {
+  if (!uri) { return }
   const localUri = await downloadService.download(uri)
   audioPlayer.open(localUri, props.title, props.artist)
 }

@@ -37,7 +37,7 @@
       class="verse"
     />
 
-    <VersePlayer
+    <VerseAudioPlayer
       v-if="props.verse.textAudioUri"
       class="player"
       :uri="props.verse.textAudioUri"
@@ -71,7 +71,7 @@ import {
 import { defineProps } from 'vue'
 import { LibraryVerse } from '@/app/library'
 import { VerseTextLines } from '@/app/decks/shared'
-import { VersePlayer } from '@/app/shared'
+import { VerseAudioPlayer } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */

@@ -19,10 +19,22 @@
         "id": "device-mobile",
         "color": "terminal.ansiMagenta"
       },
-      "label": "Run on device",
+      "label": "Device",
       "isBackground": true,
       "type": "npm",
       "script": "run:device",
+      "problemMatcher": []
+    },
+    {
+      "detail": "Run all the services",
+      "icon": {
+        "id": "server",
+        "color": "terminal.ansiBlue"
+      },
+      "label": "Services",
+      "isBackground": true,
+      "type": "npm",
+      "script": "run:services",
       "problemMatcher": []
     }
   ]
