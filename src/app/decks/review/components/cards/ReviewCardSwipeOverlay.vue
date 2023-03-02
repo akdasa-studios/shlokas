@@ -1,10 +1,8 @@
 <template>
   <div
     class="big-text transition"
-    :class="{'invisible':!isVisible}"
   >
     <div
-      v-if="props.grade !== undefined"
       class="grade"
     >
       {{ t("cards.grade." + reviewGradeToName) }}
@@ -26,7 +24,6 @@ const props = defineProps<{
   interval: number
 }>()
 const { t } = useI18n()
-const isVisible = computed(() => props.grade !== undefined)
 const reviewGradeToName = computed(() =>
   props.grade !== undefined ? ReviewGrade[props.grade].toLowerCase() : ''
 )
@@ -34,7 +31,6 @@ const reviewGradeToName = computed(() =>
 
 
 <style scoped>
-.invisible { opacity: 0; }
 .grade { text-transform: uppercase; }
 
 .interval {
@@ -44,5 +40,3 @@ const reviewGradeToName = computed(() =>
   color: var(--ion-color-medium-shade);
 }
 </style>
-
-<style src="@/app/decks/Card.scss" lang="scss" scoped />

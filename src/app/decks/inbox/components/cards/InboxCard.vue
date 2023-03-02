@@ -3,42 +3,36 @@
     :data-testid="testId(card.verseNumber, 'card', card.type)"
     :data-index="card.index"
     :flipped="props.card.flipped || false"
-    @flip="props.card.flip()"
+    :side-class="'side ' + style"
+    card-class="padding"
+    :show-overlay="card.memorizingStatus !== MemorizingStatus.Unknown"
+    @click="props.card.flip()"
   >
     <template #overlay>
-      <CardSide
-        v-if="card.memorizingStatus !== MemorizingStatus.Unknown"
-        :class="style"
-      >
-        <InboxCardSwipeOverlay
-          :memorizing-status="card.memorizingStatus"
-        />
-      </CardSide>
+      <InboxCardSwipeOverlay
+        :memorizing-status="card.memorizingStatus"
+      />
     </template>
 
     <template #front>
-      <CardSide :class="style">
-        <InboxCardVerseTextSide
-          v-if="card.type === InboxCardType.Text"
-          :verse-number="card.verseNumber"
-          :lines="card.text"
-          :uri="card.textImageUri"
-        />
+      <InboxCardVerseTextSide
+        v-if="card.type === InboxCardType.Text"
+        :verse-number="card.verseNumber"
+        :lines="card.text"
+        :uri="card.textImageUri"
+      />
 
-        <InboxCardTranslationSide
-          v-if="card.type === InboxCardType.Translation"
-          :verse-number="card.verseNumber"
-          :translation="card.translation"
-        />
-      </CardSide>
+      <InboxCardTranslationSide
+        v-if="card.type === InboxCardType.Translation"
+        :verse-number="card.verseNumber"
+        :translation="card.translation"
+      />
     </template>
 
     <template #back>
-      <CardSide :class="style">
-        <InboxCardSynonymsSide
-          :words="card.synonyms"
-        />
-      </CardSide>
+      <InboxCardSynonymsSide
+        :words="card.synonyms"
+      />
     </template>
   </FlipCard>
 </template>
@@ -47,7 +41,7 @@
 <script lang="ts" setup>
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { computed, defineProps, toRefs } from 'vue'
-import { FlipCard, CardSide } from '@/app/decks/shared'
+import { FlipCard } from '@akdasa-studios/shlokas-uikit'
 import {
   InboxCardSwipeOverlay, InboxCardSynonymsSide,
   InboxCardTranslationSide, InboxCardVerseTextSide,
@@ -81,4 +75,4 @@ const style = computed(() => {
 </script>
 
 
-<style src="@/app/decks/Card.scss" lang="scss" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" />

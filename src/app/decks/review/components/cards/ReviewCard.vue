@@ -3,46 +3,38 @@
     :data-testid="testId(props.card.verseNumber, 'card', props.card.type)"
     :data-index="props.card.index"
     :flipped="props.card.flipped"
-    @flip="props.card.flip()"
+    :side-class="'side ' + style"
+    card-class="padding"
+    :show-overlay="props.card.grade !== undefined"
+    @click="props.card.flip()"
   >
     <template #overlay>
       <ReviewCardSwipeOverlay
         :grade="props.card.grade"
         :interval="nextIntervals[props.card.grade || 0]"
         :class="style"
-        class="side"
       />
     </template>
 
     <template #front>
-      <CardSide
-        class="side"
-        :class="style"
-      >
-        <div class="question">
-          {{ getQuestion(type) }}
-        </div>
-        <component
-          :is="getSideComponent(type, true)"
-          :verse-number="verseNumber"
-          :lines="text"
-          :translation="translation"
-        />
-      </CardSide>
+      <div class="question">
+        {{ getQuestion(type) }}
+      </div>
+      <component
+        :is="getSideComponent(type, true)"
+        :verse-number="verseNumber"
+        :lines="text"
+        :translation="translation"
+      />
     </template>
 
     <template #back>
-      <CardSide
-        class="side"
-        :class="style"
-      >
-        <component
-          :is="getSideComponent(type, false)"
-          :verse-number="verseNumber"
-          :lines="text"
-          :translation="translation"
-        />
-      </CardSide>
+      <component
+        :is="getSideComponent(type, false)"
+        :verse-number="verseNumber"
+        :lines="text"
+        :translation="translation"
+      />
     </template>
   </FlipCard>
 </template>
@@ -51,11 +43,11 @@
 <script lang="ts" setup>
 import { computed, defineProps, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { FlipCard } from '@akdasa-studios/shlokas-uikit'
 import {
   ReviewCardSwipeOverlay, ReviewCardTextSide, ReviewCardTranslationSide,
   ReviewCardVerseNumberSide, ReviewVerseCardViewModel
 } from '@/app/decks/review'
-import { CardSide, FlipCard } from '@/app/decks/shared'
 import { useAppearanceStore } from '@/app/settings'
 import { testId } from '@/app/TestId'
 import { hashString } from '@/app/utils/hashString'
@@ -107,5 +99,5 @@ function getQuestion(cardType: string) {
 </script>
 
 
-<style src="@/app/decks/Card.scss" lang="scss" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" />
 
