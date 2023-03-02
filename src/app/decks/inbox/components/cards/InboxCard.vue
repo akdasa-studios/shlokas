@@ -1,16 +1,17 @@
 <template>
   <FlipCard
     :data-testid="testId(card.verseNumber, 'card', card.type)"
-    :data-index="card.index"
-    :flipped="props.card.flipped || false"
+    :data-index="index"
+    :flipped="flipped"
     :side-class="'side ' + style"
     card-class="padding"
-    :show-overlay="card.memorizingStatus !== MemorizingStatus.Unknown"
+    :show-overlay="showOverlay"
     @click="props.card.flip()"
   >
     <template #overlay>
       <InboxCardSwipeOverlay
-        :memorizing-status="card.memorizingStatus"
+        class="overlay"
+        :memorizing-status="memorizingStatus"
       />
     </template>
 
@@ -49,7 +50,6 @@ import {
 } from '@/app/decks/inbox'
 import { testId } from '@/app/TestId'
 import { useAppearanceStore } from '@/app/settings'
-import { hashString } from '@/app/utils/hashString'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -58,20 +58,19 @@ import { hashString } from '@/app/utils/hashString'
 const props = defineProps<{
   card: InboxVerseCardViewModel
 }>()
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
 const { card } = toRefs(props)
+const { flipped, index, memorizingStatus } = toRefs(card.value)
+const showOverlay = computed(() => memorizingStatus.value !== MemorizingStatus.Unknown)
 
-
-/* -------------------------------------------------------------------------- */
-/*                                  Behaviour                                 */
-/* -------------------------------------------------------------------------- */
 
 const appearance = useAppearanceStore()
 const { colorfulCards } = toRefs(appearance)
-const style = computed(() => {
-  return colorfulCards.value
-    ? 'side-color-' + (1+(hashString(props.card.verseNumber + props.card.type.toString()) % 8)).toString()
-    : 'side-color-0'
-  })
+const style = computed(() => { return colorfulCards.value ? props.card.color : 'side-color-0' })
 </script>
 
 

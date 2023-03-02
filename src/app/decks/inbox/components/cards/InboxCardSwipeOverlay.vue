@@ -24,11 +24,3 @@ const props = defineProps<{
 const isFinished = computed(() => props.memorizingStatus === MemorizingStatus.Memorized)
 </script>
 
-
-<style scoped>
-.invisible { opacity: 0; }
-.transition { transition: .25s; }
-</style>
-
-
-<style src="@/app/decks/Card.scss" lang="scss" scoped />
