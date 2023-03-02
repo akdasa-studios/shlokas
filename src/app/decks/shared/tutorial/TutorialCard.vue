@@ -2,7 +2,8 @@
   <FlipCard
     :data-testid="'tutorial.' + card.id"
     :flipped="card.flipped"
-    side-class="side-color-t"
+    side-class="side side-color-t"
+    card-class="padding"
     @click="card.flip()"
   >
     <template #front>
@@ -44,7 +45,7 @@ const { card } = toRefs(props)
 </script>
 
 
-<style src="@/app/decks/Card.scss" lang="scss" scoped />
+<style src="@/app/decks/Card.scss" lang="scss" />
 
 <style scoped>
 .title {

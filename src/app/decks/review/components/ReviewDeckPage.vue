@@ -44,7 +44,7 @@
 
       <!-- Inbox deck is empty -->
       <ReviewDeckEmpty
-        v-if="isEmpty"
+        v-show="isEmpty"
         data-testid="reviewEmpty"
       />
     </ion-content>
