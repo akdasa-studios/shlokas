@@ -8,6 +8,5 @@ export * from './stores/useTutorialStore'
 export * from './Deck'
 export * from './theme/StackedDeckBehaviour'
 
-export { default as CardsDeck } from './CardsDeck.vue'
 export { default as VerseTextLines } from './VerseTextLines.vue'
 export { default as TutorialCard } from './tutorial/TutorialCard.vue'
