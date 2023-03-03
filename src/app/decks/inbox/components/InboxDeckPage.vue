@@ -18,6 +18,9 @@
         v-if="!isEmpty"
         v-slot="data"
         :cards="cardsToShow"
+        :compute-style="calculateStyle"
+        class="deck"
+        card-class="card1"
         @place="onCardPlaced"
         @moving="onCardMoving"
         @moved="onCardMoved"
@@ -71,8 +74,9 @@ import {
 } from '@ionic/vue'
 import { inject, computed } from 'vue'
 import { Application } from '@akdasa-studios/shlokas-core'
+import { CardsDeck } from '@akdasa-studios/shlokas-uikit'
 import {
-  CardsDeck, Vector3d, VerseCardViewModel,
+  Vector3d, VerseCardViewModel,
   TutorialCard, TutorialCardViewModel, useStackedDeck,
 } from '@/app/decks/shared'
 import {
@@ -112,33 +116,45 @@ function onCardPlaced(card: VerseCardViewModel) {
   updateInactiveCard(card)
 }
 
+// function getDifference(a: Coordinates, b: Coordinates): Coordinates {
+//   return [a[0] - b[0], a[1] - b[1]]
+// }
+
 function onCardMoving(
   card: InboxCardViewModel,
-  deltaPos: Vector3d,
-  deltaPosTotal: Vector3d
+  start: [number, number],
+  current: [number, number]
 ) {
-  updateMovingCard(card, deltaPos)
+  const dp = new Vector3d(current[0] - start[0], current[1] - start[1], 0)
+  updateMovingCard(card, dp)
 
   if (card instanceof TutorialCardViewModel) { return }
-  if (deltaPosTotal.length < swipeThreshold) {
+  if (dp.length < swipeThreshold) {
     card.memorizingStatus = MemorizingStatus.Unknown
   } else {
-    card.memorizingStatus = deltaPosTotal.isLeftOrRight
+    card.memorizingStatus = dp.isLeftOrRight
       ? MemorizingStatus.StillMemorizing
       : MemorizingStatus.Memorized
   }
 }
 
-function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
-  updateMovedCard(card, deltaPos)
-  if (deltaPos.length < swipeThreshold) { return }
+
+function onCardMoved(
+  card: InboxCardViewModel,
+  start: [number, number],
+  current: [number, number]
+) {
+  const dp = new Vector3d(current[0] - start[0], current[1] - start[1], 0)
+  updateMovedCard(card, dp)
+
+  if (dp.length < swipeThreshold) { return }
   setTimeout(() => {
     if (card instanceof TutorialCardViewModel) {
       tutorialCardSwiped(card as TutorialCardViewModel)
       return
     }
 
-    if (deltaPos.isLeftOrRight) {
+    if (dp.isLeftOrRight) {
       shiftTopCard()
     } else {
       memorizeTopCard()
@@ -150,6 +166,10 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
       topCard.value.showFrontSide()
     }
   }, 250)
+}
+
+function calculateStyle(card: any) {
+  return card.style
 }
 </script>
 
@@ -167,5 +187,17 @@ function onCardMoved(card: InboxCardViewModel, deltaPos: Vector3d) {
 .closed {
   bottom: -50px;
   opacity: 0;
+}
+
+/deep/ .card1 {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 10px);
+}
+
+.deck {
+  width: 100%;
+  height: 100%;
+  perspective: 1300px;
 }
 </style>

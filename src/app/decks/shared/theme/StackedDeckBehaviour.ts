@@ -19,8 +19,8 @@ export function useStackedDeck() {
 
   function updateMovingCard(card: CardViewModel, deltaPos: Vector3d) {
     card.state = CardState.Moving
-    card.position.x += deltaPos.x
-    card.position.y += deltaPos.y
+    card.position.x = deltaPos.x
+    card.position.y = deltaPos.y
     card.angle.z = maxAngleZ * (card.position.x / 300)
     if (card.angle.z > maxAngleZ)  { card.angle.z =  maxAngleZ }
     if (card.angle.z < -maxAngleZ) { card.angle.z = -maxAngleZ }
