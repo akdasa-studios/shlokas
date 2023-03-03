@@ -1,6 +1,8 @@
 [
   {
-      "uuid": "f54f0d08-5948-3dcf-a056-537da000a51f",
+      "_id": "f54f0d08-5948-3dcf-a056-537da000a51f",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 1.1",
       "text": [
           "dhṛtarāṣṭra uvāca",
@@ -90,7 +92,9 @@
       "textAudioUri": "audio/bg-01-01.mp3"
   },
   {
-      "uuid": "21328ebd-d3a9-3588-9f8f-cce559b0b8b4",
+      "_id": "21328ebd-d3a9-3588-9f8f-cce559b0b8b4",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.7",
       "text": [
           "kārpaṇya-doṣopahata-svabhāvaḥ",
@@ -242,7 +246,9 @@
       "textAudioUri": "audio/bg-02-07.mp3"
   },
   {
-      "uuid": "6cee49e9-bac8-3494-8005-017f28e41d9a",
+      "_id": "6cee49e9-bac8-3494-8005-017f28e41d9a",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.11",
       "text": [
           "śrī-bhagavān uvāca",
@@ -350,7 +356,9 @@
       "textAudioUri": "audio/bg-02-11.mp3"
   },
   {
-      "uuid": "5b56e364-fb57-3f0b-9679-e0d89a15826a",
+      "_id": "5b56e364-fb57-3f0b-9679-e0d89a15826a",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.12",
       "text": [
           "na tv evāhaṁ jātu nāsaṁ",
@@ -481,7 +489,9 @@
       "textAudioUri": "audio/bg-02-12.mp3"
   },
   {
-      "uuid": "02375caf-6f94-3eec-bb73-3e12e7c21f40",
+      "_id": "02375caf-6f94-3eec-bb73-3e12e7c21f40",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.13",
       "text": [
           "dehino ’smin yathā dehe",
@@ -580,7 +590,9 @@
       "textAudioUri": "audio/bg-02-13.mp3"
   },
   {
-      "uuid": "f49cf84d-e9e2-3995-bdd1-759f60da1966",
+      "_id": "f49cf84d-e9e2-3995-bdd1-759f60da1966",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.14",
       "text": [
           "mātrā-sparśās tu kaunteya",
@@ -679,7 +691,9 @@
       "textAudioUri": "audio/bg-02-14.mp3"
   },
   {
-      "uuid": "73d1cec8-4c1d-3cb1-acf3-076fd77fa7bc",
+      "_id": "73d1cec8-4c1d-3cb1-acf3-076fd77fa7bc",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.20",
       "text": [
           "na jāyate mriyate vā kadācin",
@@ -819,7 +833,9 @@
       "textAudioUri": "audio/bg-02-20.mp3"
   },
   {
-      "uuid": "582e00ed-72c4-3210-afc5-9367ba0bea78",
+      "_id": "582e00ed-72c4-3210-afc5-9367ba0bea78",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.22",
       "text": [
           "vāsāṁsi jīrṇāni yathā vihāya",
@@ -929,7 +945,9 @@
       "textAudioUri": "audio/bg-02-22.mp3"
   },
   {
-      "uuid": "b2f295b4-a2e6-3ff9-a73f-3407b3d47f87",
+      "_id": "b2f295b4-a2e6-3ff9-a73f-3407b3d47f87",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.23",
       "text": [
           "nainaṁ chindanti śastrāṇi",
@@ -1039,7 +1057,9 @@
       "textAudioUri": "audio/bg-02-23.mp3"
   },
   {
-      "uuid": "01638491-8c40-353e-936d-78ea1f86c0b7",
+      "_id": "01638491-8c40-353e-936d-78ea1f86c0b7",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.27",
       "text": [
           "jātasya hi dhruvo mṛtyur",
@@ -1143,7 +1163,9 @@
       "textAudioUri": "audio/bg-02-27.mp3"
   },
   {
-      "uuid": "7e5eaf47-1d27-3948-861e-97dfdaf81efb",
+      "_id": "7e5eaf47-1d27-3948-861e-97dfdaf81efb",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.30",
       "text": [
           "dehī nityam avadhyo ’yaṁ",
@@ -1241,7 +1263,9 @@
       "textAudioUri": "audio/bg-02-30.mp3"
   },
   {
-      "uuid": "d6c2b200-85e2-3e65-b665-9c3126302af7",
+      "_id": "d6c2b200-85e2-3e65-b665-9c3126302af7",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.40",
       "text": [
           "nehābhikrama-nāśo ’sti",
@@ -1347,7 +1371,9 @@
       "textAudioUri": "audio/bg-02-40.mp3"
   },
   {
-      "uuid": "2fd313ef-d0c5-3e64-8ecf-b604e8b4c9cf",
+      "_id": "2fd313ef-d0c5-3e64-8ecf-b604e8b4c9cf",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.41",
       "text": [
           "vyavasāyātmikā buddhir",
@@ -1430,7 +1456,9 @@
       "textAudioUri": "audio/bg-02-41.mp3"
   },
   {
-      "uuid": "118a3dd5-60cb-3846-b2e6-2f4f7abb1f83",
+      "_id": "118a3dd5-60cb-3846-b2e6-2f4f7abb1f83",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.44",
       "text": [
           "bhogaiśvarya-prasaktānāṁ",
@@ -1506,7 +1534,9 @@
       "textAudioUri": "audio/bg-02-44.mp3"
   },
   {
-      "uuid": "a537dc18-4ca4-3273-9e77-3fa8ef8b512c",
+      "_id": "a537dc18-4ca4-3273-9e77-3fa8ef8b512c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.45",
       "text": [
           "trai-guṇya-viṣayā vedā",
@@ -1586,7 +1616,9 @@
       "textAudioUri": "audio/bg-02-45.mp3"
   },
   {
-      "uuid": "5f482147-271a-3fa3-977f-ed1bf7e401ba",
+      "_id": "5f482147-271a-3fa3-977f-ed1bf7e401ba",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.46",
       "text": [
           "yāvān artha uda-pāne",
@@ -1662,7 +1694,9 @@
       "textAudioUri": "audio/bg-02-46.mp3"
   },
   {
-      "uuid": "fb071a42-c56e-3ae9-961f-ee2351164829",
+      "_id": "fb071a42-c56e-3ae9-961f-ee2351164829",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.59",
       "text": [
           "viṣayā vinivartante",
@@ -1743,7 +1777,9 @@
       "textAudioUri": "audio/bg-02-59.mp3"
   },
   {
-      "uuid": "5bd8add0-03b8-373a-9cf4-c61a3e61a697",
+      "_id": "5bd8add0-03b8-373a-9cf4-c61a3e61a697",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.62",
       "text": [
           "dhyāyato viṣayān puṁsaḥ",
@@ -1829,7 +1865,9 @@
       "textAudioUri": "audio/bg-02-62.mp3"
   },
   {
-      "uuid": "2b602f22-82d0-3157-91e4-d5528abac4a4",
+      "_id": "2b602f22-82d0-3157-91e4-d5528abac4a4",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.63",
       "text": [
           "krodhād bhavati sammohaḥ",
@@ -1906,7 +1944,9 @@
       "textAudioUri": "audio/bg-02-63.mp3"
   },
   {
-      "uuid": "e887dfb2-3b51-382c-8758-594e34264b18",
+      "_id": "e887dfb2-3b51-382c-8758-594e34264b18",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.64",
       "text": [
           "rāga-dveṣa-vimuktais tu",
@@ -1988,7 +2028,9 @@
       "textAudioUri": "audio/bg-02-64.mp3"
   },
   {
-      "uuid": "91088e0f-68ef-315f-ad92-26e1c6c05ea2",
+      "_id": "91088e0f-68ef-315f-ad92-26e1c6c05ea2",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 2.69",
       "text": [
           "yā niśā sarva-bhūtānāṁ",
@@ -2086,7 +2128,9 @@
       "textAudioUri": "audio/bg-02-69.mp3"
   },
   {
-      "uuid": "55d27e10-9237-350f-a626-bc6e2f2e47b3",
+      "_id": "55d27e10-9237-350f-a626-bc6e2f2e47b3",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 3.9",
       "text": [
           "yajñārthāt karmaṇo ’nyatra",
@@ -2175,7 +2219,9 @@
       "textAudioUri": "audio/bg-03-09.mp3"
   },
   {
-      "uuid": "4477e668-4a28-3088-ba08-f278104d30ce",
+      "_id": "4477e668-4a28-3088-ba08-f278104d30ce",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 3.14",
       "text": [
           "annād bhavanti bhūtāni",
@@ -2262,7 +2308,9 @@
       "textAudioUri": "audio/bg-03-14.mp3"
   },
   {
-      "uuid": "98ad8133-0db7-334d-90ec-2141d4b7c6d9",
+      "_id": "98ad8133-0db7-334d-90ec-2141d4b7c6d9",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 3.21",
       "text": [
           "yad yad ācarati śreṣṭhas",
@@ -2367,7 +2415,9 @@
       "textAudioUri": "audio/bg-03-21.mp3"
   },
   {
-      "uuid": "a6062184-4c16-3385-94b2-8a62fa4231bc",
+      "_id": "a6062184-4c16-3385-94b2-8a62fa4231bc",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 3.27",
       "text": [
           "prakṛteḥ kriyamāṇāni",
@@ -2448,7 +2498,9 @@
       "textAudioUri": "audio/bg-03-27.mp3"
   },
   {
-      "uuid": "2599d2e6-d406-3405-b7da-8e29e38e581e",
+      "_id": "2599d2e6-d406-3405-b7da-8e29e38e581e",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 3.37",
       "text": [
           "śrī-bhagavān uvāca",
@@ -2546,7 +2598,9 @@
       "textAudioUri": "audio/bg-03-37.mp3"
   },
   {
-      "uuid": "6ddce7ba-8a25-37ba-84aa-bce08a31b598",
+      "_id": "6ddce7ba-8a25-37ba-84aa-bce08a31b598",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.1",
       "text": [
           "śrī-bhagavān uvāca",
@@ -2641,7 +2695,9 @@
       "textAudioUri": "audio/bg-04-01.mp3"
   },
   {
-      "uuid": "7b58d8e0-7474-39cc-8eea-8af227b61346",
+      "_id": "7b58d8e0-7474-39cc-8eea-8af227b61346",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.2",
       "text": [
           "evaṁ paramparā-prāptam",
@@ -2735,7 +2791,9 @@
       "textAudioUri": "audio/bg-04-02.mp3"
   },
   {
-      "uuid": "9ae533f8-3338-3d58-97e1-515a982dc0d0",
+      "_id": "9ae533f8-3338-3d58-97e1-515a982dc0d0",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.3",
       "text": [
           "sa evāyaṁ mayā te ’dya",
@@ -2864,7 +2922,9 @@
       "textAudioUri": "audio/bg-04-03.mp3"
   },
   {
-      "uuid": "a7499fff-bbe9-39ca-aeb6-ef308ebbb454",
+      "_id": "a7499fff-bbe9-39ca-aeb6-ef308ebbb454",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.6",
       "text": [
           "ajo ’pi sann avyayātmā",
@@ -2963,7 +3023,9 @@
       "textAudioUri": "audio/bg-04-06.mp3"
   },
   {
-      "uuid": "65cd117c-c2a7-3721-9e13-4a90a8d60879",
+      "_id": "65cd117c-c2a7-3721-9e13-4a90a8d60879",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.7",
       "text": [
           "yadā yadā hi dharmasya",
@@ -3050,7 +3112,9 @@
       "textAudioUri": "audio/bg-04-07.mp3"
   },
   {
-      "uuid": "9308d983-2694-34dc-8960-a05bcdcffd61",
+      "_id": "9308d983-2694-34dc-8960-a05bcdcffd61",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.8",
       "text": [
           "paritrāṇāya sādhūnāṁ",
@@ -3125,7 +3189,9 @@
       "textAudioUri": "audio/bg-04-08.mp3"
   },
   {
-      "uuid": "b3d2f3f0-860c-38bc-b5a2-02a55b07a92c",
+      "_id": "b3d2f3f0-860c-38bc-b5a2-02a55b07a92c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.9",
       "text": [
           "janma karma ca me divyam",
@@ -3253,7 +3319,9 @@
       "textAudioUri": "audio/bg-04-09.mp3"
   },
   {
-      "uuid": "4d6618fa-f3ce-3bde-bf74-cce4bd2a1b82",
+      "_id": "4d6618fa-f3ce-3bde-bf74-cce4bd2a1b82",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.10",
       "text": [
           "vīta-rāga-bhaya-krodhā",
@@ -3347,7 +3415,9 @@
       "textAudioUri": "audio/bg-04-10.mp3"
   },
   {
-      "uuid": "027e0139-3d2d-316c-9949-f94534b496c9",
+      "_id": "027e0139-3d2d-316c-9949-f94534b496c9",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.11",
       "text": [
           "ye yathā māṁ prapadyante",
@@ -3451,7 +3521,9 @@
       "textAudioUri": "audio/bg-04-11.mp3"
   },
   {
-      "uuid": "81804d91-1ddc-309c-a0ca-4a57e6fc9c2d",
+      "_id": "81804d91-1ddc-309c-a0ca-4a57e6fc9c2d",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.13",
       "text": [
           "cātur-varṇyaṁ mayā sṛṣṭaṁ",
@@ -3544,7 +3616,9 @@
       "textAudioUri": "audio/bg-04-13.mp3"
   },
   {
-      "uuid": "acb16c50-a72e-39a2-9143-4ca91a39471e",
+      "_id": "acb16c50-a72e-39a2-9143-4ca91a39471e",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 4.34",
       "text": [
           "tad viddhi praṇipātena",
@@ -3624,7 +3698,9 @@
       "textAudioUri": "audio/bg-04-34.mp3"
   },
   {
-      "uuid": "533e4a3a-cd1a-345f-b3bb-b268eeea86d7",
+      "_id": "533e4a3a-cd1a-345f-b3bb-b268eeea86d7",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 5.18",
       "text": [
           "vidyā-vinaya-sampanne",
@@ -3719,7 +3795,9 @@
       "textAudioUri": "audio/bg-05-18.mp3"
   },
   {
-      "uuid": "82fc759b-47ad-363d-9189-c4505e19c0f1",
+      "_id": "82fc759b-47ad-363d-9189-c4505e19c0f1",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 5.22",
       "text": [
           "ye hi saṁsparśa-jā bhogā",
@@ -3830,7 +3908,9 @@
       "textAudioUri": "audio/bg-05-22.mp3"
   },
   {
-      "uuid": "5d7c003b-df7e-330b-8931-b12f4f465531",
+      "_id": "5d7c003b-df7e-330b-8931-b12f4f465531",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 5.29",
       "text": [
           "bhoktāraṁ yajña-tapasāṁ",
@@ -3919,7 +3999,9 @@
       "textAudioUri": "audio/bg-05-29.mp3"
   },
   {
-      "uuid": "fdb1b445-cabd-333b-8abe-e9798ba62c2a",
+      "_id": "fdb1b445-cabd-333b-8abe-e9798ba62c2a",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 6.17",
       "text": [
           "yuktāhāra-vihārasya",
@@ -4002,7 +4084,9 @@
       "textAudioUri": "audio/bg-06-17.mp3"
   },
   {
-      "uuid": "6561a486-8e9f-3bb7-bfac-98a4abbdd449",
+      "_id": "6561a486-8e9f-3bb7-bfac-98a4abbdd449",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 6.41",
       "text": [
           "prāpya puṇya-kṛtāṁ lokān",
@@ -4085,7 +4169,9 @@
       "textAudioUri": "audio/bg-06-41.mp3"
   },
   {
-      "uuid": "5cab0fb7-af59-3c29-8974-75063fbbbd48",
+      "_id": "5cab0fb7-af59-3c29-8974-75063fbbbd48",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 6.47",
       "text": [
           "yoginām api sarveṣāṁ",
@@ -4183,7 +4269,9 @@
       "textAudioUri": "audio/bg-06-47.mp3"
   },
   {
-      "uuid": "8860774f-7416-3d3e-8092-b81ca3d1d09a",
+      "_id": "8860774f-7416-3d3e-8092-b81ca3d1d09a",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.3",
       "text": [
           "manuṣyāṇāṁ sahasreṣu",
@@ -4269,7 +4357,9 @@
       "textAudioUri": "audio/bg-07-03.mp3"
   },
   {
-      "uuid": "1f352be2-b446-3437-92db-b4bb776f66e4",
+      "_id": "1f352be2-b446-3437-92db-b4bb776f66e4",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.4",
       "text": [
           "bhūmir āpo ’nalo vāyuḥ",
@@ -4379,7 +4469,9 @@
       "textAudioUri": "audio/bg-07-04.mp3"
   },
   {
-      "uuid": "2e2dc122-7f92-369a-a510-9dc7b815c35c",
+      "_id": "2e2dc122-7f92-369a-a510-9dc7b815c35c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.5",
       "text": [
           "apareyam itas tv anyāṁ",
@@ -4485,7 +4577,9 @@
       "textAudioUri": "audio/bg-07-05.mp3"
   },
   {
-      "uuid": "51664086-d545-3f04-b978-95322d9df985",
+      "_id": "51664086-d545-3f04-b978-95322d9df985",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.7",
       "text": [
           "mattaḥ parataraṁ nānyat",
@@ -4581,7 +4675,9 @@
       "textAudioUri": "audio/bg-07-07.mp3"
   },
   {
-      "uuid": "d1ed7146-1e97-3fba-ba97-dac63f27293a",
+      "_id": "d1ed7146-1e97-3fba-ba97-dac63f27293a",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.14",
       "text": [
           "daivī hy eṣā guṇa-mayī",
@@ -4681,7 +4777,9 @@
       "textAudioUri": "audio/bg-07-14.mp3"
   },
   {
-      "uuid": "6547ef21-c035-317f-bfe7-3d8769a92f40",
+      "_id": "6547ef21-c035-317f-bfe7-3d8769a92f40",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.15",
       "text": [
           "na māṁ duṣkṛtino mūḍhāḥ",
@@ -4768,7 +4866,9 @@
       "textAudioUri": "audio/bg-07-15.mp3"
   },
   {
-      "uuid": "ebb3f796-9584-3a90-b42f-33aa3a58a643",
+      "_id": "ebb3f796-9584-3a90-b42f-33aa3a58a643",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.16",
       "text": [
           "catur-vidhā bhajante māṁ",
@@ -4858,7 +4958,9 @@
       "textAudioUri": "audio/bg-07-16.mp3"
   },
   {
-      "uuid": "8010dc33-50d8-31fa-a884-abe8be69aea1",
+      "_id": "8010dc33-50d8-31fa-a884-abe8be69aea1",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.19",
       "text": [
           "bahūnāṁ janmanām ante",
@@ -4947,7 +5049,9 @@
       "textAudioUri": "audio/bg-07-19.mp3"
   },
   {
-      "uuid": "efb5b940-452d-3709-b8e1-b60e2101f992",
+      "_id": "efb5b940-452d-3709-b8e1-b60e2101f992",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.25",
       "text": [
           "nāhaṁ prakāśaḥ sarvasya",
@@ -5046,7 +5150,9 @@
       "textAudioUri": "audio/bg-07-25.mp3"
   },
   {
-      "uuid": "106d7c11-3c9e-3d94-b091-5de49512eb57",
+      "_id": "106d7c11-3c9e-3d94-b091-5de49512eb57",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.26",
       "text": [
           "vedāhaṁ samatītāni",
@@ -5144,7 +5250,9 @@
       "textAudioUri": "audio/bg-07-26.mp3"
   },
   {
-      "uuid": "565411e1-a732-35df-af37-a2abe5a79882",
+      "_id": "565411e1-a732-35df-af37-a2abe5a79882",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.27",
       "text": [
           "icchā-dveṣa-samutthena",
@@ -5231,7 +5339,9 @@
       "textAudioUri": "audio/bg-07-27.mp3"
   },
   {
-      "uuid": "a10cbb28-11f4-3e89-8cfe-b4fb07feee27",
+      "_id": "a10cbb28-11f4-3e89-8cfe-b4fb07feee27",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 7.28",
       "text": [
           "yeṣāṁ tv anta-gataṁ pāpaṁ",
@@ -5331,7 +5441,9 @@
       "textAudioUri": "audio/bg-07-28.mp3"
   },
   {
-      "uuid": "b9dccccc-9039-3393-91a0-3fd8814100f0",
+      "_id": "b9dccccc-9039-3393-91a0-3fd8814100f0",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.5",
       "text": [
           "anta-kāle ca mām eva",
@@ -5443,7 +5555,9 @@
       "textAudioUri": "audio/bg-08-05.mp3"
   },
   {
-      "uuid": "1b3c5e00-a76a-32a0-bd89-950eae013a60",
+      "_id": "1b3c5e00-a76a-32a0-bd89-950eae013a60",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.6",
       "text": [
           "yaṁ yaṁ vāpi smaran bhāvaṁ",
@@ -5550,7 +5664,9 @@
       "textAudioUri": "audio/bg-08-06.mp3"
   },
   {
-      "uuid": "dd22d835-c50b-3237-98cd-d6c68179869e",
+      "_id": "dd22d835-c50b-3237-98cd-d6c68179869e",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.7",
       "text": [
           "tasmāt sarveṣu kāleṣu",
@@ -5654,7 +5770,9 @@
       "textAudioUri": "audio/bg-08-07.mp3"
   },
   {
-      "uuid": "720122cb-8f95-3c4c-9730-ff5a05199504",
+      "_id": "720122cb-8f95-3c4c-9730-ff5a05199504",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.14",
       "text": [
           "ananya-cetāḥ satataṁ",
@@ -5748,7 +5866,9 @@
       "textAudioUri": "audio/bg-08-14.mp3"
   },
   {
-      "uuid": "92dfbb8e-f7f4-3231-806a-9c6d3f8c9b36",
+      "_id": "92dfbb8e-f7f4-3231-806a-9c6d3f8c9b36",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.15",
       "text": [
           "mām upetya punar janma",
@@ -5836,7 +5956,9 @@
       "textAudioUri": "audio/bg-08-15.mp3"
   },
   {
-      "uuid": "dc2f9a93-8311-33c2-8560-369e348ab524",
+      "_id": "dc2f9a93-8311-33c2-8560-369e348ab524",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.16",
       "text": [
           "ā-brahma-bhuvanāl lokāḥ",
@@ -5925,7 +6047,9 @@
       "textAudioUri": "audio/bg-08-16.mp3"
   },
   {
-      "uuid": "8ba53247-fe1b-3ab8-a38d-613dea26e2f9",
+      "_id": "8ba53247-fe1b-3ab8-a38d-613dea26e2f9",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 8.28",
       "text": [
           "vedeṣu yajñeṣu tapaḥsu caiva",
@@ -6057,7 +6181,9 @@
       "textAudioUri": "audio/bg-08-28.mp3"
   },
   {
-      "uuid": "517b3246-b4f3-314a-aafe-e646aa968790",
+      "_id": "517b3246-b4f3-314a-aafe-e646aa968790",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.2",
       "text": [
           "rāja-vidyā rāja-guhyaṁ",
@@ -6140,7 +6266,9 @@
       "textAudioUri": "audio/bg-09-02.mp3"
   },
   {
-      "uuid": "eec54774-121f-3426-874a-536de5ff257d",
+      "_id": "eec54774-121f-3426-874a-536de5ff257d",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.4",
       "text": [
           "mayā tatam idaṁ sarvaṁ",
@@ -6235,7 +6363,9 @@
       "textAudioUri": "audio/bg-09-04.mp3"
   },
   {
-      "uuid": "b48d5e23-4118-3d6d-a1a5-bc7add356938",
+      "_id": "b48d5e23-4118-3d6d-a1a5-bc7add356938",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.10",
       "text": [
           "mayādhyakṣeṇa prakṛtiḥ",
@@ -6316,7 +6446,9 @@
       "textAudioUri": "audio/bg-09-10.mp3"
   },
   {
-      "uuid": "58908c68-9d25-3efc-9843-24388caf1076",
+      "_id": "58908c68-9d25-3efc-9843-24388caf1076",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.11",
       "text": [
           "avajānanti māṁ mūḍhā",
@@ -6403,7 +6535,9 @@
       "textAudioUri": "audio/bg-09-11.mp3"
   },
   {
-      "uuid": "a8eb2bf3-6fb6-33d3-87da-7087425a55ff",
+      "_id": "a8eb2bf3-6fb6-33d3-87da-7087425a55ff",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.12",
       "text": [
           "moghāśā mogha-karmāṇo",
@@ -6486,7 +6620,9 @@
       "textAudioUri": "audio/bg-09-12.mp3"
   },
   {
-      "uuid": "c25e25ff-2bf7-30e1-a961-26c042c966da",
+      "_id": "c25e25ff-2bf7-30e1-a961-26c042c966da",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.13",
       "text": [
           "mahātmānas tu māṁ pārtha",
@@ -6580,7 +6716,9 @@
       "textAudioUri": "audio/bg-09-13.mp3"
   },
   {
-      "uuid": "7fb6880c-a47c-347c-8fa8-5a7e2a312254",
+      "_id": "7fb6880c-a47c-347c-8fa8-5a7e2a312254",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.14",
       "text": [
           "satataṁ kīrtayanto māṁ",
@@ -6668,7 +6806,9 @@
       "textAudioUri": "audio/bg-09-14.mp3"
   },
   {
-      "uuid": "46e9a6ee-b463-35e0-b2fc-02066c155d2d",
+      "_id": "46e9a6ee-b463-35e0-b2fc-02066c155d2d",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.22",
       "text": [
           "ananyāś cintayanto māṁ",
@@ -6760,7 +6900,9 @@
       "textAudioUri": "audio/bg-09-22.mp3"
   },
   {
-      "uuid": "2217ff45-db74-337e-91de-1e575d56383d",
+      "_id": "2217ff45-db74-337e-91de-1e575d56383d",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.25",
       "text": [
           "yānti deva-vratā devān",
@@ -6861,7 +7003,9 @@
       "textAudioUri": "audio/bg-09-25.mp3"
   },
   {
-      "uuid": "5e5e56d7-5ce3-3258-ac0f-6cf2e155ce29",
+      "_id": "5e5e56d7-5ce3-3258-ac0f-6cf2e155ce29",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.26",
       "text": [
           "patraṁ puṣpaṁ phalaṁ toyaṁ",
@@ -6955,7 +7099,9 @@
       "textAudioUri": "audio/bg-09-26.mp3"
   },
   {
-      "uuid": "e5e41924-6ef3-307e-a68c-9a88bcb7c872",
+      "_id": "e5e41924-6ef3-307e-a68c-9a88bcb7c872",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.27",
       "text": [
           "yat karoṣi yad aśnāsi",
@@ -7059,7 +7205,9 @@
       "textAudioUri": "audio/bg-09-27.mp3"
   },
   {
-      "uuid": "e88806da-4718-3a51-8151-bdc14ce76569",
+      "_id": "e88806da-4718-3a51-8151-bdc14ce76569",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.29",
       "text": [
           "samo ’haṁ sarva-bhūteṣu",
@@ -7194,7 +7342,9 @@
       "textAudioUri": "audio/bg-09-29.mp3"
   },
   {
-      "uuid": "c75e99c0-a849-3eed-bad7-1ea21b41a201",
+      "_id": "c75e99c0-a849-3eed-bad7-1ea21b41a201",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.30",
       "text": [
           "api cet su-durācāro",
@@ -7294,7 +7444,9 @@
       "textAudioUri": "audio/bg-09-30.mp3"
   },
   {
-      "uuid": "5b5c15cb-f70f-362c-8e20-ab6ae30f65ba",
+      "_id": "5b5c15cb-f70f-362c-8e20-ab6ae30f65ba",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.32",
       "text": [
           "māṁ hi pārtha vyapāśritya",
@@ -7406,7 +7558,9 @@
       "textAudioUri": "audio/bg-09-32.mp3"
   },
   {
-      "uuid": "fd889d92-c696-32b8-be05-856008532262",
+      "_id": "fd889d92-c696-32b8-be05-856008532262",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 9.34",
       "text": [
           "man-manā bhava mad-bhakto",
@@ -7513,7 +7667,9 @@
       "textAudioUri": "audio/bg-09-34.mp3"
   },
   {
-      "uuid": "1e585fe7-6e09-3182-95f9-10cb3719ed7c",
+      "_id": "1e585fe7-6e09-3182-95f9-10cb3719ed7c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 10.8",
       "text": [
           "ahaṁ sarvasya prabhavo",
@@ -7600,7 +7756,9 @@
       "textAudioUri": "audio/bg-10-08.mp3"
   },
   {
-      "uuid": "2b39733d-d00d-3097-90cf-9da7f1a0f124",
+      "_id": "2b39733d-d00d-3097-90cf-9da7f1a0f124",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 10.9",
       "text": [
           "mac-cittā mad-gata-prāṇā",
@@ -7689,7 +7847,9 @@
       "textAudioUri": "audio/bg-10-09.mp3"
   },
   {
-      "uuid": "6b92c0db-110e-349d-8d95-d2f71f898edb",
+      "_id": "6b92c0db-110e-349d-8d95-d2f71f898edb",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 10.10",
       "text": [
           "teṣāṁ satata-yuktānāṁ",
@@ -7772,7 +7932,9 @@
       "textAudioUri": "audio/bg-10-10.mp3"
   },
   {
-      "uuid": "f3ebc25f-c92e-37f7-9dd1-a68426fc9ad6",
+      "_id": "f3ebc25f-c92e-37f7-9dd1-a68426fc9ad6",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 10.11",
       "text": [
           "teṣām evānukampārtham",
@@ -7861,7 +8023,9 @@
       "textAudioUri": "audio/bg-10-11.mp3"
   },
   {
-      "uuid": "cff1b32e-dcd5-364a-a7ec-dfc95c834902",
+      "_id": "cff1b32e-dcd5-364a-a7ec-dfc95c834902",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 10.41",
       "text": [
           "yad yad vibhūtimat sattvaṁ",
@@ -7974,7 +8138,9 @@
       "textAudioUri": "audio/bg-10-41.mp3"
   },
   {
-      "uuid": "9282ec3e-98f8-3e4f-971d-4ccc0433e7e0",
+      "_id": "9282ec3e-98f8-3e4f-971d-4ccc0433e7e0",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 11.54",
       "text": [
           "bhaktyā tv ananyayā śakya",
@@ -8074,7 +8240,9 @@
       "textAudioUri": "audio/bg-11-54.mp3"
   },
   {
-      "uuid": "86057f56-4a77-304d-9d7a-29b206247b89",
+      "_id": "86057f56-4a77-304d-9d7a-29b206247b89",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 11.55",
       "text": [
           "mat-karma-kṛn mat-paramo",
@@ -8160,7 +8328,9 @@
       "textAudioUri": "audio/bg-11-55.mp3"
   },
   {
-      "uuid": "189e6af1-12aa-3615-9aec-093a77bd0c9c",
+      "_id": "189e6af1-12aa-3615-9aec-093a77bd0c9c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 12.5",
       "text": [
           "kleśo ’dhika-taras teṣām",
@@ -8248,7 +8418,9 @@
       "textAudioUri": "audio/bg-12-05.mp3"
   },
   {
-      "uuid": "e0306744-3583-3849-80af-e8d3e50e4f55",
+      "_id": "e0306744-3583-3849-80af-e8d3e50e4f55",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 12.8",
       "text": [
           "mayy eva mana ādhatsva",
@@ -8341,7 +8513,9 @@
       "textAudioUri": "audio/bg-12-08.mp3"
   },
   {
-      "uuid": "1ba2867a-ea09-360d-ac45-8633e438c168",
+      "_id": "1ba2867a-ea09-360d-ac45-8633e438c168",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 12.9",
       "text": [
           "atha cittaṁ samādhātuṁ",
@@ -8435,7 +8609,9 @@
       "textAudioUri": "audio/bg-12-09.mp3"
   },
   {
-      "uuid": "dc8cf229-1b94-30ff-93e9-c5f8f81a6288",
+      "_id": "dc8cf229-1b94-30ff-93e9-c5f8f81a6288",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 12.10",
       "text": [
           "abhyāse ’py asamartho ’si",
@@ -8529,7 +8705,9 @@
       "textAudioUri": "audio/bg-12-10.mp3"
   },
   {
-      "uuid": "241649c8-7013-30de-8882-f8588af54716",
+      "_id": "241649c8-7013-30de-8882-f8588af54716",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 14.4",
       "text": [
           "sarva-yoniṣu kaunteya",
@@ -8612,7 +8790,9 @@
       "textAudioUri": "audio/bg-14-04.mp3"
   },
   {
-      "uuid": "af8a5828-cedb-3c43-92ad-e87462f991b1",
+      "_id": "af8a5828-cedb-3c43-92ad-e87462f991b1",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 14.26",
       "text": [
           "māṁ ca yo ’vyabhicāreṇa",
@@ -8700,7 +8880,9 @@
       "textAudioUri": "audio/bg-14-26.mp3"
   },
   {
-      "uuid": "d58858cf-595e-3dda-967f-104568765f23",
+      "_id": "d58858cf-595e-3dda-967f-104568765f23",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 14.27",
       "text": [
           "brahmaṇo hi pratiṣṭhāham",
@@ -8793,7 +8975,9 @@
       "textAudioUri": "audio/bg-14-27.mp3"
   },
   {
-      "uuid": "70a6443b-8981-3eab-9390-8dda536f1034",
+      "_id": "70a6443b-8981-3eab-9390-8dda536f1034",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 15.5",
       "text": [
           "nirmāna-mohā jita-saṅga-doṣā",
@@ -8922,7 +9106,9 @@
       "textAudioUri": "audio/bg-15-05.mp3"
   },
   {
-      "uuid": "8ad40d6f-a517-397f-9180-6c37f50aacb2",
+      "_id": "8ad40d6f-a517-397f-9180-6c37f50aacb2",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 15.6",
       "text": [
           "na tad bhāsayate sūryo",
@@ -9027,7 +9213,9 @@
       "textAudioUri": "audio/bg-15-06.mp3"
   },
   {
-      "uuid": "0146d34c-1a16-3d38-accf-e74370c9ffdc",
+      "_id": "0146d34c-1a16-3d38-accf-e74370c9ffdc",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 15.7",
       "text": [
           "mamaivāṁśo jīva-loke",
@@ -9115,7 +9303,9 @@
       "textAudioUri": "audio/bg-15-07.mp3"
   },
   {
-      "uuid": "b793a796-dac6-379f-a648-776244841a4c",
+      "_id": "b793a796-dac6-379f-a648-776244841a4c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 15.15",
       "text": [
           "sarvasya cāhaṁ hṛdi sanniviṣṭo",
@@ -9260,7 +9450,9 @@
       "textAudioUri": "audio/bg-15-15.mp3"
   },
   {
-      "uuid": "cca5498b-503b-3a44-8c1f-7b2fd918b247",
+      "_id": "cca5498b-503b-3a44-8c1f-7b2fd918b247",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 15.19",
       "text": [
           "yo mām evam asammūḍho",
@@ -9349,7 +9541,9 @@
       "textAudioUri": "audio/bg-15-19.mp3"
   },
   {
-      "uuid": "1fb7769c-53e7-3b01-9a59-1c60c96fbae8",
+      "_id": "1fb7769c-53e7-3b01-9a59-1c60c96fbae8",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.42",
       "text": [
           "śamo damas tapaḥ śaucaṁ",
@@ -9449,7 +9643,9 @@
       "textAudioUri": "audio/bg-18-42.mp3"
   },
   {
-      "uuid": "54cf1376-0990-3ef2-86e7-5501d7124a06",
+      "_id": "54cf1376-0990-3ef2-86e7-5501d7124a06",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.54",
       "text": [
           "brahma-bhūtaḥ prasannātmā",
@@ -9538,7 +9734,9 @@
       "textAudioUri": "audio/bg-18-54.mp3"
   },
   {
-      "uuid": "ea20bf94-2349-359c-a702-7a3038d84044",
+      "_id": "ea20bf94-2349-359c-a702-7a3038d84044",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.55",
       "text": [
           "bhaktyā mām abhijānāti",
@@ -9627,7 +9825,9 @@
       "textAudioUri": "audio/bg-18-55.mp3"
   },
   {
-      "uuid": "6fb0b04f-fc65-3408-9f22-70421361a597",
+      "_id": "6fb0b04f-fc65-3408-9f22-70421361a597",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.58",
       "text": [
           "mac-cittaḥ sarva-durgāṇi",
@@ -9715,7 +9915,9 @@
       "textAudioUri": "audio/bg-18-58.mp3"
   },
   {
-      "uuid": "30cd2cab-facb-3aae-8787-a28187b6af28",
+      "_id": "30cd2cab-facb-3aae-8787-a28187b6af28",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.61",
       "text": [
           "īśvaraḥ sarva-bhūtānāṁ",
@@ -9792,7 +9994,9 @@
       "textAudioUri": "audio/bg-18-61.mp3"
   },
   {
-      "uuid": "aa247e49-7936-3d14-91aa-eb9d9255015f",
+      "_id": "aa247e49-7936-3d14-91aa-eb9d9255015f",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.65",
       "text": [
           "man-manā bhava mad-bhakto",
@@ -9899,7 +10103,9 @@
       "textAudioUri": "audio/bg-18-65.mp3"
   },
   {
-      "uuid": "28e3bfbe-8bfc-39f7-aefc-c25c6d424f19",
+      "_id": "28e3bfbe-8bfc-39f7-aefc-c25c6d424f19",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.66",
       "text": [
           "sarva-dharmān parityajya",
@@ -9992,7 +10198,9 @@
       "textAudioUri": "audio/bg-18-66.mp3"
   },
   {
-      "uuid": "f92db6fa-2fef-31ee-aae6-d30874fcd032",
+      "_id": "f92db6fa-2fef-31ee-aae6-d30874fcd032",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.68",
       "text": [
           "ya idaṁ paramaṁ guhyaṁ",
@@ -10096,7 +10304,9 @@
       "textAudioUri": "audio/bg-18-68.mp3"
   },
   {
-      "uuid": "d48c4585-1e26-3e82-91dd-925e4203e73c",
+      "_id": "d48c4585-1e26-3e82-91dd-925e4203e73c",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.69",
       "text": [
           "na ca tasmān manuṣyeṣu",
@@ -10203,7 +10413,9 @@
       "textAudioUri": "audio/bg-18-69.mp3"
   },
   {
-      "uuid": "b0c40222-3e8d-33ea-8089-0ef0cda93782",
+      "_id": "b0c40222-3e8d-33ea-8089-0ef0cda93782",
+      "@type": "verse",
+      "language": "en",
       "number": "BG 18.78",
       "text": [
           "yatra yogeśvaraḥ kṛṣṇo",

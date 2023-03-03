@@ -70,15 +70,6 @@
         v-if="isAuthenticated"
         expand="block"
         fill="outline"
-        @click="onClean"
-      >
-        {{ $t('account.deleteAllData') }}
-      </ion-button>
-
-      <ion-button
-        v-if="isAuthenticated"
-        expand="block"
-        fill="outline"
         @click="onRefreshToken"
       >
         {{ $t('account.token.refresh') }}
@@ -107,7 +98,6 @@ import { storeToRefs } from 'pinia'
 import { EventEmitter2 } from 'eventemitter2'
 import { Application } from '@akdasa-studios/shlokas-core'
 import { useAccountStore } from '@/app/settings'
-import { couchDB } from '@/app/Application'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
 
@@ -133,13 +123,6 @@ async function onSync() {
   inProgress.value = true
   const remoteRepos = createRepositories(syncHost.value as string)
   await app.sync(remoteRepos)
-  emitter.emit('syncCompleted')
-  inProgress.value = false
-}
-
-async function onClean() {
-  inProgress.value = true
-  await couchDB.deleteAll()
   emitter.emit('syncCompleted')
   inProgress.value = false
 }

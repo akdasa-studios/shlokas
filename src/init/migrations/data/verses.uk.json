@@ -1,6 +1,8 @@
 [
   {
-      "uuid": "91a634e5-470d-3611-8de4-f681d22a9228",
+      "_id": "91a634e5-470d-3611-8de4-f681d22a9228",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 1.1",
       "text": [
           "дгр̣тара̄шт̣ра ува̄ча",
@@ -88,7 +90,9 @@
       "textAudioUri": "audio/bg-01-01.mp3"
   },
   {
-      "uuid": "34c6540e-1f9e-3f8b-b5f8-45da96d6619a",
+      "_id": "34c6540e-1f9e-3f8b-b5f8-45da96d6619a",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.7",
       "text": [
           "ка̄рпан̣йа-дошопахата-свабга̄вах̣",
@@ -240,7 +244,9 @@
       "textAudioUri": "audio/bg-02-07.mp3"
   },
   {
-      "uuid": "8e6d7c00-cc99-384e-b716-9c445dce2db8",
+      "_id": "8e6d7c00-cc99-384e-b716-9c445dce2db8",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.11",
       "text": [
           "ш́рı̄-бгаґава̄н ува̄ча",
@@ -346,7 +352,9 @@
       "textAudioUri": "audio/bg-02-11.mp3"
   },
   {
-      "uuid": "648a0e78-c115-306b-af53-62ec595f4dd2",
+      "_id": "648a0e78-c115-306b-af53-62ec595f4dd2",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.12",
       "text": [
           "на тв ева̄хам̇ джа̄ту на̄сам̇",
@@ -476,7 +484,9 @@
       "textAudioUri": "audio/bg-02-12.mp3"
   },
   {
-      "uuid": "0e1e3866-aaaf-3ad7-b37b-86cdde341682",
+      "_id": "0e1e3866-aaaf-3ad7-b37b-86cdde341682",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.13",
       "text": [
           "дехіно ’смін йатга̄ дехе",
@@ -574,7 +584,9 @@
       "textAudioUri": "audio/bg-02-13.mp3"
   },
   {
-      "uuid": "03b42545-3655-3713-8a6f-08c6dc2d33e0",
+      "_id": "03b42545-3655-3713-8a6f-08c6dc2d33e0",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.14",
       "text": [
           "ма̄тра̄-спарш́а̄с ту каунтейа",
@@ -672,7 +684,9 @@
       "textAudioUri": "audio/bg-02-14.mp3"
   },
   {
-      "uuid": "1f33e200-acdf-36f8-abf0-fff34e16f3e7",
+      "_id": "1f33e200-acdf-36f8-abf0-fff34e16f3e7",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.20",
       "text": [
           "на джа̄йате мрійате ва̄ када̄чін",
@@ -812,7 +826,9 @@
       "textAudioUri": "audio/bg-02-20.mp3"
   },
   {
-      "uuid": "bab0355c-d046-34be-97e0-d7eacc7445d9",
+      "_id": "bab0355c-d046-34be-97e0-d7eacc7445d9",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.22",
       "text": [
           "ва̄са̄м̇сі джı̄рн̣а̄ні йатга̄ віха̄йа",
@@ -922,7 +938,9 @@
       "textAudioUri": "audio/bg-02-22.mp3"
   },
   {
-      "uuid": "1217e749-b71a-3358-a7ed-b1446816a3db",
+      "_id": "1217e749-b71a-3358-a7ed-b1446816a3db",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.23",
       "text": [
           "наінам̇ чгінданті ш́астра̄н̣і",
@@ -1032,7 +1050,9 @@
       "textAudioUri": "audio/bg-02-23.mp3"
   },
   {
-      "uuid": "63b0a640-b060-3338-bbb7-c4b9e307776c",
+      "_id": "63b0a640-b060-3338-bbb7-c4b9e307776c",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.27",
       "text": [
           "джа̄тасйа хі дгруво мр̣тйур",
@@ -1136,7 +1156,9 @@
       "textAudioUri": "audio/bg-02-27.mp3"
   },
   {
-      "uuid": "faf48a73-e194-3781-bd34-1c7aa8876248",
+      "_id": "faf48a73-e194-3781-bd34-1c7aa8876248",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.30",
       "text": [
           "дехı̄ нітйам авадгйо ’йам̇",
@@ -1234,7 +1256,9 @@
       "textAudioUri": "audio/bg-02-30.mp3"
   },
   {
-      "uuid": "00f43a60-57bc-3f50-ba5b-64765a22892d",
+      "_id": "00f43a60-57bc-3f50-ba5b-64765a22892d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.40",
       "text": [
           "неха̄бгікрама-на̄ш́о ’сті",
@@ -1339,7 +1363,9 @@
       "textAudioUri": "audio/bg-02-40.mp3"
   },
   {
-      "uuid": "2a0290cc-4307-3c72-b55c-c20f2865f537",
+      "_id": "2a0290cc-4307-3c72-b55c-c20f2865f537",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.41",
       "text": [
           "вйаваса̄йа̄тміка̄ буддгір",
@@ -1419,7 +1445,9 @@
       "textAudioUri": "audio/bg-02-41.mp3"
   },
   {
-      "uuid": "8a9aff57-e23f-3c68-8f5a-cbaa4b83373e",
+      "_id": "8a9aff57-e23f-3c68-8f5a-cbaa4b83373e",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.44",
       "text": [
           "бгоґаіш́варйа-прасакта̄на̄м̇",
@@ -1493,7 +1521,9 @@
       "textAudioUri": "audio/bg-02-44.mp3"
   },
   {
-      "uuid": "e990fe2e-bbfe-334d-8744-e2c5d49991a3",
+      "_id": "e990fe2e-bbfe-334d-8744-e2c5d49991a3",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.45",
       "text": [
           "траі-ґун̣йа-вішайа веда̄",
@@ -1570,7 +1600,9 @@
       "textAudioUri": "audio/bg-02-45.mp3"
   },
   {
-      "uuid": "bf06b004-4f5a-3cb8-a879-952176b125fb",
+      "_id": "bf06b004-4f5a-3cb8-a879-952176b125fb",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.46",
       "text": [
           "йа̄ва̄н артга удапа̄не",
@@ -1644,7 +1676,9 @@
       "textAudioUri": "audio/bg-02-46.mp3"
   },
   {
-      "uuid": "7d7fd1a5-0e62-3d7b-bacf-9af4af6e2cc8",
+      "_id": "7d7fd1a5-0e62-3d7b-bacf-9af4af6e2cc8",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.59",
       "text": [
           "вішайа̄ вінівартанте",
@@ -1725,7 +1759,9 @@
       "textAudioUri": "audio/bg-02-59.mp3"
   },
   {
-      "uuid": "fde23474-eebc-3c11-ac90-f46923b2f58d",
+      "_id": "fde23474-eebc-3c11-ac90-f46923b2f58d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.62",
       "text": [
           "дгйа̄йато вішайа̄н пум̇сах̣",
@@ -1811,7 +1847,9 @@
       "textAudioUri": "audio/bg-02-62.mp3"
   },
   {
-      "uuid": "ada6aa3d-a3b2-3796-bc3d-061c57d1aaa4",
+      "_id": "ada6aa3d-a3b2-3796-bc3d-061c57d1aaa4",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.63",
       "text": [
           "кродга̄д бгаваті саммохах̣",
@@ -1885,7 +1923,9 @@
       "textAudioUri": "audio/bg-02-63.mp3"
   },
   {
-      "uuid": "45926d06-a960-36f0-a303-2d865e38d70b",
+      "_id": "45926d06-a960-36f0-a303-2d865e38d70b",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.64",
       "text": [
           "ра̄ґа-двеша-вімуктаіс ту",
@@ -1965,7 +2005,9 @@
       "textAudioUri": "audio/bg-02-64.mp3"
   },
   {
-      "uuid": "e2281349-829b-3070-a0f0-c7d9cfe018c7",
+      "_id": "e2281349-829b-3070-a0f0-c7d9cfe018c7",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 2.69",
       "text": [
           "йа̄ ніш́а̄ сарва-бгӯта̄на̄м̇",
@@ -2063,7 +2105,9 @@
       "textAudioUri": "audio/bg-02-69.mp3"
   },
   {
-      "uuid": "05cf1eb4-016d-36cb-9829-d3527425c244",
+      "_id": "05cf1eb4-016d-36cb-9829-d3527425c244",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 3.9",
       "text": [
           "йаджн̃а̄ртга̄т карман̣о ’нйатра",
@@ -2149,7 +2193,9 @@
       "textAudioUri": "audio/bg-03-09.mp3"
   },
   {
-      "uuid": "a5e99f19-455a-3d85-b1f5-65965d5f8152",
+      "_id": "a5e99f19-455a-3d85-b1f5-65965d5f8152",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 3.14",
       "text": [
           "анна̄д бгаванті бгӯта̄ні",
@@ -2231,7 +2277,9 @@
       "textAudioUri": "audio/bg-03-14.mp3"
   },
   {
-      "uuid": "cd596a19-a351-3f05-822d-9f25a895d40b",
+      "_id": "cd596a19-a351-3f05-822d-9f25a895d40b",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 3.21",
       "text": [
           "йад йад а̄чараті ш́решт̣гас",
@@ -2336,7 +2384,9 @@
       "textAudioUri": "audio/bg-03-21.mp3"
   },
   {
-      "uuid": "eafd2a10-b925-3b47-a701-155a1fa4e443",
+      "_id": "eafd2a10-b925-3b47-a701-155a1fa4e443",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 3.27",
       "text": [
           "пракр̣тех̣ крійама̄н̣а̄ні",
@@ -2417,7 +2467,9 @@
       "textAudioUri": "audio/bg-03-27.mp3"
   },
   {
-      "uuid": "2f62784a-a7b6-372f-b5ac-e4fe1a5740c9",
+      "_id": "2f62784a-a7b6-372f-b5ac-e4fe1a5740c9",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 3.37",
       "text": [
           "ш́рı̄-бгаґава̄н ува̄ча",
@@ -2512,7 +2564,9 @@
       "textAudioUri": "audio/bg-03-37.mp3"
   },
   {
-      "uuid": "e9f17852-1b36-3015-8fd2-bb99b2b3cc13",
+      "_id": "e9f17852-1b36-3015-8fd2-bb99b2b3cc13",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.1",
       "text": [
           "ш́рı̄-бгаґава̄н ува̄ча",
@@ -2606,7 +2660,9 @@
       "textAudioUri": "audio/bg-04-01.mp3"
   },
   {
-      "uuid": "1cfba789-2ec7-312e-82f4-ee54a17b02b6",
+      "_id": "1cfba789-2ec7-312e-82f4-ee54a17b02b6",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.2",
       "text": [
           "евам̇ парампара̄-пра̄птам",
@@ -2698,7 +2754,9 @@
       "textAudioUri": "audio/bg-04-02.mp3"
   },
   {
-      "uuid": "d9ca4a7b-a6f5-3ca8-901c-83bcd654476c",
+      "_id": "d9ca4a7b-a6f5-3ca8-901c-83bcd654476c",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.3",
       "text": [
           "са ева̄йам̇ майа̄ те ’дйа",
@@ -2827,7 +2885,9 @@
       "textAudioUri": "audio/bg-04-03.mp3"
   },
   {
-      "uuid": "e52c2bea-0c2f-362b-bedb-cb0b1ff37470",
+      "_id": "e52c2bea-0c2f-362b-bedb-cb0b1ff37470",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.6",
       "text": [
           "аджо ’пі санн авйайа̄тма̄",
@@ -2925,7 +2985,9 @@
       "textAudioUri": "audio/bg-04-06.mp3"
   },
   {
-      "uuid": "70f5d0dc-e304-3cc8-bf4b-10e690d93698",
+      "_id": "70f5d0dc-e304-3cc8-bf4b-10e690d93698",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.7",
       "text": [
           "йада̄ йада̄ хі дгармасйа",
@@ -3012,7 +3074,9 @@
       "textAudioUri": "audio/bg-04-07.mp3"
   },
   {
-      "uuid": "5c0520bd-2875-3384-99ed-afcd8ca09bdd",
+      "_id": "5c0520bd-2875-3384-99ed-afcd8ca09bdd",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.8",
       "text": [
           "парітра̄н̣а̄йа са̄дгӯна̄м̇",
@@ -3086,7 +3150,9 @@
       "textAudioUri": "audio/bg-04-08.mp3"
   },
   {
-      "uuid": "5300ace8-3305-3467-9d4b-43d6ea033cd4",
+      "_id": "5300ace8-3305-3467-9d4b-43d6ea033cd4",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.9",
       "text": [
           "джанма карма ча ме дівйам",
@@ -3210,7 +3276,9 @@
       "textAudioUri": "audio/bg-04-09.mp3"
   },
   {
-      "uuid": "47ffb15b-35b8-38a3-9b0d-f9cc0136d120",
+      "_id": "47ffb15b-35b8-38a3-9b0d-f9cc0136d120",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.10",
       "text": [
           "вı̄та-ра̄ґа-бгайа-кродга̄",
@@ -3302,7 +3370,9 @@
       "textAudioUri": "audio/bg-04-10.mp3"
   },
   {
-      "uuid": "267685ce-473b-31ea-b185-d190b12acdec",
+      "_id": "267685ce-473b-31ea-b185-d190b12acdec",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.11",
       "text": [
           "йе йатга̄ ма̄м̇ прападйанте",
@@ -3406,7 +3476,9 @@
       "textAudioUri": "audio/bg-04-11.mp3"
   },
   {
-      "uuid": "c9e7c083-5f0d-30e3-ada2-5c30ed00727e",
+      "_id": "c9e7c083-5f0d-30e3-ada2-5c30ed00727e",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.13",
       "text": [
           "ча̄тур-варн̣йам̇ майа̄ ср̣шт̣ам̇",
@@ -3498,7 +3570,9 @@
       "textAudioUri": "audio/bg-04-13.mp3"
   },
   {
-      "uuid": "bb79b704-224e-3a60-8ff0-55f2d307f74d",
+      "_id": "bb79b704-224e-3a60-8ff0-55f2d307f74d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 4.34",
       "text": [
           "тад віддгі пран̣іпа̄тена",
@@ -3573,7 +3647,9 @@
       "textAudioUri": "audio/bg-04-34.mp3"
   },
   {
-      "uuid": "9aecfca2-e06c-34cc-8784-81031f3a0990",
+      "_id": "9aecfca2-e06c-34cc-8784-81031f3a0990",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 5.18",
       "text": [
           "відйа̄-вінайа-сампанне",
@@ -3666,7 +3742,9 @@
       "textAudioUri": "audio/bg-05-18.mp3"
   },
   {
-      "uuid": "727ecd2c-dea2-3636-b76f-bd741aef07db",
+      "_id": "727ecd2c-dea2-3636-b76f-bd741aef07db",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 5.22",
       "text": [
           "йе хі сам̇спарш́а-джа̄ бгоґа̄",
@@ -3776,7 +3854,9 @@
       "textAudioUri": "audio/bg-05-22.mp3"
   },
   {
-      "uuid": "59edff54-b37b-3eee-9977-de40a35f254c",
+      "_id": "59edff54-b37b-3eee-9977-de40a35f254c",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 5.29",
       "text": [
           "бгокта̄рам̇ йаджн̃а-тапаса̄м̇",
@@ -3862,7 +3942,9 @@
       "textAudioUri": "audio/bg-05-29.mp3"
   },
   {
-      "uuid": "2103ee50-c105-33bd-b924-0f72b0501b77",
+      "_id": "2103ee50-c105-33bd-b924-0f72b0501b77",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 6.17",
       "text": [
           "йукта̄ха̄ра-віха̄расйа",
@@ -3943,7 +4025,9 @@
       "textAudioUri": "audio/bg-06-17.mp3"
   },
   {
-      "uuid": "0331f2e6-8206-3869-b500-b08e29b3632a",
+      "_id": "0331f2e6-8206-3869-b500-b08e29b3632a",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 6.41",
       "text": [
           "пра̄пйа пун̣йа-кр̣та̄м̇ лока̄н",
@@ -4023,7 +4107,9 @@
       "textAudioUri": "audio/bg-06-41.mp3"
   },
   {
-      "uuid": "d747622d-8daa-3133-981c-5738ab7ae572",
+      "_id": "d747622d-8daa-3133-981c-5738ab7ae572",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 6.47",
       "text": [
           "йоґіна̄м апі сарвеша̄м̇",
@@ -4116,7 +4202,9 @@
       "textAudioUri": "audio/bg-06-47.mp3"
   },
   {
-      "uuid": "8b8690ce-0f65-39db-8fe2-5c93c071b55e",
+      "_id": "8b8690ce-0f65-39db-8fe2-5c93c071b55e",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.3",
       "text": [
           "манушйа̄н̣а̄м̇ сахасрешу",
@@ -4202,7 +4290,9 @@
       "textAudioUri": "audio/bg-07-03.mp3"
   },
   {
-      "uuid": "c3d587e1-66df-320d-a0bf-a02e246238a7",
+      "_id": "c3d587e1-66df-320d-a0bf-a02e246238a7",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.4",
       "text": [
           "бгӯмір а̄по ’нало ва̄йух̣",
@@ -4312,7 +4402,9 @@
       "textAudioUri": "audio/bg-07-04.mp3"
   },
   {
-      "uuid": "194c5ef8-e6f9-3c61-808f-91ee0e141c95",
+      "_id": "194c5ef8-e6f9-3c61-808f-91ee0e141c95",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.5",
       "text": [
           "апарейам ітас тв анйа̄м̇",
@@ -4417,7 +4509,9 @@
       "textAudioUri": "audio/bg-07-05.mp3"
   },
   {
-      "uuid": "09718c5b-11d0-310e-b9d4-c8f3a31ce4bb",
+      "_id": "09718c5b-11d0-310e-b9d4-c8f3a31ce4bb",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.7",
       "text": [
           "маттах̣ паратарам̇ на̄нйат",
@@ -4510,7 +4604,9 @@
       "textAudioUri": "audio/bg-07-07.mp3"
   },
   {
-      "uuid": "d4c2126b-7499-3cf6-af3a-21994c0e43f5",
+      "_id": "d4c2126b-7499-3cf6-af3a-21994c0e43f5",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.14",
       "text": [
           "даівı̄ хй еша̄ ґун̣а-майı̄",
@@ -4610,7 +4706,9 @@
       "textAudioUri": "audio/bg-07-14.mp3"
   },
   {
-      "uuid": "26b93dd4-8ebb-3a2c-b1e8-c17e204ec293",
+      "_id": "26b93dd4-8ebb-3a2c-b1e8-c17e204ec293",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.15",
       "text": [
           "на ма̄м̇ душкр̣тіно мӯд̣га̄х̣",
@@ -4696,7 +4794,9 @@
       "textAudioUri": "audio/bg-07-15.mp3"
   },
   {
-      "uuid": "5dbc5ece-0c41-3792-8c09-4a26f80810c2",
+      "_id": "5dbc5ece-0c41-3792-8c09-4a26f80810c2",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.16",
       "text": [
           "чатур-відга̄ бгаджанте ма̄м̇",
@@ -4782,7 +4882,9 @@
       "textAudioUri": "audio/bg-07-16.mp3"
   },
   {
-      "uuid": "371e142b-24c7-3666-87c2-eeddbe7d0ae3",
+      "_id": "371e142b-24c7-3666-87c2-eeddbe7d0ae3",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.19",
       "text": [
           "бахӯна̄м̇ джанмана̄м анте",
@@ -4868,7 +4970,9 @@
       "textAudioUri": "audio/bg-07-19.mp3"
   },
   {
-      "uuid": "78f6877b-171d-3404-99b7-b914cdc3328d",
+      "_id": "78f6877b-171d-3404-99b7-b914cdc3328d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.25",
       "text": [
           "на̄хам̇ прака̄ш́ах̣ сарвасйа",
@@ -4966,7 +5070,9 @@
       "textAudioUri": "audio/bg-07-25.mp3"
   },
   {
-      "uuid": "886b2f1a-3b17-3d94-82ad-9757f24c0288",
+      "_id": "886b2f1a-3b17-3d94-82ad-9757f24c0288",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.26",
       "text": [
           "веда̄хам̇ саматı̄та̄ні",
@@ -5064,7 +5170,9 @@
       "textAudioUri": "audio/bg-07-26.mp3"
   },
   {
-      "uuid": "397b8017-3c59-3450-9c72-cfb22dc5b678",
+      "_id": "397b8017-3c59-3450-9c72-cfb22dc5b678",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.27",
       "text": [
           "іччга̄-двеша-самуттгена",
@@ -5150,7 +5258,9 @@
       "textAudioUri": "audio/bg-07-27.mp3"
   },
   {
-      "uuid": "aabe7850-6dd9-3f7f-86f0-5028fe665495",
+      "_id": "aabe7850-6dd9-3f7f-86f0-5028fe665495",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 7.28",
       "text": [
           "йеша̄м̇ тв анта-ґатам̇ па̄пам̇",
@@ -5248,7 +5358,9 @@
       "textAudioUri": "audio/bg-07-28.mp3"
   },
   {
-      "uuid": "11cfeb9c-5951-32ac-b69f-692a5e255fd8",
+      "_id": "11cfeb9c-5951-32ac-b69f-692a5e255fd8",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.5",
       "text": [
           "анта-ка̄ле ча ма̄м ева",
@@ -5358,7 +5470,9 @@
       "textAudioUri": "audio/bg-08-05.mp3"
   },
   {
-      "uuid": "4e0b8de4-df3f-3958-a3fd-5c0df6713a73",
+      "_id": "4e0b8de4-df3f-3958-a3fd-5c0df6713a73",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.6",
       "text": [
           "йам̇ йам̇ ва̄пі смаран бга̄вам",
@@ -5465,7 +5579,9 @@
       "textAudioUri": "audio/bg-08-06.mp3"
   },
   {
-      "uuid": "0ed5e9d4-22b8-3a91-a528-8c0d5d69642a",
+      "_id": "0ed5e9d4-22b8-3a91-a528-8c0d5d69642a",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.7",
       "text": [
           "тасма̄т сарвешу ка̄лешу",
@@ -5569,7 +5685,9 @@
       "textAudioUri": "audio/bg-08-07.mp3"
   },
   {
-      "uuid": "5fb1c04b-d2af-39c0-80c3-e7ed973d77ac",
+      "_id": "5fb1c04b-d2af-39c0-80c3-e7ed973d77ac",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.14",
       "text": [
           "ананйа-чета̄х̣ сататам̇",
@@ -5661,7 +5779,9 @@
       "textAudioUri": "audio/bg-08-14.mp3"
   },
   {
-      "uuid": "ebc69dd5-7322-33c2-84d5-9f30cc421104",
+      "_id": "ebc69dd5-7322-33c2-84d5-9f30cc421104",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.15",
       "text": [
           "ма̄м упетйа пунар джанма",
@@ -5747,7 +5867,9 @@
       "textAudioUri": "audio/bg-08-15.mp3"
   },
   {
-      "uuid": "d8af76a4-fa71-32eb-940e-148691f598d0",
+      "_id": "d8af76a4-fa71-32eb-940e-148691f598d0",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.16",
       "text": [
           "а̄-брахма-бгувана̄л лока̄х̣",
@@ -5834,7 +5956,9 @@
       "textAudioUri": "audio/bg-08-16.mp3"
   },
   {
-      "uuid": "17497d8e-e1fb-3d46-84b9-ccf1f9177817",
+      "_id": "17497d8e-e1fb-3d46-84b9-ccf1f9177817",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 8.28",
       "text": [
           "ведешу йаджн̃ешу тапах̣су чаіва",
@@ -5960,7 +6084,9 @@
       "textAudioUri": "audio/bg-08-28.mp3"
   },
   {
-      "uuid": "f1d5365e-6161-35c5-af8c-c16f502fa6f8",
+      "_id": "f1d5365e-6161-35c5-af8c-c16f502fa6f8",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.2",
       "text": [
           "ра̄джа-відйа̄ ра̄джа-ґухйам̇",
@@ -6040,7 +6166,9 @@
       "textAudioUri": "audio/bg-09-02.mp3"
   },
   {
-      "uuid": "24ce84fd-d4b7-3d31-b98b-8a7a88efce1c",
+      "_id": "24ce84fd-d4b7-3d31-b98b-8a7a88efce1c",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.4",
       "text": [
           "майа̄ татам ідам̇ сарвам̇",
@@ -6133,7 +6261,9 @@
       "textAudioUri": "audio/bg-09-04.mp3"
   },
   {
-      "uuid": "d12ddca1-e921-33bc-99ae-ea1ff96ba709",
+      "_id": "d12ddca1-e921-33bc-99ae-ea1ff96ba709",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.10",
       "text": [
           "майа̄дгйакшен̣а пракр̣тіх̣",
@@ -6213,7 +6343,9 @@
       "textAudioUri": "audio/bg-09-10.mp3"
   },
   {
-      "uuid": "551dc7e3-e7c1-30ae-9958-5c1b760976a7",
+      "_id": "551dc7e3-e7c1-30ae-9958-5c1b760976a7",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.11",
       "text": [
           "аваджа̄нанті ма̄м̇ мӯд̣га̄",
@@ -6299,7 +6431,9 @@
       "textAudioUri": "audio/bg-09-11.mp3"
   },
   {
-      "uuid": "a67a2b03-83ac-3366-a9b4-9d3a8b4a77dc",
+      "_id": "a67a2b03-83ac-3366-a9b4-9d3a8b4a77dc",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.12",
       "text": [
           "моґга̄ш́а̄ моґга-карма̄н̣о",
@@ -6379,7 +6513,9 @@
       "textAudioUri": "audio/bg-09-12.mp3"
   },
   {
-      "uuid": "240468df-cfeb-3b02-9b47-059aad030f64",
+      "_id": "240468df-cfeb-3b02-9b47-059aad030f64",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.13",
       "text": [
           "маха̄тма̄нас ту ма̄м̇ па̄ртга",
@@ -6471,7 +6607,9 @@
       "textAudioUri": "audio/bg-09-13.mp3"
   },
   {
-      "uuid": "8a8c7083-37b1-3458-9cc3-d51581c76760",
+      "_id": "8a8c7083-37b1-3458-9cc3-d51581c76760",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.14",
       "text": [
           "сататам̇ кı̄ртайанто ма̄м̇",
@@ -6557,7 +6695,9 @@
       "textAudioUri": "audio/bg-09-14.mp3"
   },
   {
-      "uuid": "d873d5ab-e023-376f-b902-6e42e517d8bd",
+      "_id": "d873d5ab-e023-376f-b902-6e42e517d8bd",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.22",
       "text": [
           "ананйа̄ш́ чінтайанто ма̄м̇",
@@ -6649,7 +6789,9 @@
       "textAudioUri": "audio/bg-09-22.mp3"
   },
   {
-      "uuid": "4c8490fe-f584-386b-bd1d-13d6debadc50",
+      "_id": "4c8490fe-f584-386b-bd1d-13d6debadc50",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.25",
       "text": [
           "йа̄нті дева-врата̄ дева̄н",
@@ -6747,7 +6889,9 @@
       "textAudioUri": "audio/bg-09-25.mp3"
   },
   {
-      "uuid": "355a0460-c11d-35bc-88c2-0fe69a30cd6d",
+      "_id": "355a0460-c11d-35bc-88c2-0fe69a30cd6d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.26",
       "text": [
           "патрам̇ пушпам̇ пгалам̇ тойам̇",
@@ -6839,7 +6983,9 @@
       "textAudioUri": "audio/bg-09-26.mp3"
   },
   {
-      "uuid": "ab9784b5-3d9f-308b-a912-4d7bdfc6bdc3",
+      "_id": "ab9784b5-3d9f-308b-a912-4d7bdfc6bdc3",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.27",
       "text": [
           "йат кароші йад аш́на̄сі",
@@ -6943,7 +7089,9 @@
       "textAudioUri": "audio/bg-09-27.mp3"
   },
   {
-      "uuid": "0f73a7e2-9344-36b1-9755-e4172598c871",
+      "_id": "0f73a7e2-9344-36b1-9755-e4172598c871",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.29",
       "text": [
           "само ’хам̇ сарва-бгӯтешу",
@@ -7077,7 +7225,9 @@
       "textAudioUri": "audio/bg-09-29.mp3"
   },
   {
-      "uuid": "d5a3ec7d-68d6-3aca-ab8a-c839fc0e0722",
+      "_id": "d5a3ec7d-68d6-3aca-ab8a-c839fc0e0722",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.30",
       "text": [
           "апі чет су-дура̄ча̄ро",
@@ -7175,7 +7325,9 @@
       "textAudioUri": "audio/bg-09-30.mp3"
   },
   {
-      "uuid": "b90a6851-0b83-3607-a2cc-9b06b846cafe",
+      "_id": "b90a6851-0b83-3607-a2cc-9b06b846cafe",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.32",
       "text": [
           "ма̄м̇ хі па̄ртга вйапа̄ш́рітйа",
@@ -7286,7 +7438,9 @@
       "textAudioUri": "audio/bg-09-32.mp3"
   },
   {
-      "uuid": "644b24e9-debc-3bd5-9d9c-53b6c25da5dd",
+      "_id": "644b24e9-debc-3bd5-9d9c-53b6c25da5dd",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 9.34",
       "text": [
           "ман-мана̄ бгава мад-бгакто",
@@ -7390,7 +7544,9 @@
       "textAudioUri": "audio/bg-09-34.mp3"
   },
   {
-      "uuid": "b1bc9f3e-b321-347c-b92d-b7de3c85bfb1",
+      "_id": "b1bc9f3e-b321-347c-b92d-b7de3c85bfb1",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 10.8",
       "text": [
           "ахам̇ сарвасйа прабгаво",
@@ -7476,7 +7632,9 @@
       "textAudioUri": "audio/bg-10-08.mp3"
   },
   {
-      "uuid": "e5b1e0f0-64c2-3576-be94-3e44c50cd103",
+      "_id": "e5b1e0f0-64c2-3576-be94-3e44c50cd103",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 10.9",
       "text": [
           "мач-чітта̄ мад-ґата-пра̄н̣а̄",
@@ -7562,7 +7720,9 @@
       "textAudioUri": "audio/bg-10-09.mp3"
   },
   {
-      "uuid": "d1a4de18-d0f0-3701-bea4-d1af4e82852d",
+      "_id": "d1a4de18-d0f0-3701-bea4-d1af4e82852d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 10.10",
       "text": [
           "теша̄м̇ сатата-йукта̄на̄м̇",
@@ -7642,7 +7802,9 @@
       "textAudioUri": "audio/bg-10-10.mp3"
   },
   {
-      "uuid": "cb195efa-3103-3050-b050-97b7a050c32f",
+      "_id": "cb195efa-3103-3050-b050-97b7a050c32f",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 10.11",
       "text": [
           "теша̄м ева̄нукампа̄ртгам",
@@ -7728,7 +7890,9 @@
       "textAudioUri": "audio/bg-10-11.mp3"
   },
   {
-      "uuid": "82f43c89-6d83-36da-bf58-cd717ec8308f",
+      "_id": "82f43c89-6d83-36da-bf58-cd717ec8308f",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 10.41",
       "text": [
           "йад йад вібгӯтімат саттвам̇",
@@ -7840,7 +8004,9 @@
       "textAudioUri": "audio/bg-10-41.mp3"
   },
   {
-      "uuid": "15281c8b-aac5-3343-9648-2e81873d7741",
+      "_id": "15281c8b-aac5-3343-9648-2e81873d7741",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 11.54",
       "text": [
           "бгактйа̄ тв ананйайа̄ ш́акйа",
@@ -7938,7 +8104,9 @@
       "textAudioUri": "audio/bg-11-54.mp3"
   },
   {
-      "uuid": "b0323ee0-9d4a-3fc3-b127-d40383c9bbdb",
+      "_id": "b0323ee0-9d4a-3fc3-b127-d40383c9bbdb",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 11.55",
       "text": [
           "мат-карма-кр̣н мат-парамо",
@@ -8018,7 +8186,9 @@
       "textAudioUri": "audio/bg-11-55.mp3"
   },
   {
-      "uuid": "b7293dad-071d-38b2-bc4f-f04f33e279a3",
+      "_id": "b7293dad-071d-38b2-bc4f-f04f33e279a3",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 12.5",
       "text": [
           "клеш́о ’дгікатарас теша̄м",
@@ -8104,7 +8274,9 @@
       "textAudioUri": "audio/bg-12-05.mp3"
   },
   {
-      "uuid": "990c719c-a10a-3a3c-ae8c-62b5b17d59af",
+      "_id": "990c719c-a10a-3a3c-ae8c-62b5b17d59af",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 12.8",
       "text": [
           "майй ева мана а̄дгатсва",
@@ -8197,7 +8369,9 @@
       "textAudioUri": "audio/bg-12-08.mp3"
   },
   {
-      "uuid": "c646598c-8aaf-30bb-ae6a-4040475064cb",
+      "_id": "c646598c-8aaf-30bb-ae6a-4040475064cb",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 12.9",
       "text": [
           "атга чіттам̇ сама̄дга̄тум̇",
@@ -8289,7 +8463,9 @@
       "textAudioUri": "audio/bg-12-09.mp3"
   },
   {
-      "uuid": "1479827b-8a8f-398f-bda0-1d3dc6d1b72d",
+      "_id": "1479827b-8a8f-398f-bda0-1d3dc6d1b72d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 12.10",
       "text": [
           "абгйа̄се ’пй асамартго ’сі",
@@ -8381,7 +8557,9 @@
       "textAudioUri": "audio/bg-12-10.mp3"
   },
   {
-      "uuid": "649bb7d8-da28-3232-aea0-4c7078adf00f",
+      "_id": "649bb7d8-da28-3232-aea0-4c7078adf00f",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 14.4",
       "text": [
           "сарва-йонішу каунтейа",
@@ -8462,7 +8640,9 @@
       "textAudioUri": "audio/bg-14-04.mp3"
   },
   {
-      "uuid": "ba16c672-e46a-3e39-b6f0-9b8dc51a0dab",
+      "_id": "ba16c672-e46a-3e39-b6f0-9b8dc51a0dab",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 14.26",
       "text": [
           "ма̄м̇ ча йо ’вйабгіча̄рен̣а",
@@ -8549,7 +8729,9 @@
       "textAudioUri": "audio/bg-14-26.mp3"
   },
   {
-      "uuid": "9ffc3849-7185-34c0-abe1-b5c62b55c71b",
+      "_id": "9ffc3849-7185-34c0-abe1-b5c62b55c71b",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 14.27",
       "text": [
           "брахман̣о хі пратішт̣га̄хам",
@@ -8642,7 +8824,9 @@
       "textAudioUri": "audio/bg-14-27.mp3"
   },
   {
-      "uuid": "3f8d578c-95d0-34a5-a74d-5b1159876f79",
+      "_id": "3f8d578c-95d0-34a5-a74d-5b1159876f79",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 15.5",
       "text": [
           "нірма̄на-моха̄ джіта-сан̇ґа-доша̄",
@@ -8770,7 +8954,9 @@
       "textAudioUri": "audio/bg-15-05.mp3"
   },
   {
-      "uuid": "36a78d96-c672-349e-ae2c-9515ada9e6a7",
+      "_id": "36a78d96-c672-349e-ae2c-9515ada9e6a7",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 15.6",
       "text": [
           "на тад бга̄сайате сӯрйо",
@@ -8875,7 +9061,9 @@
       "textAudioUri": "audio/bg-15-06.mp3"
   },
   {
-      "uuid": "7fe4a4bc-5ede-3aef-a479-c109f86a4197",
+      "_id": "7fe4a4bc-5ede-3aef-a479-c109f86a4197",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 15.7",
       "text": [
           "мамаіва̄м̇ш́о джı̄ва-локе",
@@ -8961,7 +9149,9 @@
       "textAudioUri": "audio/bg-15-07.mp3"
   },
   {
-      "uuid": "be0fd2b9-9ff4-353c-858a-dc37f424a09b",
+      "_id": "be0fd2b9-9ff4-353c-858a-dc37f424a09b",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 15.15",
       "text": [
           "сарвасйа ча̄хам̇ хр̣ді саннівішт̣о",
@@ -9089,7 +9279,9 @@
       "textAudioUri": "audio/bg-15-15.mp3"
   },
   {
-      "uuid": "1362033c-1020-3fe7-af8b-2103c5a2f0fc",
+      "_id": "1362033c-1020-3fe7-af8b-2103c5a2f0fc",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 15.19",
       "text": [
           "йо ма̄м евам асаммӯд̣го",
@@ -9175,7 +9367,9 @@
       "textAudioUri": "audio/bg-15-19.mp3"
   },
   {
-      "uuid": "0958c710-57a3-3fcf-bc80-922e975e3f8d",
+      "_id": "0958c710-57a3-3fcf-bc80-922e975e3f8d",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.42",
       "text": [
           "ш́амо дамас тапах̣ ш́аучам̇",
@@ -9269,7 +9463,9 @@
       "textAudioUri": "audio/bg-18-42.mp3"
   },
   {
-      "uuid": "1b2c975a-ed4c-3840-a905-005a3017b677",
+      "_id": "1b2c975a-ed4c-3840-a905-005a3017b677",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.54",
       "text": [
           "брахма-бгӯтах̣ прасанна̄тма̄",
@@ -9355,7 +9551,9 @@
       "textAudioUri": "audio/bg-18-54.mp3"
   },
   {
-      "uuid": "ab755e80-d246-3e54-b3b3-5793a55bb9af",
+      "_id": "ab755e80-d246-3e54-b3b3-5793a55bb9af",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.55",
       "text": [
           "бгактйа̄ ма̄м абгіджа̄на̄ті",
@@ -9444,7 +9642,9 @@
       "textAudioUri": "audio/bg-18-55.mp3"
   },
   {
-      "uuid": "b337eee3-e524-3fcd-9bf4-fa5bd271634b",
+      "_id": "b337eee3-e524-3fcd-9bf4-fa5bd271634b",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.58",
       "text": [
           "мач-чіттах̣ сарва-дурґа̄н̣і",
@@ -9531,7 +9731,9 @@
       "textAudioUri": "audio/bg-18-58.mp3"
   },
   {
-      "uuid": "f142e126-f02e-3b39-b006-96070f834c84",
+      "_id": "f142e126-f02e-3b39-b006-96070f834c84",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.61",
       "text": [
           "ı̄ш́варах̣ сарва-бгӯта̄на̄м̇",
@@ -9605,7 +9807,9 @@
       "textAudioUri": "audio/bg-18-61.mp3"
   },
   {
-      "uuid": "7457e6bd-69cf-39bc-bb0e-97345aa7ea20",
+      "_id": "7457e6bd-69cf-39bc-bb0e-97345aa7ea20",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.65",
       "text": [
           "ман-мана̄ бгава мад-бгакто",
@@ -9709,7 +9913,9 @@
       "textAudioUri": "audio/bg-18-65.mp3"
   },
   {
-      "uuid": "a7c653e3-a449-3985-8fe9-d4c33905a28a",
+      "_id": "a7c653e3-a449-3985-8fe9-d4c33905a28a",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.66",
       "text": [
           "сарва-дгарма̄н парітйаджйа",
@@ -9801,7 +10007,9 @@
       "textAudioUri": "audio/bg-18-66.mp3"
   },
   {
-      "uuid": "93841a14-c2a6-395b-9141-060ac3a74a15",
+      "_id": "93841a14-c2a6-395b-9141-060ac3a74a15",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.68",
       "text": [
           "йа ідам̇ парамам̇ ґухйам̇",
@@ -9905,7 +10113,9 @@
       "textAudioUri": "audio/bg-18-68.mp3"
   },
   {
-      "uuid": "1f28e10d-5d61-30b8-9bdc-085320b13464",
+      "_id": "1f28e10d-5d61-30b8-9bdc-085320b13464",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.69",
       "text": [
           "на ча тасма̄н манушйешу",
@@ -10009,7 +10219,9 @@
       "textAudioUri": "audio/bg-18-69.mp3"
   },
   {
-      "uuid": "20433734-b89a-30a5-8ba2-921751669fbf",
+      "_id": "20433734-b89a-30a5-8ba2-921751669fbf",
+      "@type": "verse",
+      "language": "uk",
       "number": "БҐ 18.78",
       "text": [
           "йатра йоґеш́варах̣ кр̣шн̣о",

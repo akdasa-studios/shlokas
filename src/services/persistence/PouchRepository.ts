@@ -124,6 +124,7 @@ class QueryConverter {
     [Operators.LessThan]: '$lt',
     [Operators.LessThanOrEqual]: '$lte',
     [Operators.In]: '$in',
+    [Operators.Contains]: '$regex'
   }
 
   convert(query: Query<any>): any {
@@ -132,14 +133,24 @@ class QueryConverter {
 
   _visit(query: Query<any>): any {
     if (query instanceof Predicate) {
+      // if (query.field === 'language') { return {} }
+      // if (query.field === 'number.value') { return { 'number': { '$regex': new RegExp(query.value as string) } } }
+      // if (query.field === 'text.lines') { return {} }
+      // if (query.field === 'translation.text') { return {} }
+
       if (query.operator === Operators.Equal && query.value === undefined) {
         return { [query.field]: { '$exists': false } }
       }
 
+      // emulate contains with regex
+      let value = this.getValue(query.value)
+      if (query.operator === Operators.Contains) {
+        value = new RegExp(value)
+      }
+
+      // return query
       return {
-        [query.field]: {
-          [this.operatorsMap[query.operator]] : this.getValue(query.value)
-        }
+        [query.field]: { [this.operatorsMap[query.operator]] : value }
       }
     } else if (query instanceof Expression) {
       if (query.operator === LogicalOperators.Not) {

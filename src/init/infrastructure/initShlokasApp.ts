@@ -1,46 +1,44 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
 import { Application, InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
-import { Capacitor } from '@capacitor/core'
 import {
   CouchDB, InboxCardDeserializer,
   InboxCardSerializer, PouchRepository, ReviewCardDeserializer,
   ReviewCardSerializer, VerseStatusDeserializer, VerseStatusSerializer
 } from '@/services/persistence'
+import { InitArgs, InitResult } from '../initialization'
 
-
-export let couchDB: CouchDB
-
-export async function createShlokasApplication() {
-  couchDB = new CouchDB(
-    'local',
-    Capacitor.getPlatform() == 'ios' ? 'cordova-sqlite' : undefined
-  )
+/**
+ * Initialize app
+ */
+export async function initShlokasApp(
+  { get }: InitArgs
+): Promise<InitResult> {
+  const userData = get<CouchDB>('userData')
 
   const repositories = new Repositories(
     new InMemoryRepository<Verse>(),
     // @ts-ignore
     new PouchRepository<VerseStatus>(
-      couchDB,
+      userData,
       'verseStatus',
       new VerseStatusSerializer(),
       new VerseStatusDeserializer()
     ),
     new SyncRepository(new PouchRepository<InboxCard>(
-      couchDB,
+      userData,
       'inbox',
       new InboxCardSerializer(),
       new InboxCardDeserializer()
     )),
     new SyncRepository(new PouchRepository<ReviewCard>(
-      couchDB,
+      userData,
       'review',
       new ReviewCardSerializer(),
       new ReviewCardDeserializer()
     )),
   )
-  return [
-    new Application(repositories),
-    couchDB
-  ]
+  return {
+    app: new Application(repositories),
+  }
 }

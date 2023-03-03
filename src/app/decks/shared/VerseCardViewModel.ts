@@ -4,7 +4,7 @@ import { getContentUrl } from '@/app/Env'
 
 export abstract class VerseCardViewModel extends CardViewModel {
   constructor(
-    private readonly verse: Verse
+    public readonly verse: Verse
   ) { super() }
 
   abstract get id(): string

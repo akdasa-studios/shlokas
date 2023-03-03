@@ -2,15 +2,17 @@ import * as Sentry from '@sentry/capacitor'
 import { BrowserTracing } from '@sentry/tracing'
 import * as SentrySibling from '@sentry/vue'
 import { App } from '@capacitor/app'
+import { App as VueApp } from 'vue'
 import { InitArgs } from '../initialization'
 
 
 /**
  * Initialize the sentry plugin to track errors
  */
-export async function initSentry({ vue }: InitArgs) {
+export async function initSentry({ get }: InitArgs) {
   if (process.env.NODE_ENV === 'development') { return }
 
+  const vue = get<VueApp>('vue')
   let version = 'unknown'
   try {
     const info = await App.getInfo()

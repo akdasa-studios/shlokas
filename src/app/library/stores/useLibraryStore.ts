@@ -29,7 +29,7 @@ export function useLibraryStore(app: Application) {
         statuses[x.id.value].value = relatedStatuses[x.id.value]
       })
 
-      return foundVerses
+      return Array.from(foundVerses).sort((a, b) => a.number.value.localeCompare(b.number.value))
     }
 
     async function sync(verseId: VerseId) {
