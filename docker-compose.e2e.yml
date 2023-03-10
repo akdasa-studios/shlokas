@@ -5,6 +5,8 @@ services:
     restart: always
     expose:
       - 5984
+    ports:
+      - "5984:5984"
     env_file:
       - environment.e2e.env
     healthcheck:
@@ -12,6 +14,14 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+
+  db-bootstrap:
+    image: ghcr.io/akdasa-studios/shlokas-db-bootstrap:latest
+    env_file:
+      - environment.e2e.env
+    depends_on:
+      db:
+        condition: service_healthy
 
   auth:
     image: ghcr.io/akdasa-studios/shlokas-auth:latest
@@ -35,27 +45,43 @@ services:
 
   landing:
     image: ghcr.io/akdasa-studios/shlokas-landing:latest
+    restart: always
     expose:
       - 80
 
   content:
-    image: ghcr.io/akdasa-studios/shlokas-landing:latest
-    # image: shlokas-content-content:latest
+    image: ghcr.io/akdasa-studios/shlokas-content:latest
     restart: always
     expose:
       - 80
     volumes:
-      - ./content:/usr/share/nginx/html
+      - ./content:/app/content
+
+  admin:
+    image: ghcr.io/akdasa-studios/shlokas-admin:latest
+    restart: always
+    expose:
+      - 80
+
+  totp:
+    image: ghcr.io/akdasa-studios/shlokas-totp:latest
+    restart: always
+    expose:
+      - 8080
+    env_file:
+      - environment.e2e.env
 
   balancer:
     image: ghcr.io/akdasa-studios/shlokas-balancer:latest
-    # image: shlokas-balancer-balancer:latest
+    restart: always
     ports:
       - 80:80
-      - 443:443
     env_file:
       - environment.e2e.env
     depends_on:
       - db
       - auth
       - landing
+      - admin
+      - totp
+      - content
