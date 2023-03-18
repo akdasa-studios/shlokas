@@ -30,7 +30,7 @@ import {
   IonContent, IonHeader, IonPage,
   IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
 } from '@ionic/vue'
-import { inject, ref, shallowRef, watch } from 'vue'
+import { inject, ref, shallowRef, toRaw, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { VersesList } from '@/app/library'
 import { useLocaleStore } from '@/app/settings'
@@ -72,7 +72,7 @@ watch(searchQuery, async (v) => await onSearchQueryChanged(v), { immediate: true
 
 async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
-  const verses = await app.library.findByContent(language.value, value)
+  const verses = await app.library.findByContent(toRaw(language.value), value)
   console.log('SEARCH!', language.value,  '!!!', value, JSON.stringify(verses))
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses)
