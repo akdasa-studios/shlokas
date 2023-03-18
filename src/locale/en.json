@@ -146,5 +146,8 @@
   },
   "app": {
     "name": "Shlokas"
+  },
+  "themes": {
+    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
   }
 }

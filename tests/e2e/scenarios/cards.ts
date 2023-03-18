@@ -1,17 +1,19 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { Page } from '@playwright/test'
 import { testId } from '@/app/TestId'
-import { InboxDeckPage, LibraryPage, TabsBar } from '../components'
+import { InboxDeckPage, LibraryPage, TabsBar, VerseDetailsPage } from '../components'
 
 export async function addCardsToReview(page: Page, verses: string[]) {
   const library = new LibraryPage(page)
+  const verseDetailsPage = new VerseDetailsPage(page)
   const inbox = new InboxDeckPage(page)
   const tabs = new TabsBar(page)
 
   // add verses to inbox
   for (const verse of verses) {
     await library.verse(verse).click()
-    await library.addVerseButton.click()
+    await verseDetailsPage.addButton.click()
+    await page.waitForTimeout(500)
   }
 
   await tabs.inboxTab.click()
@@ -33,11 +35,12 @@ export async function addCardsToReview(page: Page, verses: string[]) {
 
 export async function addCardsToInbox(page: Page, verses: string[]) {
   const library = new LibraryPage(page)
+  const verseDetailsPage = new VerseDetailsPage(page)
 
   // add verses to inbox
   for (const verse of verses) {
     await library.verse(verse).click()
-    await library.addVerseButton.click()
+    await verseDetailsPage.addButton.click()
   }
 }
 

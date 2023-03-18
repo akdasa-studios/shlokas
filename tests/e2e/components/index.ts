@@ -1,4 +1,5 @@
 export * from './LibraryPage'
+export * from './VerseDetailsPage'
 export * from './TabsBar'
 export * from './InboxDeckPage'
 export * from './ReviewDeckPage'

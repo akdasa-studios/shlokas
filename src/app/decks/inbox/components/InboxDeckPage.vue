@@ -45,7 +45,7 @@
         class="player"
       >
         <VerseAudioPlayer
-          :uri="(topCard as InboxVerseCardViewModel)?.textAudioUri"
+          :url="(topCard as InboxVerseCardViewModel)?.textAudioUri"
           :title="(topCard as InboxVerseCardViewModel)?.verseNumber"
           :artist="$t('app.name')"
           :show-progress-bar="true"

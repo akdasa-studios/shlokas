@@ -30,7 +30,6 @@ import '@akdasa-studios/shlokas-uikit/style.css'
 /* Init stages */
 import { appInitStages } from './init'
 
-
 const services: {[name: string]: any} = { }
 
 

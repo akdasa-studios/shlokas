@@ -43,7 +43,7 @@ import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  uri?: string,
+  url?: string,
   title?: string,
   artist?: string,
   showProgressBar?: boolean,
@@ -56,7 +56,7 @@ const props = defineProps<{
 
 const downloadService = useDownloadService()
 const audioPlayer = useAudioPlayerStore()
-const { uri } = toRefs(props)
+const { url } = toRefs(props)
 const { playing, loop, progress } = storeToRefs(audioPlayer)
 const progressType  = computed(() => downloadService.isDownloading.value ? 'indeterminate' : 'determinate')
 
@@ -64,11 +64,11 @@ const progressType  = computed(() => downloadService.isDownloading.value ? 'inde
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
-watch(uri, async (value) => onUriChanged(value), { immediate: true })
+watch(url, async (value) => onUrlChanged(value), { immediate: true })
 
-async function onUriChanged(uri: string|undefined) {
-  if (!uri) { return }
-  const localUri = await downloadService.download(uri)
+async function onUrlChanged(url: string|undefined) {
+  if (!url) { return }
+  const localUri = await downloadService.download(url)
   audioPlayer.open(localUri, props.title, props.artist)
 }
 </script>

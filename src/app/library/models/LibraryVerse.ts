@@ -19,12 +19,8 @@ export class LibraryVerse {
   get translation() { return this._verse.translation.text }
   get text()        { return this._verse.text.lines }
   get synonyms()    { return this._verse.synonyms }
-  get textAudioUri() { return this._verse.textAudioUri
-                             ? getContentUrl(this._verse.textAudioUri)
-                             : undefined }
-  get textImageUri() { return this._verse.textImageUri
-                             ? getContentUrl(this._verse.textImageUri)
-                             : undefined }
+  get textAudioUri() { return '' }
+  get textImageUri() { return '' }
 
   isAlreadyAdded = computed(() => this._status.value.inDeck !== Decks.None)
   showStatus     = computed(() => this._status.value.inDeck !== Decks.None)

@@ -17,8 +17,6 @@ export async function initStaticData(
       .withNumber(new VerseNumber(verse.number))
       .withText(new Text(verse.text))
       .withTranslation(new Translation(verse.translation))
-      .withTextAudioUri(verse.textAudioUri)
-      .withTextImageUri(verse.textImageUri)
 
     for (const w of verse.synonyms) {
       builder.withSynonym(w.words.join(' '), w.translation)

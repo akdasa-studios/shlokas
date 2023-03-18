@@ -14,13 +14,9 @@ export abstract class VerseCardViewModel extends CardViewModel {
   get translation() { return this.verse.translation.text }
   get synonyms() { return this.verse.synonyms }
   get textAudioUri() {
-    return this.verse.textAudioUri
-      ? getContentUrl(this.verse.textAudioUri)
-      : undefined
+    return ''
   }
   get textImageUri() {
-    return this.verse.textImageUri
-      ? getContentUrl(this.verse.textImageUri)
-      : undefined
+    return ''
   }
 }

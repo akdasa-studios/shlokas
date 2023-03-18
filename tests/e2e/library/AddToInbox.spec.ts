@@ -1,53 +1,58 @@
 import { test , expect } from '@playwright/test'
-import { LibraryPage, TabsBar } from '../components'
+import { LibraryPage, TabsBar, VerseDetailsPage } from '../components'
 
 
 test.describe('Library › Add to Inbox', () => {
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
+
+  let library: LibraryPage
+  let verse: VerseDetailsPage
+  let tabsBar: TabsBar
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    Hooks                                   */
+  /* -------------------------------------------------------------------------- */
+
   test.beforeEach(async ({ page }) => {
-    await page.goto('/home/library?tutorialEnabled=false')
+    library = new LibraryPage(page)
+    tabsBar = new TabsBar(page)
+    verse = new VerseDetailsPage(page)
+    await page.goto('/home/library')
+  })
+
+  test.afterEach(async ({ page }) => {
+    await page.close()
   })
 
 
-  test('Add verse to the Inbox deck', async ({ page }) => {
-    const libraryPage = new LibraryPage(page)
-    const tabsBar = new TabsBar(page)
+  /* -------------------------------------------------------------------------- */
+  /*                                    Tests                                   */
+  /* -------------------------------------------------------------------------- */
 
-    await libraryPage.verse('BG 1.1').click()
-    await libraryPage.addVerseButton.click()
-    await libraryPage.verseAddedBadge('BG 1.1').waitFor()
+  test('Add verse to the Inbox deck', async () => {
+    await library.verse('BG 1.1').click()
+    await verse.addButton.click()
 
-    await expect(libraryPage.verseBadge('BG 1.1')).toContainText('INBOX')
+    await expect(library.verseBadge('BG 1.1')).toContainText('Inbox')
     await expect(tabsBar.inboxBadge).toContainText('2')
   })
 
-  test('Revert adding verse to the Inbox deck', async ({ page }) => {
-    const libraryPage = new LibraryPage(page)
-    const tabsBar = new TabsBar(page)
+  test('Add button is disabled if verse has already been added', async () => {
+    await library.verse('BG 1.1').click()
+    await verse.addButton.click()
+    await library.verse('BG 1.1').click()
 
-    await libraryPage.verse('BG 1.1').click()
-    await libraryPage.addVerseButton.click()
-    await libraryPage.verseAddedBadge('BG 1.1').waitFor()
-    await libraryPage.revertButton.click()
-
-    await expect(libraryPage.verseBadge('BG 1.1')).toBeHidden()
-    await expect(tabsBar.inboxBadge).toBeHidden()
+    await expect(verse.addButton).toBeDisabled()
   })
 
-  test('Add button is hidden if the verse has already been added', async ({ page }) => {
-    const libraryPage = new LibraryPage(page)
+  test('Back returns to library', async ({ page }) => {
+    await library.verse('BG 1.1').click()
+    await verse.backButton.click()
 
-    await libraryPage.verse('BG 1.1').click()
-    await libraryPage.addVerseButton.click()
-    await libraryPage.verse('BG 1.1').click()
-
-    await expect(libraryPage.addVerseButton).toBeHidden()
-  })
-
-  test('Cancel closes dialog', async ({ page }) => {
-    const libraryPage = new LibraryPage(page)
-    await libraryPage.verse('BG 1.1').click()
-    await libraryPage.closeVerseDialog.click()
-
-    await expect(page.getByTestId('addVerseToInbox')).toBeHidden()
+    await expect(page).toHaveURL('/home/library')
+    await expect(library.searchbar).toBeVisible()
   })
 })

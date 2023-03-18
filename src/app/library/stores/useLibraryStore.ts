@@ -9,7 +9,7 @@ export function useLibraryStore(app: Application) {
     const statuses = reactive<Record<string, Ref<VerseStatus>>>({})
 
     async function getVerse(verseId: VerseId) {
-      return (await app.library.getById(verseId)).value
+      return await app.library.getById(verseId)
     }
 
     async function getStatus(verseId: VerseId): Promise<Ref<VerseStatus>> {

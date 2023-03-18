@@ -1,6 +1,7 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
 import { InboxDeckPage, LibraryPage, TabsBar } from '../components'
+import { VerseDetailsPage } from './../components/VerseDetailsPage'
 
 
 test.describe('Inbox Deck', () => {
@@ -20,17 +21,19 @@ test.describe('Inbox Deck', () => {
     test.beforeEach(async ({ page }) => {
       const tabsBar = new TabsBar(page)
       const libraryPage = new LibraryPage(page)
+      const verseDetailsPage = new VerseDetailsPage(page)
 
       await libraryPage.verse('BG 1.1').click()
-      await libraryPage.addVerseButton.click()
+      await verseDetailsPage.addButton.click()
+      await page.waitForTimeout(1500)
       await tabsBar.inboxTab.click()
     })
 
     test('Swipe card right', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 40, y: 160 },
-        targetPosition: { x: 0,  y: 160 }
+        sourcePosition: { x: 80, y: 160 },
+        targetPosition: { x: 20, y: 160 }
       })
 
       await expect(cardLocator).toHaveAttribute('data-index', '1')
@@ -52,7 +55,7 @@ test.describe('Inbox Deck', () => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await inboxDeck.swipeCardTop(cardLocator)
       await page.getByTestId('library-tab').click()
-      await expect(page.getByTestId('bg 1.1-badge')).toHaveText('REVIEW')
+      await expect(page.getByTestId('bg 1.1-badge')).toHaveText('Review')
     })
 
     test('Swipe all cards', async ({ page }) => {

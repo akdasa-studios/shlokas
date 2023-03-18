@@ -1,10 +1,12 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
-import { Application, InboxCard, Repositories, ReviewCard, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Application, Declamation, InboxCard, Repositories, ReviewCard, Verse, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   CouchDB, InboxCardDeserializer,
   InboxCardSerializer, PouchRepository, ReviewCardDeserializer,
-  ReviewCardSerializer, VerseStatusDeserializer, VerseStatusSerializer
+  ReviewCardSerializer, VerseStatusDeserializer, VerseStatusSerializer,
+  VerseImageSerializer, VerseImageDeserializer, DeclamationSerializer,
+  DeclamationDeserializer
 } from '@/services/persistence'
 import { InitArgs, InitResult } from '../initialization'
 
@@ -15,9 +17,22 @@ export async function initShlokasApp(
   { get }: InitArgs
 ): Promise<InitResult> {
   const userData = get<CouchDB>('userData')
+  const verses = get<CouchDB>('verses')
 
   const repositories = new Repositories(
     new InMemoryRepository<Verse>(),
+    new PouchRepository<VerseImage>(
+      verses,
+      'verseImage',
+      new VerseImageSerializer(),
+      new VerseImageDeserializer()
+    ),
+    new PouchRepository<Declamation>(
+      verses,
+      'declamation',
+      new DeclamationSerializer(),
+      new DeclamationDeserializer()
+    ),
     // @ts-ignore
     new PouchRepository<VerseStatus>(
       userData,
