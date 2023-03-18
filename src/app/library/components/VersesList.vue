@@ -24,7 +24,7 @@ import { VersesListItem } from '@/app/library'
 export type VerseStatusMap = { [verseId: string]: VerseStatus }
 
 const props = defineProps<{
-  verses: readonly Verse[],
+  verses: Verse[],
   verseStatuses: VerseStatusMap
 }>()
 

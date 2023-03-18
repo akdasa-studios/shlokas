@@ -48,7 +48,7 @@ const locale = useLocaleStore()
 /* -------------------------------------------------------------------------- */
 
 const searchQuery = ref('')
-const filteredVerses = shallowRef<readonly Verse[]>([])
+const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
 const { language } = storeToRefs(locale)
 
@@ -74,6 +74,6 @@ async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
   const verses = await app.library.findByContent(language.value, value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
-  filteredVerses.value = verses
+  filteredVerses.value = Array.from(verses)
 }
 </script>
