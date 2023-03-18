@@ -73,7 +73,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: 🔬 run tests
-      run: npx playwright test
+      run: npm run test:e2e
 
     - name: 🚚 Upload artifacts
       uses: actions/upload-artifact@v3
