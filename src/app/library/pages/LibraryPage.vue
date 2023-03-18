@@ -73,7 +73,7 @@ watch(searchQuery, async (v) => await onSearchQueryChanged(v), { immediate: true
 async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
   const verses = await app.library.findByContent(language.value, value)
-  console.log('SEARCH!', value, JSON.stringify(verses))
+  console.log('SEARCH!', language.value,  '!!!', value, JSON.stringify(verses))
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses)
 }
