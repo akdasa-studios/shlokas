@@ -47,4 +47,3 @@ If you'd like to help develop the project, here's a list of links to get you sta
 1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application
 2. [Shlokas Core](https://github.com/akdasa-studios/shlokas-core) – Business logic of the Shlokas application
 3. [Shlokas Server](https://github.com/akdasa-studios/shlokas-server) – Backend
-
