@@ -2,11 +2,9 @@ import { Application, InboxCardMemorized } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 import { ReviewVerseCardViewModel, useReviewDeckStore } from '@/app/decks/review'
 
-import { useLibraryStore } from '@/app/library'
 
 export function runSyncReviewDeckTask(app: Application, emitter: EventEmitter2) {
   const _reviewDeckStore = useReviewDeckStore()
-  const _libraryStore    = useLibraryStore(app)
 
   emitter.on('commandExecuted', async (e) => {
     if (e instanceof InboxCardMemorized) { await addCardsToDeck()}
@@ -21,7 +19,7 @@ export function runSyncReviewDeckTask(app: Application, emitter: EventEmitter2) 
     for (const card of sorted) {
       const isAlreadyInDeck = _reviewDeckStore.hasCard(card.id.value)
       if (!isAlreadyInDeck) {
-          const verse   = await _libraryStore.getVerse(card.verseId)
+          const verse   = await app.library.getById(card.verseId)
           const newCard = new ReviewVerseCardViewModel(card, verse)
           _reviewDeckStore.addCard(newCard)
       }

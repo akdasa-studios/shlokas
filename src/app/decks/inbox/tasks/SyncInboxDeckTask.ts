@@ -2,12 +2,10 @@ import { AddVerseToInboxDeck, Application } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 
 import { InboxVerseCardViewModel, useInboxDeckStore } from '@/app/decks/inbox'
-import { useLibraryStore } from '@/app/library'
 
 
 export function runSyncInboxDeckTask(app: Application, emitter: EventEmitter2) {
   const inboxDeckStore = useInboxDeckStore()
-  const libraryStore   = useLibraryStore(app)
 
   // Subscribe
   emitter.on('commandExecuted', async (e) => {
@@ -22,7 +20,7 @@ export function runSyncInboxDeckTask(app: Application, emitter: EventEmitter2) {
     for (const card of cards) {
       const isAlreadyInDeck = inboxDeckStore.hasCard(card.id.value)
       if (!isAlreadyInDeck) {
-          const verse   = await libraryStore.getVerse(card.verseId)
+          const verse   = await app.library.getById(card.verseId)
           const newCard = new InboxVerseCardViewModel(card, verse)
           inboxDeckStore.addCard(newCard)
       }
