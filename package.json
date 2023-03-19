@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:e2e": "vue-cli-service build --mode e2e",
     "test:unit": "vue-cli-service test:unit",
     "test:run-server": "(cd ./dist && npx http-server-spa ./ ./index.html 8080)",
     "test:e2e": "playwright test",
