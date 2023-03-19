@@ -33,6 +33,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🏇 Run server
+        run: npm run test:run-server &
+
       - name: 🔬 Tests
         run: npm run test:unit
 
