@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, Ref, ref, watch } from 'vue'
 import { useDeviceStore } from '@/app/useDeviceStorage'
 import { AuthToken } from '@/services/AuthService'
-import { HOST } from '../../Env'
+import { HOST, IS_DEVELOPMENT } from '../../Env'
 
 
 export const useAccountStore = defineStore('settings/account', () => {
@@ -24,7 +24,7 @@ export const useAccountStore = defineStore('settings/account', () => {
 
   const syncHost = computed(() => {
     if (!token.value) { return undefined }
-    if (process.env.NODE_ENV === 'development' ) {
+    if (IS_DEVELOPMENT) {
       return token.value.dbName
         .replace('db:5984', `${HOST}/db`)
     }

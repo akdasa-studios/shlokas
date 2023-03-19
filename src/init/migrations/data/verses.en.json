@@ -1,5 +1,97 @@
 [
   {
+      "_id": "f54f0d08-5948-3dcf-a056-537da000a51f",
+      "@type": "verse",
+      "language": "en",
+      "number": "BG 1.1",
+      "text": [
+          "dhṛtarāṣṭra uvāca",
+          "dharma-kṣetre kuru-kṣetre",
+          "samavetā yuyutsavaḥ",
+          "māmakāḥ pāṇḍavāś caiva",
+          "kim akurvata sañjaya"
+      ],
+      "synonyms": [
+          {
+              "words": [
+                  "dhṛtarāṣṭraḥ",
+                  "uvāca"
+              ],
+              "translation": "King Dhṛtarāṣṭra said"
+          },
+          {
+              "words": [
+                  "dharma",
+                  "kṣetre"
+              ],
+              "translation": "in the place of pilgrimage"
+          },
+          {
+              "words": [
+                  "kuru",
+                  "kṣetre"
+              ],
+              "translation": "in the place named Kurukṣetra"
+          },
+          {
+              "words": [
+                  "samavetāḥ"
+              ],
+              "translation": "assembled"
+          },
+          {
+              "words": [
+                  "yuyutsavaḥ"
+              ],
+              "translation": "desiring to fight"
+          },
+          {
+              "words": [
+                  "māmakāḥ"
+              ],
+              "translation": "my party (sons)"
+          },
+          {
+              "words": [
+                  "pāṇḍavāḥ"
+              ],
+              "translation": "the sons of Pāṇḍu"
+          },
+          {
+              "words": [
+                  "ca"
+              ],
+              "translation": "and"
+          },
+          {
+              "words": [
+                  "eva"
+              ],
+              "translation": "certainly"
+          },
+          {
+              "words": [
+                  "kim"
+              ],
+              "translation": "what"
+          },
+          {
+              "words": [
+                  "akurvata"
+              ],
+              "translation": "did they do"
+          },
+          {
+              "words": [
+                  "sañjaya"
+              ],
+              "translation": "O Sañjaya"
+          }
+      ],
+      "translation": "Dhṛtarāṣṭra said: O Sañjaya, after my sons and the sons of Pāṇḍu assembled in the place of pilgrimage at Kurukṣetra, desiring to fight, what did they do?",
+      "textAudioUri": "audio/bg-01-01.mp3"
+  },
+  {
       "_id": "21328ebd-d3a9-3588-9f8f-cce559b0b8b4",
       "@type": "verse",
       "language": "en",
