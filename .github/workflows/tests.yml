@@ -79,7 +79,7 @@ jobs:
       with:
         node-version: 18
 
-    - name: 🫙 [Node] Cache packages
+    - name: 📦 [Node] Cache packages
       uses: actions/cache@v3
       id: cache-primes
       with:
@@ -114,7 +114,8 @@ jobs:
       if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
 
-    - uses: awalsh128/cache-apt-pkgs-action@latest
+    - name: 🎭 [Playwright] Install dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: libevent-2.1-7 libopus0 libwoff1 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libgstreamer-gl1.0-0 libhyphen0 libmanette-0.2-0 libgles2 gstreamer1.0-libav
         version: 1.0
@@ -136,7 +137,7 @@ jobs:
     #                                   Artifacts                                  #
     # ---------------------------------------------------------------------------- #
 
-    - name: 🚚 Upload artifacts
+    - name: 🚚  [Artifacts] Upload
       uses: actions/upload-artifact@v3
       if: always()
       with:
