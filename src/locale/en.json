@@ -13,8 +13,8 @@
     },
     "memorized": "Card memorized",
     "inbox": {
-      "finished": "Finished",
-      "inProgress": "In Progress"
+      "memorized": "Memorized",
+      "memorizing": "Memorizing"
     },
     "schedule": {
       "inDays": "today | + {count} day | + {count} days",

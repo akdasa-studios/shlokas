@@ -1,5 +1,5 @@
 
-import { Translation, VerseBuilder, VerseId, VerseNumber, Text, Language, Application } from '@akdasa-studios/shlokas-core'
+import { Translation, VerseId, VerseNumber, Text, Language, Application, Verse, Synonym } from '@akdasa-studios/shlokas-core'
 import { InitArgs } from '../initialization'
 import { CouchDB } from './../../services/persistence/PouchRepository'
 
@@ -11,17 +11,21 @@ export async function initStaticData(
   const docs: any = await db.db.find({ selector: { '@type': 'verse' }})
 
   for (const verse of docs.docs) {
-    const builder = new VerseBuilder()
-      .ofLanguage(new Language(verse.language, verse.language))
-      .withId(new VerseId(verse._id))
-      .withNumber(new VerseNumber(verse.number))
-      .withText(new Text(verse.text))
-      .withTranslation(new Translation(verse.translation))
-
+    const synonyms = []
     for (const w of verse.synonyms) {
-      builder.withSynonym(w.words.join(' '), w.translation)
+      synonyms.push(new Synonym(w.words.join(' '), w.translation, w.lineNumber))
     }
 
-    await shlokas.repositories.verses.save(builder.build().value)
+    const v = new Verse(
+      new VerseId(verse._id),
+      new VerseNumber(verse.number),
+      verse.reference,
+      new Language(verse.language, verse.language),
+      new Text(verse.text),
+      new Translation(verse.translation),
+      synonyms
+    )
+
+    await shlokas.repositories.verses.save(v)
   }
 }

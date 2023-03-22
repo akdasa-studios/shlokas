@@ -1,6 +1,5 @@
 import { EventEmitter2 } from 'eventemitter2'
 import { Application } from '@akdasa-studios/shlokas-core'
-import { runSyncInboxDeckTask } from '@/app/decks/inbox'
 import { runSyncReviewDeckTask } from '@/app/decks/review'
 
 import { runRefreshTokenTask, runSyncTask } from '@/app/shared'
@@ -15,7 +14,6 @@ export async function initTasks(
   const emitter = get<EventEmitter2>('emitter')
   runRefreshTokenTask(emitter)
   runUpdateStatisticsTask(shlokas, emitter)
-  runSyncInboxDeckTask(shlokas, emitter)
   runSyncReviewDeckTask(shlokas, emitter)
   runSyncTask(shlokas, emitter)
 }

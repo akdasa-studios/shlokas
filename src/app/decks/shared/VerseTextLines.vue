@@ -63,7 +63,7 @@ async function onOpened() {
 </script>
 
 <style scoped lang="scss">
-/deep/ .line {
+:deep(.line) {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
   font-size: 20px;

@@ -17,8 +17,8 @@
     "gen:resources": "npx capacitor-assets generate --assetPath 'resources' --ios"
   },
   "dependencies": {
-    "@akdasa-studios/shlokas-core": "1.1.1",
-    "@akdasa-studios/shlokas-uikit": "0.0.18",
+    "@akdasa-studios/shlokas-core": "1.1.3",
+    "@akdasa-studios/shlokas-uikit": "0.0.19",
     "@capacitor/app": "^4.1.1",
     "@capacitor/assets": "^2.0.4",
     "@capacitor/core": "4.6.3",

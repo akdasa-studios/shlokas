@@ -24,6 +24,7 @@ watch(uri, () => {
   }
 })
 
+
 function onStatusChanged(status: any) {
   playing.value = status.playing
   time.value = status.time

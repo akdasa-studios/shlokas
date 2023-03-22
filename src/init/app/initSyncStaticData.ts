@@ -12,8 +12,7 @@ export async function initSyncStaticData(
 
   try {
     const db: CouchDB = get('verses')
-    const res = await db.replicateFrom(getDatabaseUrl('shlokas'))
-    console.log(res)
+    // const res = await db.replicateFrom(getDatabaseUrl('shlokas'))
   } catch (err) {
     logger.error('Failed to sync static data', err)
   }

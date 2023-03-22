@@ -10,6 +10,7 @@ export const useAudioPlayerStore = defineStore('audioPlayer', () => {
   const loop     = ref(false)
   const time     = ref(0)
   const duration = ref(0)
+  const position = ref(0)
   const progress = computed(() => time.value / duration.value || 0)
 
   /**
@@ -34,6 +35,7 @@ export const useAudioPlayerStore = defineStore('audioPlayer', () => {
     artist.value = ''
     time.value = 0
     duration.value = 0
+    position.value = 0
   }
 
   /**
@@ -54,6 +56,7 @@ export const useAudioPlayerStore = defineStore('audioPlayer', () => {
 
   return {
     uri, title, artist, progress, loop,
-    playing, stop, toggleLoop, play, open, duration, time, close
+    playing, stop, toggleLoop, play, open, duration, time, close,
+    position
   }
 })

@@ -26,12 +26,12 @@
         >
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
-          <ion-badge
+          <!-- <ion-badge
             v-if="inboxDeckCount"
             data-testid="inbox-tab-badge"
           >
             {{ inboxDeckCount }}
-          </ion-badge>
+          </ion-badge> -->
         </ion-tab-button>
 
         <ion-tab-button
@@ -73,11 +73,9 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { useInboxDeckStore } from '@/app/decks/inbox'
 import { useReviewDeckStore } from '@/app/decks/review'
 import { useAudioPlayerStore } from '@/app/shared'
 
-const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore())
 const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore())
 const audioPlayer = useAudioPlayerStore()
 
