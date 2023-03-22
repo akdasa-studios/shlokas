@@ -51,15 +51,15 @@ $colors: (
 }
 
 .side-color-0 {
-  background-color: var(--ion-color-light-tint);
-  border-color: var(--ion-color-light-shade);
-  border-bottom-color: var(--ion-color-light-shade);
+  background-color: var(--ion-color-cards);
+  border-color: var(--ion-color-cards-shade);
+  border-bottom-color: var(--ion-color-cards-shade);
 
   > .number {
-    background-color: var(--ion-color-light-shade);
+    background-color: var(--ion-color-cards-shade);
   }
   > .question {
-    background-color: var(--ion-color-light-shade);
+    background-color: var(--ion-color-cards-shade);
   }
 }
 

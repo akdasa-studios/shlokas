@@ -1,6 +1,7 @@
 <template>
   <FlipCard
     :data-testid="testId(verse.number.value, 'card', card.type)"
+    :data-index="index"
     :flipped="props.flipped"
     :show-overlay="props.showOverlay"
     side-class="side side-color-0"
@@ -22,7 +23,7 @@
     </template>
 
     <template #back>
-      <InboxCardSynonymsSide
+      <InboxCardDeclamationsSide
         v-if="index === 0"
         :declamations="props.declamations"
         :synonyms="props.verse.synonyms"
@@ -35,9 +36,9 @@
 <script lang="ts" setup>
 import { Declamation, InboxCard, InboxCardType, Verse } from '@akdasa-studios/shlokas-core'
 import { FlipCard } from '@akdasa-studios/shlokas-uikit'
-import { defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 import { testId } from '@/app/TestId'
-import { InboxCardSynonymsSide, InboxCardTranslationSide, InboxCardVerseTextSide } from '@/app/decks/inbox'
+import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide } from '@/app/decks/inbox'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -58,8 +59,23 @@ const emit = defineEmits<{
 
 
 /* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const hue = ref(0)
+setInterval(() => hue.value += 10, 100)
+
+
+/* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 function onCardFlipped() { emit('flip') }
 </script>
+
+
+<style scoped>
+.color-shift {
+  filter: hue-rotate(calc(v-bind(hue) * 1deg));
+}
+</style>

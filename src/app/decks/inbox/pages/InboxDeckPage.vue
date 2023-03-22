@@ -50,7 +50,7 @@
 
 
 <script lang="ts" setup>
-import { Application, Declamation, InboxCard, InboxCardMemorized, Language, Verse } from '@akdasa-studios/shlokas-core'
+import { Application, Declamation, InboxCard, InboxCardMemorized, Language, UpdateVerseStatus, Verse } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
 import { computed, inject, ref, shallowRef } from 'vue'
 import { testId } from '@/app/TestId'
@@ -95,7 +95,7 @@ onIonViewWillEnter(onOpened)
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
-  verses.value = await app.library.all(new Language('en', 'en'))
+  verses.value = await app.library.all(new Language('en', 'en')) // TODO: Load only needed verses
   cards.value = await app.inboxDeck.cards()
 
   for (const [index, card] of cards.value.entries()) {
@@ -143,6 +143,7 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
     const card = getInboxCard(id)
     removeItem(cardsToShow)
     await app.processor.execute(new InboxCardMemorized(card))
+    await app.processor.execute(new UpdateVerseStatus(card.verseId))
   }
   setTimeout(() => showOverlay.value.status = 'none', 250)
   showOverlay.value.show = false
@@ -178,9 +179,3 @@ function getDeclamations(id: string) {
   return declamations.value[id]
 }
 </script>
-
-<style scoped>
-.color {
-  filter: hue-rotate(15deg);
-}
-</style>

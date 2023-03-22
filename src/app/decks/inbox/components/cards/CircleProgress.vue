@@ -79,13 +79,13 @@ svg {
 
 .background {
   fill: none;
-  stroke: var(--ion-color-light-shade);
+  stroke: var(--ion-color-cards-tint);
   stroke-width: $progress-bar-stroke-width;
 }
 
 .progress {
   fill: none;
-  stroke: var(--ion-color-primary-tint);
+  stroke: var(--ion-color-cards-shade);
   stroke-dasharray: 100 100;
   stroke-dashoffset: 100;
   stroke-linecap: round;
@@ -94,7 +94,7 @@ svg {
 }
 
 .line {
-  stroke: var(--ion-color-light-shade);
+  stroke: var(--ion-color-cards-shade);
   stroke-linecap: round;
   stroke-width: $progress-bar-stroke-width/4;
 }

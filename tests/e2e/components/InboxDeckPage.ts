@@ -34,7 +34,7 @@ export class InboxDeckPage {
     // await this.page.mouse.up()
 
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 160 },
+      sourcePosition: { x: 40, y: 180 },
       targetPosition: { x: 40, y: 40 }
     })
     // eslint-disable-next-line playwright/no-wait-for-timeout

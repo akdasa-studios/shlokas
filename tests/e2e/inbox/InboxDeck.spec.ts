@@ -43,7 +43,7 @@ test.describe('Inbox Deck', () => {
     test('Swipe card top', async ({ page }) => {
       const cardLocator = page.getByTestId('bg 1.1-card-translation')
       await cardLocator.dragTo(cardLocator, {
-        sourcePosition: { x: 40, y: 160 },
+        sourcePosition: { x: 40, y: 200 },
         targetPosition: { x: 40, y: 40 }
       })
 

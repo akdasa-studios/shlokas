@@ -1,5 +1,5 @@
 export { default as InboxFlipCard } from './InboxFlipCard.vue'
 export { default as InboxCardSwipeOverlay } from './InboxCardSwipeOverlay.vue'
-export { default as InboxCardSynonymsSide } from './InboxCardSynonymsSide.vue'
+export { default as InboxCardDeclamationsSide } from './InboxCardDeclamationsSide.vue'
 export { default as InboxCardVerseTextSide } from './InboxCardVerseTextSide.vue'
 export { default as InboxCardTranslationSide } from './InboxCardTranslationSide.vue'

@@ -1,4 +1,4 @@
-import { Application, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
+import { AddVerseToInboxDeck, Application, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 
 import { useStatisticsStore } from '@/app/statistics'
@@ -9,12 +9,16 @@ export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2
 
   emitter.on('commandExecuted', async (e) => {
     if (e instanceof ReviewCardReviewed) { await updateStatistics() }
+    if (e instanceof InboxCardMemorized) { await updateStatistics() }
+    if (e instanceof AddVerseToInboxDeck) { await updateStatistics() }
   })
   emitter.on('appStateChanged', async () => await updateStatistics())
+  emitter.on('syncCompleted', async () => await updateStatistics())
 
   async function updateStatistics() {
     const cards = await app.reviewDeck.dueToCards(nextDays(1))
     statisticsStore.cardsCountDueToTomorrow = cards.length
+    statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
   }
 }
 
