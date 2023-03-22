@@ -1,24 +1,17 @@
 <template>
-  <div
-    class="section gauge"
-  >
+  <div class="progress">
     <CircleProgress
-      :progress="circleProgress"
-      :current="lineRepeatCount"
-      :total="totalRepeatCount"
+      :progress="porgress"
+      :current="repeatCurrent+1"
+      :total="repeatsPerLine"
       @click.stop="onTogglePlaying"
-    />
-
-    <audio
-      ref="audioRef"
-      :src="uri"
     />
   </div>
 
-  <div class="section synonyms">
+  <div class="synonyms">
     <VerseSynonyms
       :synonyms="props.synonyms"
-      :line-number="currentVerseLine"
+      :line-number="currentLine"
     />
   </div>
 </template>
@@ -26,11 +19,11 @@
 
 <script lang="ts" setup>
 import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
-import { defineProps, onMounted, ref, watch } from 'vue'
-import { useMediaControls } from '@vueuse/core'
-import { useEnv, useAudioPlayerStore, useDownloadService } from '@/app/shared'
-import { VerseSynonyms } from '@/app/library'
+import { storeToRefs } from 'pinia'
+import { defineProps, onMounted, ref, watch, shallowRef, computed } from 'vue'
 import { CircleProgress } from '@/app/decks/inbox'
+import { VerseSynonyms } from '@/app/library'
+import { useAudioPlayerStore } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -46,8 +39,6 @@ const props = defineProps<{
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const env = useEnv()
-const downloadService = useDownloadService()
 const audioPlayer = useAudioPlayerStore()
 
 
@@ -55,59 +46,61 @@ const audioPlayer = useAudioPlayerStore()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const audioRef = ref()
-const uri = ref('')
-const player = useMediaControls(audioRef, { src: uri })
+const declamation = shallowRef<Declamation>()
+const repeatCurrent = ref(0)
+const repeatsPerLine = ref(2)
+const currentLine = ref(0)
+const skipedLines = ref(0)
+const { duration, time, playing } = storeToRefs(audioPlayer)
 
-const circleProgress = ref(0)
-const lineRepeatCount = ref(1)
-const totalRepeatCount = ref(3)
-const currentVerseLine = ref(0)
+const porgress = computed(function() {
+  const lines = (declamation.value?.markers.length ?? 0) + 1
+  const totalRepeats = (lines * repeatsPerLine.value)
+  const repeatsDone  = currentLine.value * repeatsPerLine.value + repeatCurrent.value
+  return repeatsDone / totalRepeats
+})
 
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
-watch(uri, async (value) => onUrlChanged(value), { immediate: true })
-watch(player.currentTime, (value) => onAudioProgressChanged(value, player.duration.value))
-
+watch(time, (value) => onAudioProgressChanged(value, duration.value))
 onMounted(onOpened)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 function onOpened() {
-  const declamation = getDefautltDeclamation()
-  if (declamation) {
-    uri.value = env.getContentUrl(declamation.url)
-  }
+  declamation.value = getDefautltDeclamation()
+  if (declamation.value) { audioPlayer.open(declamation.value.url) }
 }
 
-async function onUrlChanged(url: string|undefined) {
-  if (!url) { return }
-  const localUri = await downloadService.download(url)
-  audioPlayer.open(localUri, 'title', 'artist')
-}
 
 function onTogglePlaying() {
-  player.playing.value = !player.playing.value
+  playing.value = !playing.value
 }
 
 function onAudioProgressChanged(value: number, duration: number) {
-  console.log(value, duration)
   const d = getDefautltDeclamation() as Declamation
-  const porgress = (currentVerseLine.value * totalRepeatCount.value + lineRepeatCount.value) / (5 * totalRepeatCount.value)  //value/duration
-  circleProgress.value = porgress
 
-  if (value >= d.markers[currentVerseLine.value] || value === duration) {
-    lineRepeatCount.value += 1
-    if (lineRepeatCount.value > totalRepeatCount.value) {
-      lineRepeatCount.value = 1
-      currentVerseLine.value += 1
+  if (value >= (d.markers[currentLine.value - skipedLines.value] || (duration-.5))) {
+    repeatCurrent.value += 1
+    if (repeatCurrent.value >= repeatsPerLine.value) {
+      repeatCurrent.value = 0
+      currentLine.value += 1
     }
-    player.currentTime.value = currentVerseLine.value > 0 ?  d.markers[currentVerseLine.value - 1] : 0
+    time.value = currentLine.value > 0 ?  d.markers[currentLine.value - skipedLines.value - 1] : 0
+    playing.value = true
+  }
+
+  if (currentLine.value > d.markers.length + skipedLines.value) {
+    playing.value = false
+    currentLine.value = 0
+    repeatCurrent.value = 0
+    time.value = 0
   }
 }
 
@@ -123,16 +116,9 @@ function getDefautltDeclamation(): Declamation|undefined {
 
 
 <style scoped lang="scss">
-.root {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-}
-
-.gauge {
+.progress {
   display: flex;
   height: 85%;
-  justify-content: center;
   align-items: center;
 }
 

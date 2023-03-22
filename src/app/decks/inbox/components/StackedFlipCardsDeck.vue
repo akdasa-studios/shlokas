@@ -39,11 +39,9 @@ interface SwipeGesture {
 
 const props = withDefaults(defineProps<{
   cards: Card[]
-  swipeThreshold?: number
   swipedTime?: number
   canSwipe?: (id: string, swipe: SwipeGesture) => boolean
 }>(), {
-  swipeThreshold: 40,
   swipedTime: 250,
   canSwipe: () => true
 })
@@ -115,7 +113,7 @@ function onCardSwiped(
     direction: getDirection(getDelta(current, start))
   })
 
-  if (dist < props.swipeThreshold || !canSwipe) {
+  if (!canSwipe) {
     updateInactiveCard(state)
     emit('swipe:cancel', card.id)
   } else {

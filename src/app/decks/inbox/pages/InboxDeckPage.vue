@@ -34,6 +34,7 @@
           :flipped="getCardState(data.id).flipped"
           :declamations="getDeclamations(data.id)"
           :show-overlay="false"
+          :index="getCardState(data.id).index"
           class="color"
           @click="onCardFlipped(data)"
         />
@@ -54,6 +55,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnte
 import { computed, inject, ref, shallowRef } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, StackedFlipCardsDeck, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
+import { useAudioPlayerStore } from '@/app/shared'
 import { removeItem, shiftItem } from '../../shared'
 
 
@@ -62,6 +64,7 @@ import { removeItem, shiftItem } from '../../shared'
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
+const audioPlayerStore = useAudioPlayerStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -112,17 +115,20 @@ async function onOpened() {
 }
 
 function onCardFlipped(data: any) {
-  const idx = cardsToShow.value.findIndex(x=> x.id=data.id)
-  cardsToShow.value[idx].flipped = !cardsToShow.value[idx].flipped
+  const state = getCardState(data.id)
+  state.flipped = !state.flipped
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
   showOverlay.value.show = true
-  showOverlay.value.status = distance > 40
-    ? (['left', 'right'].includes(direction)
-       ? 'memorizing'
-       : 'memorized')
-    : 'none'
+
+  if (['left', 'right'].includes(direction) && distance > 40) {
+    showOverlay.value.status = 'memorizing'
+  } else if (distance > 120) {
+    showOverlay.value.status = 'memorized'
+  } else {
+    showOverlay.value.status = 'none'
+  }
 }
 
 function onCardSwipeCancelled() {
@@ -140,6 +146,7 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
   }
   setTimeout(() => showOverlay.value.status = 'none', 250)
   showOverlay.value.show = false
+  audioPlayerStore.close()
 }
 
 
@@ -147,11 +154,11 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
-function canBeSwiped(_: string, { direction }: { direction: string }) {
+function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
   if (['left', 'right'].includes(direction)) {
-    return cardsToShow.value.length > 1
+    return cardsToShow.value.length > 1 && distance > 40
   }
-  return true
+  return distance > 120
 }
 
 function getInboxCard(id: string): InboxCard {

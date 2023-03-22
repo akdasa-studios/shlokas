@@ -63,7 +63,7 @@ const props = defineProps<{
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const progress = computed(() => 51 + props.progress * 51)
+const progress = computed(() => 50 + props.progress * 51)
 const showNumbers = computed(() => props.current != undefined && props.total !== undefined)
 </script>
 
@@ -90,7 +90,7 @@ svg {
   stroke-dashoffset: 100;
   stroke-linecap: round;
   stroke-width: $progress-bar-stroke-width;
-  transition: stroke-dashoffset .5s ease-out;
+  transition: stroke-dashoffset 1.5s ease-out;
 }
 
 .line {

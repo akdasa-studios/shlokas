@@ -23,6 +23,7 @@
 
     <template #back>
       <InboxCardSynonymsSide
+        v-if="index === 0"
         :declamations="props.declamations"
         :synonyms="props.verse.synonyms"
       />
@@ -46,6 +47,7 @@ const props = defineProps<{
   card: InboxCard
   verse: Verse
   flipped: boolean
+  index: number
   showOverlay: boolean
   declamations: Declamation[]
 }>()
