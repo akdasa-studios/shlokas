@@ -42,10 +42,10 @@
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
-            v-if="reviewDeckCount"
+            v-if="cardsInReview"
             data-testid="review-tab-badge"
           >
-            {{ reviewDeckCount }}
+            {{ cardsInReview }}
           </ion-badge>
         </ion-tab-button>
 
@@ -73,7 +73,6 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { useReviewDeckStore } from '@/app/decks/review'
 import { useAudioPlayerStore } from '@/app/shared'
 import { useStatisticsStore } from '@/app/statistics'
 
@@ -88,8 +87,7 @@ const audioPlayer = useAudioPlayerStore()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { cardsInInbox } = storeToRefs(statisticsStore)
-const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore())
+const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

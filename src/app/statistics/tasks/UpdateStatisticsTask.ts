@@ -19,6 +19,7 @@ export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2
     const cards = await app.reviewDeck.dueToCards(nextDays(1))
     statisticsStore.cardsCountDueToTomorrow = cards.length
     statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
+    statisticsStore.cardsInReview = (await app.reviewDeck.dueToCards(app.timeMachine.now)).length
   }
 }
 

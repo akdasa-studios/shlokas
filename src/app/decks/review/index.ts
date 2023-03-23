@@ -1,9 +1,8 @@
-export { default as ReviewDeckPage } from './components/ReviewDeckPage.vue'
 export { default as ReviewDeckEmpty } from './components/ReviewDeckEmpty.vue'
+export { default as ReviewFlipCard } from './components/ReviewFlipCard.vue'
+export { default as ReviewCardSwipeOverlay} from './components/ReviewCardSwipeOverlay.vue'
 export * from './components/cards'
 export * from './viewModels/ReviewVerseCardViewModel'
-export * from './stores/useReviewStore'
-export * from './composables/useReviewDeck'
-export * from './composables/useReviewDeckTutorial'
 export * from './viewModels/ReviewCardViewModel'
-export * from './tasks/SyncReviewDeckTask'
+
+export * from './routes/reviewDeck'

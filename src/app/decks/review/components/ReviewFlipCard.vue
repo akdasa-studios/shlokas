@@ -8,28 +8,23 @@
     @click.stop="onCardFlipped"
   >
     <template #front>
-      <InboxCardVerseTextSide
-        v-if="props.card.type === InboxCardType.Text"
+      <div class="question">
+        {{ $t(getQuestion(props.card.type)) }}
+      </div>
+      <component
+        :is="getSideComponent(props.card.type, true)"
         :verse-number="props.verse.number.value"
         :lines="props.verse.text.lines"
-      />
-
-      <InboxCardTranslationSide
-        v-if="card.type === InboxCardType.Translation"
-        :verse-number="props.verse.number.value"
         :translation="props.verse.translation.text"
       />
     </template>
 
     <template #back>
-      <InboxCardDeclamationsSide
-        v-if="index === 0 && props.declamations.length > 0"
-        :declamations="props.declamations"
-        :synonyms="props.verse.synonyms"
-      />
-      <InboxCardSynonymsSide
-        v-if="props.declamations.length === 0"
-        :synonyms="props.verse.synonyms"
+      <component
+        :is="getSideComponent(props.card.type, false)"
+        :verse-number="props.verse.number.value"
+        :lines="props.verse.text.lines"
+        :translation="props.verse.translation.text"
       />
     </template>
   </FlipCard>
@@ -37,22 +32,21 @@
 
 
 <script lang="ts" setup>
-import { Declamation, InboxCard, InboxCardType, Verse } from '@akdasa-studios/shlokas-core'
+import { ReviewCard, Verse } from '@akdasa-studios/shlokas-core'
 import { FlipCard } from '@akdasa-studios/shlokas-uikit'
 import { defineEmits, defineProps } from 'vue'
 import { testId } from '@/app/TestId'
-import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
+import { ReviewCardTextSide, ReviewCardTranslationSide, ReviewCardVerseNumberSide } from '@/app/decks/review'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
-  card: InboxCard
+  card: ReviewCard
   verse: Verse
   flipped: boolean
   index: number
-  declamations: Declamation[]
 }>()
 
 const emit = defineEmits<{
@@ -65,4 +59,27 @@ const emit = defineEmits<{
 /* -------------------------------------------------------------------------- */
 
 function onCardFlipped() { emit('flip') }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+function getSideComponent(cardType: string, front: boolean) {
+  const name = cardType.split('To')[front ? 0 : 1]
+  return {
+    'Number': ReviewCardVerseNumberSide,
+    'Text': ReviewCardTextSide,
+    'Translation': ReviewCardTranslationSide
+  }[name]
+}
+
+function getQuestion(cardType: string): string {
+  const name = cardType.split('To')[1]
+  return {
+    'Number': 'cards.questions.number',
+    'Text': 'cards.questions.text',
+    'Translation': 'cards.questions.translation'
+  }[name] || ''
+}
 </script>

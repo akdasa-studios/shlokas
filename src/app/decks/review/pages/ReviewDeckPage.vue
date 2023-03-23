@@ -4,7 +4,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>
-          {{ $t('decks.inbox.title') }}
+          {{ $t('decks.review.title') }}
         </ion-title>
       </ion-toolbar>
     </ion-header>
@@ -14,7 +14,7 @@
       :scroll-y="false"
       :scroll-x="false"
     >
-      <InboxCardSwipeOverlay
+      <ReviewCardSwipeOverlay
         :visible="swipePopup.show"
         :status="swipePopup.status"
       />
@@ -28,18 +28,28 @@
         @swipe:cancel="onCardSwipeCancelled"
         @swipe:finish="onCardSwipeFinished"
       >
-        <InboxFlipCard
-          :card="getInboxCard(data.id)"
+        <ReviewFlipCard
+          :card="getReviewCard(data.id)"
           :verse="getVerse(data.id)"
           :flipped="getCardState(data.id).flipped"
-          :declamations="getDeclamations(data.id)"
+          :show-overlay="false"
           :index="getCardState(data.id).index"
           class="color"
           @click="onCardFlipped(data)"
         />
       </StackedFlipCardsDeck>
 
-      <InboxDeckEmpty
+      <div
+        :class="{ 'closed' : !showGradeButtons }"
+        class="buttons"
+      >
+        <ReviewCardAnswerButtons
+          :intervals="gradeButtonIntervals"
+          @graded="onGradeButtonClicked"
+        />
+      </div>
+
+      <ReviewDeckEmpty
         v-show="isEmpty"
         data-testid="inboxEmpty"
       />
@@ -49,13 +59,14 @@
 
 
 <script lang="ts" setup>
-import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
-import { computed, inject, ref, reactive } from 'vue'
+import { computed, inject, reactive, ref } from 'vue'
+import { useArrayFind } from '@vueuse/core'
+import { StackedFlipCardsDeck } from '@/app/decks/inbox'
+import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, ReviewCardAnswerButtons } from '@/app/decks/review'
+import { useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { testId } from '@/app/TestId'
-import { InboxFlipCard, StackedFlipCardsDeck, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
-import { useAudioPlayerStore } from '@/app/shared'
-import { useLibraryCache, useIndexedList } from '@/app/decks/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -63,7 +74,6 @@ import { useLibraryCache, useIndexedList } from '@/app/decks/shared'
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
-const audioPlayerStore = useAudioPlayerStore()
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
 
@@ -79,7 +89,7 @@ interface CardState {
   verseId: VerseId
 }
 
-type SwipeActions = 'none' | 'memorizing' | 'memorized'
+type SwipeActions = 'forgot' | 'hard' | 'good' | 'easy' | 'none'
 
 interface SwipePopup {
   show: boolean,
@@ -90,8 +100,24 @@ interface SwipePopup {
 const cardsToShow = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
 const isEmpty = computed(() => cardsToShow.value.length === 0)
+const topCard = useArrayFind(cardsToShow, x => x.index === 0)
+const showGradeButtons = computed(() => topCard.value?.flipped)
 
-let inboxCards: readonly InboxCard[] = []
+let reviewCards: readonly ReviewCard[] = []
+const gradeButtonIntervals = computed(() => {
+  const sc = new Scheduler()
+  if (topCard.value === undefined) return [0, 0, 0, 0]
+  return [
+    ReviewGrade.Forgot, ReviewGrade.Hard,
+    ReviewGrade.Good, ReviewGrade.Easy
+  ].map(x =>
+    sc.getNewInterval(
+      getReviewCard(topCard.value.id).interval,
+      getReviewCard(topCard.value.id).ease / 100, x
+    )
+  )
+})
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -99,15 +125,17 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(onOpened)
 
+
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
-  inboxCards = await app.inboxDeck.cards()
+  reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
+  console.log(reviewCards)
   await libraryCache.load([])
 
-  for (const [index, card] of inboxCards.entries()) {
+  for (const [index, card] of reviewCards.entries()) {
     cardsToShow.value.push({
       id: card.id.value, index, flipped: false, verseId: card.verseId
     })
@@ -121,13 +149,11 @@ function onCardFlipped(data: any) {
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
   swipePopup.show = true
-
-  if (['left', 'right'].includes(direction) && distance > 40) {
-    swipePopup.status = 'memorizing'
-  } else if (distance > 120) {
-    swipePopup.status = 'memorized'
-  } else {
-    swipePopup.status = 'none'
+  const grade = ReviewGrade[getGrade(direction)]
+  if (grade) {
+    swipePopup.status = (distance > 40
+      ? grade.toString().toLowerCase()
+      : 'none') as SwipeActions
   }
 }
 
@@ -137,46 +163,74 @@ function onCardSwipeCancelled() {
 }
 
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
-  if (['left', 'right'].includes(direction)) {
-    indexedList.shiftItem(cardsToShow)
-  } else {
-    const card = getInboxCard(id)
-    indexedList.removeItem(cardsToShow)
-    await app.processor.execute(new InboxCardMemorized(card))
-    await app.processor.execute(new UpdateVerseStatus(card.verseId))
-  }
-  setTimeout(() => swipePopup.status = 'none', 250)
-  swipePopup.show = false
-  audioPlayerStore.close()
+  if (!topCard.value?.id) { return }
+  await gradeCard(getReviewCard(topCard.value.id), getGrade(direction))
 }
 
+async function onGradeButtonClicked(grade: ReviewGrade) {
+  if (!topCard.value?.id) { return }
+  await gradeCard(getReviewCard(topCard.value.id), grade)
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
-function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
-  if (['left', 'right'].includes(direction)) {
-    return cardsToShow.value.length > 1 && distance > 40
+async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
+  if (grade === ReviewGrade.Forgot) {
+    indexedList.shiftItem(cardsToShow)
+  } else {
+    indexedList.removeItem(cardsToShow)
+    await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
+    await app.processor.execute(new UpdateVerseStatus(reviewCard.verseId))
   }
-  return distance > 120
+  setTimeout(() => swipePopup.status = 'none', 250)
+  swipePopup.show = false
 }
 
+function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
+  const isLastCard = cardsToShow.value.length === 1
+  const isForgottenCard = getGrade(direction) === ReviewGrade.Forgot
+  if (isLastCard && isForgottenCard) { return false }
+  return distance > 40
+}
 
 function getCardState(id: string): CardState {
   return cardsToShow.value.find(x => x.id === id) as CardState
 }
 
-function getInboxCard(id: string): InboxCard {
-  return inboxCards.find(x => x.id.value === id) as InboxCard
+function getReviewCard(id: string): ReviewCard {
+  return reviewCards.find(x => x.id.value === id) as ReviewCard
 }
 
-function getVerse(inboxCardId: string): Verse {
-  const verseId = getInboxCard(inboxCardId).verseId
+function getVerse(reviewCardId: string): Verse {
+  const verseId = getReviewCard(reviewCardId).verseId
   return libraryCache.getVerse(verseId)
 }
-function getDeclamations(inboxCardId: string) {
-  const verseId = getInboxCard(inboxCardId).verseId
-  return libraryCache.getDeclamations(verseId)
+
+function getGrade(direction: string) : ReviewGrade {
+  return {
+    'up': ReviewGrade.Forgot,
+    'down': ReviewGrade.Hard,
+    'left': ReviewGrade.Good,
+    'right': ReviewGrade.Easy
+  }[direction] as ReviewGrade
 }
 </script>
+
+
+<style scoped>
+.buttons {
+  width: 100%;
+  position:absolute;
+  bottom: 0px;
+  background-color: rgba(var(--ion-color-light-rgb), .75);
+  border-top: 1px solid var(--ion-color-light-shade);
+  backdrop-filter: blur(5px);
+  transition: .2s ease-in-out;
+}
+.closed {
+  bottom: -50px;
+  opacity: 0;
+}
+</style>
