@@ -6,7 +6,7 @@
   />
 
   <DeclamationsPlayer
-    v-if="props.declamations"
+    v-if="props.declamations.length > 0"
     class="section box"
     :declamations="props.declamations"
     :title="props.verse.number.value"

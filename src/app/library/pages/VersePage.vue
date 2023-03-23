@@ -73,27 +73,12 @@ const isAlreadyAdded = computed(() => status.value?.inDeck !== Decks.None)
 /*                                    Watch                                   */
 /* -------------------------------------------------------------------------- */
 
-onMounted(onOpened)
+onMounted(fetchData)
 
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
-
-async function onOpened() {
-  const verseId = new VerseId(props.id)
-  const [_verse, _status, _images, _declamations, _d2] = await Promise.all([
-    app.library.getById(verseId),
-    app.library.getStatus(verseId),
-    app.library.getImages(verseId),
-    app.library.getDeclamations(verseId), // todo: pass array
-    app.library.getDeclamations('BG 1.1')
-  ])
-  verse.value = _verse
-  status.value = _status
-  verseImages.value = Array.from(_images)
-  declamations.value = [..._declamations, ..._d2]
-}
 
 async function onAddVerseToInboxClicked() {
   if (!verse.value) { return }
@@ -101,5 +86,27 @@ async function onAddVerseToInboxClicked() {
   await app.processor.execute(new AddVerseToInboxDeck(verse.value.id), transaction)
   await app.processor.execute(new UpdateVerseStatus(verse.value.id), transaction)
   if (router.canGoBack()) { router.back() } else { router.push(go('library')) }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+async function fetchData() {
+  const verseId = new VerseId(props.id)
+  const [_verse, _status, _images] = await Promise.all([
+    app.library.getById(verseId),
+    app.library.getStatus(verseId),
+    app.library.getImages(verseId),
+  ])
+  const [_declamations, _d2] = await Promise.all([
+    app.library.getDeclamations(verseId), // todo: pass array
+    app.library.getDeclamations(_verse.reference)
+  ])
+
+  verse.value = _verse
+  status.value = _status
+  verseImages.value = Array.from(_images)
+  declamations.value = [..._declamations, ..._d2]
 }
 </script>

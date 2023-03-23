@@ -14,30 +14,19 @@ export class InboxDeckPage {
   get inboxEmpty() { return this.page.getByTestId('inboxEmpty') }
 
   async swipeCardLeft(locator: Locator) {
-    // await this.page.mouse.move(90, 160, { steps: 10 })
-    // await this.page.mouse.down()
-    // await this.page.mouse.move(10, 160, { steps: 100 })
-    // await this.page.mouse.up()
-
     await locator.dragTo(locator, {
       sourcePosition: { x: 90, y: 160 },
       targetPosition: { x: 10,  y: 160 }
     })
     // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(500)
+    await this.page.waitForTimeout(250)
   }
 
-  async swipeCardTop(locator: Locator) {
-    // await this.page.mouse.move(40, 160, { steps: 10 })
-    // await this.page.mouse.down()
-    // await this.page.mouse.move(40, 160, { steps: 100 })
-    // await this.page.mouse.up()
-
+  async swipeCardUp(locator: Locator) {
     await locator.dragTo(locator, {
       sourcePosition: { x: 40, y: 180 },
       targetPosition: { x: 40, y: 40 }
     })
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(500)
+    await locator.waitFor({ state: 'detached' })
   }
 }

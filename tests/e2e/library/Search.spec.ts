@@ -15,9 +15,7 @@ test.describe('Library › Search', () => {
 
   test.beforeEach(async ({ page }) => {
     library = new LibraryPage(page)
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
-
+    await new Application(page).goto('/home/library')
   })
 
   test.afterEach(async ({ page }) => {

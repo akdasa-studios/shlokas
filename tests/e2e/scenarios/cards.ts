@@ -22,7 +22,7 @@ export async function addCardsToReview(page: Page, verses: string[]) {
   for (const verse of verses) {
     for (const t of [InboxCardType.Translation, InboxCardType.Text]) {
       const cardLocator = page.getByTestId(testId(verse, 'card', t))
-      await inbox.swipeCardTop(cardLocator)
+      await inbox.swipeCardUp(cardLocator)
       await cardLocator.waitFor({ state: 'detached' })
     }
   }

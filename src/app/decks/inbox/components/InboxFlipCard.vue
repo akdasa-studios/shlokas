@@ -24,8 +24,11 @@
 
     <template #back>
       <InboxCardDeclamationsSide
-        v-if="index === 0"
+        v-if="index === 0 && props.declamations.length > 0"
         :declamations="props.declamations"
+        :synonyms="props.verse.synonyms"
+      />
+      <InboxCardSynonymsSide
         :synonyms="props.verse.synonyms"
       />
     </template>
@@ -38,7 +41,7 @@ import { Declamation, InboxCard, InboxCardType, Verse } from '@akdasa-studios/sh
 import { FlipCard } from '@akdasa-studios/shlokas-uikit'
 import { defineEmits, defineProps, ref } from 'vue'
 import { testId } from '@/app/TestId'
-import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide } from '@/app/decks/inbox'
+import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

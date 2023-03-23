@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="declamationsCount > 0">
     <VerseAudioPlayer
       :url="env.getContentUrl(declamations[activeDeclamationIdx].url)"
       :title="props.title"
@@ -45,9 +45,9 @@ const env = useEnv()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const declamations = useSorted(props.declamations, (a,b) => getSortScore(a) - getSortScore(b))
+const declamations = useSorted<Declamation>(props.declamations, (a,b) => getSortScore(a) - getSortScore(b))
 const declamationsCount = computed(() => declamations.value.length)
-const activeDeclamationIdx = ref(0)
+const activeDeclamationIdx = ref<number>(0)
 
 
 /* -------------------------------------------------------------------------- */

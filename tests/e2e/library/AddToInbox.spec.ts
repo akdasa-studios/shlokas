@@ -8,7 +8,7 @@ test.describe('Library › Add to Inbox', () => {
   /* -------------------------------------------------------------------------- */
 
   let library: LibraryPage
-  let verse: VerseDetailsPage
+  let verseDetails: VerseDetailsPage
   let tabsBar: TabsBar
 
 
@@ -19,7 +19,7 @@ test.describe('Library › Add to Inbox', () => {
   test.beforeEach(async ({ page }) => {
     library = new LibraryPage(page)
     tabsBar = new TabsBar(page)
-    verse = new VerseDetailsPage(page)
+    verseDetails = new VerseDetailsPage(page)
     await page.goto('/home/library')
   })
 
@@ -34,7 +34,7 @@ test.describe('Library › Add to Inbox', () => {
 
   test('Add verse to the Inbox deck', async () => {
     await library.verse('BG 1.1').click()
-    await verse.addButton.click()
+    await verseDetails.addButton.click()
 
     await expect(library.verseBadge('BG 1.1')).toContainText('Inbox')
     await expect(tabsBar.inboxBadge).toContainText('2')
@@ -42,15 +42,15 @@ test.describe('Library › Add to Inbox', () => {
 
   test('Add button is disabled if verse has already been added', async () => {
     await library.verse('BG 1.1').click()
-    await verse.addButton.click()
+    await verseDetails.addButton.click()
     await library.verse('BG 1.1').click()
 
-    await expect(verse.addButton).toBeDisabled()
+    await expect(verseDetails.addButton).toBeDisabled()
   })
 
   test('Back returns to library', async ({ page }) => {
     await library.verse('BG 1.1').click()
-    await verse.backButton.click()
+    await verseDetails.backButton.click()
 
     await expect(page).toHaveURL('/home/library')
     await expect(library.searchbar).toBeVisible()

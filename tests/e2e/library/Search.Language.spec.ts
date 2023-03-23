@@ -12,8 +12,8 @@ test.describe('Library › Search › Change language', () => {
   test.beforeEach(async ({ page }) => {
     library = new LibraryPage(page)
 
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
+    await new Application(page).goto('/home/library')
+
     await page.getByTestId('settings-tab').click()
     await page.getByTestId('language').click()
     await page.getByRole('button', { name: 'Русский' }).click()
