@@ -1,10 +1,11 @@
-import { Application, Declamation, Verse, Language, VerseId, DeclamationId } from '@akdasa-studios/shlokas-core'
+import { Application, Declamation, Verse, Language, VerseId } from '@akdasa-studios/shlokas-core'
 
 
 export function useLibraryCache(app: Application) {
   let verses: readonly Verse[] = []
   let declamations: {[ id: string ]: Declamation[]} = {}
 
+  // TODO: load only requested verses
   async function load(verseIds: VerseId[]) {
     declamations = {}
     verses = await app.library.all(new Language('en', 'en')) // TODO: Load only needed verses

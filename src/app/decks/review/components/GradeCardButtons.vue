@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { defineEmits, defineProps } from 'vue'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import intervalToText from './cards/IntervalToText'
+import intervalToText from './IntervalToText'
 
 const props = defineProps<{
   intervals: number[]

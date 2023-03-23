@@ -43,7 +43,7 @@
         :class="{ 'closed' : !showGradeButtons }"
         class="buttons"
       >
-        <ReviewCardAnswerButtons
+        <GradeCardButtons
           :intervals="gradeButtonIntervals"
           @graded="onGradeButtonClicked"
         />
@@ -64,7 +64,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnte
 import { computed, inject, reactive, ref } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { StackedFlipCardsDeck } from '@/app/decks/inbox'
-import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, ReviewCardAnswerButtons } from '@/app/decks/review'
+import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { testId } from '@/app/TestId'
 
