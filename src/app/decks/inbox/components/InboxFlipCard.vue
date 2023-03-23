@@ -29,6 +29,7 @@
         :synonyms="props.verse.synonyms"
       />
       <InboxCardSynonymsSide
+        v-if="props.declamations.length === 0"
         :synonyms="props.verse.synonyms"
       />
     </template>

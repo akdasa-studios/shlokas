@@ -1,7 +1,7 @@
 <template>
   <div v-if="declamationsCount > 0">
     <VerseAudioPlayer
-      :url="env.getContentUrl(declamations[activeDeclamationIdx].url)"
+      :url="declamations[activeDeclamationIdx].url"
       :title="props.title"
       :artist="$t('app.name')"
       :show-progress-bar="true"
@@ -22,7 +22,7 @@
 import { Declamation } from '@akdasa-studios/shlokas-core'
 import { computed, defineProps, ref } from 'vue'
 import { useSorted } from '@vueuse/core'
-import { useEnv, VerseAudioPlayer } from '@/app/shared'
+import { VerseAudioPlayer } from '@/app/shared'
 import { DeclamationsList } from '@/app/library'
 
 /* -------------------------------------------------------------------------- */
@@ -33,12 +33,6 @@ const props = defineProps<{
   title: string,
   declamations: Declamation[],
 }>()
-
-/* -------------------------------------------------------------------------- */
-/*                                Dependencies                                */
-/* -------------------------------------------------------------------------- */
-
-const env = useEnv()
 
 
 /* -------------------------------------------------------------------------- */
