@@ -1,7 +1,8 @@
-import { Application, Declamation, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { Application, Declamation, Verse, VerseId, VerseImage } from '@akdasa-studios/shlokas-core'
 
 const verses = new Map<string, Verse>()
 const declamations = new Map<string, Declamation[]>()
+const verseImages = new Map<string, VerseImage[]>()
 
 export function useLibraryCache(app: Application) {
   async function load(verseIds: VerseId[]) {
@@ -15,6 +16,10 @@ export function useLibraryCache(app: Application) {
         declamations.set(verseId.value, [])
       }
 
+      if (!verseImages.has(verseId.value)) {
+        verseImages.set(verseId.value, [])
+      }
+
       declamations.get(verseId.value)?.push(
         ...await app.library.getDeclamations(verseId)
       )
@@ -22,6 +27,9 @@ export function useLibraryCache(app: Application) {
         ...await app.library.getDeclamations(verse.reference)
       )
 
+      verseImages.get(verseId.value)?.push(
+        ...await app.library.getImages(verseId)
+      )
     }
   }
 
@@ -33,7 +41,11 @@ export function useLibraryCache(app: Application) {
     return declamations.get(verseId.value) || []
   }
 
+  function getVerseImage(verseId: VerseId, theme = 'default'): VerseImage|undefined {
+    return verseImages.get(verseId.value)?.find(x => x.theme === theme)
+  }
+
   return {
-    load, getVerse, getDeclamations
+    load, getVerse, getDeclamations, getVerseImage
   }
 }

@@ -21,7 +21,7 @@
 import { onMounted, defineProps, ref } from 'vue'
 import { DarkImage, SVGTextLines } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
-import { useDownloadService } from '@/app/shared'
+import { useDownloadService, useEnv } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -29,7 +29,7 @@ import { useDownloadService } from '@/app/shared'
 
 const props = defineProps<{
   lines: string[]
-  uri?: string|undefined
+  url?: string|undefined
 }>()
 
 
@@ -39,6 +39,7 @@ const props = defineProps<{
 
 const downloadService = useDownloadService()
 const isDark = usePreferredDark()
+const env = useEnv()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -58,7 +59,9 @@ onMounted(onOpened)
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
-  if (props.uri) { imageUri.value = await downloadService.download(props.uri) }
+  if (props.url) {
+    imageUri.value = await downloadService.download(env.getContentUrl(props.url))
+  }
 }
 </script>
 

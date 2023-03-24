@@ -5,17 +5,24 @@
 
   <VerseTextLines
     :lines="props.lines"
-    :uri="uri"
+    :url="verseImage?.url"
     style="width: 100%;"
   />
 </template>
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { VerseImage } from '@akdasa-studios/shlokas-core'
 import { VerseTextLines } from '@/app/decks/shared'
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Interface                                 */
+/* -------------------------------------------------------------------------- */
+
 const props = defineProps<{
   verseNumber: string
   lines: string[]
-  uri?: string|undefined
+  verseImage?: VerseImage
 }>()
 </script>

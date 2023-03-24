@@ -31,7 +31,6 @@ export class CouchDB {
   }
 
   async sync(to: string) {
-    console.log('syncing to', to)
     await this._db.sync(to)
   }
 
@@ -104,7 +103,6 @@ export class PouchRepository<
 
   async find(query: Query<TAggregate>): Promise<TAggregate[]> {
     const convertedQuery = new QueryConverter().convert(query)
-    console.log(convertedQuery)
     convertedQuery.selector['@type'] = this._collectionName
     const items = await this._db.db.find(convertedQuery)
     return items.docs.map(x => this._deserializer.map(x))

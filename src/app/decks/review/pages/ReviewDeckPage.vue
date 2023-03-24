@@ -135,7 +135,6 @@ onIonViewWillEnter(onOpened)
 
 async function onOpened() {
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
-  console.log('=>>>>>', reviewCards)
   await libraryCache.load(reviewCards.map(x => x.verseId))
 
   for (const [index, card] of reviewCards.entries()) {
@@ -191,7 +190,6 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
 /* -------------------------------------------------------------------------- */
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
-  console.log('gradeCard', reviewCard, grade)
   if (grade === ReviewGrade.Forgot) {
     indexedList.shiftItem(cardsToShow)
   } else {

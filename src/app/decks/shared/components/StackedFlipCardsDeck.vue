@@ -83,7 +83,6 @@ watch(cards, updateCardsState, { immediate: true })
 /* -------------------------------------------------------------------------- */
 
 function onCardPlaced(card: Card) {
-  console.log('onCardPlaced', card, getCardState(card.id), cards.value.length)
   updateCardsState()
   updateInactiveCard(getCardState(card.id))
 }
@@ -181,9 +180,7 @@ function computeStyle(card: Card) {
 }
 
 function updateCardsState() {
-  console.log('Update cards state', cards.value.length, cardStates.value)
   for (const [idx, card] of cards.value.entries()) {
-    console.log(idx, card)
     if (cardStates.value[card.id]) { continue }
     cardStates.value[card.id] = {
       index: idx,
@@ -193,7 +190,6 @@ function updateCardsState() {
       angleZ: 0,
     }
   }
-  console.log(cardStates.value)
 }
 
 function getDistance(a: Position, b: Position) {

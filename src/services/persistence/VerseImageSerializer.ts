@@ -10,7 +10,6 @@ export class VerseImageSerializer implements ObjectMapper<VerseImage, any> {
 
 export class VerseImageDeserializer implements ObjectMapper<any, VerseImage> {
   map(from: any): VerseImage {
-    console.log('--==>>', from)
     const ob = new VerseImage(
       new VerseImageId(from['_id']),
       new VerseId(from['verseId']),

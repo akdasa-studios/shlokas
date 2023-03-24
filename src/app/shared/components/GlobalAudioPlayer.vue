@@ -54,9 +54,7 @@ function onStatusChanged(status: any) {
 
 async function onUrlChanged(url: string) {
   if (!url) { return }
-  console.log(url)
   localUrl.value = await downloadService.download(env.getContentUrl(url))
-  console.log(localUrl.value )
 }
 </script>
 

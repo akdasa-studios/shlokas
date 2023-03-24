@@ -10,6 +10,7 @@
     <template #front>
       <InboxCardVerseTextSide
         v-if="props.card.type === InboxCardType.Text"
+        :verse-image="props.image"
         :verse-number="props.verse.number.value"
         :lines="props.verse.text.lines"
       />
@@ -37,7 +38,7 @@
 
 
 <script lang="ts" setup>
-import { Declamation, InboxCard, InboxCardType, Verse } from '@akdasa-studios/shlokas-core'
+import { Declamation, InboxCard, InboxCardType, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
 import { defineEmits, defineProps } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
@@ -53,6 +54,7 @@ const props = defineProps<{
   flipped: boolean
   index: number
   declamations: Declamation[]
+  image?: VerseImage
 }>()
 
 const emit = defineEmits<{

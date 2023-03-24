@@ -34,6 +34,7 @@
           :flipped="getCardState(data.id).flipped"
           :declamations="getDeclamations(data.id)"
           :index="getCardState(data.id).index"
+          :image="getDefaultImage(data.id)"
           class="color"
           @click="onCardFlipped(data)"
         />
@@ -114,7 +115,6 @@ async function onOpened() {
     })
   }
   cardsToShow.value = result
-  console.log('pipIPIPppp', cardsToShow.value)
 }
 
 function onCardFlipped(data: any) {
@@ -144,7 +144,6 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
     indexedList.shiftItem(cardsToShow)
   } else {
     const card = getInboxCard(id)
-    console.log('remove')
     indexedList.removeItem(cardsToShow)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
@@ -180,8 +179,14 @@ function getVerse(inboxCardId: string): Verse {
   const verseId = getInboxCard(inboxCardId).verseId
   return libraryCache.getVerse(verseId)
 }
+
 function getDeclamations(inboxCardId: string) {
   const verseId = getInboxCard(inboxCardId).verseId
   return libraryCache.getDeclamations(verseId)
+}
+
+function getDefaultImage(inboxCardId: string) {
+  const verseId = getInboxCard(inboxCardId).verseId
+  return libraryCache.getVerseImage(verseId)
 }
 </script>

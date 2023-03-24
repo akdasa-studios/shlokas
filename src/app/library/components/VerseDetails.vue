@@ -1,7 +1,7 @@
 <template>
   <VerseTextLines
     :lines="props.verse.text.lines"
-    :uri="verseImage?.url ? env.getContentUrl(verseImage.url) : undefined"
+    :url="verseImage?.url"
     class="section box"
   />
 
@@ -29,7 +29,6 @@ import { defineProps } from 'vue'
 import { Declamation, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
 import { VerseTextLines } from '@/app/decks/shared'
 import { VerseSynonyms, VerseTranslation, DeclamationsPlayer } from '@/app/library'
-import { useEnv } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Inetrface                                 */
@@ -40,13 +39,6 @@ const props = defineProps<{
   verseImages: VerseImage[],
   declamations: Declamation[],
 }>()
-
-
-/* -------------------------------------------------------------------------- */
-/*                                Dependencies                                */
-/* -------------------------------------------------------------------------- */
-
-const env = useEnv()
 
 
 /* -------------------------------------------------------------------------- */
