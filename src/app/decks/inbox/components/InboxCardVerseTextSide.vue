@@ -19,5 +19,3 @@ const props = defineProps<{
   uri?: string|undefined
 }>()
 </script>
-
-<style src="@/app/decks/Card.scss" lang="scss" scoped />

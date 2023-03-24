@@ -21,10 +21,10 @@ export class ReviewDeckPage {
   get reviewEmpty() { return this.page.getByTestId('reviewEmpty') }
   get cardsCountDueToTomorrow() { return this.page.getByTestId('cardsCountDueToTomorrow') }
 
-  async swipeCardLeft(locator: Locator) {
+  async swipeCardUp(locator: Locator) {
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 160 },
-      targetPosition: { x: 0,  y: 160 }
+      sourcePosition: { x: 40, y: 200 },
+      targetPosition: { x: 40, y: 40 }
     })
     // eslint-disable-next-line playwright/no-wait-for-timeout
     await this.page.waitForTimeout(250)

@@ -25,7 +25,8 @@ import './theme/variables.css'
 import './theme/custom.css'
 
 /* Shlokas UI kit */
-import '@akdasa-studios/shlokas-uikit/style.css'
+// import '@akdasa-studios/shlokas-uikit/style.css'
+import '@/app/decks/Card.scss'
 
 /* Init stages */
 import { appInitStages } from './init'

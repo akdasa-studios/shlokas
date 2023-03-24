@@ -38,10 +38,10 @@
 
 <script lang="ts" setup>
 import { Declamation, InboxCard, InboxCardType, Verse } from '@akdasa-studios/shlokas-core'
-import { FlipCard } from '@akdasa-studios/shlokas-uikit'
 import { defineEmits, defineProps } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
+import { FlipCard } from '@/app/decks/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

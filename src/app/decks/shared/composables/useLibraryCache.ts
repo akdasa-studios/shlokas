@@ -1,32 +1,36 @@
-import { Application, Declamation, Verse, Language, VerseId } from '@akdasa-studios/shlokas-core'
+import { Application, Declamation, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 
+const verses = new Map<string, Verse>()
+const declamations = new Map<string, Declamation[]>()
 
 export function useLibraryCache(app: Application) {
-  let verses: readonly Verse[] = []
-  let declamations: {[ id: string ]: Declamation[]} = {}
-
-  // TODO: load only requested verses
   async function load(verseIds: VerseId[]) {
-    declamations = {}
-    verses = await app.library.all(new Language('en', 'en')) // TODO: Load only needed verses
+    for (const verseId of verseIds) {
+      if (verses.has(verseId.value)) { continue }
 
-    for (const verse of verses) {
-      declamations[verse.id.value] = []
-      declamations[verse.id.value].push(
-        ...await app.library.getDeclamations(verse.id.value)
+      const verse = await app.library.getById(verseId)
+      verses.set(verse.id.value, verse)
+
+      if (!declamations.has(verseId.value)) {
+        declamations.set(verseId.value, [])
+      }
+
+      declamations.get(verseId.value)?.push(
+        ...await app.library.getDeclamations(verseId)
       )
-      declamations[verse.id.value].push(
+      declamations.get(verseId.value)?.push(
         ...await app.library.getDeclamations(verse.reference)
       )
+
     }
   }
 
   function getVerse(verseId: VerseId): Verse {
-    return verses.find(x => x.id.equals(verseId)) as Verse
+    return verses.get(verseId.value) as Verse
   }
 
   function getDeclamations(verseId: VerseId) {
-    return declamations[verseId.value]
+    return declamations.get(verseId.value) || []
   }
 
   return {

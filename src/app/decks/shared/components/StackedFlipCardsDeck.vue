@@ -1,7 +1,7 @@
 <template>
   <CardsDeck
     v-slot="data"
-    :cards="props.cards"
+    :cards="cards"
     :compute-style="computeStyle"
     class="deck"
     card-class="card"
@@ -15,8 +15,8 @@
 
 
 <script lang="ts" setup>
-import { CardsDeck } from '@akdasa-studios/shlokas-uikit'
-import { defineProps, ref, watch, defineEmits, withDefaults } from 'vue'
+import { defineProps, ref, watch, defineEmits, withDefaults, defineExpose, toRefs } from 'vue'
+import { CardsDeck } from '@/app/decks/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Inerface                                  */
@@ -52,6 +52,8 @@ const emit = defineEmits<{
   (event: 'swipe:finish', id: string, swipe: SwipeGesture): void
 }>()
 
+defineExpose({ 'swipeTopCard': swipeTopCard })
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -66,13 +68,14 @@ interface CardState {
 }
 
 const cardStates = ref<{ [id: string]: CardState }>({})
+const { cards } = toRefs(props)
 
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
-watch(props.cards, updateCardsState, { immediate: true })
+watch(cards, updateCardsState, { immediate: true })
 
 
 /* -------------------------------------------------------------------------- */
@@ -80,6 +83,8 @@ watch(props.cards, updateCardsState, { immediate: true })
 /* -------------------------------------------------------------------------- */
 
 function onCardPlaced(card: Card) {
+  console.log('onCardPlaced', card, getCardState(card.id), cards.value.length)
+  updateCardsState()
   updateInactiveCard(getCardState(card.id))
 }
 
@@ -161,7 +166,7 @@ function updateMovedCard(card: CardState) {
 function computeStyle(card: Card) {
   const r = getCardState(card.id)
   const actions = {
-    inactive: '.6s ease-in-out;',
+    inactive: '.5s ease-in-out;',
     swiping:  'none',
     swiped:   '.25s linear'
   }
@@ -172,11 +177,13 @@ function computeStyle(card: Card) {
 
   return `transform: translate3D(${r.posX}px, ${constY + r.posY}px, ${constZ}px) rotateZ(${r.angleZ}deg);
           transition: ${transition};
-          z-index: ${10-r.index}`
+          z-index: ${10-r.index};`
 }
 
 function updateCardsState() {
-  for (const [idx, card] of props.cards.entries()) {
+  console.log('Update cards state', cards.value.length, cardStates.value)
+  for (const [idx, card] of cards.value.entries()) {
+    console.log(idx, card)
     if (cardStates.value[card.id]) { continue }
     cardStates.value[card.id] = {
       index: idx,
@@ -186,6 +193,7 @@ function updateCardsState() {
       angleZ: 0,
     }
   }
+  console.log(cardStates.value)
 }
 
 function getDistance(a: Position, b: Position) {
@@ -203,6 +211,19 @@ function getDirection(a: Position) {
     return x > 0 ? 'right' : 'left'
   } else {
     return y > 0 ? 'down' : 'up'
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Actions                                  */
+/* -------------------------------------------------------------------------- */
+
+function swipeTopCard() {
+  const card = cards.value.find(x => x.index === 0)
+  if (card) {
+    const state = getCardState(card.id)
+    state.posX = -400
+    state.state = 'swiped'
   }
 }
 </script>

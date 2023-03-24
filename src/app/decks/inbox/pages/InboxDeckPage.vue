@@ -53,9 +53,9 @@ import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, V
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
 import { computed, inject, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
-import { InboxFlipCard, StackedFlipCardsDeck, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
+import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useAudioPlayerStore } from '@/app/shared'
-import { useLibraryCache, useIndexedList } from '@/app/decks/shared'
+import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -97,7 +97,7 @@ let inboxCards: readonly InboxCard[] = []
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
-onIonViewWillEnter(onOpened)
+onIonViewWillEnter(async () => await onOpened())
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -105,13 +105,16 @@ onIonViewWillEnter(onOpened)
 
 async function onOpened() {
   inboxCards = await app.inboxDeck.cards()
-  await libraryCache.load([])
+  await libraryCache.load(inboxCards.map(x => x.verseId))
 
+  const result = []
   for (const [index, card] of inboxCards.entries()) {
-    cardsToShow.value.push({
+    result.push({
       id: card.id.value, index, flipped: false, verseId: card.verseId
     })
   }
+  cardsToShow.value = result
+  console.log('pipIPIPppp', cardsToShow.value)
 }
 
 function onCardFlipped(data: any) {
@@ -141,6 +144,7 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
     indexedList.shiftItem(cardsToShow)
   } else {
     const card = getInboxCard(id)
+    console.log('remove')
     indexedList.removeItem(cardsToShow)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
@@ -164,7 +168,8 @@ function canBeSwiped(_: string, { direction, distance }: { direction: string, di
 
 
 function getCardState(id: string): CardState {
-  return cardsToShow.value.find(x => x.id === id) as CardState
+  const res = cardsToShow.value.find(x => x.id === id)
+  return res as CardState
 }
 
 function getInboxCard(id: string): InboxCard {

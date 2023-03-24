@@ -15,7 +15,7 @@ test.describe('Review Deck › Swipe Cards', () => {
    * When user opens the review deck, they should see cards if he has
    * added cards to review.
    */
-  test('Swipe all cards left', async ({ page }) => {
+  test('Swipe all cards up', async ({ page }) => {
     const tabs   = new TabsBar(page)
     const review = new ReviewDeckPage(page)
 
@@ -23,7 +23,7 @@ test.describe('Review Deck › Swipe Cards', () => {
     await tabs.reviewTab.click()
     for (const verseNumber of ['BG 1.1', 'BG 2.13']) {
       const cardLocator = review.card(verseNumber, ReviewCardType.NumberToTranslation)
-      await review.swipeCardLeft(cardLocator)
+      await review.swipeCardUp(cardLocator)
       await cardLocator.waitFor({ state: 'detached' })
     }
 

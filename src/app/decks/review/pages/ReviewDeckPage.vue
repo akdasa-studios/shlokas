@@ -21,7 +21,8 @@
       />
 
       <StackedFlipCardsDeck
-        v-if="!isEmpty"
+        v-show="!isEmpty"
+        ref="deck"
         v-slot="data"
         :cards="cardsToShow"
         :can-swipe="canBeSwiped"
@@ -64,9 +65,8 @@ import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, Up
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
 import { computed, inject, reactive, ref } from 'vue'
 import { useArrayFind } from '@vueuse/core'
-import { StackedFlipCardsDeck } from '@/app/decks/inbox'
+import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
-import { useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { testId } from '@/app/TestId'
 
 
@@ -99,6 +99,7 @@ interface SwipePopup {
 }
 
 
+const deck = ref()
 const cardsToShow = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval: 0 })
 const isEmpty = computed(() => cardsToShow.value.length === 0)
@@ -134,8 +135,8 @@ onIonViewWillEnter(onOpened)
 
 async function onOpened() {
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
-  console.log(reviewCards)
-  await libraryCache.load([])
+  console.log('=>>>>>', reviewCards)
+  await libraryCache.load(reviewCards.map(x => x.verseId))
 
   for (const [index, card] of reviewCards.entries()) {
     cardsToShow.value.push({
@@ -178,14 +179,19 @@ async function onCardSwipeFinished(id: string, { direction, distance }: { distan
 
 async function onGradeButtonClicked(grade: ReviewGrade) {
   if (!topCard.value?.id) { return }
-  await gradeCard(getReviewCard(topCard.value.id), grade)
+  deck.value.swipeTopCard()
+  setTimeout(async () => {
+    await gradeCard(getReviewCard(topCard.value.id), grade)
+  }, 250)
 }
+
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
+  console.log('gradeCard', reviewCard, grade)
   if (grade === ReviewGrade.Forgot) {
     indexedList.shiftItem(cardsToShow)
   } else {
