@@ -4,17 +4,6 @@
     :class="{ 'visible': visible, 'hidden': !visible }"
   >
     <div
-      class="option forgot"
-      :class="getClassForForgot()"
-    >
-      <IonIcon
-        :icon="arrowBackCircle"
-        size="large"
-      />
-      {{ $t('cards.grade.forgot') }}
-    </div>
-
-    <div
       class="option"
       :class="getClassForGrade()"
     >
@@ -23,6 +12,17 @@
         size="large"
       />
       {{ $t(getGradeName()) }}
+    </div>
+
+    <div
+      class="option forgot"
+      :class="getClassForForgot()"
+    >
+      <IonIcon
+        :icon="arrowBackCircle"
+        size="large"
+      />
+      {{ $t('cards.grade.forgot') }}
     </div>
 
     <div
@@ -80,7 +80,7 @@ function getClassForGrade() {
 }
 
 function getGradeName() {
-  if (props.status === 'none') { return 'cards.grade.remember' }
+  if (['none', 'forgot'].includes(props.status)) { return 'cards.grade.remember' }
   return 'cards.grade.' + props.status
 }
 </script>
