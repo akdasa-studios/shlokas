@@ -17,6 +17,7 @@
       <ReviewCardSwipeOverlay
         :visible="swipePopup.show"
         :status="swipePopup.status"
+        :interval="swipePopup.interval"
       />
 
       <StackedFlipCardsDeck
@@ -40,7 +41,7 @@
       </StackedFlipCardsDeck>
 
       <div
-        :class="{ 'closed' : !showGradeButtons }"
+        :class="{ 'closed': !showGradeButtons }"
         class="buttons"
       >
         <GradeCardButtons
@@ -51,7 +52,7 @@
 
       <ReviewDeckEmpty
         v-show="isEmpty"
-        data-testid="inboxEmpty"
+        data-testid="reviewEmpty"
       />
     </ion-content>
   </ion-page>
@@ -93,12 +94,13 @@ type SwipeActions = 'forgot' | 'hard' | 'good' | 'easy' | 'none'
 
 interface SwipePopup {
   show: boolean,
-  status: SwipeActions
+  status: SwipeActions,
+  interval: number
 }
 
 
 const cardsToShow = ref<CardState[]>([])
-const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
+const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval: 0 })
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
 const showGradeButtons = computed(() => topCard.value?.flipped)
@@ -149,11 +151,18 @@ function onCardFlipped(data: any) {
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
   swipePopup.show = true
-  const grade = ReviewGrade[getGrade(direction)]
-  if (grade) {
+  const grade = getGrade(direction, distance)
+  if (grade !== undefined) {
     swipePopup.status = (distance > 40
-      ? grade.toString().toLowerCase()
+      ? ReviewGrade[grade].toString().toLowerCase()
       : 'none') as SwipeActions
+
+    swipePopup.interval = new Scheduler().getNewInterval(
+      getReviewCard(id).interval,
+      getReviewCard(id).ease / 100, grade
+    )
+  } else {
+    swipePopup.status = 'none'
   }
 }
 
@@ -162,9 +171,9 @@ function onCardSwipeCancelled() {
   swipePopup.status = 'none'
 }
 
-async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
+async function onCardSwipeFinished(id: string, { direction, distance }: { distance: number, direction: string }) {
   if (!topCard.value?.id) { return }
-  await gradeCard(getReviewCard(topCard.value.id), getGrade(direction))
+  await gradeCard(getReviewCard(topCard.value.id), getGrade(direction, distance))
 }
 
 async function onGradeButtonClicked(grade: ReviewGrade) {
@@ -190,7 +199,7 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
   const isLastCard = cardsToShow.value.length === 1
-  const isForgottenCard = getGrade(direction) === ReviewGrade.Forgot
+  const isForgottenCard = getGrade(direction, distance) === ReviewGrade.Forgot
   if (isLastCard && isForgottenCard) { return false }
   return distance > 40
 }
@@ -208,13 +217,13 @@ function getVerse(reviewCardId: string): Verse {
   return libraryCache.getVerse(verseId)
 }
 
-function getGrade(direction: string) : ReviewGrade {
-  return {
-    'up': ReviewGrade.Forgot,
-    'down': ReviewGrade.Hard,
-    'left': ReviewGrade.Good,
-    'right': ReviewGrade.Easy
-  }[direction] as ReviewGrade
+function getGrade(direction: string, distance: number): ReviewGrade | undefined {
+  if (['left', 'right'].includes(direction)) { return ReviewGrade.Forgot }
+  if (['up', 'buttom'].includes(direction)) {
+    if (distance > 120) { return ReviewGrade.Easy }
+    if (distance > 80) { return ReviewGrade.Good }
+    if (distance > 40) { return ReviewGrade.Hard }
+  }
 }
 </script>
 
@@ -222,13 +231,14 @@ function getGrade(direction: string) : ReviewGrade {
 <style scoped>
 .buttons {
   width: 100%;
-  position:absolute;
+  position: absolute;
   bottom: 0px;
   background-color: rgba(var(--ion-color-light-rgb), .75);
   border-top: 1px solid var(--ion-color-light-shade);
   backdrop-filter: blur(5px);
   transition: .2s ease-in-out;
 }
+
 .closed {
   bottom: -50px;
   opacity: 0;

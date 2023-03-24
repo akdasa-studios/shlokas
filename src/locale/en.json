@@ -1,6 +1,7 @@
 {
   "cards": {
     "grade": {
+      "remember": "Remember",
       "forgot": "Forgot",
       "hard": "Hard",
       "good": "Good",

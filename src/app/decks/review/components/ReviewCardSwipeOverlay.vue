@@ -5,46 +5,31 @@
   >
     <div
       class="option forgot"
-      :class="getStatusFor('forgot')"
+      :class="getClassForForgot()"
     >
       <IonIcon
-        :icon="arrowUpCircle"
+        :icon="arrowBackCircle"
         size="large"
       />
       {{ $t('cards.grade.forgot') }}
     </div>
 
     <div
-      class="option hard"
-      :class="getStatusFor('hard')"
+      class="option"
+      :class="getClassForGrade()"
     >
       <IonIcon
-        :icon="arrowDownCircle"
+        :icon="arrowUpCircle"
         size="large"
       />
-      {{ $t('cards.grade.hard') }}
+      {{ $t(getGradeName()) }}
     </div>
 
     <div
-      class="option good"
-      :class="getStatusFor('good')"
+      class="option"
+      :class="getClassForSchedule()"
     >
-      <IonIcon
-        :icon="arrowBackCircle"
-        size="large"
-      />
-      {{ $t('cards.grade.good') }}
-    </div>
-
-    <div
-      class="option easy"
-      :class="getStatusFor('easy')"
-    >
-      <IonIcon
-        :icon="arrowForwardCircle"
-        size="large"
-      />
-      {{ $t('cards.grade.easy') }}
+      {{ $t(...intervalToText.convert(props.interval)) }}
     </div>
   </div>
 </template>
@@ -52,8 +37,9 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue'
-import { arrowBackCircle, arrowUpCircle, arrowForwardCircle, arrowDownCircle } from 'ionicons/icons'
+import { arrowBackCircle, arrowUpCircle } from 'ionicons/icons'
 import { IonIcon } from '@ionic/vue'
+import { useIntervalToText } from '@/app/decks/review'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -62,17 +48,40 @@ import { IonIcon } from '@ionic/vue'
 const props = defineProps<{
   visible: boolean,
   status: 'forgot' | 'hard' | 'good' | 'easy' | 'none',
+  interval: number,
 }>()
 
 
 /* -------------------------------------------------------------------------- */
-/*                                   Status                                   */
+/*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-function getStatusFor(status: string) {
-  if (props.status == 'none') { return undefined }
-  if (props.status != status) { return 'hidden' }
-  return 'selected'
+const intervalToText = useIntervalToText()
+
+/* -------------------------------------------------------------------------- */
+/*                                   State                                    */
+/* -------------------------------------------------------------------------- */
+
+function getClassForSchedule() {
+  if (['none', 'forgot'].includes(props.status)) { return 'hidden' }
+  return props.status
+}
+
+function getClassForForgot() {
+  if (props.status === 'none') { return undefined }
+  if (props.status === 'forgot') { return 'selected' }
+  return 'hidden'
+}
+
+function getClassForGrade() {
+  if (props.status === 'none') { return 'hard' }
+  if (props.status !== 'forgot') { return ['selected', props.status] }
+  return 'hidden'
+}
+
+function getGradeName() {
+  if (props.status === 'none') { return 'cards.grade.remember' }
+  return 'cards.grade.' + props.status
 }
 </script>
 
@@ -105,7 +114,9 @@ function getStatusFor(status: string) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
+  flex-basis: 0;
   flex-grow: 1;
   transition: ease-in-out .25s;
 

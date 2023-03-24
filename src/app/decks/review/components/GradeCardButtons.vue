@@ -6,7 +6,7 @@
       @click.stop="emit('graded', ReviewGrade.Forgot)"
     >
       {{ $t('cards.grade.forgot') }}
-      <div>{{ intervalToText($t, props.intervals[0]) }}</div>
+      <div>{{ $t(...intervalToText.convert(props.intervals[0])) }}</div>
     </div>
     <div
       class="hard"
@@ -14,7 +14,7 @@
       @click.stop="emit('graded', ReviewGrade.Hard)"
     >
       {{ $t('cards.grade.hard') }}
-      <div>{{ intervalToText($t, props.intervals[1]) }}</div>
+      <div>{{ $t(...intervalToText.convert(props.intervals[1])) }}</div>
     </div>
     <div
       class="good"
@@ -22,7 +22,7 @@
       @click.stop="emit('graded', ReviewGrade.Good)"
     >
       {{ $t('cards.grade.good') }}
-      <div>{{ intervalToText($t, props.intervals[2]) }}</div>
+      <div>{{ $t(...intervalToText.convert(props.intervals[2])) }}</div>
     </div>
     <div
       class="easy"
@@ -30,7 +30,7 @@
       @click.stop="emit('graded', ReviewGrade.Easy)"
     >
       {{ $t('cards.grade.easy') }}
-      <div>{{ intervalToText($t, props.intervals[3]) }}</div>
+      <div>{{ $t(...intervalToText.convert(props.intervals[3])) }}</div>
     </div>
   </div>
 </template>
@@ -39,7 +39,12 @@
 <script lang="ts" setup>
 import { defineEmits, defineProps } from 'vue'
 import { ReviewGrade } from '@akdasa-studios/shlokas-core'
-import intervalToText from './IntervalToText'
+import { useIntervalToText } from '@/app/decks/review'
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Interface                                 */
+/* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
   intervals: number[]
@@ -48,6 +53,14 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'graded', grade: ReviewGrade): void
 }>()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const intervalToText = useIntervalToText()
+
 </script>
 
 <style scoped lang="scss">

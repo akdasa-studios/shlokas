@@ -6,5 +6,6 @@ export { default as ReviewCardTextSide } from './components/ReviewCardTextSide.v
 export { default as ReviewCardTranslationSide } from './components/ReviewCardTranslationSide.vue'
 export { default as ReviewCardVerseNumberSide } from './components/ReviewCardVerseNumberSide.vue'
 export { default as GradeCardButtons } from './components/GradeCardButtons.vue'
+export * from './composables/useIntervalToText'
 
 export * from './routes/reviewDeck'
