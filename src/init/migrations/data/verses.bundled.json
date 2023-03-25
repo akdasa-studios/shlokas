@@ -182,5 +182,106 @@
         "translation": "O Sañjaya"
       }
     ]
-  }
+  },
+  {
+    "_id": "8479dfcc-9377-5334-b2a8-5060dcc2a64a",
+    "@type": "verse",
+    "language": "en",
+    "number": "BG 2.13",
+    "text": [
+        "dehino ’smin yathā dehe",
+        "kaumāraṁ yauvanaṁ jarā",
+        "tathā dehāntara-prāptir",
+        "dhīras tatra na muhyati"
+    ],
+    "translation": "As the embodied soul continuously passes, in this body, from boyhood to youth to old age, the soul similarly passes into another body at death. A sober person is not bewildered by such a change.",
+    "reference": "BG 2.13",
+    "synonyms": [
+        {
+            "words": [
+                "dehinaḥ"
+            ],
+            "translation": "of the embodied"
+        },
+        {
+            "words": [
+                "asmin"
+            ],
+            "translation": "in this"
+        },
+        {
+            "words": [
+                "yathā"
+            ],
+            "translation": "as"
+        },
+        {
+            "words": [
+                "dehe"
+            ],
+            "translation": "in the body"
+        },
+        {
+            "words": [
+                "kaumāram"
+            ],
+            "translation": "boyhood"
+        },
+        {
+            "words": [
+                "yauvanam"
+            ],
+            "translation": "youth"
+        },
+        {
+            "words": [
+                "jarā"
+            ],
+            "translation": "old age"
+        },
+        {
+            "words": [
+                "tathā"
+            ],
+            "translation": "similarly"
+        },
+        {
+            "words": [
+                "deha",
+                "antara"
+            ],
+            "translation": "of transference of the body"
+        },
+        {
+            "words": [
+                "prāptiḥ"
+            ],
+            "translation": "achievement"
+        },
+        {
+            "words": [
+                "dhīraḥ"
+            ],
+            "translation": "the sober"
+        },
+        {
+            "words": [
+                "tatra"
+            ],
+            "translation": "thereupon"
+        },
+        {
+            "words": [
+                "na"
+            ],
+            "translation": "never"
+        },
+        {
+            "words": [
+                "muhyati"
+            ],
+            "translation": "is deluded"
+        }
+    ]
+}
 ]

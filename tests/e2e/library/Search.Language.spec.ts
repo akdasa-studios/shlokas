@@ -34,9 +34,9 @@ test.describe('Library › Search › Change language', () => {
   })
 
   test('Search by text foreign language', async ({ page }) => {
-    await page.getByPlaceholder('Поиск').fill('будет изобилие')
+    await page.getByPlaceholder('Поиск').fill('Панду')
 
     await expect(library.listItems).toHaveCount(1)
-    await expect(library.verse('бг 18.78')).toBeVisible()
+    await expect(library.verse('бг 1.1')).toBeVisible()
   })
 })

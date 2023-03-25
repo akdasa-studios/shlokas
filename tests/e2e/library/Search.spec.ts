@@ -33,9 +33,9 @@ test.describe('Library › Search', () => {
   })
 
   test('By text', async () => {
-    await library.searchbar.fill('army')
+    await library.searchbar.fill('embodied')
     await expect(library.listItems).toHaveCount(1)
-    await expect(library.verse('bg 9.2')).toBeVisible()
+    await expect(library.verse('bg 2.13')).toBeVisible()
   })
 
   test('By verse', async () => {
