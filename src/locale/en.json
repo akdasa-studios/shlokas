@@ -8,9 +8,9 @@
       "easy": "Easy"
     },
     "questions": {
-      "number": "Verse number",
-      "text": "Text",
-      "translation": "Translation"
+      "number": "Recall verse number",
+      "text": "Recall text",
+      "translation": "Recall translation"
     },
     "memorized": "Card memorized",
     "inbox": {
