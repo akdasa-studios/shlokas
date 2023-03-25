@@ -74,6 +74,26 @@ async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
   const verses = await app.library.findByContent(toRaw(language.value), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
-  filteredVerses.value = Array.from(verses)
+  filteredVerses.value = Array.from(verses).sort((a, b) => compare(a.number.value, b.number.value))
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+function compare(a: string, b: string): number {
+  const tokens1 = a.split(/\.| /)
+  const tokens2 = b.split(/\.| /)
+  for (const [idx] of tokens1.entries()) {
+    if (idx == 0) {
+      if (tokens1[idx] > tokens2[idx]) { return 1 }
+      if (tokens1[idx] < tokens2[idx]) { return -1 }
+    } else {
+      const c = parseInt(tokens1[idx]) - parseInt(tokens2[idx])
+      if (c != 0) return c
+    }
+  }
+  return 0
 }
 </script>
