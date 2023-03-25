@@ -15,11 +15,18 @@
     </ion-header>
 
     <ion-content class="ion-padding">
+      {{ syncLibraryTask.inProgress.value }}
       <VersesList
         :verses="filteredVerses"
         :verse-statuses="verseStatuses"
       />
     </ion-content>
+
+    <ion-loading
+      :is-open="syncLibraryTask.inProgress.value"
+      message="Loading verses..."
+      duration="3500"
+    />
   </ion-page>
 </template>
 
@@ -27,12 +34,12 @@
 <script lang="ts" setup>
 import { Application, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
-  IonContent, IonHeader, IonPage,
+  IonContent, IonHeader, IonPage, IonLoading,
   IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
 } from '@ionic/vue'
 import { inject, ref, shallowRef, toRaw, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { VersesList } from '@/app/library'
+import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useLocaleStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
@@ -40,6 +47,9 @@ import { useLocaleStore } from '@/app/settings'
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
+const libraryDatabase = inject('verses')
+const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
+const loadLibrary = useLoadLibraryIntoMemory(app, libraryDatabase)
 const locale = useLocaleStore()
 
 
@@ -52,12 +62,15 @@ const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
 const { language } = storeToRefs(locale)
 
+let isLibrarySynced = false
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
-onIonViewWillEnter(async () => await onSearchQueryChanged(searchQuery.value))
+onIonViewWillEnter(onOpened)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    Watch                                   */
@@ -69,6 +82,15 @@ watch(searchQuery, async (v) => await onSearchQueryChanged(v))
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
+
+async function onOpened() {
+  if (!isLibrarySynced) {
+    await syncLibraryTask.sync()
+    await loadLibrary.sync()
+    isLibrarySynced = true
+  }
+  await onSearchQueryChanged(searchQuery.value)
+}
 
 async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched

@@ -8,6 +8,8 @@ export { default as DeclamationsPlayer } from './components/DeclamationsPlayer.v
 export { default as DeclamationsList } from './components/DeclamationsList.vue'
 export { default as VersesList } from './components/VersesList.vue'
 export { default as VersesListItem } from './components/VersesListItem.vue'
+export * from './composables/useSyncLibraryTask'
+export * from './composables/useLoadLibraryIntoMemory'
 
 // routes
 export * from './routes/library'
