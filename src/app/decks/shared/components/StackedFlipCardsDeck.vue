@@ -1,7 +1,7 @@
 <template>
   <CardsDeck
     v-slot="data"
-    :cards="cards"
+    :cards="cardsToShow"
     :compute-style="computeStyle"
     class="deck"
     card-class="card"
@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { useArrayFilter } from '@vueuse/shared'
-import { defineEmits, defineExpose, defineProps, ref, watch, withDefaults } from 'vue'
+import { defineEmits, defineExpose, defineProps, ref, toRefs, watch, withDefaults } from 'vue'
 import { CardsDeck } from '@/app/decks/shared'
 
 /* -------------------------------------------------------------------------- */
@@ -69,7 +69,8 @@ interface CardState {
 }
 
 const cardStates = ref<{ [id: string]: CardState }>({})
-const cards = useArrayFilter(props.cards, card => card.index <= 2)
+const { cards } = toRefs(props)
+const cardsToShow = useArrayFilter(cards, card => card.index <= 2)
 
 
 /* -------------------------------------------------------------------------- */

@@ -4,7 +4,7 @@
     :data-index="index"
     :flipped="props.flipped"
     side-class="side side-color-0"
-    card-class="padding"
+    card-class="flip-card"
     @click.stop="onCardFlipped"
   >
     <template #front>

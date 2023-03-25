@@ -22,7 +22,7 @@
       <StackedFlipCardsDeck
         v-if="!isEmpty"
         v-slot="data"
-        :cards="cardsToShow"
+        :cards="cards"
         :can-swipe="canBeSwiped"
         @swipe:moving="onCardSwipeMoving"
         @swipe:cancel="onCardSwipeCancelled"
@@ -88,9 +88,9 @@ interface SwipePopup {
 }
 
 
-const cardsToShow = ref<CardState[]>([])
+const cards = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
-const isEmpty = computed(() => cardsToShow.value.length === 0)
+const isEmpty = computed(() => cards.value.length === 0)
 
 let inboxCards: readonly InboxCard[] = []
 
@@ -115,7 +115,8 @@ async function onOpened() {
       id: card.id.value, index, flipped: false, verseId: card.verseId
     })
   }
-  cardsToShow.value = result
+  console.log(result)
+  cards.value = result
 }
 
 function onCardFlipped(data: any) {
@@ -143,10 +144,10 @@ function onCardSwipeCancelled() {
 
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
   if (['left', 'right'].includes(direction)) {
-    indexedList.shiftItem(cardsToShow)
+    indexedList.shiftItem(cards)
   } else {
     const card = getInboxCard(id)
-    indexedList.removeItem(cardsToShow)
+    indexedList.removeItem(cards)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
   }
@@ -162,14 +163,14 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
   if (['left', 'right'].includes(direction)) {
-    return cardsToShow.value.length > 1 && distance > 40
+    return cards.value.length > 1 && distance > 40
   }
   return distance > 120
 }
 
 
 function getCardState(id: string): CardState {
-  const res = cardsToShow.value.find(x => x.id === id)
+  const res = cards.value.find(x => x.id === id)
   return res as CardState
 }
 
