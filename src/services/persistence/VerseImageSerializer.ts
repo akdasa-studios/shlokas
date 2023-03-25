@@ -3,9 +3,7 @@ import { ObjectMapper } from './ObjectMapper'
 
 
 export class VerseImageSerializer implements ObjectMapper<VerseImage, any> {
-  map(from: VerseImage): any {
-    throw new Error('Should not be executed')
-  }
+  map(): any { throw new Error('Should not be executed') }
 }
 
 export class VerseImageDeserializer implements ObjectMapper<any, VerseImage> {

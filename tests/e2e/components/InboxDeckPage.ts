@@ -24,6 +24,7 @@ export class InboxDeckPage {
 
   async swipeCardUp(locator: Locator) {
     // Safari is a piece of shit...
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await this.page.waitForTimeout(1000)
 
     await this.page.mouse.move(40, 580)
@@ -32,6 +33,7 @@ export class InboxDeckPage {
     await this.page.mouse.up()
 
     // Seriously
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await this.page.waitForTimeout(500)
 
     // await locator.dragTo(locator, {

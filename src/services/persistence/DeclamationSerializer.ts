@@ -3,9 +3,7 @@ import { ObjectMapper } from './ObjectMapper'
 
 
 export class DeclamationSerializer implements ObjectMapper<Declamation, any> {
-  map(from: Declamation): any {
-    throw new Error('Should not be executed')
-  }
+  map(): any { throw new Error('Should not be executed') }
 }
 
 export class DeclamationDeserializer implements ObjectMapper<any, Declamation> {
