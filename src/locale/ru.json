@@ -1,20 +1,21 @@
 {
   "cards": {
     "grade": {
+      "remember": "Remember",
       "forgot": "Забыл",
       "hard": "Трудно",
       "good": "Хорошо",
       "easy": "Легко"
     },
     "questions": {
-      "number": "Вспомните номер стиха",
-      "text": "Вспомните текст",
-      "translation": "Вспомните перевод"
+      "number": "Recall verse number",
+      "text": "Recall text",
+      "translation": "Recall translation"
     },
     "memorized": "Карточка запомнена",
     "inbox": {
-      "finished": "Запомнил",
-      "inProgress": "Учу"
+      "memorized": "Memorized",
+      "memorizing": "Memorizing"
     },
     "schedule": {
       "inDays": "сегодня | + {count} день | + {count} дней",
@@ -146,5 +147,8 @@
   },
   "app": {
     "name": "Учи шлоки!"
+  },
+  "themes": {
+    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
   }
 }
