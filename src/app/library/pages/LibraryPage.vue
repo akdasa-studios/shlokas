@@ -63,7 +63,7 @@ onIonViewWillEnter(async () => await onSearchQueryChanged(searchQuery.value))
 /*                                    Watch                                   */
 /* -------------------------------------------------------------------------- */
 
-watch(searchQuery, async (v) => await onSearchQueryChanged(v), { immediate: true })
+watch(searchQuery, async (v) => await onSearchQueryChanged(v))
 
 
 /* -------------------------------------------------------------------------- */

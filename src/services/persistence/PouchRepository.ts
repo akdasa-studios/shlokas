@@ -1,10 +1,12 @@
-import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, LogicalOperators } from '@akdasa-studios/framework'
+import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, LogicalOperators , Logger } from '@akdasa-studios/framework'
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
 import PouchDBAdapterSqlLite from 'pouchdb-adapter-cordova-sqlite'
 import { deepMerge } from './deepMerge'
 import { ObjectMapper } from './ObjectMapper'
+
+const log = new Logger('db')
 
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)
@@ -70,6 +72,7 @@ export class PouchRepository<
   }
 
   async all(): Promise<readonly TAggregate[]> {
+    log.debug(`[${this._collectionName}] all`)
     const allDocs = await this.find(
       new QueryBuilder<TAggregate>()
         // @ts-ignore
@@ -80,6 +83,7 @@ export class PouchRepository<
   }
 
   async save(entity: TAggregate): Promise<void> {
+    log.debug(`[${this._collectionName}] save`, entity)
     const serializedDoc = this._serializer.map(entity)
     await this._db.db.upsert(
       entity.id.value,
@@ -88,6 +92,7 @@ export class PouchRepository<
   }
 
   async get(id: TAggregate['id']): Promise<TAggregate> {
+    log.debug(`[${this._collectionName}] get`, id)
     try {
       const document = await this._db.db.get(id.value)
       return this._deserializer.map(document)
@@ -97,11 +102,13 @@ export class PouchRepository<
   }
 
   async exists(id: TAggregate['id']): Promise<boolean> {
+    log.debug(`[${this._collectionName}] exists`, id)
     const document = await this.get(id)
     return document !== undefined
   }
 
   async find(query: Query<TAggregate>): Promise<TAggregate[]> {
+    log.debug(`[${this._collectionName}] find`, query)
     const convertedQuery = new QueryConverter().convert(query)
     convertedQuery.selector['@type'] = this._collectionName
     const items = await this._db.db.find(convertedQuery)
@@ -109,6 +116,7 @@ export class PouchRepository<
   }
 
   async delete(id: TAggregate['id']): Promise<void> {
+    log.debug(`[${this._collectionName}] delete`, id)
     try {
       const doc = await this._db.db.get(id.value, { latest: true })
       await this._db.db.remove(doc)

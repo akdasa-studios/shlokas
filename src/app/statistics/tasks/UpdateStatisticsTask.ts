@@ -16,10 +16,9 @@ export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2
   emitter.on('syncCompleted', async () => await updateStatistics())
 
   async function updateStatistics() {
-    const cards = await app.reviewDeck.dueToCards(nextDays(1))
-    statisticsStore.cardsCountDueToTomorrow = cards.length
-    statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
+    statisticsStore.cardsCountDueToTomorrow = await (await app.reviewDeck.dueToCards(nextDays(1))).length
     statisticsStore.cardsInReview = (await app.reviewDeck.dueToCards(app.timeMachine.now)).length
+    statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
   }
 }
 
