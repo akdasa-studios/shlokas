@@ -1,20 +1,21 @@
 {
   "cards": {
     "grade": {
+      "remember": "Remember",
       "forgot": "Forgot",
       "hard": "Hard",
       "good": "Good",
       "easy": "Easy"
     },
     "questions": {
-      "number": "Verse number",
-      "text": "Text",
-      "translation": "Translation"
+      "number": "Recall verse number",
+      "text": "Recall text",
+      "translation": "Recall translation"
     },
     "memorized": "Card memorized",
     "inbox": {
-      "finished": "Finished",
-      "inProgress": "In Progress"
+      "memorized": "Memorized",
+      "memorizing": "Memorizing"
     },
     "schedule": {
       "inDays": "today | + {count} day | + {count} days",
@@ -146,5 +147,8 @@
   },
   "app": {
     "name": "Shlokas"
+  },
+  "themes": {
+    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
   }
 }
