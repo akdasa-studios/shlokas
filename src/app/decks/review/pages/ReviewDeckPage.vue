@@ -137,11 +137,13 @@ async function onOpened() {
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
   await libraryCache.load(reviewCards.map(x => x.verseId))
 
+  const result = []
   for (const [index, card] of reviewCards.entries()) {
-    cardsToShow.value.push({
+    result.push({
       id: card.id.value, index, flipped: false, verseId: card.verseId
     })
   }
+  cardsToShow.value = result
 }
 
 function onCardFlipped(data: any) {
@@ -192,7 +194,7 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
-  const isCardDueToday = reviewCard.dueTo.getTime() === app.timeMachine.today.getTime()
+  const isCardDueToday = reviewCard.dueTo.getTime() <= app.timeMachine.today.getTime()
 
   if (isCardDueToday) {
     indexedList.shiftItem(cardsToShow)
@@ -202,6 +204,7 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
+
 }
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {

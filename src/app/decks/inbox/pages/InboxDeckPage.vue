@@ -115,7 +115,6 @@ async function onOpened() {
       id: card.id.value, index, flipped: false, verseId: card.verseId
     })
   }
-  console.log(result)
   cards.value = result
 }
 
