@@ -1,7 +1,7 @@
 <template>
   <div v-if="declamationsCount > 0">
     <VerseAudioPlayer
-      :url="declamations[activeDeclamationIdx].url"
+      :url="activeDeclamation.url"
       :title="props.title"
       :artist="$t('app.name')"
       :show-progress-bar="true"
@@ -42,6 +42,7 @@ const props = defineProps<{
 const declamations = useSorted<Declamation>(props.declamations, (a,b) => getSortScore(a) - getSortScore(b))
 const declamationsCount = computed(() => declamations.value.length)
 const activeDeclamationIdx = ref<number>(0)
+const activeDeclamation = computed(() => declamations.value[activeDeclamationIdx.value])
 
 
 /* -------------------------------------------------------------------------- */

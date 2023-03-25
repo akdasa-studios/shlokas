@@ -1,0 +1,186 @@
+[
+  {
+    "_id": "c52cb4b5-82b9-5d1f-85e9-b5e0455702fe",
+    "@type": "verse",
+    "language": "ru",
+    "number": "БГ 1.1",
+    "text": [
+      "дхр̣тара̄шт̣ра ува̄ча",
+      "дхарма-кшетре куру-кшетре",
+      "самавета̄ йуйутсавах̣",
+      "ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаива",
+      "ким акурвата сан̃джайа"
+    ],
+    "translation": "Дхритараштра спросил: О Санджая, что стали делать мои сыновья и сыновья Панду, когда, горя желанием вступить в бой, собрались в месте паломничества, на поле Курукшетра?",
+    "reference": "BG 1.1",
+    "synonyms": [
+      {
+        "words": [
+          "дхр̣тара̄шт̣рах̣",
+          "ува̄ча"
+        ],
+        "translation": "царь Дхритараштра сказал"
+      },
+      {
+        "words": [
+          "дхарма",
+          "кшетре"
+        ],
+        "translation": "в месте паломничества"
+      },
+      {
+        "words": [
+          "куру",
+          "кшетре"
+        ],
+        "translation": "в месте под названием Курукшетра"
+      },
+      {
+        "words": [
+          "самавета̄х̣"
+        ],
+        "translation": "собравшиеся"
+      },
+      {
+        "words": [
+          "йуйутсавах̣"
+        ],
+        "translation": "желающие вступить в бой"
+      },
+      {
+        "words": [
+          "ма̄мака̄х̣"
+        ],
+        "translation": "те, кто на моей стороне (мои сыновья)"
+      },
+      {
+        "words": [
+          "па̄н̣д̣ава̄х̣"
+        ],
+        "translation": "сыновья Панду"
+      },
+      {
+        "words": [
+          "ча"
+        ],
+        "translation": "и"
+      },
+      {
+        "words": [
+          "эва"
+        ],
+        "translation": "безусловно"
+      },
+      {
+        "words": [
+          "ким"
+        ],
+        "translation": "что"
+      },
+      {
+        "words": [
+          "акурвата"
+        ],
+        "translation": "сделали"
+      },
+      {
+        "words": [
+          "сан̃джайа"
+        ],
+        "translation": "о Санджая"
+      }
+    ]
+  },
+  {
+    "_id": "56bc3cbb-7729-5046-b3fb-44e08f3e1aad",
+    "@type": "verse",
+    "language": "en",
+    "number": "BG 1.1",
+    "text": [
+      "dhṛtarāṣṭra uvāca",
+      "dharma-kṣetre kuru-kṣetre",
+      "samavetā yuyutsavaḥ",
+      "māmakāḥ pāṇḍavāś caiva",
+      "kim akurvata sañjaya"
+    ],
+    "translation": "Dhṛtarāṣṭra said: O Sañjaya, after my sons and the sons of Pāṇḍu assembled in the place of pilgrimage at Kurukṣetra, desiring to fight, what did they do?",
+    "reference": "BG 1.1",
+    "synonyms": [
+      {
+        "words": [
+          "dhṛtarāṣṭraḥ",
+          "uvāca"
+        ],
+        "translation": "King Dhṛtarāṣṭra said"
+      },
+      {
+        "words": [
+          "dharma",
+          "kṣetre"
+        ],
+        "translation": "in the place of pilgrimage"
+      },
+      {
+        "words": [
+          "kuru",
+          "kṣetre"
+        ],
+        "translation": "in the place named Kurukṣetra"
+      },
+      {
+        "words": [
+          "samavetāḥ"
+        ],
+        "translation": "assembled"
+      },
+      {
+        "words": [
+          "yuyutsavaḥ"
+        ],
+        "translation": "desiring to fight"
+      },
+      {
+        "words": [
+          "māmakāḥ"
+        ],
+        "translation": "my party (sons)"
+      },
+      {
+        "words": [
+          "pāṇḍavāḥ"
+        ],
+        "translation": "the sons of Pāṇḍu"
+      },
+      {
+        "words": [
+          "ca"
+        ],
+        "translation": "and"
+      },
+      {
+        "words": [
+          "eva"
+        ],
+        "translation": "certainly"
+      },
+      {
+        "words": [
+          "kim"
+        ],
+        "translation": "what"
+      },
+      {
+        "words": [
+          "akurvata"
+        ],
+        "translation": "did they do"
+      },
+      {
+        "words": [
+          "sañjaya"
+        ],
+        "translation": "O Sañjaya"
+      }
+    ]
+  }
+]

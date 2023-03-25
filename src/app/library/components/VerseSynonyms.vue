@@ -1,7 +1,7 @@
 <template>
   <div class="synonyms">
     <span
-      v-for="synonym in getSynonnyms(props.lineNumber)"
+      v-for="synonym in filteredSynonyms"
       :key="synonym.word"
     >
       <span class="word">{{ synonym.word }}</span> –
@@ -13,7 +13,8 @@
 
 <script lang="ts" setup>
 import { Synonym } from '@akdasa-studios/shlokas-core'
-import { defineProps } from 'vue'
+import { useArrayFilter } from '@vueuse/shared'
+import { defineProps, toRefs } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -29,14 +30,10 @@ const props = defineProps<{
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-/*                                   Helpers                                  */
-/* -------------------------------------------------------------------------- */
-
-function getSynonnyms(lineNumber: number|undefined) {
-  if (lineNumber === undefined) return props.synonyms
-  return props.synonyms.filter(x => x.lineNumber == lineNumber)
-}
+const { lineNumber, synonyms } = toRefs(props)
+const filteredSynonyms = useArrayFilter(synonyms,
+  x => x.lineNumber === lineNumber?.value || lineNumber?.value === undefined
+)
 </script>
 
 

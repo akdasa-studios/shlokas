@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, watch, toRefs } from 'vue'
+import { computed, defineProps, watch, toRefs, withDefaults } from 'vue'
 import { playCircle, stopCircle, reloadCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
 import { storeToRefs } from 'pinia'
@@ -42,13 +42,15 @@ import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   url?: string,
   title?: string,
   artist?: string,
   showProgressBar?: boolean,
   showRepeatButton?: boolean
-}>()
+}>(), {
+  url: '', title: '', artist: ''
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -66,10 +68,9 @@ const progressType  = computed(() => downloadService.isDownloading.value ? 'inde
 
 watch(url, async (value) => onUrlChanged(value), { immediate: true })
 
-async function onUrlChanged(url: string|undefined) {
+async function onUrlChanged(url: string) {
   if (!url) { return }
-  const localUri = await downloadService.download(url)
-  audioPlayer.open(localUri, props.title, props.artist)
+  audioPlayer.open(url, props.title, props.artist)
 }
 </script>
 

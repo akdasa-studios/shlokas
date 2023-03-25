@@ -48,7 +48,7 @@ const audioPlayer = useAudioPlayerStore()
 
 const declamation = shallowRef<Declamation>()
 const repeatCurrent = ref(0)
-const repeatsPerLine = ref(2)
+const repeatsPerLine = ref(5)
 const currentLine = ref(0)
 const skipedLines = ref(0)
 const { duration, time, playing } = storeToRefs(audioPlayer)
@@ -85,6 +85,7 @@ function onTogglePlaying() {
 
 function onAudioProgressChanged(value: number, duration: number) {
   const d = getDefautltDeclamation() as Declamation
+
 
   if (value >= (d.markers[currentLine.value - skipedLines.value] || (duration-.5))) {
     repeatCurrent.value += 1
