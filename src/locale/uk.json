@@ -1,20 +1,21 @@
 {
   "cards": {
     "grade": {
+      "remember": "Remember",
       "forgot": "Не пам'ятаю",
       "hard": "Важко",
       "good": "Добре",
       "easy": "Легко"
     },
     "questions": {
-      "number": "Номер вірша",
-      "text": "Текст",
-      "translation": "Переклад"
+      "number": "Recall verse number",
+      "text": "Recall text",
+      "translation": "Recall translation"
     },
     "memorized": "Картку запам'ятовано",
     "inbox": {
-      "finished": "Завершено",
-      "inProgress": "В процесі"
+      "memorized": "Memorized",
+      "memorizing": "Memorizing"
     },
     "schedule": {
       "inDays": "сьогодні | + {count} день | + {count} днів",
@@ -146,5 +147,8 @@
   },
   "app": {
     "name": "Шлоки"
+  },
+  "themes": {
+    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
   }
 }
