@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, toRefs, withDefaults } from 'vue'
+import { computed, defineProps, onMounted, ref, toRefs, withDefaults } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -34,9 +34,18 @@ export interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  flipped: false, showOverlay: false,
-  sideClass: undefined
+  flipped: false,
+  sideClass: undefined,
+  cardClass: undefined
 })
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+// animation issue workaround
+onMounted(() => { setTimeout(() => transition.value = '.5s ease-in-out', 0) })
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -44,6 +53,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { flipped, sideClass } = toRefs(props)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
+const transition = ref('0s')
 </script>
 
 
@@ -67,7 +77,7 @@ $flipAngleBack: calc(v-bind(flipAngle) * 1deg - 180deg);
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    transition: .5s ease-in-out;
+    transition: v-bind(transition);
     overflow: hidden;
 
     &--front {

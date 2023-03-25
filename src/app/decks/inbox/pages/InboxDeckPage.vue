@@ -100,6 +100,7 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(async () => await onOpened())
 
+
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
@@ -119,6 +120,7 @@ async function onOpened() {
 
 function onCardFlipped(data: any) {
   const state = getCardState(data.id)
+  if (state.index !== 0) return
   state.flipped = !state.flipped
 }
 

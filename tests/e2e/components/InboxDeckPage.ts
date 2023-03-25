@@ -23,10 +23,21 @@ export class InboxDeckPage {
   }
 
   async swipeCardUp(locator: Locator) {
-    await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 180 },
-      targetPosition: { x: 40, y: 40 }
-    })
+    // Safari is a piece of shit...
+    await this.page.waitForTimeout(1000)
+
+    await this.page.mouse.move(40, 580)
+    await this.page.mouse.down()
+    await this.page.mouse.move(40, 240, { steps: 10 })
+    await this.page.mouse.up()
+
+    // Seriously
+    await this.page.waitForTimeout(500)
+
+    // await locator.dragTo(locator, {
+    //   sourcePosition: { x: 40, y: 380 },
+    //   targetPosition: { x: 40, y: 240 }
+    // })
     await locator.waitFor({ state: 'detached' })
   }
 }

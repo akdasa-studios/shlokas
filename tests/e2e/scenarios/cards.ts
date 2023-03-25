@@ -13,7 +13,7 @@ export async function addCardsToReview(page: Page, verses: string[]) {
   for (const verse of verses) {
     await library.verse(verse).click()
     await verseDetailsPage.addButton.click()
-    await page.waitForTimeout(500)
+    await verseDetailsPage.addButton.waitFor({ state: 'detached' })
   }
 
   await tabs.inboxTab.click()

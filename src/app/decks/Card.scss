@@ -1,17 +1,3 @@
-
-$colors: (
-  "1": #ffb7ce,
-  "2": #89cff0,
-  "3": #99c5c4,
-  "4": #9adedb,
-  "5": #F2C4DE,
-  "6": #aaf0d1,
-  "7": #FFDFD3,
-  "8": #E5F5DC,
-  "9": #bdb0d0,
-  "t": #B7D6F6,
-);
-
 .side {
   display: flex;
   flex-direction: column;
@@ -55,29 +41,8 @@ $colors: (
   border-color: var(--ion-color-cards-shade);
   border-bottom-color: var(--ion-color-cards-shade);
 
-  // > .number {
-  //   background-color: var(--ion-color-cards-shade);
-  // }
   > .question {
     background-color: var(--ion-color-cards-shade);
-  }
-}
-
-@each $name, $base-color in $colors {
-  $darken-color: darken($base-color, 10%);
-
-  .side-color-#{$name} {
-    background-color: $base-color;
-    border-color: $darken-color;
-    border-bottom-color: $darken-color;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .side-color-#{$name} {
-      background-color: invert($base-color);
-      border-color: invert($darken-color);
-      border-bottom-color: invert($darken-color);
-    }
   }
 }
 

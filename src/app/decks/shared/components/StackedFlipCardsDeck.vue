@@ -15,7 +15,8 @@
 
 
 <script lang="ts" setup>
-import { defineProps, ref, watch, defineEmits, withDefaults, defineExpose, toRefs } from 'vue'
+import { useArrayFilter } from '@vueuse/shared'
+import { defineEmits, defineExpose, defineProps, ref, watch, withDefaults } from 'vue'
 import { CardsDeck } from '@/app/decks/shared'
 
 /* -------------------------------------------------------------------------- */
@@ -68,7 +69,7 @@ interface CardState {
 }
 
 const cardStates = ref<{ [id: string]: CardState }>({})
-const { cards } = toRefs(props)
+const cards = useArrayFilter(props.cards, card => card.index <= 2)
 
 
 /* -------------------------------------------------------------------------- */
@@ -165,7 +166,7 @@ function updateMovedCard(card: CardState) {
 function computeStyle(card: Card) {
   const r = getCardState(card.id)
   const actions = {
-    inactive: '.5s ease-in-out;',
+    inactive: '.5s ease-in-out',
     swiping:  'none',
     swiped:   '.25s linear'
   }
@@ -223,6 +224,7 @@ function swipeTopCard() {
   }
 }
 </script>
+
 
 <style scoped>
 :deep(.card) {

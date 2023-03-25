@@ -173,7 +173,8 @@ function onCardSwipeCancelled() {
 
 async function onCardSwipeFinished(id: string, { direction, distance }: { distance: number, direction: string }) {
   if (!topCard.value?.id) { return }
-  await gradeCard(getReviewCard(topCard.value.id), getGrade(direction, distance))
+  const grade = getGrade(direction, distance)
+  if (grade !== undefined) { await gradeCard(getReviewCard(topCard.value.id), grade) }
 }
 
 async function onGradeButtonClicked(grade: ReviewGrade) {
@@ -190,12 +191,14 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
 /* -------------------------------------------------------------------------- */
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
-  if (grade === ReviewGrade.Forgot) {
+  await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
+  const isCardDueToday = reviewCard.dueTo.getTime() === app.timeMachine.today.getTime()
+
+  if (isCardDueToday) {
     indexedList.shiftItem(cardsToShow)
   } else {
-    indexedList.removeItem(cardsToShow)
-    await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
     await app.processor.execute(new UpdateVerseStatus(reviewCard.verseId))
+    indexedList.removeItem(cardsToShow)
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false

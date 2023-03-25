@@ -23,10 +23,9 @@ export class ReviewDeckPage {
 
   async swipeCardUp(locator: Locator) {
     await locator.dragTo(locator, {
-      sourcePosition: { x: 40, y: 200 },
-      targetPosition: { x: 40, y: 40 }
+      sourcePosition: { x: 40, y: 380 },
+      targetPosition: { x: 40, y: 240 }
     })
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(250)
+    await locator.waitFor({ state: 'detached' })
   }
 }

@@ -15,6 +15,13 @@
     </div>
 
     <div
+      class="option"
+      :class="getClassForSchedule()"
+    >
+      {{ $t(...intervalToText.convert(props.interval)) }}
+    </div>
+
+    <div
       class="option forgot"
       :class="getClassForForgot()"
     >
@@ -23,13 +30,6 @@
         size="large"
       />
       {{ $t('cards.grade.forgot') }}
-    </div>
-
-    <div
-      class="option"
-      :class="getClassForSchedule()"
-    >
-      {{ $t(...intervalToText.convert(props.interval)) }}
     </div>
   </div>
 </template>
