@@ -41,7 +41,9 @@ export function useDownloadService() {
     // if they're offline.
     isDownloading.value = true
     log.debug(`Downloading ${url}`)
-    const res = await fetch(url, { method: 'GET', mode: 'cors' })
+    const res = await fetch(url, {
+      method: 'GET', mode: 'cors', headers: {}
+    })
 
     // Write file to the filesystem
     log.debug(`Writing ${filePath}`)

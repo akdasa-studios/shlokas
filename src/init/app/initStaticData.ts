@@ -1,37 +1,31 @@
 
-import { Language, Translation, VerseBuilder, VerseId, VerseNumber, Text } from '@akdasa-studios/shlokas-core'
-import versesEn from '../../verses.en.json'
-import versesRu from '../../verses.ru.json'
-import versesUk from '../../verses.uk.json'
+import { Translation, VerseId, VerseNumber, Text, Language, Application, Verse, Synonym } from '@akdasa-studios/shlokas-core'
 import { InitArgs } from '../initialization'
+import { CouchDB } from './../../services/persistence/PouchRepository'
 
 export async function initStaticData(
-  { shlokas }: InitArgs
+  { get }: InitArgs
 ) {
-  loadVerses({shlokas}, new Language('ru', 'Русский'), versesRu)
-  loadVerses({shlokas}, new Language('en', 'English'), versesEn)
-  loadVerses({shlokas}, new Language('uk', 'Українська мова'), versesUk)
-}
+  const shlokas = get<Application>('app')
+  const db: CouchDB = get('verses')
+  const docs: any = await db.db.find({ selector: { '@type': 'verse' }})
 
-function loadVerses(
-  { shlokas }: Pick<InitArgs, 'shlokas'>,
-  lang: Language,
-  verses: any[]
-) {
-  for (const verse of verses) {
-    const builder = new VerseBuilder()
-      .ofLanguage(lang)
-      .withId(new VerseId(verse.uuid))
-      .withNumber(new VerseNumber(verse.number))
-      .withText(new Text(verse.text))
-      .withTranslation(new Translation(verse.translation))
-      .withTextAudioUri(verse.textAudioUri)
-      .withTextImageUri(verse.textImageUri)
-
+  for (const verse of docs.docs) {
+    const synonyms = []
     for (const w of verse.synonyms) {
-      builder.withSynonym(w.words.join(' '), w.translation)
+      synonyms.push(new Synonym(w.words.join(' '), w.translation, w.lineNumber))
     }
 
-    shlokas.repositories.verses.save(builder.build().value)
+    const v = new Verse(
+      new VerseId(verse._id),
+      new VerseNumber(verse.number),
+      verse.reference,
+      new Language(verse.language, verse.language),
+      new Text(verse.text),
+      new Translation(verse.translation),
+      synonyms
+    )
+
+    await shlokas.repositories.verses.save(v)
   }
 }

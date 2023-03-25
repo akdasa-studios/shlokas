@@ -54,7 +54,7 @@ test.describe('Settings › Account › Sync', () => {
     const library2 = new LibraryPage(page2)
     await tabs2.libraryTab.click()
 
-    await expect(library2.verseBadge('BG 1.1')).toHaveText('REVIEW')
+    await expect(library2.verseBadge('BG 1.1')).toHaveText('Review')
     await context2.close()
   })
 

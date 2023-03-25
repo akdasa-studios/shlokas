@@ -1,10 +1,12 @@
+import { Application } from '@akdasa-studios/shlokas-core'
 import { useTutorialStore } from '@/app/decks/shared'
 import { InitArgs } from '../initialization'
 
 
 export async function initParams(
-  { shlokas }: InitArgs
+  { get }: InitArgs
 ) {
+  const shlokas = get<Application>('app')
   const tutorialSore = useTutorialStore()
   const params = new URLSearchParams(window.location.search)
   const tutorialEnabled = params.get('tutorialEnabled')

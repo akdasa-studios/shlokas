@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, watch, toRefs } from 'vue'
+import { computed, defineProps, watch, toRefs, withDefaults } from 'vue'
 import { playCircle, stopCircle, reloadCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
 import { storeToRefs } from 'pinia'
@@ -42,13 +42,15 @@ import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
-const props = defineProps<{
-  uri?: string,
+const props = withDefaults(defineProps<{
+  url?: string,
   title?: string,
   artist?: string,
   showProgressBar?: boolean,
   showRepeatButton?: boolean
-}>()
+}>(), {
+  url: '', title: '', artist: ''
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -56,7 +58,7 @@ const props = defineProps<{
 
 const downloadService = useDownloadService()
 const audioPlayer = useAudioPlayerStore()
-const { uri } = toRefs(props)
+const { url } = toRefs(props)
 const { playing, loop, progress } = storeToRefs(audioPlayer)
 const progressType  = computed(() => downloadService.isDownloading.value ? 'indeterminate' : 'determinate')
 
@@ -64,12 +66,11 @@ const progressType  = computed(() => downloadService.isDownloading.value ? 'inde
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
-watch(uri, async (value) => onUriChanged(value), { immediate: true })
+watch(url, async (value) => onUrlChanged(value), { immediate: true })
 
-async function onUriChanged(uri: string|undefined) {
-  if (!uri) { return }
-  const localUri = await downloadService.download(uri)
-  audioPlayer.open(localUri, props.title, props.artist)
+async function onUrlChanged(url: string) {
+  if (!url) { return }
+  audioPlayer.open(url, props.title, props.artist)
 }
 </script>
 

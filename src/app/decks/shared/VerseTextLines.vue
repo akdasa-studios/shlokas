@@ -1,10 +1,11 @@
 <template>
   <div>
     <DarkImage
-      v-if="props.uri && imageUri"
+      v-if="imageUri"
       :src="imageUri"
       :is-dark="isDark"
       mode="invert"
+      class="image"
     />
 
     <SVGTextLines
@@ -20,27 +21,58 @@
 import { onMounted, defineProps, ref } from 'vue'
 import { DarkImage, SVGTextLines } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
-import { useDownloadService } from '@/app/shared'
+import { useDownloadService, useEnv } from '@/app/shared'
+
+/* -------------------------------------------------------------------------- */
+/*                                  Interface                                 */
+/* -------------------------------------------------------------------------- */
 
 const props = defineProps<{
   lines: string[]
-  uri?: string|undefined
+  url?: string|undefined
 }>()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
 
 const downloadService = useDownloadService()
 const isDark = usePreferredDark()
+const env = useEnv()
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
 
 const imageUri = ref('')
 
-onMounted(async () => {
-  if (props.uri) { imageUri.value = await downloadService.download(props.uri) }
-})
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+onMounted(onOpened)
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+async function onOpened() {
+  if (props.url) {
+    imageUri.value = await downloadService.download(env.getContentUrl(props.url))
+  }
+}
 </script>
 
-<style scoped lang="scss">
-/deep/ .line {
+<style scoped>
+:deep(.line) {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
   font-size: 20px;
+}
+
+.image {
+  padding: .5rem;
 }
 </style>

@@ -27,10 +27,10 @@
           <ion-icon :icon="enterOutline" />
           <ion-label>{{ $t('decks.inbox.title') }}</ion-label>
           <ion-badge
-            v-if="inboxDeckCount"
+            v-if="cardsInInbox"
             data-testid="inbox-tab-badge"
           >
-            {{ inboxDeckCount }}
+            {{ cardsInInbox }}
           </ion-badge>
         </ion-tab-button>
 
@@ -42,10 +42,10 @@
           <ion-icon :icon="albumsOutline" />
           <ion-label>{{ $t('decks.review.title') }}</ion-label>
           <ion-badge
-            v-if="reviewDeckCount"
+            v-if="cardsInReview"
             data-testid="review-tab-badge"
           >
-            {{ reviewDeckCount }}
+            {{ cardsInReview }}
           </ion-badge>
         </ion-tab-button>
 
@@ -73,13 +73,21 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { useInboxDeckStore } from '@/app/decks/inbox'
-import { useReviewDeckStore } from '@/app/decks/review'
 import { useAudioPlayerStore } from '@/app/shared'
+import { useStatisticsStore } from '@/app/statistics'
 
-const { count: inboxDeckCount } = storeToRefs(useInboxDeckStore())
-const { count: reviewDeckCount } = storeToRefs(useReviewDeckStore())
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const statisticsStore = useStatisticsStore()
 const audioPlayer = useAudioPlayerStore()
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */

@@ -1,10 +1,12 @@
-import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, Result, LogicalOperators } from '@akdasa-studios/framework'
+import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, LogicalOperators , Logger } from '@akdasa-studios/framework'
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
 import PouchDBAdapterSqlLite from 'pouchdb-adapter-cordova-sqlite'
 import { deepMerge } from './deepMerge'
 import { ObjectMapper } from './ObjectMapper'
+
+const log = new Logger('db')
 
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)
@@ -31,8 +33,11 @@ export class CouchDB {
   }
 
   async sync(to: string) {
-    console.log('syncing to', to)
     await this._db.sync(to)
+  }
+
+  async replicateFrom(from: string) {
+    return await this._db.replicate.from(from)
   }
 
   async deleteAll() {
@@ -66,53 +71,56 @@ export class PouchRepository<
     this._deserializer = deserializer
   }
 
-  async all(): Promise<Result<readonly TAggregate[]>> {
+  async all(): Promise<readonly TAggregate[]> {
+    log.debug(`[${this._collectionName}] all`)
     const allDocs = await this.find(
       new QueryBuilder<TAggregate>()
         // @ts-ignore
         .eq('@type', this._collectionName) // @ts-ignore
     ) // .allDocs({ include_docs: true })
     // const mappedDoc = allDocs.value.map(x => this._deserializer.map(x.doc).value)
-    return Result.ok(allDocs.value)
+    return allDocs
   }
 
-  async save(entity: TAggregate): Promise<Result<void, string>> {
-    const serializedDoc = this._serializer.map(entity).value
+  async save(entity: TAggregate): Promise<void> {
+    log.debug(`[${this._collectionName}] save`, entity)
+    const serializedDoc = this._serializer.map(entity)
     await this._db.db.upsert(
       entity.id.value,
       () => { return serializedDoc as any }
     )
-    return Result.ok()
   }
 
-  async get(id: TAggregate['id']): Promise<Result<TAggregate, string>> {
+  async get(id: TAggregate['id']): Promise<TAggregate> {
+    log.debug(`[${this._collectionName}] get`, id)
     try {
       const document = await this._db.db.get(id.value)
-      return Result.ok(this._deserializer.map(document).value)
+      return this._deserializer.map(document)
     } catch {
-      return Result.fail('404?')
+      throw new Error('404')
     }
   }
 
   async exists(id: TAggregate['id']): Promise<boolean> {
+    log.debug(`[${this._collectionName}] exists`, id)
     const document = await this.get(id)
-    return document.isSuccess
+    return document !== undefined
   }
 
-  async find(query: Query<TAggregate>): Promise<Result<TAggregate[], string>> {
+  async find(query: Query<TAggregate>): Promise<TAggregate[]> {
+    log.debug(`[${this._collectionName}] find`, query)
     const convertedQuery = new QueryConverter().convert(query)
     convertedQuery.selector['@type'] = this._collectionName
     const items = await this._db.db.find(convertedQuery)
-    const objs = items.docs.map(x => this._deserializer.map(x).value)
-    return Result.ok(objs)
+    return items.docs.map(x => this._deserializer.map(x))
   }
 
-  async delete(id: TAggregate['id']): Promise<Result<void, string>> {
+  async delete(id: TAggregate['id']): Promise<void> {
+    log.debug(`[${this._collectionName}] delete`, id)
     try {
       const doc = await this._db.db.get(id.value, { latest: true })
       await this._db.db.remove(doc)
     } catch(e) { console.log('CANT DELETE', e, this._collectionName) }
-    return Result.ok()
   }
 }
 
@@ -124,6 +132,7 @@ class QueryConverter {
     [Operators.LessThan]: '$lt',
     [Operators.LessThanOrEqual]: '$lte',
     [Operators.In]: '$in',
+    [Operators.Contains]: '$regex'
   }
 
   convert(query: Query<any>): any {
@@ -132,14 +141,24 @@ class QueryConverter {
 
   _visit(query: Query<any>): any {
     if (query instanceof Predicate) {
+      // if (query.field === 'language') { return {} }
+      // if (query.field === 'number.value') { return { 'number': { '$regex': new RegExp(query.value as string) } } }
+      // if (query.field === 'text.lines') { return {} }
+      // if (query.field === 'translation.text') { return {} }
+
       if (query.operator === Operators.Equal && query.value === undefined) {
         return { [query.field]: { '$exists': false } }
       }
 
+      // emulate contains with regex
+      let value = this.getValue(query.value)
+      if (query.operator === Operators.Contains) {
+        value = new RegExp(value)
+      }
+
+      // return query
       return {
-        [query.field]: {
-          [this.operatorsMap[query.operator]] : this.getValue(query.value)
-        }
+        [query.field]: { [this.operatorsMap[query.operator]] : value }
       }
     } else if (query instanceof Expression) {
       if (query.operator === LogicalOperators.Not) {

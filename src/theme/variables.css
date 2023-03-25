@@ -74,6 +74,14 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+
+  --ion-color-cards: #B5DDA4;
+	--ion-color-cards-rgb: 181,221,164;
+	--ion-color-cards-contrast: #000000;
+	--ion-color-cards-contrast-rgb: 0,0,0;
+	--ion-color-cards-shade: #9fc290;
+	--ion-color-cards-tint: #bce0ad;
 }
 
 @media (prefers-color-scheme: dark) {

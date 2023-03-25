@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Page } from '@playwright/test'
-import { Account } from '../components'
+import { Account, TabsBar } from '../components'
 
 export async function signUp(
   context: BrowserContext,
@@ -54,8 +54,10 @@ export async function logInNewDevice(
 ): Promise<[BrowserContext, Page]> {
   const context = await browser.newContext()
   const page    = await context.newPage()
+  const tabs    = new TabsBar(page)
 
-  await page.goto('/home/settings?tutorialEnabled=false')
+  await page.goto('/?tutorialEnabled=false')
+  await tabs.settingsTab.click()
   await logIn(page, email)
 
   return [context, page]

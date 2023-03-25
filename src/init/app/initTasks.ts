@@ -1,6 +1,5 @@
 import { EventEmitter2 } from 'eventemitter2'
-import { runSyncInboxDeckTask } from '@/app/decks/inbox'
-import { runSyncReviewDeckTask } from '@/app/decks/review'
+import { Application } from '@akdasa-studios/shlokas-core'
 
 import { runRefreshTokenTask, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
@@ -8,12 +7,11 @@ import { InitArgs } from '../initialization'
 
 
 export async function initTasks(
-  { get, shlokas }: InitArgs
+  { get }: InitArgs
 ) {
+  const shlokas = get<Application>('app')
   const emitter = get<EventEmitter2>('emitter')
   runRefreshTokenTask(emitter)
   runUpdateStatisticsTask(shlokas, emitter)
-  runSyncInboxDeckTask(shlokas, emitter)
-  runSyncReviewDeckTask(shlokas, emitter)
   runSyncTask(shlokas, emitter)
 }
