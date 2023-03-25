@@ -15,7 +15,6 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-      {{ syncLibraryTask.inProgress.value }}
       <VersesList
         :verses="filteredVerses"
         :verse-statuses="verseStatuses"
