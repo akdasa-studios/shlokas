@@ -1,6 +1,7 @@
 export * from './tasks/RefreshTokenTask'
 export * from './tasks/SyncTask'
 export { default as VerseAudioPlayer } from './components/VerseAudioPlayer.vue'
+export { default as DarkImage } from './components/DarkImage.vue'
 export * from './services/downloadService'
 export * from './composables/useLinks'
 export * from './composables/useEnv'

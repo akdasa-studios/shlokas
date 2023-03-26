@@ -19,8 +19,8 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { DarkImage } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
+import { DarkImage } from '@/app/shared'
 import { useStatisticsStore } from '@/app/statistics'
 
 const isDark = usePreferredDark()

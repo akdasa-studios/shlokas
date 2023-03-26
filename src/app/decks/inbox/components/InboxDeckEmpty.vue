@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { usePreferredDark } from '@vueuse/core'
-import { DarkImage } from '@akdasa-studios/shlokas-uikit'
+import { DarkImage } from '@/app/shared'
 
 const isDark = usePreferredDark()
 </script>
