@@ -19,11 +19,10 @@
 
 <script lang="ts" setup>
 import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
-import { storeToRefs } from 'pinia'
-import { defineProps, onMounted, ref, watch, shallowRef, computed } from 'vue'
-import { CircleProgress } from '@/app/decks/inbox'
+import { defineProps, onMounted, ref, watch, shallowRef, computed, defineExpose, onBeforeUnmount } from 'vue'
+import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
-import { useAudioPlayerStore } from '@/app/shared'
+import { useEnv } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -34,12 +33,23 @@ const props = defineProps<{
   synonyms: Synonym[]
 }>()
 
+defineExpose({
+  stopAudio: stop
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const audioPlayer = useAudioPlayerStore()
+const audio = useAudio()
+const env = useEnv()
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+onMounted(onOpened)
+onBeforeUnmount(stop)
 
 
 /* -------------------------------------------------------------------------- */
@@ -50,8 +60,7 @@ const declamation = shallowRef<Declamation>()
 const repeatCurrent = ref(0)
 const repeatsPerLine = ref(5)
 const currentLine = ref(0)
-const skipedLines = ref(0)
-const { duration, time, playing } = storeToRefs(audioPlayer)
+const playing = ref(false)
 
 const porgress = computed(function() {
   const lines = (declamation.value?.markers.length ?? 0) + 1
@@ -62,11 +71,10 @@ const porgress = computed(function() {
 
 
 /* -------------------------------------------------------------------------- */
-/*                                  Lifehooks                                 */
+/*                                    Watch                                   */
 /* -------------------------------------------------------------------------- */
 
-watch(time, (value) => onAudioProgressChanged(value, duration.value))
-onMounted(onOpened)
+watch(audio.playing, onAudioProgressChanged)
 
 
 /* -------------------------------------------------------------------------- */
@@ -75,34 +83,38 @@ onMounted(onOpened)
 
 function onOpened() {
   declamation.value = getDefautltDeclamation()
-  if (declamation.value) { audioPlayer.open(declamation.value.url) }
+  if (declamation.value) {
+    audio.open(env.getContentUrl(declamation.value.url))
+  }
 }
-
 
 function onTogglePlaying() {
   playing.value = !playing.value
+  if (playing.value) { play() } else { audio.stop() }
 }
 
-function onAudioProgressChanged(value: number, duration: number) {
-  const d = getDefautltDeclamation() as Declamation
+function onAudioProgressChanged(value: boolean) {
+  if (!playing.value) { return }
+  if (!declamation.value) { return }
+  if (value === true) { return }
 
+  repeatCurrent.value += 1
 
-  if (value >= (d.markers[currentLine.value - skipedLines.value] || (duration-.5))) {
-    repeatCurrent.value += 1
-    if (repeatCurrent.value >= repeatsPerLine.value) {
-      repeatCurrent.value = 0
-      currentLine.value += 1
-    }
-    time.value = currentLine.value > 0 ?  d.markers[currentLine.value - skipedLines.value - 1] : 0
-    playing.value = true
+  // Last repeat of a current line, go to the next line
+  if (repeatCurrent.value >= repeatsPerLine.value) {
+    currentLine.value += 1
+    repeatCurrent.value = 0
   }
 
-  if (currentLine.value > d.markers.length + skipedLines.value) {
-    playing.value = false
+  // Last line repeated, stop playing
+  if (currentLine.value > declamation.value.markers.length) {
     currentLine.value = 0
     repeatCurrent.value = 0
-    time.value = 0
+    playing.value = false
+    return
   }
+
+  play()
 }
 
 /* -------------------------------------------------------------------------- */
@@ -112,6 +124,16 @@ function onAudioProgressChanged(value: number, duration: number) {
 function getDefautltDeclamation(): Declamation|undefined {
   return props.declamations.find(x => x.theme === 'default' && x.type === 'verse')
 }
+
+function play() {
+  if (!declamation.value) { return }
+  audio.play(
+    declamation.value.markers[currentLine.value - 1] || 0,
+    declamation.value.markers[currentLine.value] || audio.duration.value
+  )
+}
+
+function stop() { audio.stop() }
 </script>
 
 

@@ -51,11 +51,10 @@
 
 <script lang="ts" setup>
 import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewWillLeave } from '@ionic/vue'
 import { computed, inject, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
-import { useAudioPlayerStore } from '@/app/shared'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 
 
@@ -64,7 +63,6 @@ import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/dec
 /* -------------------------------------------------------------------------- */
 
 const app = inject('app') as Application
-const audioPlayerStore = useAudioPlayerStore()
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
 
@@ -99,6 +97,7 @@ let inboxCards: readonly InboxCard[] = []
 /* -------------------------------------------------------------------------- */
 
 onIonViewWillEnter(async () => await onOpened())
+onIonViewWillLeave(() => cards.value = [])
 
 
 /* -------------------------------------------------------------------------- */
@@ -152,7 +151,6 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
-  audioPlayerStore.close()
 }
 
 
@@ -166,7 +164,6 @@ function canBeSwiped(_: string, { direction, distance }: { direction: string, di
   }
   return distance > 120
 }
-
 
 function getCardState(id: string): CardState {
   const res = cards.value.find(x => x.id === id)

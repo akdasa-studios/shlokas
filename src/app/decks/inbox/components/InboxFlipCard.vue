@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import { Declamation, InboxCard, InboxCardType, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, toRefs } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
 import { FlipCard } from '@/app/decks/shared'
@@ -60,6 +60,13 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'flip'): void
 }>()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const { index } = toRefs(props)
 
 
 /* -------------------------------------------------------------------------- */
