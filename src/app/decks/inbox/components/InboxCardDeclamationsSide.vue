@@ -22,7 +22,7 @@ import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
 import { defineProps, onMounted, ref, watch, shallowRef, computed, defineExpose, onBeforeUnmount } from 'vue'
 import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
-import { useEnv } from '@/app/shared'
+import { useDownloadService, useEnv } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -43,6 +43,8 @@ defineExpose({
 
 const audio = useAudio()
 const env = useEnv()
+const downloader = useDownloadService()
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -81,10 +83,11 @@ watch(audio.playing, onAudioProgressChanged)
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
-function onOpened() {
+async function onOpened() {
   declamation.value = getDefautltDeclamation()
   if (declamation.value) {
-    audio.open(env.getContentUrl(declamation.value.url))
+    const localUrl = await downloader.download(env.getContentUrl(declamation.value.url))
+    audio.open(localUrl)
   }
 }
 
