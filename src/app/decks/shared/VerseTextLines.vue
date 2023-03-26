@@ -71,8 +71,4 @@ async function onOpened() {
   fill: var(--ion-color-light-contrast);
   font-size: 20px;
 }
-
-.image {
-  padding: .5rem;
-}
 </style>

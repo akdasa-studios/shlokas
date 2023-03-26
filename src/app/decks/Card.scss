@@ -1,4 +1,5 @@
 .side {
+  font-family: Georgia;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +16,7 @@
   border-bottom: 10px solid black;
 
   > .number {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     padding: .4em;
     font-weight: bold;
     font-size: 11vw;
