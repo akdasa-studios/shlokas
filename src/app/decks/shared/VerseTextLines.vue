@@ -65,10 +65,14 @@ async function onOpened() {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 :deep(.line) {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
   font-size: 20px;
+}
+
+.image {
+  padding: 1px; // fuck you Safari
 }
 </style>
