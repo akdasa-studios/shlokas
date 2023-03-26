@@ -1,8 +1,6 @@
 <template>
   <ion-page>
-    <ion-tabs
-      @ion-tabs-did-change="onTabChanged"
-    >
+    <ion-tabs>
       <ion-router-outlet />
 
       <!-- Tabs -->
@@ -73,7 +71,6 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { useAudioPlayerStore } from '@/app/shared'
 import { useStatisticsStore } from '@/app/statistics'
 
 /* -------------------------------------------------------------------------- */
@@ -81,17 +78,10 @@ import { useStatisticsStore } from '@/app/statistics'
 /* -------------------------------------------------------------------------- */
 
 const statisticsStore = useStatisticsStore()
-const audioPlayer = useAudioPlayerStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
-
-/* -------------------------------------------------------------------------- */
-/*                                  Handlers                                  */
-/* -------------------------------------------------------------------------- */
-
-function onTabChanged() { audioPlayer.stop() }
 </script>

@@ -1,13 +1,11 @@
 <template>
   <ion-app>
     <ion-router-outlet />
-    <GlobalAudioPlayer />
   </ion-app>
 </template>
 
 <script lang="ts" setup>
 import { IonApp, IonRouterOutlet } from '@ionic/vue'
-import { GlobalAudioPlayer } from '@/app/shared'
 
 // Notch!
 try {

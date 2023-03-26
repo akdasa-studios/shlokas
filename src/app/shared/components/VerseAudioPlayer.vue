@@ -1,29 +1,22 @@
 <template>
   <div class="root">
     <ion-icon
-      v-if="!playing"
+      v-if="!audioPlayer.playing.value"
       :icon="playCircle"
       size="large"
       color="dark"
-      @click.stop="audioPlayer.play"
+      @click.stop="audioPlayer.play()"
     />
     <ion-icon
       v-else
       :icon="stopCircle"
       color="dark"
       size="large"
-      @click.stop="audioPlayer.stop"
-    />
-    <ion-icon
-      v-if="props.showRepeatButton"
-      :icon="reloadCircle"
-      size="large"
-      :color="loop ? 'primary' : 'medium'"
-      @click.stop="audioPlayer.toggleLoop"
+      @click.stop="audioPlayer.stop()"
     />
     <ion-progress-bar
       v-if="props.showProgressBar"
-      :value="progress"
+      :value="audioPlayer.progress.value"
       :type="progressType"
       color="dark"
       class="progressBar"
@@ -32,11 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, watch, toRefs, withDefaults } from 'vue'
-import { playCircle, stopCircle, reloadCircle } from 'ionicons/icons'
+import { computed, defineProps, watch, toRefs, withDefaults, onBeforeUnmount } from 'vue'
+import { playCircle, stopCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
-import { storeToRefs } from 'pinia'
-import { useAudioPlayerStore, useDownloadService } from '@/app/shared'
+import { useDownloadService, useEnv } from '@/app/shared'
+import { useAudio } from '@/app/decks/inbox'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -53,14 +46,28 @@ const props = withDefaults(defineProps<{
 })
 
 /* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const env = useEnv()
+const downloadService = useDownloadService()
+const audioPlayer = useAudio()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+onBeforeUnmount(() => audioPlayer.stop())
+
+
+/* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const downloadService = useDownloadService()
-const audioPlayer = useAudioPlayerStore()
 const { url } = toRefs(props)
-const { playing, loop, progress } = storeToRefs(audioPlayer)
 const progressType  = computed(() => downloadService.isDownloading.value ? 'indeterminate' : 'determinate')
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -70,7 +77,8 @@ watch(url, async (value) => onUrlChanged(value), { immediate: true })
 
 async function onUrlChanged(url: string) {
   if (!url) { return }
-  audioPlayer.open(url, props.title, props.artist)
+  const localUrl = await downloadService.download(env.getContentUrl(url))
+  audioPlayer.open(localUrl)
 }
 </script>
 
