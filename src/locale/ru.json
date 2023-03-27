@@ -1,6 +1,7 @@
 {
   "cards": {
     "grade": {
+      "remember": "Помню",
       "forgot": "Забыл",
       "hard": "Трудно",
       "good": "Хорошо",
