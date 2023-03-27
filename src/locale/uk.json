@@ -13,8 +13,8 @@
     },
     "memorized": "Картку запам'ятовано",
     "inbox": {
-      "finished": "Завершено",
-      "inProgress": "В процесі"
+      "memorized": "Завершено",
+      "memorizing": "В процесі"
     },
     "schedule": {
       "inDays": "сьогодні | + {count} день | + {count} днів",

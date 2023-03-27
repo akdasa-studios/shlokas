@@ -13,8 +13,8 @@
     },
     "memorized": "Карточка запомнена",
     "inbox": {
-      "finished": "Запомнил",
-      "inProgress": "Учу"
+      "memorized": "Запомнил",
+      "memorizing": "Учу"
     },
     "schedule": {
       "inDays": "сегодня | + {count} день | + {count} дней",

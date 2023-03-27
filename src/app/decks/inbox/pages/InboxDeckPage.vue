@@ -51,7 +51,7 @@
 
 <script lang="ts" setup>
 import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewWillLeave } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave } from '@ionic/vue'
 import { computed, inject, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
@@ -97,7 +97,7 @@ let inboxCards: readonly InboxCard[] = []
 /* -------------------------------------------------------------------------- */
 
 onIonViewWillEnter(async () => await onOpened())
-onIonViewWillLeave(() => cards.value = [])
+onIonViewDidLeave(() => cards.value = [])
 
 
 /* -------------------------------------------------------------------------- */
