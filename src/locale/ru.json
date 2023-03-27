@@ -1,21 +1,21 @@
 {
   "cards": {
     "grade": {
-      "remember": "Remember",
+      "remember": "Помню",
       "forgot": "Забыл",
       "hard": "Трудно",
       "good": "Хорошо",
       "easy": "Легко"
     },
     "questions": {
-      "number": "Recall verse number",
-      "text": "Recall text",
-      "translation": "Recall translation"
+      "number": "Вспомните номер стиха",
+      "text": "Вспомните текст",
+      "translation": "Вспомните перевод"
     },
     "memorized": "Карточка запомнена",
     "inbox": {
-      "memorized": "Memorized",
-      "memorizing": "Memorizing"
+      "memorized": "Запомнил",
+      "memorizing": "Учу"
     },
     "schedule": {
       "inDays": "сегодня | + {count} день | + {count} дней",
