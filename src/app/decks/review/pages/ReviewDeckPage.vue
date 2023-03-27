@@ -1,5 +1,5 @@
 <template>
-  <ion-page :data-testid="testId('inboxPage')">
+  <ion-page>
     <!-- Header -->
     <ion-header>
       <ion-toolbar>
@@ -67,7 +67,7 @@ import { computed, inject, reactive, ref } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
-import { testId } from '@/app/TestId'
+import { useSettingsStore } from '@/app/settings'
 
 
 /* -------------------------------------------------------------------------- */
@@ -77,6 +77,7 @@ import { testId } from '@/app/TestId'
 const app = inject('app') as Application
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
+const settings = useSettingsStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -104,7 +105,7 @@ const cardsToShow = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval: 0 })
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
-const showGradeButtons = computed(() => topCard.value?.flipped)
+const showGradeButtons = computed(() => topCard.value?.flipped && settings.appearanceSettings.gradeButtons)
 
 let reviewCards: readonly ReviewCard[] = []
 const gradeButtonIntervals = computed(() => {

@@ -24,14 +24,14 @@
             {{ $t('settings.language') }}
           </ion-label>
           <ion-select
-            v-model="locale.languageCode"
+            v-model="settings.localeSettings.language"
             interface="action-sheet"
             placeholder="Language"
             data-testid="language"
             @ion-change="x => onLocaleChanged(x.detail.value)"
           >
             <ion-select-option
-              v-for="lang in locale.availableLanguages"
+              v-for="lang in languages"
               :key="lang.code"
               :value="lang.code"
             >
@@ -44,7 +44,7 @@
           <ion-label>{{ $t('settings.gradeButtons') }}</ion-label>
           <ion-toggle
             slot="end"
-            v-model="appearance.gradeButtons"
+            v-model="settings.appearanceSettings.gradeButtons"
           />
         </ion-item>
 
@@ -52,7 +52,7 @@
           <ion-label>{{ $t('settings.colorfulCards') }}</ion-label>
           <ion-toggle
             slot="end"
-            v-model="appearance.colorfulCards"
+            v-model="settings.appearanceSettings.colorfulCards"
           />
         </ion-item>
 
@@ -75,15 +75,32 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
-import { useAppearanceStore, useLocaleStore } from '@/app/settings'
+import { useSettingsStore } from '@/app/settings'
+import { getAvailableLanguages } from '@/app/Env'
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
 
 const i18n = inject('i18n') as any
-const locale = useLocaleStore()
-const appearance = useAppearanceStore()
+const settings = useSettingsStore()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const languages = getAvailableLanguages()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
 function onLocaleChanged(lang: string) {
   i18n.locale.value = lang
 }
+
 function onSendEmail() {
   window.open('mailto:feedback@shlokas.app', '_system')
 }

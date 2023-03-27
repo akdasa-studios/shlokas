@@ -15,6 +15,13 @@
     </ion-header>
 
     <ion-content class="ion-padding">
+      <ion-refresher
+        slot="fixed"
+        @ion-refresh="onRefresherPullDown"
+      >
+        <ion-refresher-content />
+      </ion-refresher>
+
       <VersesList
         :verses="filteredVerses"
         :verse-statuses="verseStatuses"
@@ -31,15 +38,16 @@
 
 
 <script lang="ts" setup>
-import { Application, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Application, Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
-  IonContent, IonHeader, IonPage, IonLoading,
+  IonContent, IonHeader, IonPage, IonLoading, IonRefresher, IonRefresherContent,
   IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
 } from '@ionic/vue'
-import { inject, ref, shallowRef, toRaw, watch } from 'vue'
+import { inject, ref, shallowRef, watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
-import { useLocaleStore } from '@/app/settings'
+import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -49,7 +57,7 @@ const app = inject('app') as Application
 const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(app, libraryDatabase)
-const locale = useLocaleStore()
+const settings = useSettingsStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -59,9 +67,7 @@ const locale = useLocaleStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { language } = storeToRefs(locale)
-
-let isLibrarySynced = false
+const { localeSettings } = storeToRefs(settings)
 
 
 /* -------------------------------------------------------------------------- */
@@ -83,27 +89,30 @@ watch(searchQuery, async (v) => await onSearchQueryChanged(v))
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
-  if (!isLibrarySynced) {
-    await syncLibraryTask.sync()
-    await loadLibrary.sync()
-    isLibrarySynced = true
-  }
+  await syncLibrary()
   await onSearchQueryChanged(searchQuery.value)
 }
 
 async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
-  const verses = await app.library.findByContent(toRaw(language.value), value)
+  const languageCode = localeSettings.value.language
+  const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
-  filteredVerses.value = Array.from(verses).sort((a, b) => compare(a.number.value, b.number.value))
+  filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
 }
 
+async function onRefresherPullDown(
+  event: IonRefresherCustomEvent<RefresherEventDetail>
+) {
+  await syncLibrary(true)
+  event.target.complete()
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
-function compare(a: string, b: string): number {
+function compareVerseNumber(a: string, b: string): number {
   const tokens1 = a.split(/\.| /)
   const tokens2 = b.split(/\.| /)
   for (const [idx] of tokens1.entries()) {
@@ -116,5 +125,16 @@ function compare(a: string, b: string): number {
     }
   }
   return 0
+}
+
+async function syncLibrary(force = false) {
+  const now = new Date().getTime()
+  const week = 604800000 // 1000 * 60 * 60 * 24 * 7
+  const syncedMoreThanAWeekAgo = (now - (settings.library.lastSyncDate || 0)) > week
+  if (syncedMoreThanAWeekAgo || force) {
+    await syncLibraryTask.sync({ showProgress: !force })
+    await loadLibrary.sync()
+    settings.library.lastSyncDate = now
+  }
 }
 </script>

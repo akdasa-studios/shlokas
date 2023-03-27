@@ -1,7 +1,6 @@
 // stores:
-export * from './stores/useLocaleStore'
-export * from './stores/useAppearanceStore'
 export * from './stores/useAccountStore'
+export * from './stores/useSettingsStore'
 
 // components:
 export { default as SettingsPage } from './components/SettingsPage.vue'

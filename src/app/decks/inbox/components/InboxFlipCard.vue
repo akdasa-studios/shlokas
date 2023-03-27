@@ -3,6 +3,7 @@
     :data-testid="testId(verse.number.value, 'card', card.type)"
     :data-index="index"
     :flipped="props.flipped"
+    :hue-color-hash="props.verse.number.value+card.type"
     side-class="side side-color-0"
     card-class="flip-card"
     @click.stop="onCardFlipped"
@@ -40,9 +41,10 @@
 <script lang="ts" setup>
 import { Declamation, InboxCard, InboxCardType, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
 import { defineEmits, defineProps, toRefs } from 'vue'
-import { testId } from '@/app/TestId'
-import { InboxCardDeclamationsSide, InboxCardTranslationSide, InboxCardVerseTextSide, InboxCardSynonymsSide } from '@/app/decks/inbox'
+import { InboxCardDeclamationsSide, InboxCardSynonymsSide, InboxCardTranslationSide, InboxCardVerseTextSide } from '@/app/decks/inbox'
 import { FlipCard } from '@/app/decks/shared'
+import { testId } from '@/app/TestId'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

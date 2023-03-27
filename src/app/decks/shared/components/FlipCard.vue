@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card color">
     <div
       class="face face--front"
       :class="cardClass"
@@ -22,21 +22,33 @@
 
 <script lang="ts" setup>
 import { computed, defineProps, onMounted, ref, toRefs, withDefaults } from 'vue'
+import { useSettingsStore } from '@/app/settings'
+import { useStringHasher } from '@/app/shared'
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const hasher = useStringHasher()
+const settings = useSettingsStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
 /* -------------------------------------------------------------------------- */
 
-export interface Props {
+interface Props {
   flipped: boolean,
   sideClass?: string
   cardClass?: string
+  hueColorHash?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   flipped: false,
   sideClass: undefined,
-  cardClass: undefined
+  cardClass: undefined,
+  hueColorHash: ''
 })
 
 /* -------------------------------------------------------------------------- */
@@ -54,6 +66,17 @@ onMounted(() => { setTimeout(() => transition.value = '.5s ease-in-out', 0) })
 const { flipped, sideClass } = toRefs(props)
 const flipAngle = computed(() => flipped.value ? 180 : 0)
 const transition = ref('0s')
+const colorHueRotate = computed(() => getHueRotate())
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+function getHueRotate() {
+  if (!settings.appearanceSettings.colorfulCards) { return 0 }
+  return hasher.hash(props.hueColorHash) % 360
+}
 </script>
 
 
@@ -92,5 +115,9 @@ $flipAngleBack: calc(v-bind(flipAngle) * 1deg - 180deg);
 
 .no-events {
   pointer-events: none;
+}
+
+.color {
+  filter: hue-rotate(calc(v-bind(colorHueRotate) * 1deg));
 }
 </style>

@@ -1,6 +1,7 @@
 {
   "cards": {
     "grade": {
+      "remember": "Пам'ятаю",
       "forgot": "Не пам'ятаю",
       "hard": "Важко",
       "good": "Добре",
@@ -13,8 +14,8 @@
     },
     "memorized": "Картку запам'ятовано",
     "inbox": {
-      "finished": "Завершено",
-      "inProgress": "В процесі"
+      "memorized": "Завершено",
+      "memorizing": "В процесі"
     },
     "schedule": {
       "inDays": "сьогодні | + {count} день | + {count} днів",
