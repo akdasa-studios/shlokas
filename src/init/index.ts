@@ -31,8 +31,8 @@ export const appInitStages = [
   initBackgroundTask,
   initShlokasApp,
 
-  initLocale,
   initStores,
+  initLocale,
   initParams,
   initCommands,
   initTasks,

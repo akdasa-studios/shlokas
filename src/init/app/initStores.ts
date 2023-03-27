@@ -1,5 +1,5 @@
 import { useTutorialStore } from '@/app/decks/shared'
-import { useAccountStore, useAppearanceStore, useLocaleStore } from '@/app/settings'
+import { useAccountStore, useSettingsStore } from '@/app/settings'
 import { useDeviceStore } from '@/app/useDeviceStorage'
 import { InitArgs } from '../initialization'
 
@@ -10,9 +10,8 @@ export async function initStores(
   storage.init(get('deviceStorage'))
 
   await Promise.all([
-    useLocaleStore().load(),
+    useSettingsStore().load(),
     useAccountStore().load(),
-    useAppearanceStore().load(),
     useTutorialStore().load(),
   ])
 }

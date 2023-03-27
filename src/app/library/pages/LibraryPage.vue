@@ -31,7 +31,7 @@
 
 
 <script lang="ts" setup>
-import { Application, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Application, Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonPage, IonLoading,
   IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
@@ -39,7 +39,7 @@ import {
 import { inject, ref, shallowRef, toRaw, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
-import { useLocaleStore } from '@/app/settings'
+import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -49,7 +49,7 @@ const app = inject('app') as Application
 const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(app, libraryDatabase)
-const locale = useLocaleStore()
+const settings = useSettingsStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -59,7 +59,7 @@ const locale = useLocaleStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { language } = storeToRefs(locale)
+const { localeSettings } = storeToRefs(settings)
 
 let isLibrarySynced = false
 
@@ -93,7 +93,8 @@ async function onOpened() {
 
 async function onSearchQueryChanged(value: string) {
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
-  const verses = await app.library.findByContent(toRaw(language.value), value)
+  const languageCode = localeSettings.value.language
+  const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compare(a.number.value, b.number.value))
 }
