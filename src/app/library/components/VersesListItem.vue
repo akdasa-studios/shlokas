@@ -19,7 +19,7 @@
           class="status"
           :data-testid="testId(verse.number.value, 'badge')"
         >
-          {{ props.verseStatus.inDeck }}
+          {{ $t(`decks.${props.verseStatus.inDeck.toLowerCase()}.title`) }}
         </span>
       </h2>
 
