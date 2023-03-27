@@ -12,6 +12,9 @@ interface AppearanceSettings {
   colorfulCards: boolean
 }
 
+interface LibrarySettings {
+  lastSyncDate: number
+}
 
 
 export const useSettingsStore = defineStore('settings', () => {
@@ -21,21 +24,24 @@ export const useSettingsStore = defineStore('settings', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  // Locale settings with default values
   const localeSettings = ref<LocaleSettings>({
     language: 'en'
   })
 
-  // Locale settings with default values
   const appearanceSettings = ref<AppearanceSettings>({
     gradeButtons: true,
     colorfulCards: true
   })
 
+  const library = ref<LibrarySettings>({
+    lastSyncDate: 0
+  })
+
 
   watch([
     localeSettings.value,
-    appearanceSettings.value
+    appearanceSettings.value,
+    library.value
   ], () => onSettingsChanged())
 
 
@@ -44,14 +50,19 @@ export const useSettingsStore = defineStore('settings', () => {
   /* -------------------------------------------------------------------------- */
 
   async function load() {
-    const locale = JSON.parse(await storage.get('locale'))
-    const appearance = JSON.parse(await storage.get('appearance'))
-    if (locale) {
-      localeSettings.value.language = locale.language
+    const loadedLocale     = JSON.parse(await storage.get('locale'))
+    const loadedAppearance = JSON.parse(await storage.get('appearance'))
+    const loadedLibrary    = JSON.parse(await storage.get('library'))
+
+    if (loadedLocale) {
+      localeSettings.value.language = loadedLocale.language
     }
-    if (appearance) {
-      appearanceSettings.value.gradeButtons = appearance.gradeButtons
-      appearanceSettings.value.colorfulCards = appearance.colorfulCards
+    if (loadedAppearance) {
+      appearanceSettings.value.gradeButtons  = loadedAppearance.gradeButtons
+      appearanceSettings.value.colorfulCards = loadedAppearance.colorfulCards
+    }
+    if (loadedLibrary) {
+      library.value.lastSyncDate = loadedLibrary.lastSyncDate
     }
   }
 
@@ -61,13 +72,15 @@ export const useSettingsStore = defineStore('settings', () => {
   /* -------------------------------------------------------------------------- */
 
   async function onSettingsChanged() {
-    await storage.set('locale', JSON.stringify(localeSettings.value))
+    await storage.set('locale',     JSON.stringify(localeSettings.value))
     await storage.set('appearance', JSON.stringify(appearanceSettings.value))
+    await storage.set('library',    JSON.stringify(library.value))
   }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { localeSettings, appearanceSettings, load }
+  return { localeSettings, appearanceSettings, library, load }
 })
