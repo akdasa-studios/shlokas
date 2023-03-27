@@ -1,21 +1,21 @@
 {
   "cards": {
     "grade": {
-      "remember": "Remember",
+      "remember": "Пам'ятаю",
       "forgot": "Не пам'ятаю",
       "hard": "Важко",
       "good": "Добре",
       "easy": "Легко"
     },
     "questions": {
-      "number": "Recall verse number",
-      "text": "Recall text",
-      "translation": "Recall translation"
+      "number": "Номер вірша",
+      "text": "Текст",
+      "translation": "Переклад"
     },
     "memorized": "Картку запам'ятовано",
     "inbox": {
-      "memorized": "Memorized",
-      "memorizing": "Memorizing"
+      "memorized": "Завершено",
+      "memorizing": "В процесі"
     },
     "schedule": {
       "inDays": "сьогодні | + {count} день | + {count} днів",
