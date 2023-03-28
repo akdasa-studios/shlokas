@@ -56,6 +56,7 @@ import { computed, inject, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
+import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
 
 
 /* -------------------------------------------------------------------------- */
@@ -65,6 +66,7 @@ import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/dec
 const app = inject('app') as Application
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -98,6 +100,7 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(async () => await onOpened())
 onIonViewDidLeave(() => cards.value = [])
+setTimeout(() => tutorial.completeStep(TutorialSteps.OpenInboxDeck), 5000)
 
 
 /* -------------------------------------------------------------------------- */
@@ -121,6 +124,8 @@ function onCardFlipped(data: any) {
   const state = getCardState(data.id)
   if (state.index !== 0) return
   state.flipped = !state.flipped
+  tutorial.completeStep(TutorialSteps.FlipInboxCard)
+  tutorial.completeStep(TutorialSteps.FlipInboxCardAgain)
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
@@ -143,11 +148,13 @@ function onCardSwipeCancelled() {
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
   if (['left', 'right'].includes(direction)) {
     indexedList.shiftItem(cards)
+    tutorial.completeStep(TutorialSteps.SwipeInboxCardLeft)
   } else {
     const card = getInboxCard(id)
     indexedList.removeItem(cards)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
+    tutorial.completeStep(TutorialSteps.SwipeInboxCardUp)
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false

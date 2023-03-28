@@ -57,6 +57,8 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
+
+    <TutorialPlayer />
   </ion-page>
 </template>
 
@@ -72,12 +74,14 @@ import {
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
+import { TutorialPlayer } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
 const statisticsStore = useStatisticsStore()
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */

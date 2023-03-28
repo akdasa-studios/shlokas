@@ -19,10 +19,11 @@
 
 <script lang="ts" setup>
 import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
-import { defineProps, onMounted, ref, watch, shallowRef, computed, defineExpose, onBeforeUnmount } from 'vue'
+import { defineProps, onMounted, ref, watch, shallowRef, computed, defineExpose, onBeforeUnmount, inject } from 'vue'
 import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
 import { useDownloadService, useEnv } from '@/app/shared'
+import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -45,6 +46,7 @@ defineExpose({
 const audio = useAudio()
 const env = useEnv()
 const downloader = useDownloadService()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -95,6 +97,7 @@ async function onOpened() {
 function onTogglePlaying() {
   playing.value = !playing.value
   if (playing.value) { play() } else { audio.stop() }
+  tutorial.completeStep(TutorialSteps.PlayDeclamation)
 }
 
 function onAudioProgressChanged(value: boolean) {
