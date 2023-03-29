@@ -108,9 +108,9 @@ export class PouchRepository<
   }
 
   async find(query: Query<TAggregate>): Promise<TAggregate[]> {
+    log.debug(`[${this._collectionName}] find`)
     const convertedQuery = new QueryConverter().convert(query)
     convertedQuery.selector['@type'] = this._collectionName
-    log.debug(`[${this._collectionName}] find`, convertedQuery)
     const items = await this._db.db.find(convertedQuery)
     return items.docs.map(x => this._deserializer.map(x))
   }
