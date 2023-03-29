@@ -1,5 +1,5 @@
 import { ReviewCard, ReviewCardType, VerseId } from '@akdasa-studios/shlokas-core'
-import { date } from './convert'
+import { date, dateAndTime } from './convert'
 import { ObjectMapper } from './ObjectMapper'
 
 
@@ -10,7 +10,7 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
       '@type': 'review',
       'verseId': from.verseId.value,
       'type': from.type,
-      'addedAt': date(from.addedAt),
+      'addedAt': dateAndTime(from.addedAt),
       'dueTo': date(from.dueTo),
       'version': from.version,
       'interval': from.interval,
