@@ -194,9 +194,6 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
 /* -------------------------------------------------------------------------- */
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
-  console.log('(1)=>', reviewCard.dueTo, reviewCard.interval)
-
-
   await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
   const isCardDueToday = reviewCard.dueTo.getTime() <= app.timeMachine.today.getTime()
 
@@ -208,7 +205,6 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
-  console.log('(2)=>', reviewCard.dueTo, reviewCard.interval)
 }
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {

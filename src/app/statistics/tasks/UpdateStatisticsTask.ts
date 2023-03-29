@@ -16,14 +16,7 @@ export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2
   emitter.on('syncCompleted', async () => await updateStatistics())
 
   async function updateStatistics() {
-
     const date = nextDays(1, app.timeMachine.today)
-
-
-    // // console.log(app.timeMachine.today, (await app.reviewDeck.dueToCards(app.timeMachine.today)))
-    // // console.log(nextDays(1, app.timeMachine.today), (await app.reviewDeck.dueToCards(nextDays(1, app.timeMachine.today))))
-    // // console.log(nextDays(2, app.timeMachine.today), (await app.reviewDeck.dueToCards(nextDays(2, app.timeMachine.today))))
-
     statisticsStore.cardsCountDueToTomorrow = (await app.reviewDeck.dueToCards(date)).length
     statisticsStore.cardsInReview = (await app.reviewDeck.dueToCards(app.timeMachine.now)).length
     statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
