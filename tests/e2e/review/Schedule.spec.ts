@@ -18,7 +18,7 @@ test.describe('Review Deck › Schedule', () => {
    * show all the cards that were scheduled for those days.
    */
   test('Skip multiple days', async ({ page }) => {
-    const app  = new Application(page)
+    const app = new Application(page)
     const tabs = new TabsBar(page)
 
     // act:
@@ -29,36 +29,36 @@ test.describe('Review Deck › Schedule', () => {
     await (expect(tabs.reviewBadge)).toHaveText('6')
   })
 
- /**
-  * Message shows count of cards scheduled for tommorow.
-  */
- test('Scheduled cards for tomorrow message', async ({ page }) => {
-   const review = new ReviewDeckPage(page)
-   const tabs   = new TabsBar(page)
+  /**
+   * Message shows count of cards scheduled for tommorow.
+   */
+  test('Scheduled cards for tomorrow message', async ({ page }) => {
+    const review = new ReviewDeckPage(page)
+    const app = new Application(page)
 
-   // act:
-   await tabs.reviewTab.click()
-   await review.card('BG 1.1', ReviewCardType.NumberToTranslation).click()
-   await review.good.click()
+    // act:
+    await app.goto('/home/review', { date: nextDays(1) })
+    await review.card('BG 1.1', ReviewCardType.NumberToTranslation).click()
+    await review.good.click()
 
-   // assert:
-   // 1. one card scheduled for today and one card from yesterday
+    // assert:
+    // 1. one card scheduled for today and one card from yesterday
     await expect(review.cardsCountDueToTomorrow).toHaveText('You have 2 cards scheduled for tomorrow.')
- })
+  })
 
   /**
    * Scheduled for the next day card should be shown on the next day.
    */
   test('Schedule card for the next day', async ({ page }) => {
-    const app    = new Application(page)
+    const app = new Application(page)
     const review = new ReviewDeckPage(page)
-    const tabs   = new TabsBar(page)
+    const tabs = new TabsBar(page)
 
     // act:
-    await tabs.reviewTab.click()
+    await app.goto('/home/review', { date: nextDays(1) })
     await review.card('BG 1.1', ReviewCardType.NumberToTranslation).click()
     await review.good.click()
-    await app.goto('/home/review', { date: nextDays(1) })
+    await app.goto('/home/review', { date: nextDays(2) })
 
     // assert:
     // 1. one card scheduled for today and one card from yesterday

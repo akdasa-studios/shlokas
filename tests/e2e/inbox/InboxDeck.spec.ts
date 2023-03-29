@@ -51,7 +51,6 @@ test.describe('Inbox Deck', () => {
       await inboxDeck.swipeCardUp(cardLocator)
 
       await expect(tabsBar.inboxBadge).toContainText('1')
-      await expect(tabsBar.reviewBadge).toContainText('1')
     })
 
     test('Review badge', async ({ page }) => {
@@ -74,7 +73,6 @@ test.describe('Inbox Deck', () => {
 
       await expect(page.getByTestId('inboxEmpty')).toBeVisible()
       await expect(page.getByTestId('inbox-tab-badge')).toBeHidden()
-      await expect(page.getByTestId('review-tab-badge')).toHaveText('1')
     })
   })
 })

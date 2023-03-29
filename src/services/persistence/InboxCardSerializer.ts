@@ -1,4 +1,5 @@
 import { InboxCard, InboxCardType, VerseId } from '@akdasa-studios/shlokas-core'
+import { dateAndTime } from './convert'
 import { ObjectMapper } from './ObjectMapper'
 
 
@@ -9,8 +10,8 @@ export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
       '@type': 'inbox',
       'verseId': from.verseId.value,
       'type': from.type,
-      'addedAt': from.addedAt,
-      'memorizedAt': from.memorizedAt,
+      'addedAt': dateAndTime(from.addedAt),
+      'memorizedAt': dateAndTime(from.memorizedAt),
       'version': from.version,
     }
   }

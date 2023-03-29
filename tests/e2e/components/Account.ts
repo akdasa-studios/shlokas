@@ -11,6 +11,7 @@ export class Account {
   get logIn()    { return this.page.getByRole('button',  { name: 'Log In'}) }
   get sync()     { return this.page.getByRole('button',  { name: 'Force Syncing'}) }
   get verifyEmail() { return this.page.getByTestId('verifyEmail') }
+  get syncingProgress() { return this.page.getByTestId('syncing-progress') }
 
   async open() {
     await this.page.goto('/home/settings/account?tutorialEnabled=false')

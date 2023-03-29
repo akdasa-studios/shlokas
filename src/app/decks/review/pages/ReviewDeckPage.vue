@@ -205,7 +205,6 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
-
 }
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
