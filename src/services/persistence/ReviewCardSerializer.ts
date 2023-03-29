@@ -2,6 +2,17 @@ import { ReviewCard, ReviewCardType, VerseId } from '@akdasa-studios/shlokas-cor
 import { ObjectMapper } from './ObjectMapper'
 
 
+function d(date: Date) {
+  return date.setHours(0,0,0,0)
+  // return date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate()
+  // const offset = new Date().getTimezoneOffset()
+  // const myDate = Date.parse(dateString) - (offset * 60 * 1000)
+  // const dateAsISO = new Date(myDate).toISOString()
+
+  // return dateAsISO
+}
+
+
 export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
   map(from: ReviewCard): any {
     return {
@@ -10,8 +21,12 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
       'verseId': from.verseId.value,
       'type': from.type,
       'addedAt': from.addedAt,
-      'dueTo': from.dueTo,
+      'dueTo': d(from.dueTo),
       'version': from.version,
+      'interval': from.interval,
+      'ease': from.ease,
+      'lapses': from.lapses,
+      'difficultyChangedAt': from.difficultyChangedAt,
     }
   }
 }
@@ -23,6 +38,16 @@ export class ReviewCardDeserializer implements ObjectMapper<any, ReviewCard> {
       from['type'] as ReviewCardType,
       new Date(from['addedAt']),
       new Date(from['dueTo']),
+    )
+
+    console.log(from['dueTo'], new Date(from['dueTo']))
+
+    ob.setStats(
+      new Date(from['dueTo']),
+      parseInt(from['interval']),
+      parseInt(from['ease']),
+      parseInt(from['lapses']),
+      from['difficultyChangedAt'] ? new Date(from['difficultyChangedAt']) : new Date(from['addedAt'])
     )
     ob.version = from['version']
     return ob

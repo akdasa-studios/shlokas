@@ -28,7 +28,7 @@ export async function addCardsToReview(page: Page, verses: string[]) {
   }
 
   // eslint-disable-next-line playwright/no-wait-for-timeout
-  await page.waitForTimeout(250) // give time to save
+  await page.waitForTimeout(500) // give time to save
 }
 
 

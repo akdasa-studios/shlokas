@@ -108,9 +108,9 @@ export class PouchRepository<
   }
 
   async find(query: Query<TAggregate>): Promise<TAggregate[]> {
-    log.debug(`[${this._collectionName}] find`, query)
     const convertedQuery = new QueryConverter().convert(query)
     convertedQuery.selector['@type'] = this._collectionName
+    log.debug(`[${this._collectionName}] find`, convertedQuery)
     const items = await this._db.db.find(convertedQuery)
     return items.docs.map(x => this._deserializer.map(x))
   }
@@ -177,6 +177,9 @@ class QueryConverter {
       return object.value
     } else if (object instanceof Array<AnyIdentity>) {
       return object.map(x => x.value)
+    } else if (object instanceof Date) {
+      console.log('DATE', object.getTime())
+      return object.getTime()
     }
     return object
   }
