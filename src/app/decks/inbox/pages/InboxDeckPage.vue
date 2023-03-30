@@ -100,7 +100,6 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(async () => await onOpened())
 onIonViewDidLeave(() => cards.value = [])
-setTimeout(() => tutorial.completeStep(TutorialSteps.OpenInboxDeck), 5000)
 
 
 /* -------------------------------------------------------------------------- */
@@ -124,8 +123,8 @@ function onCardFlipped(data: any) {
   const state = getCardState(data.id)
   if (state.index !== 0) return
   state.flipped = !state.flipped
-  tutorial.completeStep(TutorialSteps.FlipInboxCard)
-  tutorial.completeStep(TutorialSteps.FlipInboxCardAgain)
+  completeTutorialStep(TutorialSteps.InboxDeckFlipCard)
+  completeTutorialStep(TutorialSteps.InboxDeckFlipCardAgain)
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
@@ -148,13 +147,16 @@ function onCardSwipeCancelled() {
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
   if (['left', 'right'].includes(direction)) {
     indexedList.shiftItem(cards)
-    tutorial.completeStep(TutorialSteps.SwipeInboxCardLeft)
+    completeTutorialStep(TutorialSteps.InboxDeckSwipeCardLeft)
   } else {
     const card = getInboxCard(id)
     indexedList.removeItem(cards)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
-    tutorial.completeStep(TutorialSteps.SwipeInboxCardUp)
+
+    if (cards.value.length === 0) {
+      completeTutorialStep(TutorialSteps.InboxDeckSwipeCardUp)
+    }
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
@@ -194,5 +196,15 @@ function getDeclamations(inboxCardId: string) {
 function getDefaultImage(inboxCardId: string) {
   const verseId = getInboxCard(inboxCardId).verseId
   return libraryCache.getVerseImage(verseId)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+onIonViewWillEnter(() => completeTutorialStep(TutorialSteps.LibraryEnd))
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>

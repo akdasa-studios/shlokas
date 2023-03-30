@@ -1,13 +1,26 @@
 export enum TutorialSteps {
-  OpenInboxDeck,
-  SwipeInboxCardLeft,
-  FlipInboxCard,
-  PlayDeclamation,
-  FlipInboxCardAgain,
-  SwipeInboxCardUp,
+  OverallIntriduction,
+
+  LibraryIntroduction,
+  LibrarySearch,
+  LibraryOpenVerse,
+  LibraryAddVerse,
+  LibraryEnd,
+
+  InboxDeckIntroduction,
+  InboxDeckSwipeCardLeft,
+  InboxDeckFlipCard,
+  InboxDeckPlayDeclamation,
+  InboxDeckFlipCardAgain,
+  InboxDeckSwipeCardUp,
+  InboxDeckEnd,
+
   OpenReviewDeck,
   AnswerQuestion,
   GradeCard,
   WeekForward,
-  MultipleCards
+  MultipleCards,
+  ReviewDone,
+
+  TutorialDone
 }

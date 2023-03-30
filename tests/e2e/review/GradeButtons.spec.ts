@@ -7,9 +7,16 @@ test.describe('Review Deck › Grade Buttons', () => {
   test.beforeEach(async ({ page }) => {
     const app = new Application(page)
 
-    await app.goto('/home/library', { tutorialEnabled: false })
+    await app.goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
     await addCardsToReview(page, ['BG 1.1'])
-    await app.goto('/home/review', { date: nextDays(1) })
+    await app.goto('/home/review', {
+      date: nextDays(1),
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
   })
 
   /**

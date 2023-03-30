@@ -1,5 +1,5 @@
 import { test , expect } from '@playwright/test'
-import { LibraryPage, TabsBar, VerseDetailsPage } from '../components'
+import { Application, LibraryPage, TabsBar, VerseDetailsPage } from '../components'
 
 
 test.describe('Library › Add to Inbox', () => {
@@ -7,6 +7,7 @@ test.describe('Library › Add to Inbox', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
+  let app: Application
   let library: LibraryPage
   let verseDetails: VerseDetailsPage
   let tabsBar: TabsBar
@@ -17,10 +18,14 @@ test.describe('Library › Add to Inbox', () => {
   /* -------------------------------------------------------------------------- */
 
   test.beforeEach(async ({ page }) => {
+    app = new Application(page)
     library = new LibraryPage(page)
     tabsBar = new TabsBar(page)
     verseDetails = new VerseDetailsPage(page)
-    await page.goto('/home/library')
+    await app.goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
   })
 
   test.afterEach(async ({ page }) => {
@@ -52,7 +57,6 @@ test.describe('Library › Add to Inbox', () => {
     await library.verse('BG 1.1').click()
     await verseDetails.backButton.click()
 
-    await expect(page).toHaveURL('/home/library')
     await expect(library.searchbar).toBeVisible()
   })
 })

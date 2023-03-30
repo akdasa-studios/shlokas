@@ -224,6 +224,7 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   swipePopup.show = false
 
   tutorial.completeStep(TutorialSteps.GradeCard)
+  console.log('===>>>', cardsToShow.value.length)
   if (cardsToShow.value.length === 0) {
     tutorial.completeStep(TutorialSteps.MultipleCards)
   }
@@ -257,6 +258,16 @@ function getGrade(direction: string, distance: number): ReviewGrade | undefined 
     if (distance > 80) { return ReviewGrade.Good }
     if (distance > 40) { return ReviewGrade.Hard }
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+onIonViewWillEnter(() => completeTutorialStep(TutorialSteps.InboxDeckEnd))
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>
 

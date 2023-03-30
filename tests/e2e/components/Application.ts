@@ -2,6 +2,7 @@ import { Page } from '@playwright/test'
 
 export interface ApplicationParams {
   tutorialEnabled?: boolean,
+  libraryLastSyncDate?: number,
   date?: Date
 }
 

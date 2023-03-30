@@ -97,7 +97,7 @@ async function onOpened() {
 function onTogglePlaying() {
   playing.value = !playing.value
   if (playing.value) { play() } else { audio.stop() }
-  tutorial.completeStep(TutorialSteps.PlayDeclamation)
+  tutorial.completeStep(TutorialSteps.InboxDeckPlayDeclamation)
 }
 
 function onAudioProgressChanged(value: boolean) {

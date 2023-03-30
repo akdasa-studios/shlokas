@@ -1,7 +1,6 @@
 import { InboxCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { InboxDeckPage, LibraryPage, TabsBar } from '../components'
-import { VerseDetailsPage } from './../components/VerseDetailsPage'
+import { Application, InboxDeckPage, LibraryPage, TabsBar, VerseDetailsPage } from '../components'
 
 
 test.describe('Inbox Deck', () => {
@@ -17,7 +16,10 @@ test.describe('Inbox Deck', () => {
     libraryPage = new LibraryPage(page)
     verseDetailsPage = new VerseDetailsPage(page)
 
-    await page.goto('/home/library?tutorialEnabled=false')
+    await new Application(page).goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
   })
 
   test('Inbox is empty', async () => {
