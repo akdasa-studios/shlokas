@@ -177,6 +177,8 @@ class QueryConverter {
       return object.value
     } else if (object instanceof Array<AnyIdentity>) {
       return object.map(x => x.value)
+    } else if (object instanceof Date) {
+      return object.getTime()
     }
     return object
   }

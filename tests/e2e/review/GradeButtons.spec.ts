@@ -1,14 +1,15 @@
 import { ReviewCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
-import { Application, ReviewDeckPage , TabsBar } from '../components'
-import { addCardsToReview } from '../scenarios'
+import { Application, ReviewDeckPage } from '../components'
+import { addCardsToReview, nextDays } from '../scenarios'
 
 test.describe('Review Deck › Grade Buttons', () => {
   test.beforeEach(async ({ page }) => {
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
+    const app = new Application(page)
+
+    await app.goto('/home/library', { tutorialEnabled: false })
     await addCardsToReview(page, ['BG 1.1'])
-    await new TabsBar(page).reviewTab.click()
+    await app.goto('/home/review', { date: nextDays(1) })
   })
 
   /**

@@ -77,6 +77,7 @@
     </ion-content>
 
     <ion-loading
+      data-testid="syncing-progress"
       :is-open="inProgress"
       :duration="3000"
       :message="$t('common.wait')"
@@ -124,7 +125,7 @@ async function onSync() {
   const remoteRepos = createRepositories(syncHost.value as string)
   await app.sync(remoteRepos)
   emitter.emit('syncCompleted')
-  inProgress.value = false
+  setTimeout(() => inProgress.value = false, 2500)
 }
 
 async function onRefreshToken() {

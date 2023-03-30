@@ -1,7 +1,7 @@
 import { ReviewCardType } from '@akdasa-studios/shlokas-core'
 import { expect, test } from '@playwright/test'
 import { Application, ReviewDeckPage , TabsBar } from '../components'
-import { addCardsToReview } from '../scenarios'
+import { addCardsToReview, nextDays } from '../scenarios'
 
 
 test.describe('Review Deck › Swipe Cards', () => {
@@ -16,11 +16,13 @@ test.describe('Review Deck › Swipe Cards', () => {
    * added cards to review.
    */
   test('Swipe all cards up', async ({ page }) => {
+    const app    = new Application(page)
     const tabs   = new TabsBar(page)
     const review = new ReviewDeckPage(page)
 
     // act:
     await tabs.reviewTab.click()
+    await app.goto('/home/review', { date: nextDays(1) })
     for (const verseNumber of ['BG 1.1', 'BG 2.13']) {
       const cardLocator = review.card(verseNumber, ReviewCardType.NumberToTranslation)
       await review.swipeCardUp(cardLocator)
