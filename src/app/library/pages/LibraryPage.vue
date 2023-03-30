@@ -41,7 +41,7 @@
 import { Application, Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonPage, IonLoading, IonRefresher, IonRefresherContent,
-  IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewWillLeave
+  IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
 } from '@ionic/vue'
 import { inject, ref, shallowRef, watch } from 'vue'
 import { storeToRefs } from 'pinia'
