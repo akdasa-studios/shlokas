@@ -8,7 +8,7 @@
       @click="onCardClicked"
       @button-clicked="onButtonClicked"
     >
-      {{ activeCard.text }}
+      {{ $t(activeCard.text) }}
     </TutorialCard>
   </div>
 </template>

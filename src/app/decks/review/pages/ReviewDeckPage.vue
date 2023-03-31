@@ -132,7 +132,7 @@ const gradeButtonIntervals = computed(() => {
 
 
 watch(currentStep, async (value: number) => {
-  if (value === TutorialSteps.AnswerQuestion || value === TutorialSteps.MultipleCards) {
+  if (value === TutorialSteps.ReviewDeckQuestionAndAnswer || value === TutorialSteps.ReviewDeckGradeAllCards) {
     await onOpened()
   }
 })
@@ -166,7 +166,7 @@ async function onOpened() {
 function onCardFlipped(data: any) {
   const state = getCardState(data.id)
   state.flipped = !state.flipped
-  tutorial.completeStep(TutorialSteps.AnswerQuestion)
+  tutorial.completeStep(TutorialSteps.ReviewDeckQuestionAndAnswer)
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
@@ -223,9 +223,9 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
 
-  tutorial.completeStep(TutorialSteps.GradeCard)
+  tutorial.completeStep(TutorialSteps.ReviewDeckGradeCard)
   if (cardsToShow.value.length === 0) {
-    tutorial.completeStep(TutorialSteps.MultipleCards)
+    tutorial.completeStep(TutorialSteps.ReviewDeckGradeAllCards)
   }
 
 }

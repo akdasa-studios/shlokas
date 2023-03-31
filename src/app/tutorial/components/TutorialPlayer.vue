@@ -52,8 +52,8 @@ function goToTheNextStep() {
 
 tutorialStore.registerSteps([
   {
-    id: TutorialSteps.OverallIntriduction,
-    text: 'Добро пожаловать в "Учи Шлоки!" Пандитджи, желаете ли пройти обучение?',
+    id: TutorialSteps.OverallIntroduction,
+    text: 'tutorial.introduction',
     buttons: [
       { id: 'yes', text: 'common.yes', color: 'success' },
       { id: 'no', text: 'common.no', color: 'danger' }
@@ -73,30 +73,30 @@ tutorialStore.registerSteps([
 
   {
     id: TutorialSteps.LibraryIntroduction,
-    text: 'Это библиотека. Тут вы можете найти шлоку которую хотите выучить',
+    text: 'tutorial.library.introduction',
     duration: 5000,
     onTimeout: goToTheNextStep
   },
 
   {
     id: TutorialSteps.LibrarySearch,
-    text: 'Вы можете искать шлоки в списке или по номеру и содержанию. Попробуйте найти какую-нибудь шлоку'
+    text: 'tutorial.library.search'
   },
 
 
   {
     id: TutorialSteps.LibraryOpenVerse,
-    text: 'Отлично! Откройте шлоку БГ 1.1'
+    text: 'tutorial.library.openVerse'
   },
 
   {
     id: TutorialSteps.LibraryAddVerse,
-    text: 'Чтобы начать учить шлоку нужно добавить её в колоду "Входящие", для этого нажмите "Добавить"'
+    text:'tutorial.library.addVerse'
   },
 
   {
     id: TutorialSteps.LibraryEnd,
-    text: 'Шлока добавлена. Давайте её выучим. Перейдите во "Входящие"'
+    text: 'tutorial.library.end'
   },
 
 
@@ -106,39 +106,39 @@ tutorialStore.registerSteps([
 
   {
     id: TutorialSteps.InboxDeckIntroduction,
-    text: 'Это колода "Входящие". Каждый стих здесь разбивается на две карточки: текст и перевод.',
+    text: 'tutorial.inboxDeck.introduction',
     duration: 5000,
     onTimeout: goToTheNextStep
   },
 
   {
     id: TutorialSteps.InboxDeckSwipeCardLeft,
-    text: 'Смахните карточку влево чтобы перейти к следущей. Карточки переключаются по кругу.'
+    text: 'tutorial.inboxDeck.swipeCardLeft',
   },
 
   {
     id: TutorialSteps.InboxDeckFlipCard,
-    text: 'На обратной стороне карточки находится проигрыватель и пословный перевод. Нажмите чтобы перевернуть.'
+    text: 'tutorial.inboxDeck.flipCard',
   },
 
   {
     id: TutorialSteps.InboxDeckPlayDeclamation,
-    text: 'Нажмите на круг чтобы включить воспроизведение. Каждая строчка повторяется несколько раз. Ниже отображается пословный перевод'
+    text: 'tutorial.inboxDeck.playDeclamation'
   },
 
   {
     id: TutorialSteps.InboxDeckFlipCardAgain,
-    text: 'Вы можете перевернуть карточку и смотреть текст шлоки. Переверните карточку'
+    text: 'tutorial.inboxDeck.flipCardAgain'
   },
 
   {
     id: TutorialSteps.InboxDeckSwipeCardUp,
-    text: 'Как только вы выучили карточку, а на это может потребоваться несколько дней, то смахните её вверх. Смахните все карточки вверх.'
+    text: 'tutorial.inboxDeck.swipeCardUp'
   },
 
   {
     id: TutorialSteps.InboxDeckEnd,
-    text: 'Вы запомнили все карточки! Перйдите в колоду "Обзор"'
+    text: 'tutorial.inboxDeck.end'
   },
 
 
@@ -147,8 +147,8 @@ tutorialStore.registerSteps([
   /* -------------------------------------------------------------------------- */
 
   {
-    id: TutorialSteps.OpenReviewDeck,
-    text: 'Это колода "Обзор". Сюда попадают уже запомненные вами карточки. На сегодня у вас нет запланированных карточек, но есть на завтра. Переместимся на завтра.',
+    id: TutorialSteps.ReviewDeckIntroduction,
+    text: 'tutorial.reviewDeck.introduction',
     buttons: [
       { id: 'go', text: 'common.forward', color: 'success' },
     ],
@@ -159,19 +159,19 @@ tutorialStore.registerSteps([
   },
 
   {
-    id: TutorialSteps.AnswerQuestion,
-    text: 'На передней стороне карточки находится вопрос, на обратной стороне ответ. Впомните ответ и переверните карточку, чтобы проверить свои знания'
+    id: TutorialSteps.ReviewDeckQuestionAndAnswer,
+    text: 'tutorial.reviewDeck.questionAndAnswer'
   },
 
   {
-    id: TutorialSteps.GradeCard,
-    text: 'Поставьте себе оценку. В зависимости от оценки период следущего повторения будет изменяться, он отображается на кнопке',
+    id: TutorialSteps.ReviewDeckGradeCard,
+    text: 'tutorial.reviewDeck.gradeCard',
     position: 'aboveGradeButtons'
   },
 
   {
-    id: TutorialSteps.WeekForward,
-    text: 'Отлично! Теперь переместимся на неделю вперёд! На каждый стих создаётся несколько карточек с разными вопросами. Проверим как это выглядит!',
+    id: TutorialSteps.ReviewDeckGoToFuture,
+    text: 'tutorial.reviewDeck.goToFuture',
     buttons: [
       { id: 'go', text: 'common.forward', color: 'success' },
     ],
@@ -179,22 +179,22 @@ tutorialStore.registerSteps([
   },
 
   {
-    id: TutorialSteps.MultipleCards,
-    text: 'Ппробуйте ответить на все карточки и поставить себе оценку',
+    id: TutorialSteps.ReviewDeckGradeAllCards,
+    text: 'tutorial.reviewDeck.gradeAllCards',
     duration: 5000,
     onEnter: () => nextDay(7)
   },
 
   {
-    id: TutorialSteps.ReviewDone,
-    text: 'Отлично! Вы просмотрели все карточки!',
+    id: TutorialSteps.ReviewDeckEnd,
+    text: 'tutorial.reviewDeck.end',
     duration: 5000,
     onTimeout: goToTheNextStep
   },
 
   {
     id: TutorialSteps.TutorialCongratulations,
-    text: 'Поздравляем! Пандитджи, вы закончили обучение!',
+    text: 'tutorial.congratulations',
     duration: 5000,
     onEnter: () => {
       showConfetti.value = true

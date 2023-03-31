@@ -18,7 +18,7 @@ export interface TutorialStep {
 }
 
 export enum TutorialSteps {
-  OverallIntriduction,
+  OverallIntroduction,
 
   LibraryIntroduction,
   LibrarySearch,
@@ -34,12 +34,12 @@ export enum TutorialSteps {
   InboxDeckSwipeCardUp,
   InboxDeckEnd,
 
-  OpenReviewDeck,
-  AnswerQuestion,
-  GradeCard,
-  WeekForward,
-  MultipleCards,
-  ReviewDone,
+  ReviewDeckIntroduction,
+  ReviewDeckQuestionAndAnswer,
+  ReviewDeckGradeCard,
+  ReviewDeckGoToFuture,
+  ReviewDeckGradeAllCards,
+  ReviewDeckEnd,
 
   TutorialCongratulations,
   TutorialEnd
