@@ -78,7 +78,6 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnte
 import { computed, inject, reactive, ref, watch } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { time } from 'ionicons/icons'
 import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
