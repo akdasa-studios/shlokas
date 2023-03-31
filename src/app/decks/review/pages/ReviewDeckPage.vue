@@ -6,6 +6,18 @@
         <ion-title>
           {{ $t('decks.review.title') }}
         </ion-title>
+
+        <ion-buttons
+          v-if="timeMachine.daysInFuture.value"
+          slot="primary"
+        >
+          <ion-button
+            fill="solid"
+            color="warning"
+          >
+            {{ $t("tutorial.daysInFuture", { count: timeMachine.daysInFuture.value }) }}
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -62,14 +74,16 @@
 
 <script lang="ts" setup>
 import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, IonButton, IonButtons } from '@ionic/vue'
 import { computed, inject, reactive, ref, watch } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import { time } from 'ionicons/icons'
 import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { useTimeMachine } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -81,6 +95,7 @@ const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
+const timeMachine = useTimeMachine(app)
 
 
 /* -------------------------------------------------------------------------- */

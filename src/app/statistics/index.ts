@@ -1,2 +1,2 @@
 export * from './stores/useStatisticsStore'
-export * from './tasks/UpdateStatisticsTask'
+export * from './tasks/runUpdateStatisticsTask'

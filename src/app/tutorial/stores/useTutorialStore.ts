@@ -25,9 +25,9 @@ export const useTutorialStore = defineStore('tutorial', () => {
     steps.value = tutorialSteps
   }
 
-  function completeStep(step: number) {
+  async function completeStep(step: number) {
     if (currentStep.value?.onLeave && step === currentStepIdx.value) {
-      currentStep.value.onLeave()
+      await currentStep.value.onLeave()
     }
 
     if (currentStepIdx.value === step || step === undefined) {
@@ -35,7 +35,7 @@ export const useTutorialStore = defineStore('tutorial', () => {
     }
 
     if (currentStep.value?.onEnter && (step+1) === currentStepIdx.value) {
-      currentStep.value.onEnter()
+      await currentStep.value.onEnter()
     }
   }
 

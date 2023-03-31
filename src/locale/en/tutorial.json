@@ -2,6 +2,8 @@
 	"tutorial": {
 		"introduction": "Welcome to Shlokas! Panditji, would you like to go throght training?",
 		"congratulations": "Congratulations! Panditji, you have graduated!",
+    "daysInFuture": "+{count} day in future",
+
 		"library": {
 			"introduction": "This is a library. Here you can find shlokas you want to learn",
 			"search": "You can search for shlokas in a list or by number and content. Try searching for a particular shloka",
@@ -21,10 +23,10 @@
 		"reviewDeck": {
 			"introduction": "This is the Review deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
 			"questionAndAnswer": "On the front of the card is the question and on the back is the answer. Remember the answer and turn the card over to test your knowledge",
-			"gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the",
+			"gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the button",
 			"goToFuture": "Great! Now let's move forward a week! Several cards with different questions are created for each verse. Let's see how it looks!",
 			"gradeAllCards": "Try to answer all the cards and give yourself a grade",
-			"end": "Great! You've looked at all the cards!"
+			"end": "Great! You've reviewd all the cards!"
 		}
 	}
 }

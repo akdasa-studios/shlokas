@@ -22,6 +22,7 @@ import { inject, ref } from 'vue'
 import { Application } from '@akdasa-studios/shlokas-core'
 import ConfettiExplosion from 'vue-confetti-explosion'
 import { TutorialCards, TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { useTimeMachine } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -29,6 +30,7 @@ import { TutorialCards, TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 const app = inject('app') as Application
 const tutorialStore = useTutorialStore()
+const timeMachine = useTimeMachine(app)
 
 
 /* -------------------------------------------------------------------------- */
@@ -61,7 +63,6 @@ tutorialStore.registerSteps([
     onButtonClicked: (buttonId: string) => {
       if (buttonId === 'no') {
         tutorialStore.currentStep = 9999
-        console.log('NO',  tutorialStore.currentStep)
       }
       if (buttonId === 'yes') { goToTheNextStep() }
     }
@@ -153,7 +154,7 @@ tutorialStore.registerSteps([
       { id: 'go', text: 'common.forward', color: 'success' },
     ],
     onButtonClicked: () => {
-      nextDay()
+      timeMachine.goInFuture(1)
       goToTheNextStep()
     }
   },
@@ -182,7 +183,7 @@ tutorialStore.registerSteps([
     id: TutorialSteps.ReviewDeckGradeAllCards,
     text: 'tutorial.reviewDeck.gradeAllCards',
     duration: 5000,
-    onEnter: () => nextDay(7)
+    onEnter: () => timeMachine.goInFuture(7)
   },
 
   {
@@ -199,17 +200,28 @@ tutorialStore.registerSteps([
     onEnter: () => {
       showConfetti.value = true
     },
-    onTimeout() {
+    async onTimeout() {
       currentStep.value = TutorialSteps.TutorialEnd
+      await cleanup()
+      timeMachine.goInFuture(0)
     }
   },
-
 ])
 
-function nextDay(days=1) {
-  app.timeMachine.set(
-    app.timeMachine.add(app.timeMachine.now, 24*days, 'h')
-  )
+
+async function cleanup() {
+  const inboxCards = await app.repositories.inboxCards.all()
+  for (const inboxCard of inboxCards) {
+    await app.repositories.inboxCards.delete(inboxCard.id)
+  }
+  const reviewCards = await app.repositories.reviewCards.all()
+  for (const reviewCard of reviewCards) {
+    await app.repositories.reviewCards.delete(reviewCard.id)
+  }
+  const verseStatuses = await app.repositories.verseStatuses.all()
+  for (const verseStatus of verseStatuses) {
+    await app.repositories.verseStatuses.delete(verseStatus.id)
+  }
 }
 
 const tutorial = ref()
