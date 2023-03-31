@@ -6,8 +6,10 @@ import { addCardsToReview, nextDays } from '../scenarios'
 
 test.describe('Review Deck › Swipe Cards', () => {
   test.beforeEach(async ({ page }) => {
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
+    await new Application(page).goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
     await addCardsToReview(page, ['BG 1.1', 'BG 2.13'])
   })
 
@@ -22,7 +24,11 @@ test.describe('Review Deck › Swipe Cards', () => {
 
     // act:
     await tabs.reviewTab.click()
-    await app.goto('/home/review', { date: nextDays(1) })
+    await app.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(1)
+    })
     for (const verseNumber of ['BG 1.1', 'BG 2.13']) {
       const cardLocator = review.card(verseNumber, ReviewCardType.NumberToTranslation)
       await review.swipeCardUp(cardLocator)

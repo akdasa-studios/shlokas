@@ -40,6 +40,7 @@ import { AddVerseToInboxDeck, Application, Decks, Declamation, UpdateVerseStatus
 import { Transaction } from '@akdasa-studios/framework'
 import { VerseDetails } from '@/app/library'
 import { go } from '@/app/shared'
+import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -56,6 +57,7 @@ const props = defineProps<{
 
 const app = inject('app') as Application
 const router = useIonRouter()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -86,6 +88,7 @@ async function onAddVerseToInboxClicked() {
   await app.processor.execute(new AddVerseToInboxDeck(verse.value.id), transaction)
   await app.processor.execute(new UpdateVerseStatus(verse.value.id), transaction)
   if (router.canGoBack()) { router.back() } else { router.push(go('library')) }
+  completeTutorialStep(TutorialSteps.LibraryAddVerse)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -108,5 +111,18 @@ async function fetchData() {
   status.value = _status
   verseImages.value = Array.from(_images)
   declamations.value = [..._declamations, ..._d2]
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+onMounted(() => {
+  completeTutorialStep(TutorialSteps.LibrarySearch)
+  completeTutorialStep(TutorialSteps.LibraryOpenVerse)
+})
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>

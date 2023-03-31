@@ -1,12 +1,14 @@
 import { expect, test } from '@playwright/test'
 import { Account, Application, LibraryPage, Settings, TabsBar } from '../components'
 import { addCardsToInbox, addCardsToReview, nextDays } from '../scenarios'
-import { logIn, logInNewDevice, signUp, sync } from '../scenarios/accounts'
+import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 
 
 test.beforeEach(async ({ page }) => {
-  await new Application(page)
-    .goto('/home/library', { tutorialEnabled: false })
+  await new Application(page).goto('/home/library', {
+    tutorialEnabled: false,
+    libraryLastSyncDate: 9999999999999
+  })
   await page.evaluate(() =>
     localStorage.setItem('mailcatcherSeparatorHeight', '400')
   )
@@ -95,7 +97,11 @@ test.describe('Settings › Account › Sync', () => {
     await account2.sync.click()
     await account2.sync.click()
     await account2.syncingProgress.waitFor({ state: 'hidden' })
-    await app2.goto('/home/review', { date: nextDays(1) })
+    await app2.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(1)
+    })
     await expect(tabs2.reviewBadge).toHaveText('1')
     await context2.close()
   })
@@ -127,7 +133,11 @@ test.describe('Settings › Account › Sync', () => {
     await account2.syncingProgress.waitFor({ state: 'hidden' })
 
     await expect(tabs2.inboxBadge).toBeHidden() // already removed on device1. But still on device2
-    await app2.goto('/home/review', { date: nextDays(1) })
+    await app2.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(1)
+    })
     await expect(tabs2.reviewBadge).toHaveText('1')
 
     await context2.close()

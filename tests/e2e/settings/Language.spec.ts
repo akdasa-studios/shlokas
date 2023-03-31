@@ -3,8 +3,10 @@ import { Application } from '../components'
 
 
 test.beforeEach(async ({ page }) => {
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
+  await new Application(page).goto('/home/library', {
+    tutorialEnabled: false,
+    libraryLastSyncDate: 9999999999999
+  })
   await page.getByTestId('settings-tab').click()
 })
 

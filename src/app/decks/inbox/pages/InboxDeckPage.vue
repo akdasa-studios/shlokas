@@ -56,6 +56,7 @@ import { computed, inject, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
+import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
 
 
 /* -------------------------------------------------------------------------- */
@@ -65,6 +66,7 @@ import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/dec
 const app = inject('app') as Application
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -121,6 +123,8 @@ function onCardFlipped(data: any) {
   const state = getCardState(data.id)
   if (state.index !== 0) return
   state.flipped = !state.flipped
+  completeTutorialStep(TutorialSteps.InboxDeckFlipCard)
+  completeTutorialStep(TutorialSteps.InboxDeckFlipCardAgain)
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
@@ -143,11 +147,16 @@ function onCardSwipeCancelled() {
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
   if (['left', 'right'].includes(direction)) {
     indexedList.shiftItem(cards)
+    completeTutorialStep(TutorialSteps.InboxDeckSwipeCardLeft)
   } else {
     const card = getInboxCard(id)
     indexedList.removeItem(cards)
     await app.processor.execute(new InboxCardMemorized(card))
     await app.processor.execute(new UpdateVerseStatus(card.verseId))
+
+    if (cards.value.length === 0) {
+      completeTutorialStep(TutorialSteps.InboxDeckSwipeCardUp)
+    }
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
@@ -187,5 +196,15 @@ function getDeclamations(inboxCardId: string) {
 function getDefaultImage(inboxCardId: string) {
   const verseId = getInboxCard(inboxCardId).verseId
   return libraryCache.getVerseImage(verseId)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+onIonViewWillEnter(() => completeTutorialStep(TutorialSteps.LibraryEnd))
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>

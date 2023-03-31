@@ -29,7 +29,10 @@
     "close": "Close",
     "revert": "Revert",
     "wait": "Please wait...",
-    "ok": "OK"
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "forward": "Вперёд!"
   },
   "decks": {
     "inbox": {

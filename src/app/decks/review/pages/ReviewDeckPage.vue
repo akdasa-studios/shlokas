@@ -63,11 +63,13 @@
 <script lang="ts" setup>
 import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
-import { computed, inject, reactive, ref } from 'vue'
+import { computed, inject, reactive, ref, watch } from 'vue'
 import { useArrayFind } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
+import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 
 /* -------------------------------------------------------------------------- */
@@ -78,6 +80,7 @@ const app = inject('app') as Application
 const libraryCache = useLibraryCache(app)
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -106,6 +109,7 @@ const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval:
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
 const showGradeButtons = computed(() => topCard.value?.flipped && settings.appearanceSettings.gradeButtons)
+const { currentStep } = storeToRefs(tutorial)
 
 let reviewCards: readonly ReviewCard[] = []
 const gradeButtonIntervals = computed(() => {
@@ -122,6 +126,16 @@ const gradeButtonIntervals = computed(() => {
   )
 })
 
+/* -------------------------------------------------------------------------- */
+/*                                    Watch                                   */
+/* -------------------------------------------------------------------------- */
+
+
+watch(currentStep, async (value: number) => {
+  if (value === TutorialSteps.ReviewDeckQuestionAndAnswer || value === TutorialSteps.ReviewDeckGradeAllCards) {
+    await onOpened()
+  }
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -150,6 +164,7 @@ async function onOpened() {
 function onCardFlipped(data: any) {
   const state = getCardState(data.id)
   state.flipped = !state.flipped
+  tutorial.completeStep(TutorialSteps.ReviewDeckQuestionAndAnswer)
 }
 
 function onCardSwipeMoving(id: string, { distance, direction }: { distance: number, direction: string }) {
@@ -205,6 +220,12 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   }
   setTimeout(() => swipePopup.status = 'none', 250)
   swipePopup.show = false
+
+  tutorial.completeStep(TutorialSteps.ReviewDeckGradeCard)
+  if (cardsToShow.value.length === 0) {
+    tutorial.completeStep(TutorialSteps.ReviewDeckGradeAllCards)
+  }
+
 }
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
@@ -234,6 +255,16 @@ function getGrade(direction: string, distance: number): ReviewGrade | undefined 
     if (distance > 80) { return ReviewGrade.Good }
     if (distance > 40) { return ReviewGrade.Hard }
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+onIonViewWillEnter(() => completeTutorialStep(TutorialSteps.InboxDeckEnd))
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>
 

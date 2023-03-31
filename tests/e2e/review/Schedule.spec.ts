@@ -5,8 +5,10 @@ import { addCardsToReview, nextDays } from '../scenarios'
 
 test.describe('Review Deck › Schedule', () => {
   test.beforeEach(async ({ page }) => {
-    await new Application(page)
-      .goto('/home/library', { tutorialEnabled: false })
+    await new Application(page).goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
   })
 
   test.beforeEach(async ({ page }) => {
@@ -22,7 +24,11 @@ test.describe('Review Deck › Schedule', () => {
     const tabs = new TabsBar(page)
 
     // act:
-    await app.goto('/home/review', { date: nextDays(10) })
+    await app.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(10)
+    })
 
     // assert:
     // 1. we create 6 cards per verse, so we should see 6 cards
@@ -37,7 +43,11 @@ test.describe('Review Deck › Schedule', () => {
     const app = new Application(page)
 
     // act:
-    await app.goto('/home/review', { date: nextDays(1) })
+    await app.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(1)
+    })
     await review.card('BG 1.1', ReviewCardType.NumberToTranslation).click()
     await review.good.click()
 
@@ -55,10 +65,18 @@ test.describe('Review Deck › Schedule', () => {
     const tabs = new TabsBar(page)
 
     // act:
-    await app.goto('/home/review', { date: nextDays(1) })
+    await app.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(1)
+    })
     await review.card('BG 1.1', ReviewCardType.NumberToTranslation).click()
     await review.good.click()
-    await app.goto('/home/review', { date: nextDays(2) })
+    await app.goto('/home/review', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999,
+      date: nextDays(2)
+    })
 
     // assert:
     // 1. one card scheduled for today and one card from yesterday

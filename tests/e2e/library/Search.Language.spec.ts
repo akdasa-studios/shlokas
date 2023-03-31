@@ -12,7 +12,10 @@ test.describe('Library › Search › Change language', () => {
   test.beforeEach(async ({ page }) => {
     library = new LibraryPage(page)
 
-    await new Application(page).goto('/home/library')
+    await new Application(page).goto('/home/library', {
+      tutorialEnabled: false,
+      libraryLastSyncDate: 9999999999999
+    })
 
     await page.getByTestId('settings-tab').click()
     await page.getByTestId('language').click()

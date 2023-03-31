@@ -59,7 +59,7 @@ function getStatusFor(status: string) {
   position: absolute;
   width: calc(100% - 20px);
   background-color: var(--ion-color-always-dark);
-  color: var(--ion-color-dark-contrast);
+  color: var(--ion-color-always-dark-contrast);
   z-index: 1000;
   margin: 10px;
   padding: 10px;

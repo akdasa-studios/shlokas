@@ -48,6 +48,7 @@ import { storeToRefs } from 'pinia'
 import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
+import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -58,6 +59,7 @@ const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(app, libraryDatabase)
 const settings = useSettingsStore()
+const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -99,6 +101,10 @@ async function onSearchQueryChanged(value: string) {
   const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
+
+  if (value.length > 0) {
+    completeTutorialStep(TutorialSteps.LibrarySearch)
+  }
 }
 
 async function onRefresherPullDown(
@@ -136,5 +142,13 @@ async function syncLibrary(force = false) {
     await loadLibrary.sync()
     settings.library.lastSyncDate = now
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Tutorial                                  */
+/* -------------------------------------------------------------------------- */
+
+function completeTutorialStep(step: TutorialSteps) {
+  tutorial.completeStep(step)
 }
 </script>

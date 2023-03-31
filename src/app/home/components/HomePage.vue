@@ -57,6 +57,10 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
+
+    <TutorialPlayer
+      v-if="tutorialEnabled && !isTutorialCompleted"
+    />
   </ion-page>
 </template>
 
@@ -72,16 +76,24 @@ import {
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
+import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
 const statisticsStore = useStatisticsStore()
+const tutorialStore = useTutorialStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
+const {
+  enabled: tutorialEnabled,
+  isCompleted: isTutorialCompleted
+} = storeToRefs(tutorialStore)
 </script>
+
+
