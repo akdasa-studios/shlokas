@@ -1,11 +1,17 @@
 import { AddVerseToInboxDeck, Application, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 
+import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
+import { useTimeMachine } from '@/app/shared'
 
 
 export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2) {
   const statisticsStore = useStatisticsStore()
+  const timeMachine = useTimeMachine(app)
+
+
+  watch(timeMachine.now, async () => await updateStatistics())
 
   emitter.on('commandExecuted', async (e) => {
     if (e instanceof ReviewCardReviewed) { await updateStatistics() }
