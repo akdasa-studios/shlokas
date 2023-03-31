@@ -224,7 +224,6 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   swipePopup.show = false
 
   tutorial.completeStep(TutorialSteps.GradeCard)
-  console.log('===>>>', cardsToShow.value.length)
   if (cardsToShow.value.length === 0) {
     tutorial.completeStep(TutorialSteps.MultipleCards)
   }

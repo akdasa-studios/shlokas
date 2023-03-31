@@ -1,29 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// import { useDeviceStore } from '@/app/useDeviceStorage'
+import { TutorialStep, TutorialSteps } from '../models/TutorialStep'
 
-export interface TutorialButton {
-  id: string
-  text: string
-  color: string
-}
-
-export interface TutorialStep {
-  id: number
-  text: string
-  actionText?: string
-  position?: string
-  duration?: number
-  buttons?: TutorialButton[]
-  onButtonClicked?: (buttonId: string) => void
-  onTimeout?: () => void
-  onLeave?: () => void
-  onEnter?: () => void
-}
 
 
 export const useTutorialStore = defineStore('tutorial', () => {
-  // const storage = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
@@ -33,6 +14,7 @@ export const useTutorialStore = defineStore('tutorial', () => {
   const currentStepIdx = ref(0)
   const currentStep = computed(() => steps.value[currentStepIdx.value])
   const steps = ref<TutorialStep[]>([])
+  const isCompleted = computed(() => currentStepIdx.value >= TutorialSteps.TutorialEnd)
 
 
   /* -------------------------------------------------------------------------- */
@@ -44,8 +26,6 @@ export const useTutorialStore = defineStore('tutorial', () => {
   }
 
   function completeStep(step?: number) {
-    console.log('completeStep', step, currentStepIdx.value)
-
     if (currentStep.value?.onLeave) {
       currentStep.value.onLeave()
     }
@@ -64,5 +44,5 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep: currentStepIdx, completeStep, registerSteps, steps, enabled }
+  return { currentStep: currentStepIdx, completeStep, registerSteps, steps, enabled, isCompleted }
 })

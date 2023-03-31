@@ -102,7 +102,9 @@ async function onSearchQueryChanged(value: string) {
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
 
-  completeTutorialStep(TutorialSteps.LibrarySearch)
+  if (value.length > 0) {
+    completeTutorialStep(TutorialSteps.LibrarySearch)
+  }
 }
 
 async function onRefresherPullDown(

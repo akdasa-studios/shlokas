@@ -86,7 +86,7 @@ tutorialStore.registerSteps([
 
   {
     id: TutorialSteps.LibraryOpenVerse,
-    text: 'Откройте шлоку'
+    text: 'Отлично! Откройте шлоку БГ 1.1'
   },
 
   {
@@ -165,7 +165,7 @@ tutorialStore.registerSteps([
 
   {
     id: TutorialSteps.GradeCard,
-    text: 'Поставьте себе оценку. В зависимости от оценки период следущего повторения будет изменяться. Вы можете видеть его на кнопке',
+    text: 'Поставьте себе оценку. В зависимости от оценки период следущего повторения будет изменяться, он отображается на кнопке',
     position: 'aboveGradeButtons'
   },
 
@@ -173,18 +173,16 @@ tutorialStore.registerSteps([
     id: TutorialSteps.WeekForward,
     text: 'Отлично! Теперь переместимся на неделю вперёд! На каждый стих создаётся несколько карточек с разными вопросами. Проверим как это выглядит!',
     buttons: [
-      { id: 'go', text: 'Go', color: 'success' },
+      { id: 'go', text: 'common.forward', color: 'success' },
     ],
-    onButtonClicked: () => {
-      nextDay(7)
-      goToTheNextStep()
-    }
+    onButtonClicked: goToTheNextStep
   },
 
   {
     id: TutorialSteps.MultipleCards,
     text: 'Ппробуйте ответить на все карточки и поставить себе оценку',
-    duration: 5000
+    duration: 5000,
+    onEnter: () => nextDay(7)
   },
 
   {
@@ -195,11 +193,14 @@ tutorialStore.registerSteps([
   },
 
   {
-    id: TutorialSteps.TutorialDone,
+    id: TutorialSteps.TutorialCongratulations,
     text: 'Поздравляем! Пандитджи, вы закончили обучение!',
     duration: 5000,
     onEnter: () => {
       showConfetti.value = true
+    },
+    onTimeout() {
+      currentStep.value = TutorialSteps.TutorialEnd
     }
   },
 

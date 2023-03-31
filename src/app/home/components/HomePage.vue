@@ -59,7 +59,7 @@
     </ion-tabs>
 
     <TutorialPlayer
-      v-if="tutorialEnabled"
+      v-if="tutorialEnabled && !isTutorialCompleted"
     />
   </ion-page>
 </template>
@@ -90,7 +90,10 @@ const tutorialStore = useTutorialStore()
 /* -------------------------------------------------------------------------- */
 
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
-const { enabled: tutorialEnabled } = storeToRefs(tutorialStore)
+const {
+  enabled: tutorialEnabled,
+  isCompleted: isTutorialCompleted
+} = storeToRefs(tutorialStore)
 </script>
 
 

@@ -6,5 +6,8 @@ export { default as TutorialCards } from './components/TutorialCards.vue'
 // stores:
 export * from './stores/useTutorialStore'
 
-// misc:
-export * from './tutorial'
+// models:
+export * from './models/TutorialStep'
+
+// tasks:
+export * from './tasks/runTutorialPersistenceTask'
