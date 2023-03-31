@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { Account, Application, LibraryPage, Settings, TabsBar } from '../components'
 import { addCardsToInbox, addCardsToReview, nextDays } from '../scenarios'
-import { logIn, logInNewDevice, signUp, sync } from '../scenarios/accounts'
+import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 
 
 test.beforeEach(async ({ page }) => {

@@ -149,7 +149,6 @@ onIonViewWillEnter(onOpened)
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
-  console.log(app.timeMachine.now)
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
   await libraryCache.load(reviewCards.map(x => x.verseId))
 
@@ -160,7 +159,6 @@ async function onOpened() {
     })
   }
   cardsToShow.value = result
-  console.log(cardsToShow.value)
 }
 
 function onCardFlipped(data: any) {
