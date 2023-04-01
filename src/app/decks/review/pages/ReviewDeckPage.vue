@@ -6,18 +6,6 @@
         <ion-title>
           {{ $t('decks.review.title') }}
         </ion-title>
-
-        <ion-buttons
-          v-if="timeMachine.daysInFuture.value"
-          slot="primary"
-        >
-          <ion-button
-            fill="solid"
-            color="warning"
-          >
-            {{ $t("tutorial.daysInFuture", { count: timeMachine.daysInFuture.value }) }}
-          </ion-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -73,28 +61,27 @@
 
 
 <script lang="ts" setup>
-import { Application, ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, IonButton, IonButtons } from '@ionic/vue'
-import { computed, inject, reactive, ref, watch } from 'vue'
+import { ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/decks/shared'
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useTimeMachine } from '@/app/shared'
+import { useApp } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
-const libraryCache = useLibraryCache(app)
+const application = useApp()
+const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
-const timeMachine = useTimeMachine(app)
 
 
 /* -------------------------------------------------------------------------- */
@@ -163,6 +150,7 @@ onIonViewWillEnter(onOpened)
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
+  const app = application.instance()
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
   await libraryCache.load(reviewCards.map(x => x.verseId))
 
@@ -223,13 +211,14 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
 /* -------------------------------------------------------------------------- */
 
 async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
-  await app.processor.execute(new ReviewCardReviewed(reviewCard, grade))
+  const app = application.instance()
+  await app.execute(new ReviewCardReviewed(reviewCard, grade))
   const isCardDueToday = reviewCard.dueTo.getTime() <= app.timeMachine.today.getTime()
 
   if (isCardDueToday) {
     indexedList.shiftItem(cardsToShow)
   } else {
-    await app.processor.execute(new UpdateVerseStatus(reviewCard.verseId))
+    await app.execute(new UpdateVerseStatus(reviewCard.verseId))
     indexedList.removeItem(cardsToShow)
   }
   setTimeout(() => swipePopup.status = 'none', 250)

@@ -1,6 +1,7 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
-import { Application, Declamation, InboxCard, Repositories, ReviewCard, Verse, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Application, Context, Declamation, InboxCard, Repositories, ReviewCard, TimeMachine, Verse, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { useApp } from '@/app/shared'
 import {
   CouchDB, InboxCardDeserializer,
   InboxCardSerializer, PouchRepository, ReviewCardDeserializer,
@@ -16,23 +17,33 @@ import { InitArgs, InitResult } from '../initialization'
 export async function initShlokasApp(
   { get }: InitArgs
 ): Promise<InitResult> {
-  const userData = get<CouchDB>('userData')
-  const verses = get<CouchDB>('verses')
+  const app = useApp()
 
-  const repositories = new Repositories(
-    new InMemoryRepository<Verse>(),
-    new PouchRepository<VerseImage>(
-      verses,
-      'verseImage',
-      new VerseImageSerializer(),
-      new VerseImageDeserializer()
-    ),
-    new PouchRepository<Declamation>(
-      verses,
-      'declamation',
-      new DeclamationSerializer(),
-      new DeclamationDeserializer()
-    ),
+  const userData = get<CouchDB>('userData')
+  const userDataTutorial = get<CouchDB>('userDataTutorial')
+
+  // static data repos
+  const verses = get<CouchDB>('verses')
+  const versesRepo = new InMemoryRepository<Verse>()
+  const verseImagesRepo = new PouchRepository<VerseImage>(
+    verses,
+    'verseImage',
+    new VerseImageSerializer(),
+    new VerseImageDeserializer()
+  )
+  const declamationsRepo = new PouchRepository<Declamation>(
+    verses,
+    'declamation',
+    new DeclamationSerializer(),
+    new DeclamationDeserializer()
+  )
+
+
+  // main context repos
+  const mainContextRepositories = new Repositories(
+    versesRepo,
+    verseImagesRepo,
+    declamationsRepo,
     // @ts-ignore
     new PouchRepository<VerseStatus>(
       userData,
@@ -53,7 +64,50 @@ export async function initShlokasApp(
       new ReviewCardDeserializer()
     )),
   )
-  return {
-    app: new Application(repositories),
-  }
+
+
+  // main context repos
+  const tutorialContextRepositories = new Repositories(
+    versesRepo,
+    verseImagesRepo,
+    declamationsRepo,
+    // @ts-ignore
+    new PouchRepository<VerseStatus>(
+      userDataTutorial,
+      'verseStatus',
+      new VerseStatusSerializer(),
+      new VerseStatusDeserializer()
+    ),
+    new SyncRepository(new PouchRepository<InboxCard>(
+      userDataTutorial,
+      'inbox',
+      new InboxCardSerializer(),
+      new InboxCardDeserializer()
+    )),
+    new SyncRepository(new PouchRepository<ReviewCard>(
+      userDataTutorial,
+      'review',
+      new ReviewCardSerializer(),
+      new ReviewCardDeserializer()
+    )),
+  )
+
+  const mainContext = new Context(
+    'main',
+    new TimeMachine(),
+    mainContextRepositories
+  )
+
+  const tutorialContext = new Context(
+    'tutorial',
+    new TimeMachine(),
+    tutorialContextRepositories
+  )
+
+  const appInstance = new Application(mainContext)
+  app.init(appInstance)
+  app.registerContext(mainContext)
+  app.registerContext(tutorialContext)
+
+  return { app: appInstance }
 }

@@ -35,11 +35,11 @@
 
 <script lang="ts" setup>
 import { IonButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, useIonRouter } from '@ionic/vue'
-import { computed, defineProps, inject, onMounted, shallowRef } from 'vue'
-import { AddVerseToInboxDeck, Application, Decks, Declamation, UpdateVerseStatus, Verse, VerseId, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { computed, defineProps, onMounted, shallowRef } from 'vue'
+import { AddVerseToInboxDeck, Decks, Declamation, UpdateVerseStatus, Verse, VerseId, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { Transaction } from '@akdasa-studios/framework'
 import { VerseDetails } from '@/app/library'
-import { go } from '@/app/shared'
+import { go, useApp } from '@/app/shared'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
@@ -55,7 +55,7 @@ const props = defineProps<{
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
+const application = useApp()
 const router = useIonRouter()
 const tutorial = useTutorialStore()
 
@@ -84,9 +84,10 @@ onMounted(fetchData)
 
 async function onAddVerseToInboxClicked() {
   if (!verse.value) { return }
+  const app = application.instance()
   const transaction = new Transaction()
-  await app.processor.execute(new AddVerseToInboxDeck(verse.value.id), transaction)
-  await app.processor.execute(new UpdateVerseStatus(verse.value.id), transaction)
+  await app.execute(new AddVerseToInboxDeck(verse.value.id), transaction)
+  await app.execute(new UpdateVerseStatus(verse.value.id), transaction)
   if (router.canGoBack()) { router.back() } else { router.push(go('library')) }
   completeTutorialStep(TutorialSteps.LibraryAddVerse)
 }
@@ -96,6 +97,7 @@ async function onAddVerseToInboxClicked() {
 /* -------------------------------------------------------------------------- */
 
 async function fetchData() {
+  const app = application.instance()
   const verseId = new VerseId(props.id)
   const [_verse, _status, _images] = await Promise.all([
     app.library.getById(verseId),

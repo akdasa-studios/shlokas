@@ -95,5 +95,3 @@ const {
   isCompleted: isTutorialCompleted
 } = storeToRefs(tutorialStore)
 </script>
-
-

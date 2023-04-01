@@ -50,21 +50,22 @@
 
 
 <script lang="ts" setup>
-import { Application, InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
+import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave } from '@ionic/vue'
-import { computed, inject, ref, reactive } from 'vue'
+import { computed, ref, reactive } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
+import { useApp } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
-const libraryCache = useLibraryCache(app)
+const application = useApp()
+const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
 
@@ -107,6 +108,7 @@ onIonViewDidLeave(() => cards.value = [])
 /* -------------------------------------------------------------------------- */
 
 async function onOpened() {
+  const app = application.instance()
   inboxCards = await app.inboxDeck.cards()
   await libraryCache.load(inboxCards.map(x => x.verseId))
 
@@ -145,14 +147,15 @@ function onCardSwipeCancelled() {
 }
 
 async function onCardSwipeFinished(id: string, { direction }: { direction: string }) {
+  const app = application.instance()
   if (['left', 'right'].includes(direction)) {
     indexedList.shiftItem(cards)
     completeTutorialStep(TutorialSteps.InboxDeckSwipeCardLeft)
   } else {
     const card = getInboxCard(id)
     indexedList.removeItem(cards)
-    await app.processor.execute(new InboxCardMemorized(card))
-    await app.processor.execute(new UpdateVerseStatus(card.verseId))
+    await app.execute(new InboxCardMemorized(card))
+    await app.execute(new UpdateVerseStatus(card.verseId))
 
     if (cards.value.length === 0) {
       completeTutorialStep(TutorialSteps.InboxDeckSwipeCardUp)

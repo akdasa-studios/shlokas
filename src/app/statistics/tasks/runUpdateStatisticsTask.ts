@@ -1,17 +1,18 @@
-import { AddVerseToInboxDeck, Application, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
+import { AddVerseToInboxDeck, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
 import { EventEmitter2 } from 'eventemitter2'
 
 import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
-import { useTimeMachine } from '@/app/shared'
+import { useApp } from '@/app/shared'
 
 
-export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2) {
+export function runUpdateStatisticsTask(emitter: EventEmitter2) {
   const statisticsStore = useStatisticsStore()
-  const timeMachine = useTimeMachine(app)
+  const app = useApp()
 
 
-  watch(timeMachine.now, async () => await updateStatistics())
+  watch(app.now, async () => await updateStatistics())
+  watch(app.currentContextName, async () => await updateStatistics())
 
   emitter.on('commandExecuted', async (e) => {
     if (e instanceof ReviewCardReviewed) { await updateStatistics() }
@@ -22,10 +23,10 @@ export function runUpdateStatisticsTask(app: Application, emitter: EventEmitter2
   emitter.on('syncCompleted', async () => await updateStatistics())
 
   async function updateStatistics() {
-    const date = nextDays(1, app.timeMachine.today)
-    statisticsStore.cardsCountDueToTomorrow = (await app.reviewDeck.dueToCards(date)).length
-    statisticsStore.cardsInReview = (await app.reviewDeck.dueToCards(app.timeMachine.now)).length
-    statisticsStore.cardsInInbox = (await app.inboxDeck.cards()).length
+    const date = nextDays(1, app.application.timeMachine.today)
+    statisticsStore.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
+    statisticsStore.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
+    statisticsStore.cardsInInbox = (await app.application.inboxDeck.cards()).length
   }
 }
 
