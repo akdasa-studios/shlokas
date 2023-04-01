@@ -7,7 +7,6 @@
       :duration="5000"
     />
     <TutorialCards
-      ref="tutorial"
       :cards="steps"
       :step="currentStep"
       @card-clicked="onCardClicked"
@@ -18,19 +17,17 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { inject, ref } from 'vue'
-import { Application } from '@akdasa-studios/shlokas-core'
+import { ref } from 'vue'
 import ConfettiExplosion from 'vue-confetti-explosion'
 import { TutorialCards, TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useTimeMachine } from '@/app/shared'
+import { useApp } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
+const application = useApp()
 const tutorialStore = useTutorialStore()
-const timeMachine = useTimeMachine(app)
 
 
 /* -------------------------------------------------------------------------- */
@@ -64,7 +61,10 @@ tutorialStore.registerSteps([
       if (buttonId === 'no') {
         tutorialStore.currentStep = 9999
       }
-      if (buttonId === 'yes') { goToTheNextStep() }
+      if (buttonId === 'yes') {
+        application.switchContextTo('tutorial')
+        goToTheNextStep()
+      }
     }
   },
 
@@ -154,7 +154,7 @@ tutorialStore.registerSteps([
       { id: 'go', text: 'common.forward', color: 'success' },
     ],
     onButtonClicked: () => {
-      timeMachine.goInFuture(1)
+      application.goInFuture(1)
       goToTheNextStep()
     }
   },
@@ -183,7 +183,7 @@ tutorialStore.registerSteps([
     id: TutorialSteps.ReviewDeckGradeAllCards,
     text: 'tutorial.reviewDeck.gradeAllCards',
     duration: 5000,
-    onEnter: () => timeMachine.goInFuture(7)
+    onEnter: () => application.goInFuture(7)
   },
 
   {
@@ -202,29 +202,10 @@ tutorialStore.registerSteps([
     },
     async onTimeout() {
       currentStep.value = TutorialSteps.TutorialEnd
-      await cleanup()
-      timeMachine.goInFuture(0)
+      application.switchContextTo('main')
     }
   },
 ])
-
-
-async function cleanup() {
-  const inboxCards = await app.repositories.inboxCards.all()
-  for (const inboxCard of inboxCards) {
-    await app.repositories.inboxCards.delete(inboxCard.id)
-  }
-  const reviewCards = await app.repositories.reviewCards.all()
-  for (const reviewCard of reviewCards) {
-    await app.repositories.reviewCards.delete(reviewCard.id)
-  }
-  const verseStatuses = await app.repositories.verseStatuses.all()
-  for (const verseStatus of verseStatuses) {
-    await app.repositories.verseStatuses.delete(verseStatus.id)
-  }
-}
-
-const tutorial = ref()
 </script>
 
 <style scoped>

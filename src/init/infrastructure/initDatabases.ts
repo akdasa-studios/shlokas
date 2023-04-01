@@ -9,6 +9,7 @@ export async function initDatabases(): Promise<InitResult> {
   const adapter = Capacitor.getPlatform() == 'ios' ? 'cordova-sqlite' : undefined
   return {
     verses: new CouchDB('verses', adapter),
-    userData: new CouchDB('userData', adapter)
+    userData: new CouchDB('userData', adapter),
+    userDataTutorial: new CouchDB('tutorial:userData', adapter)
   }
 }

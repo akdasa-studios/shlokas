@@ -9,7 +9,7 @@ export async function initCommands(
 ): Promise<InitResult> {
   const emitter = get<EventEmitter2>('emitter')
   const shlokas = get<Application>('app')
-  shlokas.processor.commandExecuted.subscribe((cmd: any) => emitter.emit('commandExecuted', cmd))
-  shlokas.processor.commandReverted.subscribe((cmd: any) => emitter.emit('commandExecuted', cmd))
+  shlokas.commandExecuted.subscribe((cmd: any) => emitter.emit('commandExecuted', cmd))
+  shlokas.commandReverted.subscribe((cmd: any) => emitter.emit('commandExecuted', cmd))
   return {}
 }

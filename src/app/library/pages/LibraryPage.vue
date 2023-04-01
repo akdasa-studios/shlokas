@@ -38,7 +38,7 @@
 
 
 <script lang="ts" setup>
-import { Application, Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
+import { Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
   IonContent, IonHeader, IonPage, IonLoading, IonRefresher, IonRefresherContent,
   IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
@@ -49,15 +49,16 @@ import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { useApp } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const app = inject('app') as Application
+const application = useApp()
 const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
-const loadLibrary = useLoadLibraryIntoMemory(app, libraryDatabase)
+const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
 
@@ -84,6 +85,7 @@ onIonViewWillEnter(onOpened)
 /* -------------------------------------------------------------------------- */
 
 watch(searchQuery, async (v) => await onSearchQueryChanged(v))
+watch(application.currentContextName, async () => await onSearchQueryChanged(''))
 
 
 /* -------------------------------------------------------------------------- */
@@ -96,6 +98,8 @@ async function onOpened() {
 }
 
 async function onSearchQueryChanged(value: string) {
+  const app = application.instance()
+
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
   const languageCode = localeSettings.value.language
   const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)

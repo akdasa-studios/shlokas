@@ -13,7 +13,7 @@ export async function initTasks(
   const shlokas = get<Application>('app')
   const emitter = get<EventEmitter2>('emitter')
   runRefreshTokenTask(emitter)
-  runUpdateStatisticsTask(shlokas, emitter)
+  runUpdateStatisticsTask(emitter)
   runSyncTask(shlokas, emitter)
   await runTutorialPersistenceTask()
 }

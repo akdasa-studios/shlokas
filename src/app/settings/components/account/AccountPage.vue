@@ -97,18 +97,19 @@ import { mail } from 'ionicons/icons'
 import { computed, inject, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { EventEmitter2 } from 'eventemitter2'
-import { Application } from '@akdasa-studios/shlokas-core'
+import { Context, TimeMachine } from '@akdasa-studios/shlokas-core'
 import { useAccountStore } from '@/app/settings'
 import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
 
 import { createRepositories } from '@/app/utils/sync'
+import { useApp } from '@/app/shared'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 const emitter = inject('emitter') as EventEmitter2
-const app = inject('app') as Application
+const application = useApp()
 const account = useAccountStore()
 const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account
@@ -123,7 +124,7 @@ async function openModal(component: any) {
 async function onSync() {
   inProgress.value = true
   const remoteRepos = createRepositories(syncHost.value as string)
-  await app.sync(remoteRepos)
+  await application.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
   emitter.emit('syncCompleted')
   setTimeout(() => inProgress.value = false, 2500)
 }
