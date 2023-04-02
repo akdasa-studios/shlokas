@@ -3,12 +3,12 @@ import { EventEmitter2 } from 'eventemitter2'
 
 import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 
 
 export function runUpdateStatisticsTask(emitter: EventEmitter2) {
   const statisticsStore = useStatisticsStore()
-  const app = useApp()
+  const app = useApplication()
 
 
   watch(app.now, async () => await updateStatistics())

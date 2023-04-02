@@ -3,7 +3,7 @@ import { Application } from '@akdasa-studios/shlokas-core'
 
 import { runRefreshTokenTask, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
-import { runTutorialPersistenceTask } from '@/app/tutorial'
+import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 import { InitArgs } from '../initialization'
 
 
@@ -16,4 +16,5 @@ export async function initTasks(
   runUpdateStatisticsTask(emitter)
   runSyncTask(shlokas, emitter)
   await runTutorialPersistenceTask()
+  await runTutorialRestoreTask()
 }

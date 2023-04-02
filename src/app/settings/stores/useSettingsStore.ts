@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import { useDeviceStore } from '@/app/useDeviceStorage'
+import { useDeviceStore } from '@/app/shared'
 
 
 interface LocaleSettings {

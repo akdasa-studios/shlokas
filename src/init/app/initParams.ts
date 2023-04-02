@@ -18,7 +18,7 @@ export async function initParams(
 
   if (tutorialEnabled) {
     console.debug('[params] tutorialEnabled', tutorialEnabled)
-    tutorialStore.enabled = ['true', '1'].includes(tutorialEnabled)
+    tutorialStore.isEnabled = ['true', '1'].includes(tutorialEnabled)
   }
 
   if (libraryLastSyncDate) {

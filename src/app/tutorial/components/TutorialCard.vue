@@ -1,6 +1,6 @@
 <template>
   <div
-    id="root"
+    class="tutorial-card"
     :class="{ 'visible': props.visible, 'hidden': !props.visible }"
   >
     <slot />
@@ -22,6 +22,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { defineProps, defineEmits, toRefs } from 'vue'
@@ -47,11 +48,13 @@ const emit = defineEmits<{
   (event: 'button-clicked', buttonId: string): void
 }>()
 
+
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
 const { progress } = toRefs(props)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -60,12 +63,11 @@ const { progress } = toRefs(props)
 function onClicked(buttonId: string) {
   emit('button-clicked', buttonId)
 }
-
 </script>
 
 
 <style scoped>
-#root {
+.tutorial-card {
   bottom: -50px;
   position: absolute;
   width: calc(100% - 20px);
@@ -80,14 +82,16 @@ function onClicked(buttonId: string) {
   flex-direction: column;
   gap: 5px;
   overflow: hidden;
+  pointer-events: visible;
 }
 
-#root.hidden {
+.tutorial-card.hidden {
   opacity: 0;
   bottom: -50px;
+  visibility: hidden;
 }
 
-#root.visible {
+.tutorial-card.visible {
   opacity: .9;
   bottom: 0px;
 }

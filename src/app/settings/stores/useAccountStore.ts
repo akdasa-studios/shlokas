@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, Ref, ref, watch } from 'vue'
-import { useDeviceStore } from '@/app/useDeviceStorage'
+import { useDeviceStore } from '@/app/shared'
 import { AuthToken } from '@/services/AuthService'
 import { HOST, IS_DEVELOPMENT } from '../../Env'
 

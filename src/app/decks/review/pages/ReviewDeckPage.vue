@@ -70,14 +70,14 @@ import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/de
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const application = useApp()
+const application = useApplication()
 const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
@@ -137,6 +137,7 @@ watch(currentStep, async (value: number) => {
     await onOpened()
   }
 })
+watch([application.now, application.currentContextName], onOpened)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */

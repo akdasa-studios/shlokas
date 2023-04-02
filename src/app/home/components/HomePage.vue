@@ -91,7 +91,7 @@ const tutorialStore = useTutorialStore()
 
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
-  enabled: tutorialEnabled,
+  isEnabled: tutorialEnabled,
   isCompleted: isTutorialCompleted
 } = storeToRefs(tutorialStore)
 </script>

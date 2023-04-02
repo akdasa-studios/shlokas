@@ -103,13 +103,13 @@ import { AuthService } from '@/services/AuthService'
 import { AUTH_HOST } from '@/app/Env'
 
 import { createRepositories } from '@/app/utils/sync'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
 const inProgress = ref(false)
 const emitter = inject('emitter') as EventEmitter2
-const application = useApp()
+const application = useApplication()
 const account = useAccountStore()
 const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account

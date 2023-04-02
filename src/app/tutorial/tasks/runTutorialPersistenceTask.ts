@@ -1,18 +1,25 @@
-import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useDeviceStore } from '@/app/useDeviceStorage'
-import { useLogger } from '@/app/shared'
-import { useTutorialStore } from '../stores/useTutorialStore'
+import { watch } from 'vue'
+import { useApplication, useDeviceStore, useLogger } from '@/app/shared'
+import { useTutorialStore } from '@/app/tutorial'
+import { CURRENT_STEP_KEY, DATE_KEY } from './shared'
 
 
+/**
+ * Saves tutorial state to device storage.
+ *
+ * Data saved:
+ *  - Current tutorial step
+ *  - Tutorial date
+ */
 export async function runTutorialPersistenceTask() {
-  const CURRENT_STEP_KEY = 'tutorial:step'
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const log = useLogger('tutorial:saveTask')
+  const log = useLogger('tutorial:persistence')
+  const application = useApplication()
   const tutorialStore = useTutorialStore()
   const deviceStorage = useDeviceStore()
 
@@ -22,8 +29,6 @@ export async function runTutorialPersistenceTask() {
   /* -------------------------------------------------------------------------- */
 
   const { currentStep } = storeToRefs(tutorialStore)
-  currentStep.value = (await deviceStorage.get(CURRENT_STEP_KEY)) || 0
-  log.debug(`Started with ${currentStep.value} step`)
 
 
   /* -------------------------------------------------------------------------- */
@@ -31,6 +36,7 @@ export async function runTutorialPersistenceTask() {
   /* -------------------------------------------------------------------------- */
 
   watch(currentStep, onTutorialStepChanged)
+  watch(application.now, onDateChanged)
 
 
   /* -------------------------------------------------------------------------- */
@@ -40,5 +46,12 @@ export async function runTutorialPersistenceTask() {
   function onTutorialStepChanged(value: number) {
     log.debug(`Saving step ${value}`)
     deviceStorage.set(CURRENT_STEP_KEY, value)
+  }
+
+  function onDateChanged(value: Date) {
+    if (application.currentContextName.value === 'tutorial') {
+      log.debug(`Saving date ${value}`)
+      deviceStorage.set(DATE_KEY, value.getTime())
+    }
   }
 }

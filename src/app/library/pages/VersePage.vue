@@ -39,7 +39,7 @@ import { computed, defineProps, onMounted, shallowRef } from 'vue'
 import { AddVerseToInboxDeck, Decks, Declamation, UpdateVerseStatus, Verse, VerseId, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { Transaction } from '@akdasa-studios/framework'
 import { VerseDetails } from '@/app/library'
-import { go, useApp } from '@/app/shared'
+import { go, useApplication } from '@/app/shared'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
@@ -55,7 +55,7 @@ const props = defineProps<{
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const application = useApp()
+const application = useApplication()
 const router = useIonRouter()
 const tutorial = useTutorialStore()
 

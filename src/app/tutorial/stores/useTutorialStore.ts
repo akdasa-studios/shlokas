@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { TutorialStep, TutorialSteps } from '../models/TutorialStep'
-
+import { TutorialSteps } from '@/app/tutorial'
 
 
 export const useTutorialStore = defineStore('tutorial', () => {
@@ -10,32 +9,19 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const enabled = ref(true)
-  const currentStepIdx = ref(0)
-  const currentStep = computed(() => steps.value[currentStepIdx.value])
-  const steps = ref<TutorialStep[]>([])
-  const isCompleted = computed(() => currentStepIdx.value >= TutorialSteps.TutorialEnd)
+  const currentStep = ref(0)
+  const isEnabled = ref(true)
+  const isCompleted = computed(() => currentStep.value >= TutorialSteps.TutorialEnd)
+  const isStarted = computed(() => currentStep.value > TutorialSteps.OverallIntroduction)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  function registerSteps(tutorialSteps: TutorialStep[]) {
-    steps.value = tutorialSteps
-  }
-
-  async function completeStep(step: number) {
-    if (currentStep.value?.onLeave && step === currentStepIdx.value) {
-      await currentStep.value.onLeave()
-    }
-
-    if (currentStepIdx.value === step || step === undefined) {
-      currentStepIdx.value += 1
-    }
-
-    if (currentStep.value?.onEnter && (step+1) === currentStepIdx.value) {
-      await currentStep.value.onEnter()
+  async function completeStep(step: number|undefined) {
+    if (currentStep.value === step || step === undefined) {
+      currentStep.value += 1
     }
   }
 
@@ -44,5 +30,5 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep: currentStepIdx, completeStep, registerSteps, steps, enabled, isCompleted }
+  return { currentStep, completeStep, isEnabled, isCompleted, isStarted }
 })

@@ -8,7 +8,7 @@ const currentContextName = ref<string>('')
 const now = ref(new Date())
 
 
-export function useApp() {
+export function useApplication() {
   function init(app: Application) {
     application = app
     application.contextChanged.subscribe(onContextChanged)
@@ -54,5 +54,5 @@ export function useApp() {
   })
 
 
-  return { init, switchContextTo, registerContext, currentContextName, goInFuture, daysInFuture, application, now, instance }
+  return { init, switchContextTo, registerContext, currentContextName, goInFuture, daysInFuture, application, now, instance, setTime }
 }

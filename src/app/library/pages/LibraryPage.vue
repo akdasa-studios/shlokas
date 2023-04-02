@@ -49,13 +49,13 @@ import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const application = useApp()
+const application = useApplication()
 const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
