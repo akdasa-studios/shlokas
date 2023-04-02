@@ -1,7 +1,7 @@
 import { InMemoryRepository } from '@akdasa-studios/framework'
 import { SyncRepository } from '@akdasa-studios/framework-sync'
 import { Application, Context, Declamation, InboxCard, Repositories, ReviewCard, TimeMachine, Verse, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 import {
   CouchDB, InboxCardDeserializer,
   InboxCardSerializer, PouchRepository, ReviewCardDeserializer,
@@ -17,7 +17,7 @@ import { InitArgs, InitResult } from '../initialization'
 export async function initShlokasApp(
   { get }: InitArgs
 ): Promise<InitResult> {
-  const app = useApp()
+  const app = useApplication()
 
   const userData = get<CouchDB>('userData')
   const userDataTutorial = get<CouchDB>('userDataTutorial')

@@ -52,19 +52,19 @@
 <script lang="ts" setup>
 import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave } from '@ionic/vue'
-import { computed, ref, reactive } from 'vue'
+import { computed, ref, reactive, watch } from 'vue'
 import { testId } from '@/app/TestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
-import { useApp } from '@/app/shared'
+import { useApplication } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const application = useApp()
+const application = useApplication()
 const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
@@ -101,6 +101,7 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(async () => await onOpened())
 onIonViewDidLeave(() => cards.value = [])
+watch([application.now, application.currentContextName], onOpened)
 
 
 /* -------------------------------------------------------------------------- */

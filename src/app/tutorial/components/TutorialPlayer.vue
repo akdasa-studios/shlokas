@@ -7,9 +7,8 @@
       :duration="5000"
     />
     <TutorialCards
-      :cards="steps"
+      :cards="tutorialSteps"
       :step="currentStep"
-      @card-clicked="onCardClicked"
     />
   </div>
 </template>
@@ -17,16 +16,17 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ConfettiExplosion from 'vue-confetti-explosion'
-import { TutorialCards, TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApp } from '@/app/shared'
+import { TutorialCards, TutorialStep, TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { useApplication } from '@/app/shared'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const application = useApp()
+const application = useApplication()
 const tutorialStore = useTutorialStore()
 
 
@@ -34,22 +34,34 @@ const tutorialStore = useTutorialStore()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { currentStep, steps } = storeToRefs(tutorialStore)
+const { currentStep } = storeToRefs(tutorialStore)
 const showConfetti = ref(false)
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    Watch                                   */
+/* -------------------------------------------------------------------------- */
+
+watch(currentStep, onStepChanged)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
-function onCardClicked() {
-  // tutorialStore.completeStep()
+async function onStepChanged(current: TutorialSteps, prev: TutorialSteps) {
+  const prevStep = tutorialSteps[prev]
+  const currStep = tutorialSteps[current]
+
+  if (prevStep && prevStep.onLeave) { await prevStep.onLeave() }
+  if (currStep && currStep.onEnter) { await currStep.onEnter() }
 }
+
 
 function goToTheNextStep() {
   tutorialStore.completeStep(tutorialStore.currentStep)
 }
 
-tutorialStore.registerSteps([
+const tutorialSteps: TutorialStep[] = [
   {
     id: TutorialSteps.OverallIntroduction,
     text: 'tutorial.introduction',
@@ -183,7 +195,7 @@ tutorialStore.registerSteps([
     id: TutorialSteps.ReviewDeckGradeAllCards,
     text: 'tutorial.reviewDeck.gradeAllCards',
     duration: 5000,
-    onEnter: () => application.goInFuture(7)
+    onEnter: async () => application.goInFuture(7)
   },
 
   {
@@ -197,7 +209,7 @@ tutorialStore.registerSteps([
     id: TutorialSteps.TutorialCongratulations,
     text: 'tutorial.congratulations',
     duration: 5000,
-    onEnter: () => {
+    onEnter: async () => {
       showConfetti.value = true
     },
     async onTimeout() {
@@ -205,8 +217,9 @@ tutorialStore.registerSteps([
       application.switchContextTo('main')
     }
   },
-])
+]
 </script>
+
 
 <style scoped>
 .confetti {

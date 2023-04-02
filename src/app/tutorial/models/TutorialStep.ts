@@ -13,8 +13,8 @@ export interface TutorialStep {
   buttons?: TutorialButton[]
   onButtonClicked?: (buttonId: string) => void
   onTimeout?: () => void
-  onLeave?: () => void
-  onEnter?: () => void
+  onLeave?: () => Promise<void>
+  onEnter?: () => Promise<void>
 }
 
 export enum TutorialSteps {

@@ -1,5 +1,5 @@
 <template>
-  <div id="root2">
+  <div class="tutorial-cards">
     <TutorialCard
       v-if="activeCard"
       :visible="activeCardVisible"
@@ -101,8 +101,9 @@ setInterval(() => {
 }, 100)
 </script>
 
+
 <style scoped>
-#root2 {
+.tutorial-cards {
   bottom: calc(v-bind(positionBottom) * 1px + var(--ion-safe-area-bottom));
   position: absolute;
   width: 100%;

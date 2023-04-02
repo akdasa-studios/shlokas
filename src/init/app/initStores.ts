@@ -1,5 +1,5 @@
 import { useAccountStore, useSettingsStore } from '@/app/settings'
-import { useDeviceStore } from '@/app/useDeviceStorage'
+import { useDeviceStore } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
 export async function initStores(
