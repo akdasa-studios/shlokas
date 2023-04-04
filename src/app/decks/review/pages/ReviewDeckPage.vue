@@ -217,6 +217,7 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   const isCardDueToday = reviewCard.dueTo.getTime() <= app.timeMachine.today.getTime()
 
   if (isCardDueToday) {
+    if (topCard.value) { topCard.value.flipped = false }
     indexedList.shiftItem(cardsToShow)
   } else {
     await app.execute(new UpdateVerseStatus(reviewCard.verseId))

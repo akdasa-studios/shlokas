@@ -22,7 +22,6 @@ import '@ionic/vue/css/text-transformation.css'
 
 /* Theme variables */
 import './theme/variables.css'
-import './theme/custom.css'
 
 /* Shlokas UI kit */
 // import '@akdasa-studios/shlokas-uikit/style.css'

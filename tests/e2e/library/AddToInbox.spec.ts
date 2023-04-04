@@ -53,7 +53,7 @@ test.describe('Library › Add to Inbox', () => {
     await expect(verseDetails.addButton).toBeDisabled()
   })
 
-  test('Back returns to library', async ({ page }) => {
+  test('Back returns to library', async () => {
     await library.verse('BG 1.1').click()
     await verseDetails.backButton.click()
 
