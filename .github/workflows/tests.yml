@@ -4,7 +4,6 @@ on: push
 jobs:
   e2e:
     name: 🚀 E2E
-    needs: unit
     permissions:
       packages: read
     timeout-minutes: 30
