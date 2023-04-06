@@ -145,7 +145,7 @@ function stop() { audio.stop() }
 
 
 
-<style scoped lang="scss">
+<style scoped>
 .progress {
   display: flex;
   height: 85%;

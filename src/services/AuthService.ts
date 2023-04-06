@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   private async _post(url: string, data: any, headers = {}): Promise<any> {
-    return (await fetch(`${this._host}/${url}`, {
+   const response =  await fetch(`${this._host}/${url}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -60,6 +60,18 @@ export class AuthService {
         ...headers
       },
       body: JSON.stringify(data)
-    })).json()
+    })
+    return response.json()
+
+    // return (await fetch(`${this._host}/${url}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //     ...headers
+    //   },
+    //   mode: 'no-cors',
+    //   body: JSON.stringify(data)
+    // })).json()
   }
 }

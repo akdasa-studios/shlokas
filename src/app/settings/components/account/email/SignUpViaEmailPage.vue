@@ -15,39 +15,32 @@
     </ion-header>
 
     <ion-content>
-      <ion-list
-        lines="full"
-        class="ion-no-margin ion-no-padding"
-      >
+      <ion-list :inset="true">
         <!-- Name -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.name') }}
-          </ion-label>
           <ion-input
-            v-model="name"
+            :label="$t('account.name')"
+            label-placement="stacked"
           />
         </ion-item>
 
         <!-- email -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.email') }}
-          </ion-label>
           <ion-input
             v-model="email"
             type="email"
+            :label="$t('account.email')"
+            label-placement="stacked"
           />
         </ion-item>
 
         <!-- password -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.password') }}
-          </ion-label>
           <ion-input
             v-model="password"
             type="password"
+            :label="$t('account.password')"
+            label-placement="stacked"
           />
         </ion-item>
       </ion-list>
@@ -67,7 +60,7 @@
         :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
-    </ion-content>
+      </ion-content>
   </ion-page>
 </template>
 

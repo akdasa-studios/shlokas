@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
 import { Account } from '../components'
-import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
+import { getRandomString, logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 
 
 test.describe('Settings › Account › Email', () => {
   test('Register new account', async ({ page, context }) => {
     const accountPage = new Account(page)
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email       = `${uniqueEmail}@test.rs`
 
     await signUp(context, page, email)
@@ -16,7 +16,7 @@ test.describe('Settings › Account › Email', () => {
   })
 
   test('Log In on another device', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email       = `${uniqueEmail}@test.rs`
 
     // device1: register and login

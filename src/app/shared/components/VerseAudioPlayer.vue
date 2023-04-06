@@ -83,7 +83,7 @@ async function onUrlChanged(url: string) {
 </script>
 
 
-<style lang="scss" scoped>
+<style scoped>
 .root {
   padding: .5rem;
   display: flex;

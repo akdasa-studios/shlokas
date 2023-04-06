@@ -1,6 +1,6 @@
 <template>
   <div
-    id="root"
+    class="root"
     :class="{ 'visible': visible, 'hidden': !visible }"
   >
     <div
@@ -55,7 +55,7 @@ function getStatusFor(status: string) {
 
 
 <style scoped>
-#root {
+.root {
   position: absolute;
   width: calc(100% - 20px);
   background-color: var(--ion-color-always-dark);
@@ -68,12 +68,12 @@ function getStatusFor(status: string) {
   display: flex;
 }
 
-#root.hidden {
+.root.hidden {
   opacity: 0;
   top: -50px;
 }
 
-#root.visible {
+.root.visible {
   opacity: .8;
   top: 0px;
 }

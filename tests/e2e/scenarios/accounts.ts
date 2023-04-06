@@ -12,13 +12,24 @@ export async function signUp(
   await account.open()
   await account.signUpViaEmail.click()
   await account.name.type('Ivan Petrović')
+  await account.email.click()
   await account.email.type(email)
+  await account.password.click()
   await account.password.type('12345678')
   await account.signUp.click()
+  await appPage.waitForTimeout(2000)
 
   // 1. open mail client and confirm email
   const mailPage = await context.newPage()
   await mailPage.goto('http://localhost:1080/')
+  await mailPage.evaluate(() =>
+    localStorage.setItem('mailcatcherSeparatorHeight', '400')
+  )
+  await mailPage.goto('http://localhost:1080/')
+
+  await mailPage.screenshot({
+    path: '1.jpg'
+  })
   await mailPage.getByRole('cell', { name: `<${email}>` }).first().click()
 
   await mailPage.frameLocator('iframe').getByRole('link', { name: 'Confirm email' }).click()
@@ -43,7 +54,9 @@ export async function logIn(
   await appPage.getByRole('dialog').waitFor()
   await account.email.clear()
   await account.password.clear()
+  await account.email.click()
   await account.email.type(email)
+  await account.password.click()
   await account.password.type('12345678')
   await account.logIn.click()
   await appPage.waitForTimeout(500)
@@ -72,4 +85,14 @@ export async function sync(page: Page) {
   // await tabs.settingsTab.click()
   // await settings.account.click()
   await account.sync.click()
+}
+
+export function getRandomString(length=16) {
+  const characters ='abcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
+  for ( let i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length))
+  }
+
+  return result
 }

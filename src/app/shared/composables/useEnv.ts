@@ -1,7 +1,7 @@
 
 
 export function useEnv() {
-  const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+  const IS_DEVELOPMENT = import.meta.env.BASE_URL === 'development'
   const PROTOCOL       = IS_DEVELOPMENT ? 'http' : 'https'
   const HOST           = IS_DEVELOPMENT ? 'localhost' : 'shlokas.app'
   // const AUTH_HOST      = IS_DEVELOPMENT ? `http://${HOST}/auth` : `https://${HOST}/auth`

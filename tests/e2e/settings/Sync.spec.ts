@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { Account, Application, LibraryPage, Settings, TabsBar } from '../components'
 import { addCardsToInbox, addCardsToReview, nextDays } from '../scenarios'
-import { logIn, logInNewDevice, signUp } from '../scenarios/accounts'
+import { getRandomString, logIn, logInNewDevice, signUp } from '../scenarios/accounts'
 
 
 test.beforeEach(async ({ page }) => {
@@ -9,14 +9,11 @@ test.beforeEach(async ({ page }) => {
     tutorialEnabled: false,
     libraryLastSyncDate: 9999999999999
   })
-  await page.evaluate(() =>
-    localStorage.setItem('mailcatcherSeparatorHeight', '400')
-  )
 })
 
 test.describe('Settings › Account › Sync', () => {
   test('Sync data', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email       = `${uniqueEmail}@test.rs`
 
     // device1: register and login
@@ -42,7 +39,7 @@ test.describe('Settings › Account › Sync', () => {
   })
 
   test('Sync verse status', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email = `${uniqueEmail}@test.rs`
 
     // device1: register and login
@@ -69,7 +66,7 @@ test.describe('Settings › Account › Sync', () => {
   })
 
   test('Sync conflict', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email = `${uniqueEmail}@test.rs`
 
     // device1: register and login
@@ -107,7 +104,7 @@ test.describe('Settings › Account › Sync', () => {
   })
 
   test('Sync verse twice', async ({ page, context, browser }) => {
-    const uniqueEmail = Math.random().toString(36)
+    const uniqueEmail = getRandomString()
     const email = `${uniqueEmail}@test.rs`
 
     // device1: register and login

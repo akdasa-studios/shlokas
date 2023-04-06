@@ -63,44 +63,40 @@ const intervalToText = useIntervalToText()
 
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  padding: 10px;
-  gap: 10px;
-  text-align: center;
-
-  div {
-    padding: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 5px;
-    text-transform: lowercase;
-    flex-basis: 25%;
-    font-weight: bold;
-
-    &.forgot {
-      background-color: var(--ion-color-danger-tint);
-    }
-    &.hard {
-      background-color: var(--ion-color-warning-shade);
-    }
-    &.good {
-      background-color: var(--ion-color-success-shade);
-    }
-    &.easy {
-      background-color: var(--ion-color-success-tint);
-    }
-
-    div {
-      padding: 2px;
-      font-size: small;
-      font-weight: normal;
-    }
-  }
+	 display: flex;
+	 flex-direction: row;
+	 flex-wrap: nowrap;
+	 padding: 10px;
+	 gap: 10px;
+	 text-align: center;
 }
-
+.group div {
+	 padding: 10px;
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 border-radius: 5px;
+	 text-transform: lowercase;
+	 flex-basis: 25%;
+	 font-weight: bold;
+}
+.group div.forgot {
+	 background-color: var(--ion-color-danger-tint);
+}
+.group div.hard {
+	 background-color: var(--ion-color-warning-shade);
+}
+.group div.good {
+	 background-color: var(--ion-color-success-shade);
+}
+.group div.easy {
+	 background-color: var(--ion-color-success-tint);
+}
+.group div div {
+	 padding: 2px;
+	 font-size: small;
+	 font-weight: normal;
+}
 </style>
 

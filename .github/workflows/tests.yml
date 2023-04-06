@@ -2,59 +2,12 @@ name: Tests
 on: push
 
 jobs:
-  unit:
-    name: 🤖 Unit
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v2
-
-      - name: 📦 Install Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-          cache: npm
-
-      # - name: 🫙 Cache NPM dependencies
-      #   uses: actions/cache@v3
-      #   id: cache-primes
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-
-      - name: 📦 Install dependencies
-        # if: steps.cache-primes.outputs.cache-hit != 'true'
-        run: npm ci --audit=false
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🔬 Tests
-        run: npm run test:unit
-
-      - name: 🚚 Upload artifacts
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: unit
-          path: unit-report/
-          retention-days: 30
-
-      - name: 📜 Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
   e2e:
     name: 🚀 E2E
     needs: unit
     permissions:
       packages: read
-    timeout-minutes: 60
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
     - name: 📥 Checkout
@@ -79,15 +32,15 @@ jobs:
       with:
         node-version: 18
 
-    # - name: 📦 [Node] Cache packages
-    #   uses: actions/cache@v3
-    #   id: cache-primes
-    #   with:
-    #     path: node_modules
-    #     key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+    - name: 📦 [Node] Cache packages
+      uses: actions/cache@v3
+      id: cache-primes
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
 
     - name: 📦 [Node] Install packages
-      # if: steps.cache-primes.outputs.cache-hit != 'true'
+      if: steps.cache-primes.outputs.cache-hit != 'true'
       run: npm ci --audit=false
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -125,11 +78,8 @@ jobs:
     #                                      App                                     #
     # ---------------------------------------------------------------------------- #
 
-    - name: 🏇 [Shlokas] Build
-      run: npm run build:e2e
-
-    - name: 🏇 [Shlokas] Run server
-      run: npm run test:run-server &
+    - name: 🏇 [Shlokas] Run
+      run: npm run dev
 
     - name: 🔬 [Shlokas] E2E Tests
       run: npm run test:e2e
