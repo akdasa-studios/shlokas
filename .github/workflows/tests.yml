@@ -76,13 +76,13 @@ jobs:
         with:
           context: .
           tags: shlokas:latest
-          outputs: type=docker,dest=/tmp/shlokas.tar
+          outputs: type=docker,dest=/tmp/shlokas-container.tar
 
       - name: 🐳 Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: shlokas-container
-          path: /tmp/shlokas.tar
+          path: /tmp/shlokas-container.tar
 
   e2e:
     name: 🚀 E2E
@@ -92,6 +92,9 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+
       - name: 🐳 Download artifact
         uses: actions/download-artifact@v3
         with:
