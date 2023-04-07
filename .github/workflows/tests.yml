@@ -84,97 +84,39 @@ jobs:
           name: shlokas-container
           path: /tmp/shlokas.tar
 
+  e2e:
+    name: 🚀 E2E
+    needs: build
+    permissions:
+      packages: read
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🐳 Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: shlokas-container
+          path: /tmp
 
-  # e2e:
-  #   name: 🚀 E2E
-  #   needs: build
-  #   permissions:
-  #     packages: read
-  #   timeout-minutes: 30
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: 📥 Checkout
-  #     uses: actions/checkout@v3
+      - name: 🐳 Load Docker image
+        run: |
+          docker load --input /tmp/shlokas-container.tar
+          docker image ls -a
 
-  #   # ---------------------------------------------------------------------------- #
-  #   #                                  Environment                                 #
-  #   # ---------------------------------------------------------------------------- #
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "docker-compose.e2e.yml"
+          down-flags: "--volumes"
 
-  #   - name: 🌍 Environment
-  #     uses: isbang/compose-action@v1.4.1
-  #     with:
-  #       compose-file: "./docker-compose.e2e.yml"
-  #       down-flags: "--volumes"
+      # - name: 🌍 Environment
+      #   uses: isbang/compose-action@v1.4.1
+      #   with:
+      #     compose-file: "./docker-compose.e2e.yml"
+      #     down-flags: "--volumes"
 
-  #   # ---------------------------------------------------------------------------- #
-  #   #                                     Node                                     #
-  #   # ---------------------------------------------------------------------------- #
-
-  #   - name: 📦 [Node] Install
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: 18
-
-  #   - name: 📦 [Node] Cache packages
-  #     uses: actions/cache@v3
-  #     id: cache-primes
-  #     with:
-  #       path: node_modules
-  #       key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-
-  #   - name: 📦 [Node] Install packages
-  #     if: steps.cache-primes.outputs.cache-hit != 'true'
-  #     run: npm ci --audit=false
-  #     env:
-  #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  #   # ---------------------------------------------------------------------------- #
-  #   #                                  Playwright                                  #
-  #   # ---------------------------------------------------------------------------- #
-
-  #   - name: 🎭 [Playwright] Get version
-  #     run: |
-  #       PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
-  #       echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-  #       echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-
-  #   - name: 🎭 [Playwright] Cache browsers
-  #     id: cache-playwright-browsers
-  #     uses: actions/cache@v3
-  #     with:
-  #       path: ~/.cache/ms-playwright
-  #       key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-
-  #   # TODO: doesn't cache properly
-  #   # - name: 🎭 [Playwright] Cache dependencies
-  #   #   uses: awalsh128/cache-apt-pkgs-action@latest
-  #   #   with:
-  #   #     packages: libevent-2.1-7 libopus0 libwoff1 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libgstreamer-gl1.0-0 libhyphen0 libmanette-0.2-0 libgles2 gstreamer1.0-libav
-  #   #     version: 1.0
-
-  #   - name: 🎭 [Playwright] Install browsers
-  #     # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-  #     run: npx playwright install --with-deps
-
-  #   # ---------------------------------------------------------------------------- #
-  #   #                                      App                                     #
-  #   # ---------------------------------------------------------------------------- #
-
-  #   - name: 🏇 [Shlokas] Run
-  #     run: npm run dev
-
-  #   - name: 🔬 [Shlokas] E2E Tests
-  #     run: npm run test:e2e
-
-  #   # ---------------------------------------------------------------------------- #
-  #   #                                   Artifacts                                  #
-  #   # ---------------------------------------------------------------------------- #
-
-  #   - name: 🚚  [Artifacts] Upload
-  #     uses: actions/upload-artifact@v3
-  #     if: always()
-  #     with:
-  #       name: e2e
-  #       path: playwright-report/
-  #       retention-days: 5
+      # - name: 🚚  [Artifacts] Upload
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: e2e
+      #     path: playwright-report/
+      #     retention-days: 5
