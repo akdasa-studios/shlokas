@@ -112,23 +112,24 @@ jobs:
 
       - uses: isbang/compose-action@v1.4.1
         with:
-          compose-file: "docker-compose.e2e.yml"
+          compose-file: "e2e/docker-compose.env.yml"
           down-flags: "--volumes"
 
-      - uses: addnab/docker-run-action@v3
+      - uses: isbang/compose-action@v1.4.1
         with:
-          image: ghcr.io/akdasa-studios/shlokas-e2e:latest
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          shell: bash
-          docker_network:
-            description: 'Docker Network ID'
-            default: ${{ job.container.network }}
-            # shlokas_default
-          run: |
-            npm i
-            npx playwright test
+          compose-file: "e2e/docker-compose.tests.yml"
+          down-flags: "--volumes"
+
+      # - uses: addnab/docker-run-action@v3
+      #   with:
+      #     image: ghcr.io/akdasa-studios/shlokas-e2e:latest
+      #     registry: ${{ env.REGISTRY }}
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      #     shell: bash
+      #     run: |
+      #       npm i
+      #       npx playwright test
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
