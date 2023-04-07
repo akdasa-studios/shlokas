@@ -110,26 +110,28 @@ jobs:
           docker load --input /tmp/shlokas-container.tar
           docker image ls -a
 
-      - uses: isbang/compose-action@v1.4.1
+      - name: Environment
+        uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "e2e/docker-compose.env.yml"
           down-flags: "--volumes"
 
-      - uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "e2e/docker-compose.tests.yml"
-          down-flags: "--volumes"
-
-      # - uses: addnab/docker-run-action@v3
+      # - uses: isbang/compose-action@v1.4.1
       #   with:
-      #     image: ghcr.io/akdasa-studios/shlokas-e2e:latest
-      #     registry: ${{ env.REGISTRY }}
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      #     shell: bash
-      #     run: |
-      #       npm i
-      #       npx playwright test
+      #     compose-file: "e2e/docker-compose.tests.yml"
+      #     down-flags: "--volumes"
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/akdasa-studios/shlokas-e2e:latest
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          options: -e HOST=shlokas -e PORT=80
+          shell: bash
+          run: |
+            npm i
+            npx playwright test
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
