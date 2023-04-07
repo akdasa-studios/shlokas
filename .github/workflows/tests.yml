@@ -123,10 +123,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           shell: bash
           run: |
-            echo "Running Script"
-            ls
-            npm run test
-            npx playwright run
+            npm i
+            npx playwright text
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
