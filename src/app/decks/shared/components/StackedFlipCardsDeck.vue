@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { useArrayFilter } from '@vueuse/core'
-import { defineEmits, defineExpose, defineProps, ref, toRefs, watch, withDefaults } from 'vue'
+import { ref, toRefs, watch, withDefaults } from 'vue'
 import CardsDeck from '@/app/decks/shared/components/CardsDeck.vue'
 
 /* -------------------------------------------------------------------------- */

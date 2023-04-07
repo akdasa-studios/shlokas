@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { Decks, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { IonItem, IonLabel, IonIcon } from '@ionic/vue'
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { enter, albums } from 'ionicons/icons'
 import { go } from '@/app/shared'
 import { testId } from '@/app/TestId'

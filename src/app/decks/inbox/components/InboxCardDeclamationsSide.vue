@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
-import { defineProps, onMounted, ref, watch, shallowRef, computed, defineExpose, onBeforeUnmount } from 'vue'
+import { onMounted, ref, watch, shallowRef, computed, onBeforeUnmount } from 'vue'
 import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
 import { useDownloadService, useEnv } from '@/app/shared'

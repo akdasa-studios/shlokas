@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+
 import { VerseImage } from '@akdasa-studios/shlokas-core'
 import VerseTextLines from '@/app/decks/shared/components/VerseTextLines.vue'
 

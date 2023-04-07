@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { Synonym } from '@akdasa-studios/shlokas-core'
-import { defineProps } from 'vue'
+
 import { VerseSynonyms } from '@/app/library'
 
 /* -------------------------------------------------------------------------- */

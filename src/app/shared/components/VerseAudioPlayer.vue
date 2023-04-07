@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, watch, toRefs, withDefaults, onBeforeUnmount } from 'vue'
+import { computed, watch, toRefs, withDefaults, onBeforeUnmount } from 'vue'
 import { playCircle, stopCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
 import { useDownloadService, useEnv } from '@/app/shared'

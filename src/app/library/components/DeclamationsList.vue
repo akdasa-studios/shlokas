@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { Declamation } from '@akdasa-studios/shlokas-core'
-import { defineProps, defineEmits } from 'vue'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

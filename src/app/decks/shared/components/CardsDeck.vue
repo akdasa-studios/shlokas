@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { useArrayFind, useArrayMap } from '@vueuse/core'
-import { watch, defineEmits, defineProps, toRefs } from 'vue'
+import { watch, toRefs } from 'vue'
 
 
 /* -------------------------------------------------------------------------- */

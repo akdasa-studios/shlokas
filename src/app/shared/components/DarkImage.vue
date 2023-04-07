@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, toRefs, withDefaults } from 'vue'
+import { computed, toRefs, withDefaults } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Inetrface                                 */

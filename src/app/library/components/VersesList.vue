@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import { Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { IonList } from '@ionic/vue'
-import { defineProps } from 'vue'
+
 import { VersesListItem } from '@/app/library'
 
 

@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, defineProps, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { SVGTextLines } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
 import { DarkImage, useDownloadService, useEnv } from '@/app/shared'

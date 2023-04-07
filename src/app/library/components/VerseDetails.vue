@@ -25,7 +25,7 @@
 
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+
 import { Declamation, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
 import { VerseSynonyms, VerseTranslation, DeclamationsPlayer } from '@/app/library'
 import VerseTextLines from '@/app/decks/shared/components/VerseTextLines.vue'

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, ref, toRefs, watch, defineEmits, onMounted } from 'vue'
+import { computed, ref, toRefs, watch, onMounted } from 'vue'
 import { TutorialStep } from '../models/TutorialStep'
 import TutorialCard from './TutorialCard.vue'
 

@@ -28,7 +28,7 @@
 
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+
 import { arrowBackCircle, arrowUpCircle } from 'ionicons/icons'
 import { IonIcon } from '@ionic/vue'
 

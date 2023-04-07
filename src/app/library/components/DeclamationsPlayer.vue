@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import { Declamation } from '@akdasa-studios/shlokas-core'
-import { computed, defineProps, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useSorted } from '@vueuse/core'
 import { VerseAudioPlayer } from '@/app/shared'
 import { DeclamationsList } from '@/app/library'

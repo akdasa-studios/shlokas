@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { IonButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, useIonRouter } from '@ionic/vue'
-import { computed, defineProps, onMounted, shallowRef } from 'vue'
+import { computed, onMounted, shallowRef } from 'vue'
 import { AddVerseToInboxDeck, Decks, Declamation, UpdateVerseStatus, Verse, VerseId, VerseImage, VerseStatus } from '@akdasa-studios/shlokas-core'
 import { Transaction } from '@akdasa-studios/framework'
 import { VerseDetails } from '@/app/library'
