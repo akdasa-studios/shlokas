@@ -124,7 +124,7 @@ jobs:
           shell: bash
           run: |
             npm i
-            npx playwright text
+            npx playwright test
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
