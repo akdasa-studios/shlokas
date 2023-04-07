@@ -121,6 +121,9 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            echo "Running Script"
+            npx playwright test
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
