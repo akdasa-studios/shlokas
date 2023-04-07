@@ -1,7 +1,6 @@
 <template>
   <div>
     <ConfettiExplosion
-      v-if="showConfetti"
       class="confetti"
       :force=".3"
       :duration="5000"
@@ -17,9 +16,8 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
-import ConfettiExplosion from 'vue-confetti-explosion'
 import { TutorialCards, TutorialStep, TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication } from '@/app/shared'
+import { useApplication, ConfettiExplosion } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */

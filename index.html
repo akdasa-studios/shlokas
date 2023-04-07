@@ -24,6 +24,9 @@
 
   <body>
     <div id="app"></div>
+    <script>
+      if (window.global === undefined) { window.global = window; }
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 

@@ -131,7 +131,9 @@ async function onSync() {
 
 async function onRefreshToken() {
   const service = new AuthService(AUTH_HOST)
-  token.value.expires = (await service.refreshToken(token.value)).expires
+  if (token.value) {
+    token.value.expires = (await service.refreshToken(token.value)).expires
+  }
 }
 </script>
 

@@ -19,6 +19,7 @@
         <!-- Name -->
         <ion-item>
           <ion-input
+            v-model="name"
             :label="$t('account.name')"
             label-placement="stacked"
           />

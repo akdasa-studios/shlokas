@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "run:device": "npm run build && npx cap run ios",
@@ -21,9 +21,9 @@
     "@capacitor/haptics": "4.1.0",
     "@capacitor/keyboard": "4.1.1",
     "@capacitor/status-bar": "4.1.1",
-    "@ionic/vue": "^7.0.0",
-    "@ionic/vue-router": "^7.0.0",
-    "ionicons": "^7.0.0",
+    "@ionic/vue": "^7.0.1",
+    "@ionic/vue-router": "^7.0.1",
+    "ionicons": "^7.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
 
@@ -48,7 +48,6 @@
     "pouchdb-adapter-cordova-sqlite": "^2.0.8",
     "pouchdb-find": "^8.0.1",
     "pouchdb-upsert": "^2.2.0",
-    "vue-confetti-explosion": "^1.0.2",
     "vue-i18n": "^9.2.2"
   },
   "devDependencies": {
