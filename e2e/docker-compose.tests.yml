@@ -5,7 +5,4 @@ services:
     environment:
       - HOST=shlokas
       - PORT=80
-
-networks:
-  e2e_default:
-    external: true
+    command: ["npm", "run", "test"]
