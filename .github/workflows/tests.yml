@@ -2,6 +2,10 @@ name: Tests
 on: push
 
 
+env:
+  REGISTRY: ghcr.io
+
+
 jobs:
 
   # ---------------------------------------------------------------------------- #
@@ -110,6 +114,13 @@ jobs:
         with:
           compose-file: "docker-compose.e2e.yml"
           down-flags: "--volumes"
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/akdasa-studios/shlokas-e2e:latest
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: 🌍 Environment
       #   uses: isbang/compose-action@v1.4.1
