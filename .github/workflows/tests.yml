@@ -19,7 +19,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
           tags: shlokas:latest
           outputs: type=docker,dest=/tmp/shlokas.tar
 
