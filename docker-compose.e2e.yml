@@ -1,5 +1,8 @@
 version: "3"
 services:
+  shlokas:
+    image: shlokas:latest
+
   db:
     image: ghcr.io/akdasa-studios/shlokas-db:latest
     restart: always
