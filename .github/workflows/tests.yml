@@ -36,7 +36,7 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 🏇 [Shlokas] Run
+    - name: 🏇 [Shlokas] Compile
       run: npm run build
 
     - name: 🚚  [Artifacts] Upload
@@ -62,7 +62,7 @@ jobs:
       - name: 📥 Checkout
         uses: actions/download-artifact@v3
         with:
-          name: compiled-app
+          name: shlokas-compiled
           path: dist/
 
       - name: Setup Docker buildx
