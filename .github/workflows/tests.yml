@@ -122,6 +122,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           shell: bash
+          docker_network:
+            description: 'Docker Network ID'
+            default: ${{ job.container.network }}
+            # shlokas_default
           run: |
             npm i
             npx playwright test
