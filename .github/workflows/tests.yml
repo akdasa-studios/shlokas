@@ -91,6 +91,9 @@ jobs:
   e2e:
     name: 🚀 E2E
     needs: build
+    strategy:
+      matrix:
+        project: [ 'Mobile Chrome', 'Mobile Safari' ]
     permissions:
       packages: read
     timeout-minutes: 30
@@ -121,11 +124,12 @@ jobs:
       #       docker-compose.testing.ci.yml
       #     down-flags: "--volumes"
 
-      - name: Run build script
+      - name: 🐳 Start server
         run: ./testing.ci.run.sh
         shell: bash
 
-      - uses: addnab/docker-run-action@v3
+      - name: 🧪 Testing
+        uses: addnab/docker-run-action@v3
         with:
           image: ghcr.io/akdasa-studios/shlokas-e2e:latest
           registry: ${{ env.REGISTRY }}
@@ -139,7 +143,7 @@ jobs:
           shell: bash
           run: |
             npm i
-            npx playwright test
+            npx playwright test --project={{ matrix.project }}
 
       - name: 🚚  [Artifacts] Upload
         uses: actions/upload-artifact@v3
