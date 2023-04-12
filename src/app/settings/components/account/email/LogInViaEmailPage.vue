@@ -79,18 +79,33 @@ import {
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AuthService } from '@/services/AuthService'
-import { AUTH_HOST } from '@/app/Env'
+import { useEnv } from '@/app/shared'
 import { useAccountStore } from '@/app/settings'
 
-const account = useAccountStore()
-const { email, password, token } = storeToRefs(account)
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
 
+const env = useEnv()
+const account = useAccountStore()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const { email, password, token } = storeToRefs(account)
 const inProgress = ref(false)
 const loginFailedDialogOpen = ref(false)
 
+
+/* -------------------------------------------------------------------------- */
+/*                                   Handles                                  */
+/* -------------------------------------------------------------------------- */
+
 async function onLogIn() {
   inProgress.value = true
-  const result = await new AuthService(AUTH_HOST).logIn(
+  const result = await new AuthService(env.getAuthUrl()).logIn(
     email.value,
     password.value,
   )

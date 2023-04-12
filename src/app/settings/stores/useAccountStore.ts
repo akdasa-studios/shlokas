@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, Ref, ref, watch } from 'vue'
-import { useDeviceStore } from '@/app/shared'
+import { useDeviceStore, useEnv } from '@/app/shared'
 import { AuthToken } from '@/services/AuthService'
-import { HOST, IS_DEVELOPMENT } from '../../Env'
 
 
 export const useAccountStore = defineStore('settings/account', () => {
@@ -11,6 +10,7 @@ export const useAccountStore = defineStore('settings/account', () => {
   const KEY_PASSWORD = 'password'
   const KEY_TOKEN    = 'token'
   const storage      = useDeviceStore()
+  const env          = useEnv()
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
@@ -24,12 +24,12 @@ export const useAccountStore = defineStore('settings/account', () => {
 
   const syncHost = computed(() => {
     if (!token.value) { return undefined }
-    if (IS_DEVELOPMENT) {
+    if (env.isDevelopment()) {
       return token.value.dbName
-        .replace('db:5984', `${HOST}/db`)
+        .replace('db:5984', `${env.getHost()}/db`)
     }
     return token.value.dbName
-      .replace('db:5984', `${HOST}/db`)
+      .replace('db:5984', `${env.getHost()}/db`)
       .replace('http://', 'https://')
   })
 

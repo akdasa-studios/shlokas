@@ -1,6 +1,6 @@
 import { Device } from '@capacitor/device'
 import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages } from '@/app/Env'
+import { getAvailableLanguages } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
 /**

@@ -76,16 +76,31 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AuthService } from '@/services/AuthService'
 import { useAccountStore } from '@/app/settings'
-import { AUTH_HOST } from '@/app/Env'
+import { useEnv } from '@/app/shared'
 
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const env = useEnv()
 const account = useAccountStore()
-const { name, email, password } = storeToRefs(account)
 
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const { name, email, password } = storeToRefs(account)
 const inProgress = ref(false)
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
 async function onSignUp() {
   inProgress.value = true
-  await new AuthService(AUTH_HOST).signUp(
+  await new AuthService(env.getAuthUrl()).signUp(
     name.value, email.value, password.value,
   )
   modalController.dismiss(null, 'ok')

@@ -1,8 +1,0 @@
-version: "3"
-services:
-  e2e:
-    image: ghcr.io/akdasa-studios/shlokas-e2e:latest
-    environment:
-      - SHLOKAS_URL=http://shlokas
-      - MAIL_URL=http://mail:1080
-    command: ["npm", "run", "test"]
