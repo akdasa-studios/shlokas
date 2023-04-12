@@ -145,5 +145,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: e2e
-          path: /output
+          path: output/
           retention-days: 5
