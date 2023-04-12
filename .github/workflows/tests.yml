@@ -135,7 +135,6 @@ jobs:
             -e SHLOKAS_URL=http://shlokas
             -e MAIL_URL=http://mail:1080
             --network shlokas_default
-            --mount source=/output,target=/e2e/output
           shell: bash
           run: |
             npm i
