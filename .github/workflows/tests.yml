@@ -131,7 +131,11 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          options: -e SHLOKAS_URL=http://shlokas -e MAIL_URL=http://mail:1080 --network shlokas_default -v ${GITHUB_WORKSPACE}/output:/e2e/output
+          options: |
+            -e SHLOKAS_URL=http://shlokas
+            -e MAIL_URL=http://mail:1080
+            --network shlokas_default
+            --mount source=$(pwd)/output,target=/e2e/output
           shell: bash
           run: |
             npm i
