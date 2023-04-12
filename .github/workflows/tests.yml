@@ -127,7 +127,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          options: -e HOST=shlokas -e PORT=80 --network e2e_default
+          options: -e SHLOKAS_URL=http://shlokas -e MAIL_URL=http://mail:1080 --network e2e_default
           shell: bash
           run: |
             npm i
