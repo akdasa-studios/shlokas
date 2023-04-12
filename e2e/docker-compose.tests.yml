@@ -3,6 +3,6 @@ services:
   e2e:
     image: ghcr.io/akdasa-studios/shlokas-e2e:latest
     environment:
-      - HOST=shlokas
-      - PORT=80
+      - SHLOKAS_URL=http://shlokas
+      - MAIL_URL=http://mail:1080
     command: ["npm", "run", "test"]
