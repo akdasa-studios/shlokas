@@ -133,9 +133,9 @@ jobs:
             npm i
             npx playwright test
 
-        - name: 🚚  [Artifacts] Upload
-          uses: actions/upload-artifact@v3
-          with:
-            name: e2e
-            path: playwright-report/
-            retention-days: 5
+      - name: 🚚  [Artifacts] Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e
+          path: playwright-report/
+          retention-days: 5
