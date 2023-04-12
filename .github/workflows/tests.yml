@@ -112,14 +112,18 @@ jobs:
           docker load --input /tmp/shlokas-container.tar
           docker image ls -a
 
-      - name: Environment
-        uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: |
-            docker-compose.yml
-            docker-compose.testing.yml
-            docker-compose.testing.ci.yml
-          down-flags: "--volumes"
+      # - name: Environment
+      #   uses: isbang/compose-action@v1.4.1
+      #   with:
+      #     compose-file: |
+      #       docker-compose.yml
+      #       docker-compose.testing.yml
+      #       docker-compose.testing.ci.yml
+      #     down-flags: "--volumes"
+
+      - name: Run build script
+        run: ./testing.ci.run.sh
+        shell: bash
 
       - uses: addnab/docker-run-action@v3
         with:
