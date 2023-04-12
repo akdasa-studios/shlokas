@@ -22,7 +22,7 @@ export function useEnv() {
   }
 
   function isDevelopment() {
-    return MODE === 'development'
+    return MODE === 'development' || MODE === 'testing'
   }
 
   function getHost() {
