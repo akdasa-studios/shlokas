@@ -134,6 +134,7 @@ jobs:
           options: |
             -e SHLOKAS_URL=http://shlokas
             -e MAIL_URL=http://mail:1080
+            -v ${{ github.workspace }}/output:/e2e/output
             --network shlokas_default
           shell: bash
           run: |
