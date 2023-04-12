@@ -143,11 +143,12 @@ jobs:
           shell: bash
           run: |
             npm i
-            npx playwright test --project={{ matrix.project }}
+            npx playwright test --project=${{ matrix.project }}
+            echo "DONE!"
 
       - name: 🚚  [Artifacts] Upload
         uses: actions/upload-artifact@v3
         with:
-          name: e2e
+          name: e2e-${{ matrix.project }}
           path: output/
           retention-days: 5
