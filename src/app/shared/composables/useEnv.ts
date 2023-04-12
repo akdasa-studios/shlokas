@@ -5,6 +5,10 @@ export function useEnv() {
   const PROTOCOL = import.meta.env.VITE_PROTOCOL
   const HOST     = import.meta.env.VITE_HOST
 
+  console.log(MODE)
+  console.log(PROTOCOL)
+  console.log(HOST)
+
   function getContentUrl(fileName: string): string {
     return `${PROTOCOL}://${HOST}/content/${fileName}`
   }
