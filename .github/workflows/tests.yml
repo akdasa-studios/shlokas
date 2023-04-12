@@ -131,7 +131,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          options: -e SHLOKAS_URL=http://shlokas -e MAIL_URL=http://mail:1080 --network shlokas_default
+          options: -e SHLOKAS_URL=http://shlokas -e MAIL_URL=http://mail:1080 --network shlokas_default -v ./output:/e2e/output
           shell: bash
           run: |
             npm i
@@ -141,5 +141,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: e2e
-          path: playwright-report/
+          path: output/
           retention-days: 5
