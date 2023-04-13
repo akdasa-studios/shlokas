@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import { Synonym } from '@akdasa-studios/shlokas-core'
 import { useArrayFilter } from '@vueuse/shared'
-import { defineProps, toRefs } from 'vue'
+import { toRefs } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

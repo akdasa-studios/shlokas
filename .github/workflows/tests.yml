@@ -1,147 +1,155 @@
 name: Tests
 on: push
 
+
+env:
+  REGISTRY: ghcr.io
+
+
 jobs:
-  unit:
-    name: 🤖 Unit
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v2
 
-      - name: 📦 Install Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-          cache: npm
+  # ---------------------------------------------------------------------------- #
+  #                                Compile sources                               #
+  # ---------------------------------------------------------------------------- #
 
-      # - name: 🫙 Cache NPM dependencies
-      #   uses: actions/cache@v3
-      #   id: cache-primes
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-
-      - name: 📦 Install dependencies
-        # if: steps.cache-primes.outputs.cache-hit != 'true'
-        run: npm ci --audit=false
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🔬 Tests
-        run: npm run test:unit
-
-      - name: 🚚 Upload artifacts
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: unit
-          path: unit-report/
-          retention-days: 30
-
-      - name: 📜 Upload coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  e2e:
-    name: 🚀 E2E
-    needs: unit
+  compile:
+    name: 💾 Compile
     permissions:
       packages: read
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - name: 📥 Checkout
       uses: actions/checkout@v3
-
-    # ---------------------------------------------------------------------------- #
-    #                                  Environment                                 #
-    # ---------------------------------------------------------------------------- #
-
-    - name: 🌍 Environment
-      uses: isbang/compose-action@v1.4.1
-      with:
-        compose-file: "./docker-compose.e2e.yml"
-        down-flags: "--volumes"
-
-    # ---------------------------------------------------------------------------- #
-    #                                     Node                                     #
-    # ---------------------------------------------------------------------------- #
 
     - name: 📦 [Node] Install
       uses: actions/setup-node@v3
       with:
         node-version: 18
 
-    # - name: 📦 [Node] Cache packages
-    #   uses: actions/cache@v3
-    #   id: cache-primes
-    #   with:
-    #     path: node_modules
-    #     key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+    - name: 📦 [Node] Cache packages
+      uses: actions/cache@v3
+      id: cache-primes
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
 
     - name: 📦 [Node] Install packages
-      # if: steps.cache-primes.outputs.cache-hit != 'true'
+      if: steps.cache-primes.outputs.cache-hit != 'true'
       run: npm ci --audit=false
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # ---------------------------------------------------------------------------- #
-    #                                  Playwright                                  #
-    # ---------------------------------------------------------------------------- #
-
-    - name: 🎭 [Playwright] Get version
-      run: |
-        PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
-        echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-        echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-
-    - name: 🎭 [Playwright] Cache browsers
-      id: cache-playwright-browsers
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/ms-playwright
-        key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-
-    # TODO: doesn't cache properly
-    # - name: 🎭 [Playwright] Cache dependencies
-    #   uses: awalsh128/cache-apt-pkgs-action@latest
-    #   with:
-    #     packages: libevent-2.1-7 libopus0 libwoff1 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libgstreamer-gl1.0-0 libhyphen0 libmanette-0.2-0 libgles2 gstreamer1.0-libav
-    #     version: 1.0
-
-    - name: 🎭 [Playwright] Install browsers
-      # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps
-
-    # ---------------------------------------------------------------------------- #
-    #                                      App                                     #
-    # ---------------------------------------------------------------------------- #
-
-    - name: 🏇 [Shlokas] Build
-      run: npm run build:e2e
-
-    - name: 🏇 [Shlokas] Run server
-      run: npm run test:run-server &
-
-    - name: 🔬 [Shlokas] E2E Tests
-      run: npm run test:e2e
-
-    # ---------------------------------------------------------------------------- #
-    #                                   Artifacts                                  #
-    # ---------------------------------------------------------------------------- #
+    - name: 🏇 [Shlokas] Compile
+      run: npm run build:testing
 
     - name: 🚚  [Artifacts] Upload
-      uses: actions/upload-artifact@v3
-      if: always()
+      uses: actions/upload-artifact@v3.1.2
       with:
-        name: e2e
-        path: playwright-report/
-        retention-days: 5
+        name: shlokas-compiled
+        path: dist/
+        retention-days: 1
+
+
+  # ---------------------------------------------------------------------------- #
+  #                                Build container                               #
+  # ---------------------------------------------------------------------------- #
+
+  build:
+    name: 🏗️ Build
+    needs: compile
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+
+      - name: 📥 Download compiled
+        uses: actions/download-artifact@v3
+        with:
+          name: shlokas-compiled
+          path: dist/
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v2.5.0
+
+      - name: 🐳 Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: shlokas:latest
+          outputs: type=docker,dest=/tmp/shlokas-container.tar
+
+      - name: 🐳 Upload artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: shlokas-container
+          path: /tmp/shlokas-container.tar
+
+  e2e:
+    name: 🚀 E2E
+    needs: build
+    strategy:
+      matrix:
+        project: [ 'Mobile Chrome', 'Mobile Safari' ]
+    permissions:
+      packages: read
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: 'akdasa-studios/shlokas-server'
+
+      - name: 🐳 Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: shlokas-container
+          path: /tmp
+
+      - name: 🐳 Load Docker image
+        run: |
+          docker load --input /tmp/shlokas-container.tar
+          docker image ls -a
+
+      # - name: Environment
+      #   uses: isbang/compose-action@v1.4.1
+      #   with:
+      #     compose-file: |
+      #       docker-compose.yml
+      #       docker-compose.testing.yml
+      #       docker-compose.testing.ci.yml
+      #     down-flags: "--volumes"
+
+      - name: 🐳 Start server
+        run: ./testing.ci.run.sh
+        shell: bash
+
+      - name: 🧪 Testing
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/akdasa-studios/shlokas-e2e:latest
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          options: |
+            -e CI=1
+            -e SHLOKAS_URL=http://shlokas
+            -e MAIL_URL=http://mail:1080
+            -v ${{ github.workspace }}/output:/e2e/output
+            --network shlokas_default
+          shell: bash
+          run: |
+            npm i
+            npx playwright test --project="${{ matrix.project }}"
+
+      - name: 🚚  [Artifacts] Upload
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: e2e-${{ matrix.project }}
+          path: output/
+          retention-days: 5

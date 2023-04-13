@@ -15,39 +15,33 @@
     </ion-header>
 
     <ion-content>
-      <ion-list
-        lines="full"
-        class="ion-no-margin ion-no-padding"
-      >
+      <ion-list :inset="true">
         <!-- Name -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.name') }}
-          </ion-label>
           <ion-input
             v-model="name"
+            :label="$t('account.name')"
+            label-placement="stacked"
           />
         </ion-item>
 
         <!-- email -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.email') }}
-          </ion-label>
           <ion-input
             v-model="email"
             type="email"
+            :label="$t('account.email')"
+            label-placement="stacked"
           />
         </ion-item>
 
         <!-- password -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.password') }}
-          </ion-label>
           <ion-input
             v-model="password"
             type="password"
+            :label="$t('account.password')"
+            label-placement="stacked"
           />
         </ion-item>
       </ion-list>
@@ -67,7 +61,7 @@
         :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
-    </ion-content>
+      </ion-content>
   </ion-page>
 </template>
 
@@ -82,16 +76,31 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { AuthService } from '@/services/AuthService'
 import { useAccountStore } from '@/app/settings'
-import { AUTH_HOST } from '@/app/Env'
+import { useEnv } from '@/app/shared'
 
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const env = useEnv()
 const account = useAccountStore()
-const { name, email, password } = storeToRefs(account)
 
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
+const { name, email, password } = storeToRefs(account)
 const inProgress = ref(false)
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
 async function onSignUp() {
   inProgress.value = true
-  await new AuthService(AUTH_HOST).signUp(
+  await new AuthService(env.getAuthUrl()).signUp(
     name.value, email.value, password.value,
   )
   modalController.dismiss(null, 'ok')

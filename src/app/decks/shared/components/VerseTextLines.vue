@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, defineProps, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { SVGTextLines } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
 import { DarkImage, useDownloadService, useEnv } from '@/app/shared'
@@ -65,7 +65,7 @@ async function onOpened() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 :deep(.line) {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
@@ -73,6 +73,6 @@ async function onOpened() {
 }
 
 .image {
-  padding: 1px; // fuck you Safari
+  padding: 1px;
 }
 </style>

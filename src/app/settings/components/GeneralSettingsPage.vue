@@ -76,7 +76,7 @@ import {
 } from '@ionic/vue'
 import { inject } from 'vue'
 import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages } from '@/app/Env'
+import { getAvailableLanguages } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */

@@ -1,13 +1,14 @@
+import { useEnv } from '@/app/shared'
 import { Logger } from '@akdasa-studios/framework'
 import { EventEmitter2 } from 'eventemitter2'
-import { AUTH_HOST } from '@/app/Env'
 
 import { useAccountStore } from '@/app/settings'
 import { AuthService } from '@/services/AuthService'
 
 
 export function runRefreshTokenTask(emitter: EventEmitter2) {
-  const service = new AuthService(AUTH_HOST)
+  const env     = useEnv()
+  const service = new AuthService(env.getAuthUrl())
   const log     = new Logger('auth')
 
   emitter.on('backgroundTask', async () => {

@@ -47,7 +47,7 @@
 
 
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -68,19 +68,16 @@ const showNumbers = computed(() => props.current != undefined && props.total !==
 </script>
 
 
-<style lang="scss" scoped>
-$progress-bar-stroke-width: 1.5;
-$progress-bar-size: 300px;
-
+<style scoped>
 svg {
-  height: $progress-bar-size;
-  width: $progress-bar-size;
+  height: 300px;
+  width: 300px;
 }
 
 .background {
   fill: none;
   stroke: var(--ion-color-cards-tint);
-  stroke-width: $progress-bar-stroke-width;
+  stroke-width: 1.5;
 }
 
 .progress {
@@ -89,14 +86,14 @@ svg {
   stroke-dasharray: 100 100;
   stroke-dashoffset: 100;
   stroke-linecap: round;
-  stroke-width: $progress-bar-stroke-width;
+  stroke-width: 1.5;
   transition: stroke-dashoffset 1.5s ease-out;
 }
 
 .line {
   stroke: var(--ion-color-cards-shade);
   stroke-linecap: round;
-  stroke-width: $progress-bar-stroke-width/4;
+  stroke-width: 1.5/4;
 }
 
 .text {

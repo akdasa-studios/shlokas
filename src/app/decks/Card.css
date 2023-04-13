@@ -14,22 +14,23 @@
   border: 1px solid black;
   border-radius: 8px;
   border-bottom: 10px solid black;
-
-  > .number {
-    // text-transform: uppercase;
-    padding: .4em;
-    font-weight: bold;
-    font-size: 11vw;
-  }
-
-  > .question {
-    text-transform: uppercase;
-    padding: 0.4em;
-    margin: .4em;
-
-    font-size: 4.5vw;
-  }
+  user-select: none;
 }
+
+.side .number {
+  text-transform: uppercase;
+  padding: .4em;
+  font-weight: bold;
+  font-size: 11vw;
+}
+
+.side .question {
+  text-transform: uppercase;
+  padding: 0.4em;
+  margin: .4em;
+  font-size: 4.5vw;
+}
+
 
 .big-text {
   font-size: 9vw;
@@ -42,5 +43,5 @@
 }
 
 .flip-card {
-  padding: 10px
+  padding: 10px;
 }

@@ -1,10 +1,9 @@
-
+import { Language } from "@akdasa-studios/shlokas-core"
 
 export function useEnv() {
-  const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
-  const PROTOCOL       = IS_DEVELOPMENT ? 'http' : 'https'
-  const HOST           = IS_DEVELOPMENT ? 'localhost' : 'shlokas.app'
-  // const AUTH_HOST      = IS_DEVELOPMENT ? `http://${HOST}/auth` : `https://${HOST}/auth`
+  const MODE     = import.meta.env.MODE
+  const PROTOCOL = import.meta.env.VITE_PROTOCOL
+  const HOST     = import.meta.env.VITE_HOST
 
   function getContentUrl(fileName: string): string {
     return `${PROTOCOL}://${HOST}/content/${fileName}`
@@ -14,5 +13,31 @@ export function useEnv() {
     return `${PROTOCOL}://${HOST}/db/${database}`
   }
 
-  return { getContentUrl, getDatabaseUrl }
+  function getAuthUrl() {
+    return `${PROTOCOL}://${HOST}/auth`
+  }
+
+  function getMode() {
+    return MODE
+  }
+
+  function isDevelopment() {
+    return MODE === 'development' || MODE === 'testing'
+  }
+
+  function getHost() {
+    return HOST
+  }
+
+
+  return { getContentUrl, getDatabaseUrl, getMode, isDevelopment, getAuthUrl, getHost }
+}
+
+export function getAvailableLanguages() {
+  return [
+    new Language('en', 'English'),
+    new Language('ru', 'Русский'),
+    new Language('uk', 'Українська мова')
+    // new Language("rs", "Српски")
+  ]
 }

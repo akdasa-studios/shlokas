@@ -9,7 +9,7 @@ export function useAudio() {
   let startTime = 0
   let buffer: AudioBuffer
   let audioNode: AudioBufferSourceNode
-  let timeOut: number|undefined = undefined
+  let timeOut: NodeJS.Timer|undefined = undefined
 
 
   async function open(url: string) {

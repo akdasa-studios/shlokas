@@ -1,6 +1,6 @@
 <template>
   <div
-    id="root"
+    class="root"
     :class="{ 'visible': visible, 'hidden': !visible }"
   >
     <div
@@ -28,7 +28,7 @@
 
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+
 import { arrowBackCircle, arrowUpCircle } from 'ionicons/icons'
 import { IonIcon } from '@ionic/vue'
 
@@ -55,7 +55,7 @@ function getStatusFor(status: string) {
 
 
 <style scoped>
-#root {
+.root {
   position: absolute;
   width: calc(100% - 20px);
   background-color: var(--ion-color-always-dark);
@@ -66,14 +66,16 @@ function getStatusFor(status: string) {
   border-radius: 5px;
   transition: ease-in-out .25s;
   display: flex;
+  user-select: none;
+  touch-action: none;
 }
 
-#root.hidden {
+.root.hidden {
   opacity: 0;
   top: -50px;
 }
 
-#root.visible {
+.root.visible {
   opacity: .8;
   top: 0px;
 }

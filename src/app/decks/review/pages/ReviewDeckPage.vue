@@ -121,8 +121,8 @@ const gradeButtonIntervals = computed(() => {
     ReviewGrade.Good, ReviewGrade.Easy
   ].map(x =>
     sc.getNewInterval(
-      getReviewCard(topCard.value.id).interval,
-      getReviewCard(topCard.value.id).ease / 100, x
+      getReviewCard(topCard.value!.id).interval,
+      getReviewCard(topCard.value!.id).ease / 100, x
     )
   )
 })
@@ -202,7 +202,7 @@ async function onGradeButtonClicked(grade: ReviewGrade) {
   if (!topCard.value?.id) { return }
   deck.value.swipeTopCard()
   setTimeout(async () => {
-    await gradeCard(getReviewCard(topCard.value.id), grade)
+    await gradeCard(getReviewCard(topCard.value!.id), grade)
   }, 250)
 }
 
@@ -217,6 +217,7 @@ async function gradeCard(reviewCard: ReviewCard, grade: ReviewGrade) {
   const isCardDueToday = reviewCard.dueTo.getTime() <= app.timeMachine.today.getTime()
 
   if (isCardDueToday) {
+    if (topCard.value) { topCard.value.flipped = false }
     indexedList.shiftItem(cardsToShow)
   } else {
     await app.execute(new UpdateVerseStatus(reviewCard.verseId))

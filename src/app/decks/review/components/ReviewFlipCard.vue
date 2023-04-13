@@ -34,10 +34,10 @@
 
 <script lang="ts" setup>
 import { ReviewCard, Verse } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps } from 'vue'
+
 import { testId } from '@/app/TestId'
 import { ReviewCardTextSide, ReviewCardTranslationSide, ReviewCardVerseNumberSide } from '@/app/decks/review'
-import { FlipCard } from '@/app/decks/shared'
+import FlipCard from '@/app/decks/shared/components/FlipCard.vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

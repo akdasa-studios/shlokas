@@ -5,7 +5,7 @@ import { InitArgs } from '../initialization'
 const logger = new Logger('migrations')
 
 const migrations = {
-  1: require('../migrations/001-save-bundled-verses'),
+  1: import('../migrations/001-save-bundled-verses'),
 }
 
 export async function initMigrations(args: InitArgs) {
@@ -15,7 +15,9 @@ export async function initMigrations(args: InitArgs) {
   const migrationsToRun = Object.entries(migrations).filter(([key]) => parseInt(key) > lastMigration)
   for (const [migrationId, migrate] of migrationsToRun) {
     logger.debug(`Running migration ${migrationId}`)
-    await migrate.default(args)
+    const module = await migrate
+
+    module.default(args)
     await deviceStorage.set('lastMigration', migrationId)
   }
 }

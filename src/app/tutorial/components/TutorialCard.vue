@@ -25,7 +25,7 @@
 
 
 <script setup lang="ts">
-import { defineProps, defineEmits, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { IonButton } from '@ionic/vue'
 
 /* -------------------------------------------------------------------------- */

@@ -21,10 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, onMounted, ref, toRefs, withDefaults } from 'vue'
+import { computed, onMounted, ref, toRefs, withDefaults } from 'vue'
 import { useSettingsStore } from '@/app/settings'
 import { useStringHasher } from '@/app/shared'
-
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -80,41 +79,29 @@ function getHueRotate() {
 </script>
 
 
-<style scoped lang="scss">
-$flipAngleFront: calc(v-bind(flipAngle) * 1deg);
-$flipAngleBack: calc(v-bind(flipAngle) * 1deg - 180deg);
-
+<style scoped>
 .card {
-  width: 100%;
-  height: 100%;
-  perspective: 2700px;
-
-  touch-action: none;
-  user-select: none;
-  will-change: transform;
-
-  .face {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transition: v-bind(transition);
-    overflow: hidden;
-
-    &--front {
-      transform: rotateY($flipAngleFront);
-    }
-
-    &--back {
-      transform: rotateY($flipAngleBack);
-    }
-  }
+	 width: 100%;
+	 height: 100%;
+	 touch-action: none;
+	 user-select: none;
+	 will-change: transform;
 }
-
-.no-events {
-  pointer-events: none;
+.card .face {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 backface-visibility: hidden;
+	 transition: v-bind(transition);
+	 overflow: hidden;
+}
+.card .face--front {
+	 transform: rotateY(calc(v-bind(flipAngle) * 1deg));
+}
+.card .face--back {
+	 transform: rotateY(calc(v-bind(flipAngle) * 1deg - 180deg));
 }
 
 .color {

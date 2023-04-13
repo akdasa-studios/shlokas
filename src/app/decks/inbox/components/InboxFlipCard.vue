@@ -40,9 +40,9 @@
 
 <script lang="ts" setup>
 import { Declamation, InboxCard, InboxCardType, Verse, VerseImage } from '@akdasa-studios/shlokas-core'
-import { defineEmits, defineProps, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { InboxCardDeclamationsSide, InboxCardSynonymsSide, InboxCardTranslationSide, InboxCardVerseTextSide } from '@/app/decks/inbox'
-import { FlipCard } from '@/app/decks/shared'
+import FlipCard from '@/app/decks/shared/components/FlipCard.vue'
 import { testId } from '@/app/TestId'
 
 

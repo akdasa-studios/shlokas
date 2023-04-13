@@ -100,13 +100,14 @@ import { EventEmitter2 } from 'eventemitter2'
 import { Context, TimeMachine } from '@akdasa-studios/shlokas-core'
 import { useAccountStore } from '@/app/settings'
 import { AuthService } from '@/services/AuthService'
-import { AUTH_HOST } from '@/app/Env'
+import { useEnv } from '@/app/shared'
 
 import { createRepositories } from '@/app/utils/sync'
 import { useApplication } from '@/app/shared'
 import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
 import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
+const env = useEnv()
 const inProgress = ref(false)
 const emitter = inject('emitter') as EventEmitter2
 const application = useApplication()
@@ -130,8 +131,10 @@ async function onSync() {
 }
 
 async function onRefreshToken() {
-  const service = new AuthService(AUTH_HOST)
-  token.value.expires = (await service.refreshToken(token.value)).expires
+  const service = new AuthService(env.getAuthUrl())
+  if (token.value) {
+    token.value.expires = (await service.refreshToken(token.value)).expires
+  }
 }
 </script>
 
