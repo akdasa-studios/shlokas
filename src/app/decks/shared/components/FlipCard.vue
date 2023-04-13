@@ -25,7 +25,6 @@ import { computed, onMounted, ref, toRefs, withDefaults } from 'vue'
 import { useSettingsStore } from '@/app/settings'
 import { useStringHasher } from '@/app/shared'
 
-
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
@@ -84,7 +83,6 @@ function getHueRotate() {
 .card {
 	 width: 100%;
 	 height: 100%;
-	 perspective: 2700px;
 	 touch-action: none;
 	 user-select: none;
 	 will-change: transform;
@@ -104,11 +102,6 @@ function getHueRotate() {
 }
 .card .face--back {
 	 transform: rotateY(calc(v-bind(flipAngle) * 1deg - 180deg));
-}
-
-
-.no-events {
-  pointer-events: none;
 }
 
 .color {

@@ -176,9 +176,8 @@ function computeStyle(card: Card) {
   const constY = card.index * 35
   const constZ = -(card.index * 80)
 
-  return `transform: translate3D(${r.posX}px, ${constY + r.posY}px, ${constZ}px) rotateZ(${r.angleZ}deg);
-          transition: ${transition};
-          z-index: ${10-r.index};`
+  return `transform: translate3d(${r.posX}px, ${constY + r.posY}px, ${constZ}px) rotateZ(${r.angleZ}deg);
+          transition: ${transition};`
 }
 
 function updateCardsState() {
@@ -232,6 +231,10 @@ function swipeTopCard() {
   position: absolute;
   width: 100%;
   height: 100%;
+  perspective: 2500px;
+
+  pointer-events: all;
+  touch-action: auto;
 }
 
 .deck {
@@ -239,5 +242,9 @@ function swipeTopCard() {
   height: 100%;
   perspective: 1300px;
   transform-style: preserve-3d;
+  touch-action: none;
+  user-select: none;
+  pointer-events: none;
+  /* background-color: aquamarine; */
 }
 </style>

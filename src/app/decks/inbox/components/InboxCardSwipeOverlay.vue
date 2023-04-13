@@ -66,6 +66,8 @@ function getStatusFor(status: string) {
   border-radius: 5px;
   transition: ease-in-out .25s;
   display: flex;
+  user-select: none;
+  touch-action: none;
 }
 
 .root.hidden {
