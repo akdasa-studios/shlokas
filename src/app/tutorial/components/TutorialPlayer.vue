@@ -1,6 +1,7 @@
 <template>
   <div>
     <ConfettiExplosion
+      v-if="showConfetti"
       class="confetti"
       :force=".3"
       :duration="5000"
