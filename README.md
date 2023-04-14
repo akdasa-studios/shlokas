@@ -43,7 +43,14 @@ If you'd like to help develop the project, here's a list of links to get you sta
 3. `npm run run:device:hot` – run an application on a device with hot reloading
 
 ### Environment
+
+There are two options on how to run the application:
+1. Use prebuild containers — a fast and easy way to run the application. You don't need to build anything. This option is for you if you are working on the Shlokas app but not the services.
+2. Build all the services from the sources. This option is for you if you are working on a specific service and want to modify, build, and run it.
+
+### Use prebuild containers
 To run the application in a full environment, you need to start all the services. You can do that by cloning the `shlokas-server` repository and running `./dev.run.sh` command.
+It will download all the necessary images and run all the services in the docker containers.
 
 ```sh
 # somewhere in your projects foledr outside of this repo
@@ -51,6 +58,27 @@ gh repo clone akdasa-studios/shlokas-server
 cd ./shlokas-server
 ./dev.run.sh
 ```
+
+### Build all the services from the sources
+If you are working on a specific service and you want to build it and run you should do the following:
+
+1. Clone all the repositories in the same folder like `shlokas`
+2. Run `local.build.sh` script
+3. It will build all the services from the sources and run them in the docker containers
+4. Run all the services with `local.run.sh` script
+
+```bash
+# clone all the repos
+gh search repos --owner akdasa-studios --match name shlokas --visibility public | while read -r repo _; do
+  gh repo clone "$repo" "$repo"
+done
+
+# build and run all the services
+cd ./akdasa-studios/shlokas-server
+./local.build.sh
+./local.run.sh
+```
+
 
 The following services will be started:
 
