@@ -29,7 +29,7 @@
 ## Get involved
 If you'd like to help develop the project, here's a list of links to get you started:
 
-1. [Good first issues](https://github.com/akdasa-studios/shlokas/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) – list of simple issues any developer could start from.
+1. [Good first issues](https://github.com/akdasa-studios/shlokas/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) – a list of simple issues any developer could start from.
 2. [Roadmap](https://github.com/orgs/akdasa-studios/projects/1/views/7) - list of tasks we are working on.
 
 
@@ -38,13 +38,68 @@ If you'd like to help develop the project, here's a list of links to get you sta
 1. [Models](./docs/models.md) – Domain models
 
 ## Develop
-1. `npm run serve` – run the application at `http://localhost:8080`
-2. `npm run test:unit` – run unit tests for logic
-3. `npm run test:component` – run tests for componens
-4. `npm run test:e2e` – run end to end tests. Run `docker compose -f ./docker-compose.e2e.yml up` before running e2e tests.
+1. `npm run dev` – run the application at `http://localhost:8080`
+2. `npm run run:device` – run application on a device
+3. `npm run run:device:hot` – run an application on a device with hot reloading
 
-## Links
-1. [Framework](https://github.com/akdasa-studios/framework) – The framework we are using to build our application
-2. [Shlokas Core](https://github.com/akdasa-studios/shlokas-core) – Business logic of the Shlokas application
-3. [Shlokas Server](https://github.com/akdasa-studios/shlokas-server) – Backend
+### Environment
 
+There are two options for launching services:
+1. Use prebuild containers — a fast and easy way to run the application. You don't need to build anything. This option is for you if you are working on the Shlokas app but not the services.
+2. Build all the services from the sources. This option is for you if you are working on a specific service and want to modify, build, and run it.
+
+### Use prebuild containers
+To run the application in a full environment, you need to start all the services. You can do that by cloning the `shlokas-server` repository and running `./dev.run.sh` command.
+It will download all the necessary images and run all the services in the docker containers.
+
+```sh
+# somewhere in your projects folder outside of this repo
+gh repo clone akdasa-studios/shlokas-server
+cd ./shlokas-server
+./dev.run.sh
+```
+
+### Build all the services from the sources
+If you are working on a specific service and you want to build it and run you should do the following:
+
+1. Clone all the repositories in the same folder like `shlokas`
+2. Run `local.build.sh` script to build all the services from the sources
+4. Run all the services with `local.run.sh` script
+
+```bash
+# clone all the repos
+gh search repos --owner akdasa-studios --match name shlokas --visibility public | while read -r repo _; do
+  gh repo clone "$repo" "$repo"
+done
+
+# build and run all the services
+cd ./akdasa-studios/shlokas-server
+./local.build.sh
+./local.run.sh
+```
+
+## Services
+
+The following services will be started:
+
+| Repo                                                           | Description                                                                           | Link                       |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------- |
+| [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page.                                                                         | http://localhost           |
+| [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content. You can add verses, images, declamations and so on     | http://localhost/admin     |
+| [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts. Starts CouchDB and bootstraps it with necessary data | http://localhost/db/_utils |
+| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service. Registers and logins user via CouchDB                                                                | No UI                      |
+| [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                                                                              | No UI                      |
+| [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server. Allows to download and upload images and declamations                 | No UI                      |
+| [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service                                                             | No UI                      |
+| Mailcather                                                     | Email service. Used only for debugging purposes in dev environment.                   | http://localhost:1080      |
+
+
+## Related Repositories
+
+| Repo                                                       | Description                            |
+| ---------------------------------------------------------- | -------------------------------------- |
+| [Core](https://github.com/akdasa-studios/shlokas-core)     | Core Library. Contains business logic. |
+| [Server](https://github.com/akdasa-studios/shlokas-server) | Scripts to run related services        |
+| [E2E](https://github.com/akdasa-studios/shlokas-e2e)       | End to end tests                       |
+| [UiKit](https://github.com/akdasa-studios/shlokas-uikit)   | UI Kit                                 |
+| [Utils](https://github.com/akdasa-studios/shlokas-utils)   | Utils                                  |

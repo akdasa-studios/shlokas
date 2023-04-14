@@ -1,11 +1,11 @@
 import { createI18n } from 'vue-i18n'
 import { App } from 'vue'
-import en from '@/locale/en.json'
+import en from '@/locale/en/en.json'
 import enTutorial from '@/locale/en/tutorial.json'
-import rs from '@/locale/rs.json'
-import ru from '@/locale/ru.json'
+import rs from '@/locale/rs/rs.json'
+import ru from '@/locale/ru/ru.json'
 import ruTutorial from '@/locale/ru/tutorial.json'
-import uk from '@/locale/uk.json'
+import uk from '@/locale/uk/uk.json'
 import { InitArgs, InitResult } from '../initialization'
 
 
