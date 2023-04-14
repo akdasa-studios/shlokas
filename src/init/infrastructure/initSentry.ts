@@ -1,9 +1,9 @@
+import { useEnv } from '@/app/shared'
+import { App } from '@capacitor/app'
 import * as Sentry from '@sentry/capacitor'
 import { BrowserTracing } from '@sentry/tracing'
 import * as SentrySibling from '@sentry/vue'
-import { App } from '@capacitor/app'
 import { App as VueApp } from 'vue'
-import { useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
 
