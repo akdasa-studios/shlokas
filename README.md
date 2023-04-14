@@ -54,16 +54,17 @@ cd ./shlokas-server
 
 The following services will be started:
 
-| Repo                                                           | Description                    | Link                       |
-| -------------------------------------------------------------- | ------------------------------ | -------------------------- |
-| [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page                   | http://localhost           |
-| [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content  | http://localhost/admin     |
-| [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts | http://localhost/db/_utils |
-| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service         | No UI                      |
-| [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                       | No UI                      |
-| [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server                 | No UI                      |
-| [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service      | No UI                      |
-| Mailcather                                                     | Email service                  | http://localhost:1080      |
+| Repo                                                           | Description                                                                           | Link                       |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------- |
+| [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page.                                                                         | http://localhost           |
+| [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content. You can add verses, images, declamations and so on     | http://localhost/admin     |
+| [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts. Starts CouchDB and bootstraps it with necessary data. | http://localhost/db/_utils |
+| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service                                                                | No UI                      |
+| [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                                                                              | No UI                      |
+| [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server. Allows to download and upload images and declamations                 | No UI                      |
+| [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service                                                             | No UI                      |
+| Mailcather                                                     | Email service. Used only for debugging purposes in dev environment.                   | http://localhost:1080      |
+
 
 ## Related Repositories
 
