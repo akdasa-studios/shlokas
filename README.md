@@ -58,8 +58,8 @@ The following services will be started:
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------- |
 | [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page.                                                                         | http://localhost           |
 | [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content. You can add verses, images, declamations and so on     | http://localhost/admin     |
-| [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts. Starts CouchDB and bootstraps it with necessary data. | http://localhost/db/_utils |
-| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service                                                                | No UI                      |
+| [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts. Starts CouchDB and bootstraps it with necessary data | http://localhost/db/_utils |
+| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service. Registers and logins user via CouchDB                                                                | No UI                      |
 | [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                                                                              | No UI                      |
 | [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server. Allows to download and upload images and declamations                 | No UI                      |
 | [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service                                                             | No UI                      |
