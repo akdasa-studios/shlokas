@@ -152,6 +152,7 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
   if (['left', 'right'].includes(direction)) {
     indexedList.shiftItem(cards)
     completeTutorialStep(TutorialSteps.InboxDeckSwipeCardLeft)
+    getCardState(id).flipped = false
   } else {
     const card = getInboxCard(id)
     indexedList.removeItem(cards)
