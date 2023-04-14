@@ -44,7 +44,7 @@ If you'd like to help develop the project, here's a list of links to get you sta
 
 ### Environment
 
-There are two options on how to run the application:
+There are two options for launching services:
 1. Use prebuild containers — a fast and easy way to run the application. You don't need to build anything. This option is for you if you are working on the Shlokas app but not the services.
 2. Build all the services from the sources. This option is for you if you are working on a specific service and want to modify, build, and run it.
 
@@ -53,7 +53,7 @@ To run the application in a full environment, you need to start all the services
 It will download all the necessary images and run all the services in the docker containers.
 
 ```sh
-# somewhere in your projects foledr outside of this repo
+# somewhere in your projects folder outside of this repo
 gh repo clone akdasa-studios/shlokas-server
 cd ./shlokas-server
 ./dev.run.sh
@@ -63,8 +63,7 @@ cd ./shlokas-server
 If you are working on a specific service and you want to build it and run you should do the following:
 
 1. Clone all the repositories in the same folder like `shlokas`
-2. Run `local.build.sh` script
-3. It will build all the services from the sources and run them in the docker containers
+2. Run `local.build.sh` script to build all the services from the sources
 4. Run all the services with `local.run.sh` script
 
 ```bash
@@ -79,6 +78,7 @@ cd ./akdasa-studios/shlokas-server
 ./local.run.sh
 ```
 
+## Services
 
 The following services will be started:
 
