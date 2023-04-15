@@ -6,6 +6,7 @@ import HomePage from '@/app/home/components/HomePage.vue'
 import { routes as libraryRoutes } from '@/app/library'
 import { routes as inboxDeckRoutes } from '@/app/decks/inbox'
 import { routes as reviewDeckRoutes } from '@/app/decks/review'
+import { routes as settingsRoutes } from '@/app/settings'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,20 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       ...libraryRoutes,
       ...inboxDeckRoutes,
       ...reviewDeckRoutes,
-      {
-        path: 'settings',
-        component: () => import('@/app/settings/components/SettingsPage.vue'),
-        children: [
-          {
-            path: '',
-            component: () => import('@/app/settings/components/GeneralSettingsPage.vue')
-          },
-          {
-            path: 'account',
-            component: () => import('@/app/settings/components/account/AccountPage.vue'),
-          }
-        ]
-      },
+      ...settingsRoutes,
     ]
   }
 ]

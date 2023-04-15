@@ -22,15 +22,10 @@
         {{ $t('account.welcomeBack') }}
       </h1>
 
-      <div v-if="token">
-        {{ $t('account.token.validTill') }}:
-        {{ new Date(token.expires).toLocaleString() }}
-      </div>
-
       <ion-button
         v-if="!isAuthenticated"
         expand="block"
-        @click="openModal(LogInViaEmailPage)"
+        router-link="/home/settings/account/email/login"
       >
         <ion-icon
           slot="start"
@@ -43,7 +38,7 @@
         v-if="!isAuthenticated"
         expand="block"
         fill="clear"
-        @click="openModal(SignUpViaEmailPage)"
+        router-link="/home/settings/account/email/register"
       >
         {{ $t('account.signUp') }}
       </ion-button>
@@ -65,15 +60,6 @@
       >
         {{ $t('account.syncData') }}
       </ion-button>
-
-      <ion-button
-        v-if="isAuthenticated"
-        expand="block"
-        fill="outline"
-        @click="onRefreshToken"
-      >
-        {{ $t('account.token.refresh') }}
-      </ion-button>
     </ion-content>
 
     <ion-loading
@@ -90,8 +76,7 @@
 <script lang="ts" setup>
 import {
   IonBackButton, IonButton, IonButtons, IonContent,
-  IonHeader, IonPage, IonTitle, IonToolbar, IonLoading,
-  IonIcon, modalController
+  IonHeader, IonPage, IonTitle, IonToolbar, IonLoading, IonIcon
 } from '@ionic/vue'
 import { mail } from 'ionicons/icons'
 import { computed, inject, ref } from 'vue'
@@ -99,28 +84,31 @@ import { storeToRefs } from 'pinia'
 import { EventEmitter2 } from 'eventemitter2'
 import { Context, TimeMachine } from '@akdasa-studios/shlokas-core'
 import { useAccountStore } from '@/app/settings'
-import { AuthService } from '@/services/AuthService'
-import { useEnv } from '@/app/shared'
-
 import { createRepositories } from '@/app/utils/sync'
 import { useApplication } from '@/app/shared'
-import LogInViaEmailPage from './email/LogInViaEmailPage.vue'
-import SignUpViaEmailPage from './email/SignUpViaEmailPage.vue'
 
-const env = useEnv()
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
 const inProgress = ref(false)
 const emitter = inject('emitter') as EventEmitter2
 const application = useApplication()
 const account = useAccountStore()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    State                                   */
+/* -------------------------------------------------------------------------- */
+
 const { isAuthenticated, syncHost, token, email } = storeToRefs(account)
 const { logOut } = account
-
 const showVerifyEmail = computed(() => email.value && !token.value)
 
-async function openModal(component: any) {
-  const modal = await modalController.create({ component })
-  modal.present()
-}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
 
 async function onSync() {
   inProgress.value = true
@@ -128,13 +116,6 @@ async function onSync() {
   await application.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
   emitter.emit('syncCompleted')
   setTimeout(() => inProgress.value = false, 2500)
-}
-
-async function onRefreshToken() {
-  const service = new AuthService(env.getAuthUrl())
-  if (token.value) {
-    token.value.expires = (await service.refreshToken(token.value)).expires
-  }
 }
 </script>
 
