@@ -3,12 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button
-            color="medium"
-            @click="cancel"
-          >
-            {{ $t('common.cancel') }}
-          </ion-button>
+          <ion-back-button />
         </ion-buttons>
         <ion-title>{{ $t('account.logIn') }}</ion-title>
       </ion-toolbar>
@@ -21,23 +16,21 @@
       >
         <!-- email -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.email') }}
-          </ion-label>
           <ion-input
             v-model="email"
             type="email"
+            :label="$t('account.email')"
+            label-placement="stacked"
           />
         </ion-item>
 
         <!-- password -->
         <ion-item>
-          <ion-label position="stacked">
-            {{ $t('account.password') }}
-          </ion-label>
           <ion-input
             v-model="password"
             type="password"
+            :label="$t('account.password')"
+            label-placement="stacked"
           />
         </ion-item>
       </ion-list>
@@ -73,8 +66,8 @@
 <script lang="ts" setup>
 import {
   IonButton, IonContent, IonHeader, IonInput, IonItem,
-  IonLabel, IonList, IonLoading, IonPage, IonTitle,
-  IonToolbar, IonButtons, modalController, IonAlert
+  IonList, IonLoading, IonPage, IonTitle,
+  IonToolbar, IonButtons, IonAlert, IonBackButton, useIonRouter
 } from '@ionic/vue'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -88,6 +81,7 @@ import { useAccountStore } from '@/app/settings'
 
 const env = useEnv()
 const account = useAccountStore()
+const router = useIonRouter()
 
 
 /* -------------------------------------------------------------------------- */
@@ -111,14 +105,10 @@ async function onLogIn() {
   )
   if (result.isSuccess) {
     token.value = result.value
-    modalController.dismiss(null, 'ok')
+    router.back()
   } else {
     loginFailedDialogOpen.value = true
   }
   inProgress.value = false
-}
-
-function cancel() {
-  return modalController.dismiss(null, 'cancel')
 }
 </script>

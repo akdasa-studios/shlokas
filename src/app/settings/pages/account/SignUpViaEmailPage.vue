@@ -3,19 +3,14 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button
-            color="medium"
-            @click="cancel"
-          >
-            {{ $t('common.cancel') }}
-          </ion-button>
+          <ion-back-button />
         </ion-buttons>
         <ion-title>{{ $t('account.signUp') }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
-      <ion-list :inset="true">
+      <ion-list>
         <!-- Name -->
         <ion-item>
           <ion-input
@@ -61,7 +56,7 @@
         :message="$t('common.wait')"
         @did-dismiss="inProgress = false"
       />
-      </ion-content>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -69,8 +64,8 @@
 <script lang="ts" setup>
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButtons,
-  IonList, IonItem, IonInput, IonButton, IonLabel, IonPage,
-  IonLoading, modalController
+  IonList, IonItem, IonInput, IonButton, IonPage,
+  IonLoading, IonBackButton, useIonRouter
 } from '@ionic/vue'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -84,6 +79,7 @@ import { useEnv } from '@/app/shared'
 
 const env = useEnv()
 const account = useAccountStore()
+const router = useIonRouter()
 
 
 /* -------------------------------------------------------------------------- */
@@ -103,11 +99,7 @@ async function onSignUp() {
   await new AuthService(env.getAuthUrl()).signUp(
     name.value, email.value, password.value,
   )
-  modalController.dismiss(null, 'ok')
+  router.back()
   inProgress.value = false
-}
-
-function cancel() {
-  return modalController.dismiss(null, 'cancel')
 }
 </script>

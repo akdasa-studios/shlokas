@@ -8,8 +8,8 @@
     </ion-header>
 
     <!-- Content -->
-    <ion-content color="light">
-      <ion-list :inset="true">
+    <ion-content>
+      <ion-list>
         <ion-item
           :detail="true"
           router-link="/home/settings/account"
@@ -20,14 +20,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>
-            {{ $t('settings.language') }}
-          </ion-label>
           <ion-select
             v-model="settings.localeSettings.language"
             interface="action-sheet"
             placeholder="Language"
             data-testid="language"
+            :label="$t('settings.language')"
             @ion-change="x => onLocaleChanged(x.detail.value)"
           >
             <ion-select-option
@@ -41,19 +39,19 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>{{ $t('settings.gradeButtons') }}</ion-label>
           <ion-toggle
-            slot="end"
             v-model="settings.appearanceSettings.gradeButtons"
-          />
+          >
+            {{ $t('settings.gradeButtons') }}
+           </ion-toggle>
         </ion-item>
 
         <ion-item>
-          <ion-label>{{ $t('settings.colorfulCards') }}</ion-label>
           <ion-toggle
-            slot="end"
             v-model="settings.appearanceSettings.colorfulCards"
-          />
+          >
+            {{ $t('settings.colorfulCards') }}
+          </ion-toggle>
         </ion-item>
 
         <ion-item>
