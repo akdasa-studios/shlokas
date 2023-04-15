@@ -87,5 +87,9 @@
   },
   "themes": {
     "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
+  },
+  "welcome": {
+    "greetings": "Welcome to Shlokas! Using the spaced repetition system, you can easily and quickly learn verses from the Bhagavad Gita and other scriptures.",
+    "loadingData": "Loading data..."
   }
 }

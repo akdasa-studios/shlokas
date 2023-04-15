@@ -16,6 +16,10 @@ interface LibrarySettings {
   lastSyncDate: number
 }
 
+interface WelcomeSettings {
+  done: boolean
+}
+
 
 export const useSettingsStore = defineStore('settings', () => {
   const storage = useDeviceStore()
@@ -37,11 +41,16 @@ export const useSettingsStore = defineStore('settings', () => {
     lastSyncDate: 0
   })
 
+  const welcome = ref<WelcomeSettings>({
+    done: false
+  })
+
 
   watch([
     localeSettings.value,
     appearanceSettings.value,
-    library.value
+    library.value,
+    welcome.value
   ], () => onSettingsChanged())
 
 
@@ -53,6 +62,7 @@ export const useSettingsStore = defineStore('settings', () => {
     const loadedLocale     = JSON.parse(await storage.get('locale'))
     const loadedAppearance = JSON.parse(await storage.get('appearance'))
     const loadedLibrary    = JSON.parse(await storage.get('library'))
+    const loadedWelcome    = JSON.parse(await storage.get('welcome'))
 
     if (loadedLocale) {
       localeSettings.value.language = loadedLocale.language
@@ -63,6 +73,9 @@ export const useSettingsStore = defineStore('settings', () => {
     }
     if (loadedLibrary) {
       library.value.lastSyncDate = loadedLibrary.lastSyncDate
+    }
+    if (loadedWelcome) {
+      welcome.value.done = loadedWelcome.done
     }
   }
 
@@ -75,6 +88,7 @@ export const useSettingsStore = defineStore('settings', () => {
     await storage.set('locale',     JSON.stringify(localeSettings.value))
     await storage.set('appearance', JSON.stringify(appearanceSettings.value))
     await storage.set('library',    JSON.stringify(library.value))
+    await storage.set('welcome',    JSON.stringify(welcome.value))
   }
 
 
@@ -82,5 +96,5 @@ export const useSettingsStore = defineStore('settings', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { localeSettings, appearanceSettings, library, load }
+  return { localeSettings, appearanceSettings, library, welcome, load }
 })
