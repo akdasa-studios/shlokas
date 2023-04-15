@@ -18,6 +18,7 @@ import { initStores } from './app/initStores'
 import { initStaticData } from './app/initStaticData'
 import { initLocale } from './app/initLocale'
 import { initMigrations } from './app/initMigrations'
+import { initRoutes } from './app/initRoutes'
 
 export const appInitStages = [
   initLogging,
@@ -38,5 +39,6 @@ export const appInitStages = [
   initTasks,
   initMigrations,
   initStaticData,
+  initRoutes
 ]
 

@@ -2,7 +2,6 @@ import { IonicVue } from '@ionic/vue'
 import { createApp } from 'vue'
 import { InitArgs } from './init/initialization'
 import ShlokasApp from './App.vue'
-import router from './router'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css'
@@ -52,14 +51,13 @@ async function initStages(stages: any[]) {
 async function initApp() {
   const vue = createApp(ShlokasApp)
     .use(IonicVue)
-    .use(router)
   services['vue'] = vue
 
   await initStages(appInitStages)
 
   services['emitter'].emit('appStateChanged', { isActive: true })
 
-  router.isReady().then(() => {
+  services['router'].isReady().then(() => {
     vue.mount('#app')
   })
 }
