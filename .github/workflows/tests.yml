@@ -125,7 +125,7 @@ jobs:
       #     down-flags: "--volumes"
 
       - name: 🐳 Start server
-        run: ./testing.ci.run.sh
+        run: ./shlokas.run.sh testing
         shell: bash
 
       - name: 🧪 Testing
@@ -140,7 +140,7 @@ jobs:
             -e SHLOKAS_URL=http://shlokas
             -e MAIL_URL=http://mail:1080
             -v ${{ github.workspace }}/output:/e2e/output
-            --network shlokas_default
+            --network shlokas
           shell: bash
           run: |
             npm i
