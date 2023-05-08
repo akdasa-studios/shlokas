@@ -1,5 +1,4 @@
 // stores:
-export * from './stores/useAccountStore'
 export * from './stores/useSettingsStore'
 
 // pages:

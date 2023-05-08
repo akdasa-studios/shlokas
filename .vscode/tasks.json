@@ -2,40 +2,18 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "detail": "Runs E2E repot server",
-      "icon": {
-        "id": "report",
-        "color": "terminal.ansiGreen"
-      },
-      "label": "E2E Report",
-      "isBackground": true,
-      "type": "npm",
-      "script": "test:e2e:report",
-      "problemMatcher": []
-    },
-    {
       "detail": "Run on device",
       "icon": {
         "id": "device-mobile",
-        "color": "terminal.ansiMagenta"
       },
       "label": "Device",
       "isBackground": true,
       "type": "npm",
       "script": "run:device",
-      "problemMatcher": []
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+      }
     },
-    {
-      "detail": "Run all the services",
-      "icon": {
-        "id": "server",
-        "color": "terminal.ansiBlue"
-      },
-      "label": "Services",
-      "isBackground": true,
-      "type": "npm",
-      "script": "run:services",
-      "problemMatcher": []
-    }
   ]
 }

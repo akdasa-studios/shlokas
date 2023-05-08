@@ -1,5 +1,5 @@
-import { useSettingsStore } from '@/app/settings'
 import { RouteRecordRaw } from 'vue-router'
+import { useSettingsStore } from '@/app/settings'
 
 
 export const routes: Array<RouteRecordRaw> = [
@@ -12,4 +12,13 @@ export const routes: Array<RouteRecordRaw> = [
       if (settings.welcome.done) { return '/home/library' }
     },
   },
+  {
+    name: 'welcome-email',
+    path: '/welcome/email',
+    component: () => import('@/app/settings/pages/EmailPage.vue'),
+    props: _ => ({
+      nextUrl: '/home/library',
+      navigationType: 'replace'
+    })
+  }
 ]

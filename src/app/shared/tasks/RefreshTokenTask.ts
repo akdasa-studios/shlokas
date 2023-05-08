@@ -1,9 +1,9 @@
-import { useEnv } from '@/app/shared'
 import { Logger } from '@akdasa-studios/framework'
 import { EventEmitter2 } from 'eventemitter2'
+import { useEnv } from '@/app/shared'
 
-import { useAccountStore } from '@/app/settings'
-import { AuthService } from '@/services/AuthService'
+import { AuthService } from '@/services/auth/AuthService'
+import { useSettingsStore } from '@/app/settings'
 
 
 export function runRefreshTokenTask(emitter: EventEmitter2) {
@@ -12,20 +12,17 @@ export function runRefreshTokenTask(emitter: EventEmitter2) {
   const log     = new Logger('auth')
 
   emitter.on('backgroundTask', async () => {
-    const now     = new Date().getTime()
-    const account = useAccountStore()
-    if (!account.token) { return }
+    const settings = useSettingsStore()
+    if (!settings.auth.token) { return }
 
-    const expires = account.token?.expires ?? 0
-
-    if (now >= expires) {
-      log.debug('Refreshing token')
-      const token = await service.refreshToken(account.token)
-      if (!token) { log.error('Failed to refresh token') }
-      account.token.expires = token.expires
-      log.debug('Auth token refreshed', account.token)
-    } else {
-      log.debug('Token still valid')
+    log.debug('Refreshing token...')
+    try {
+      // TODO: implement refresh token
+      // const response = await service.refresh(settings.auth.session)
+      // settings.auth.token = response.token
+      log.debug('Token refreshed...')
+    } catch (e) {
+      log.debug('Token refresh failed...', e)
     }
   })
 }

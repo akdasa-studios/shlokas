@@ -1,4 +1,4 @@
-import { useAccountStore, useSettingsStore } from '@/app/settings'
+import { useSettingsStore } from '@/app/settings'
 import { useDeviceStore } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -10,6 +10,5 @@ export async function initStores(
 
   await Promise.all([
     useSettingsStore().load(),
-    useAccountStore().load(),
   ])
 }
