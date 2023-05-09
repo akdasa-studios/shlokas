@@ -20,6 +20,12 @@ interface WelcomeSettings {
   done: boolean
 }
 
+interface AuthSettings {
+  token: string
+  database: string
+  session: string
+}
+
 
 export const useSettingsStore = defineStore('settings', () => {
   const storage = useDeviceStore()
@@ -45,12 +51,19 @@ export const useSettingsStore = defineStore('settings', () => {
     done: false
   })
 
+  const auth = ref<AuthSettings>({
+    token: '',
+    database: '',
+    session: ''
+  })
+
 
   watch([
     localeSettings.value,
     appearanceSettings.value,
     library.value,
-    welcome.value
+    welcome.value,
+    auth.value
   ], () => onSettingsChanged())
 
 
@@ -63,6 +76,7 @@ export const useSettingsStore = defineStore('settings', () => {
     const loadedAppearance = JSON.parse(await storage.get('appearance'))
     const loadedLibrary    = JSON.parse(await storage.get('library'))
     const loadedWelcome    = JSON.parse(await storage.get('welcome'))
+    const loadedAuth       = JSON.parse(await storage.get('auth'))
 
     if (loadedLocale) {
       localeSettings.value.language = loadedLocale.language
@@ -77,6 +91,11 @@ export const useSettingsStore = defineStore('settings', () => {
     if (loadedWelcome) {
       welcome.value.done = loadedWelcome.done
     }
+    if (loadedAuth) {
+      auth.value.database = loadedAuth.database
+      auth.value.token = loadedAuth.token
+      auth.value.session = loadedAuth.session
+    }
   }
 
 
@@ -89,6 +108,7 @@ export const useSettingsStore = defineStore('settings', () => {
     await storage.set('appearance', JSON.stringify(appearanceSettings.value))
     await storage.set('library',    JSON.stringify(library.value))
     await storage.set('welcome',    JSON.stringify(welcome.value))
+    await storage.set('auth',       JSON.stringify(auth.value))
   }
 
 
@@ -96,5 +116,5 @@ export const useSettingsStore = defineStore('settings', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { localeSettings, appearanceSettings, library, welcome, load }
+  return { localeSettings, appearanceSettings, library, welcome, load, auth }
 })

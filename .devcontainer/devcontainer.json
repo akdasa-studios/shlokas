@@ -24,8 +24,7 @@
         "stackbreak.comment-divider",
         "bierner.markdown-mermaid",
         "yzhang.markdown-all-in-one",
-        "Lokalise.i18n-ally",
-        "ms-playwright.playwright"
+        "Lokalise.i18n-ally"
       ]
     }
   }

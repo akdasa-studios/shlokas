@@ -1,0 +1,16 @@
+name: shlokas
+
+
+services:
+  app:
+    build:
+      context: .
+    expose:
+      - 3000
+    networks:
+      - shlokas
+
+
+networks:
+  shlokas:
+    name: shlokas

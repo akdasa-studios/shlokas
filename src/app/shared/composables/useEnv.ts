@@ -13,7 +13,10 @@ export function useEnv() {
     return `${PROTOCOL}://${HOST}/db/${database}`
   }
 
-  function getAuthUrl() {
+  function getAuthUrl(strategy?: string) {
+    if (strategy) {
+      return `${PROTOCOL}://${HOST}/auth/${strategy}`
+    }
     return `${PROTOCOL}://${HOST}/auth`
   }
 

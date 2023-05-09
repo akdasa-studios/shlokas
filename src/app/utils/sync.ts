@@ -8,8 +8,8 @@ import {
 } from '@/services/persistence'
 
 
-export function createRepositories(remote: string) {
-  const couchDB = new CouchDB(remote)
+export function createRepositories(remote: string, token: string) {
+  const couchDB = new CouchDB(remote, undefined, token)
 
   return new Repositories(
     new InMemoryRepository<Verse>(),

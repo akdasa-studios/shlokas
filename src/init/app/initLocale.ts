@@ -10,17 +10,16 @@ export async function initLocale(
   { get }: InitArgs
 ) {
   // dependencies:
-  // const deviceStorage = get('deviceStorage') as any
   const i18n          = get('i18n') as any
   const store         = useSettingsStore()
 
-  // calculate language
+  // get language:
   const savedLang    = store.localeSettings.language
   const deviceLang   = (await Device.getLanguageCode()).value
   const fallbackLang = 'en'
   const finalLang    = check(savedLang) || check(deviceLang) || fallbackLang
 
-  // update state
+  // update state:
   i18n.locale.value             = finalLang
   store.localeSettings.language = finalLang
 }

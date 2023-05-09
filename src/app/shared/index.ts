@@ -10,3 +10,5 @@ export * from './composables/useLogger'
 export * from './composables/useApp'
 export * from './composables/useDeviceStorage'
 export { default as ConfettiExplosion } from './components/ConfettiExplosion.vue'
+
+export * from './composables/useAuthentication'

@@ -11,11 +11,8 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/app/settings/pages/AccountPage.vue'),
   },
   {
-    path: 'settings/account/email/register',
-    component: () => import('@/app/settings/pages/account/SignUpViaEmailPage.vue'),
-  },
-  {
-    path: 'settings/account/email/login',
-    component: () => import('@/app/settings/pages/account/LogInViaEmailPage.vue'),
+    name: 'settings-account-email',
+    path: 'settings/account/email',
+    component: () => import('@/app/settings/pages/EmailPage.vue'),
   }
 ]
