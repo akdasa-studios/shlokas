@@ -25,4 +25,5 @@ RUN npm run build
 # ---------------------------------------------------------------------------- #
 
 FROM joseluisq/static-web-server:2.15.0 as release
+ENV SERVER_FALLBACK_PAGE=/public/index.html
 COPY --from=build /app/dist /public
