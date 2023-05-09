@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
-    "ionic:serve": "vite dev --host",
+    "build:dev": "vue-tsc && vite build",
     "build:testing": "vue-tsc && vite build --mode testing",
+    "build:prod": "vue-tsc && vite build --mode prod",
+    "ionic:serve": "vite dev --host",
     "preview": "vite preview",
     "run:device": "npm run build && npx cap run ios",
     "run:device:hot": "npx ionic capacitor run ios --livereload --external",

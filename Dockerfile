@@ -7,6 +7,7 @@ FROM node:19.8.1-alpine3.17 AS build
 # --------------------------------- Arguments -------------------------------- #
 
 ARG GITHUB_TOKEN
+ARG ENVIRONMENT=prod
 
 # -------------------- Install and cache app dependencies -------------------- #
 
@@ -17,7 +18,7 @@ RUN GITHUB_TOKEN=${GITHUB_TOKEN} npm ci
 # --------------------------------- Build app -------------------------------- #
 
 COPY . .
-RUN npm run build
+RUN npm run build:${ENVIRONMENT}
 
 
 # ---------------------------------------------------------------------------- #

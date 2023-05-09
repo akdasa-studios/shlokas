@@ -1,4 +1,4 @@
-import { Language } from "@akdasa-studios/shlokas-core"
+import { Language } from '@akdasa-studios/shlokas-core'
 
 export function useEnv() {
   const MODE     = import.meta.env.MODE
