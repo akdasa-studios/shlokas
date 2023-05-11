@@ -9,14 +9,11 @@ FROM node:19.8.1-alpine3.17 AS build
 ARG GITHUB_TOKEN
 ARG ENVIRONMENT=prod
 
-# is required to access private repositories
-ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-
 # -------------------- Install and cache app dependencies -------------------- #
 
 WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
-RUN echo "GITHUB_TOKEN = ${GITHUB_TOKEN}" && npm ci
+RUN GITHUB_TOKEN=${GITHUB_TOKEN} && npm ci
 
 # --------------------------------- Build app -------------------------------- #
 
