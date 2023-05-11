@@ -124,12 +124,12 @@ jobs:
       - name: 🐳 Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐳 Start server
-        run: ./shlokas.run.sh testing
+        run: docker login --username=${{ github.actor }} --password=${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }} && ./shlokas.run.sh testing
         shell: bash
 
       - name: 🧪 Testing
