@@ -13,7 +13,7 @@ ARG ENVIRONMENT=prod
 
 WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
-RUN GITHUB_TOKEN=${GITHUB_TOKEN} npm ci
+RUN echo "GT = ${GITHUB_TOKEN}" && GITHUB_TOKEN=${GITHUB_TOKEN} npm ci
 
 # --------------------------------- Build app -------------------------------- #
 
