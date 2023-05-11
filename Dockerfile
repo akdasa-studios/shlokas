@@ -8,6 +8,7 @@ FROM node:19.8.1-alpine3.17 AS build
 
 ARG GITHUB_TOKEN
 ARG ENVIRONMENT=prod
+ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
 # -------------------- Install and cache app dependencies -------------------- #
 
