@@ -42,6 +42,9 @@ jobs:
 
     - name: 🏇 [Shlokas] Compile
       run: npm run build:testing
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: 🚚  [Artifacts] Upload
       uses: actions/upload-artifact@v3.1.2
@@ -81,6 +84,10 @@ jobs:
           context: .
           tags: shlokas:latest
           outputs: type=docker,dest=/tmp/shlokas-container.tar
+          build-args: |
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ENVIRONMENT: testing
+
 
       - name: 🐳 Upload artifact
         uses: actions/upload-artifact@v3.1.2
