@@ -86,7 +86,7 @@ jobs:
           tags: shlokas:latest
           outputs: type=docker,dest=/tmp/shlokas-container.tar
           build-args: |
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: OLOLO_ALALA
             ENVIRONMENT: testing
 
 
