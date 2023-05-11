@@ -14,7 +14,8 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
 WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
-RUN GITHUB_TOKEN=${GITHUB_TOKEN} && npm ci
+RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+RUN GITHUB_TOKEN=${GITHUB_TOKEN} npm ci
 
 # --------------------------------- Build app -------------------------------- #
 
