@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          tags: shlokas:latest
+          tags: shlokas-app:latest
           outputs: type=docker,dest=/tmp/shlokas-app.tar
           build-args: |
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
