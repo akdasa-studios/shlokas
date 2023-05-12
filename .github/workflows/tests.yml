@@ -9,58 +9,11 @@ env:
 jobs:
 
   # ---------------------------------------------------------------------------- #
-  #                                Compile sources                               #
-  # ---------------------------------------------------------------------------- #
-
-  compile:
-    name: 💾 Compile
-    permissions:
-      packages: read
-    runs-on: ubuntu-latest
-    steps:
-    - name: 📥 Checkout
-      uses: actions/checkout@v3
-
-    - name: 📦 [Node] Install
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-
-    - name: 📦 [Node] Cache packages
-      uses: actions/cache@v3
-      id: cache-primes
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-
-    - name: 📦 [Node] Install packages
-      if: steps.cache-primes.outputs.cache-hit != 'true'
-      run: npm ci --audit=false
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: 🏇 [Shlokas] Compile
-      run: npm run build:testing:dev
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: 🚚  [Artifacts] Upload
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: shlokas-compiled
-        path: dist/
-        retention-days: 1
-
-
-  # ---------------------------------------------------------------------------- #
   #                                Build container                               #
   # ---------------------------------------------------------------------------- #
 
   build:
     name: 🏗️ Build
-    needs: compile
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -69,12 +22,6 @@ jobs:
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v3
-
-      - name: 📥 Download compiled
-        uses: actions/download-artifact@v3
-        with:
-          name: shlokas-compiled
-          path: dist/
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2.5.0
@@ -87,7 +34,7 @@ jobs:
           outputs: type=docker,dest=/tmp/shlokas-container.tar
           build-args: |
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-            ENVIRONMENT=testing
+            ENVIRONMENT=testing:prod
 
       - name: 🐳 Upload artifact
         uses: actions/upload-artifact@v3.1.2
@@ -129,7 +76,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐳 Start server
-        run: docker login --username=${{ github.actor }} --password=${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }} && ./shlokas.run.sh testing
+        run: docker login --username=${{ github.actor }} --password=${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }} && ./shlokas.run.sh testing:prod
         shell: bash
 
       - name: 🧪 Testing

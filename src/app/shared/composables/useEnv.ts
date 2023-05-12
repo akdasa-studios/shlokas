@@ -25,7 +25,7 @@ export function useEnv() {
   }
 
   function isDevelopment() {
-    return MODE === 'development' || MODE === 'testing'
+    return MODE === 'development' || MODE === 'testing' || MODE === 'testing:dev' || MODE === 'testing:prod'
   }
 
   function getHost() {
