@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           tags: shlokas:latest
-          outputs: type=docker,dest=/tmp/shlokas-container.tar
+          outputs: type=docker,dest=/tmp/shlokas-app.tar
           build-args: |
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
             ENVIRONMENT=testing:prod
@@ -39,8 +39,8 @@ jobs:
       - name: 🐳 Upload artifact
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: shlokas-container
-          path: /tmp/shlokas-container.tar
+          name: shlokas-app
+          path: /tmp/shlokas-app.tar
 
   e2e:
     name: 🚀 E2E
@@ -61,12 +61,12 @@ jobs:
       - name: 🐳 Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: shlokas-container
+          name: shlokas-app
           path: /tmp
 
       - name: 🐳 Load Docker image
         run: |
-          docker load --input /tmp/shlokas-container.tar
+          docker load --input /tmp/shlokas-app.tar
 
       - name: 🐳 Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐳 Start server
-        run: docker login --username=${{ github.actor }} --password=${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }} && ./shlokas.run.sh testing:prod
+        run: ./shlokas.run.sh testing:prod
         shell: bash
 
       - name: 🧪 Testing
