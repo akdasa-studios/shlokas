@@ -9,7 +9,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('../pages/WelcomePage.vue'),
     beforeEnter: () => {
       const settings = useSettingsStore()
-      if (settings.welcome.done) { return '/home/library' }
+      // if (settings.welcome.done) { return '/home/library' }
     },
   },
   {

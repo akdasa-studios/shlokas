@@ -1,11 +1,9 @@
 import { createI18n } from 'vue-i18n'
 import { App } from 'vue'
-import en from '@/locale/en/en.json'
-import enTutorial from '@/locale/en/tutorial.json'
+import en from '@/locale/en'
 import rs from '@/locale/rs/rs.json'
-import ru from '@/locale/ru/ru.json'
-import ruTutorial from '@/locale/ru/tutorial.json'
-import uk from '@/locale/uk/uk.json'
+import ru from '@/locale/ru'
+import uk from '@/locale/uk'
 import { InitArgs, InitResult } from '../initialization'
 
 
@@ -22,14 +20,8 @@ export async function initI18n(
     locale: 'en',
     fallbackLocale: 'en',
     messages: {
-      en: {
-        ...en,
-        ...enTutorial
-      },
-      ru: {
-        ...ru,
-        ...ruTutorial,
-      },
+      en: en,
+      ru: ru,
       rs: rs,
       uk: uk
     }
