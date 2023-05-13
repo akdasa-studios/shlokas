@@ -81,27 +81,30 @@ function getHueRotate() {
 
 <style scoped>
 .card {
-	 width: 100%;
-	 height: 100%;
-	 touch-action: none;
-	 user-select: none;
-	 will-change: transform;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
 }
+
 .card .face {
-	 position: absolute;
-	 top: 0;
-	 left: 0;
-	 width: 100%;
-	 height: 100%;
-	 backface-visibility: hidden;
-	 transition: v-bind(transition);
-	 overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: v-bind(transition);
+  overflow: hidden;
 }
+
 .card .face--front {
-	 transform: rotateY(calc(v-bind(flipAngle) * 1deg));
+  transform: rotateY(calc(v-bind(flipAngle) * 1deg));
 }
+
 .card .face--back {
-	 transform: rotateY(calc(v-bind(flipAngle) * 1deg - 180deg));
+  transform: rotateY(calc(v-bind(flipAngle) * 1deg - 180deg));
 }
 
 .color {

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from 'vue'
 
-const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
-const ROTATION_SPEED_MAX = 800; // maximum possible duration of single particle full rotation
-const CRAZY_PARTICLES_FREQUENCY = 0.1; // 0-1 frequency of crazy curvy unpredictable particles
-const CRAZY_PARTICLE_CRAZINESS = 0.3; // 0-1 how crazy these crazy particles are
-const BEZIER_MEDIAN = 0.5; // utility for mid-point bezier curves, to ensure smooth motion paths
+const ROTATION_SPEED_MIN = 200 // minimum possible duration of single particle full rotation
+const ROTATION_SPEED_MAX = 800 // maximum possible duration of single particle full rotation
+const CRAZY_PARTICLES_FREQUENCY = 0.1 // 0-1 frequency of crazy curvy unpredictable particles
+const CRAZY_PARTICLE_CRAZINESS = 0.3 // 0-1 how crazy these crazy particles are
+const BEZIER_MEDIAN = 0.5 // utility for mid-point bezier curves, to ensure smooth motion paths
 
 
 const props = withDefaults(defineProps<{
@@ -21,30 +21,30 @@ const props = withDefaults(defineProps<{
   particleCount: 150,
   particleSize: 12,
   duration: 3500,
-  colors: () => ["#FFC700", "#FF0000", "#2E3191", "#41BBC7"],
+  colors: () => ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'],
   force: .5,
   stageHeight: 800,
   stageWidth: 1600,
   shouldDestroyAfterDone: true,
-});
+})
 
-const isVisible = ref(true);
+const isVisible = ref(true)
 const setItemRef = (el: any, degree: number) => {
-  confettiStyles(el, { degree });
-};
+  confettiStyles(el, { degree })
+}
 
 const particles = computed(() =>
   createParticles(props.particleCount, props.colors)
-);
+)
 
 
 onMounted(async () => {
-  await waitFor(props.duration);
+  await waitFor(props.duration)
 
   if (props.shouldDestroyAfterDone) {
-    isVisible.value = false;
+    isVisible.value = false
   }
-});
+})
 
 type Particle = {
   color: string; // color of particle
@@ -54,31 +54,31 @@ type Particle = {
 type Rotate3dTransform = [number, number, number];
 
 const createParticles = (count: number, colors: string[]): Particle[] => {
-  const increment = 360 / count;
+  const increment = 360 / count
   return Array.from({ length: count }, (_, i) => ({
     color: colors[i % colors.length],
     degree: i * increment,
-  }));
-};
+  }))
+}
 
 const waitFor = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 // From here: https://stackoverflow.com/a/11832950
-function round(num: number, precision: number = 2) {
+function round(num: number, precision = 2) {
   return (
     Math.round((num + Number.EPSILON) * 10 ** precision) / 10 ** precision
-  );
+  )
 }
 
 function arraysEqual<ItemType>(a: ItemType[], b: ItemType[]) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
+  if (a === b) return true
+  if (a == null || b == null) return false
+  if (a.length !== b.length) return false
 
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false
 
-  return true;
+  return true
 }
 
 const mapRange = (
@@ -87,17 +87,17 @@ const mapRange = (
   y1: number,
   x2: number,
   y2: number
-) => ((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
+) => ((value - x1) * (y2 - x2)) / (y1 - x1) + x2
 
 const rotate = (degree: number, amount: number) => {
-  const result = degree + amount;
-  return result > 360 ? result - 360 : result;
-};
+  const result = degree + amount
+  return result > 360 ? result - 360 : result
+}
 
-const coinFlip = () => Math.random() > 0.5;
+const coinFlip = () => Math.random() > 0.5
 
 // avoid this for circles, as it will have no visual effect
-const zAxisRotation: Rotate3dTransform = [0, 0, 1];
+const zAxisRotation: Rotate3dTransform = [0, 0, 1]
 
 const rotationTransforms: Rotate3dTransform[] = [
   // dual axis rotations (a bit more realistic)
@@ -108,11 +108,11 @@ const rotationTransforms: Rotate3dTransform[] = [
   [1, 0, 0],
   [0, 1, 0],
   zAxisRotation,
-];
+]
 
 const shouldBeCircle = (rotationIndex: number) =>
   !arraysEqual(rotationTransforms[rotationIndex], zAxisRotation) &&
-  coinFlip();
+  coinFlip()
 
 function confettiStyles(
   node: HTMLDivElement,
@@ -125,37 +125,37 @@ function confettiStyles(
     180,
     -props.stageWidth / 2,
     props.stageWidth / 2
-  );
+  )
 
   // Crazy calculations for generating styles
   const rotation =
     Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) +
-    ROTATION_SPEED_MIN;
+    ROTATION_SPEED_MIN
   const rotationIndex = Math.round(
     Math.random() * (rotationTransforms.length - 1)
-  );
-  const durationChaos = props.duration - Math.round(Math.random() * 1000);
-  const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
-  const isCircle = shouldBeCircle(rotationIndex);
+  )
+  const durationChaos = props.duration - Math.round(Math.random() * 1000)
+  const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY
+  const isCircle = shouldBeCircle(rotationIndex)
 
   // x-axis disturbance, roughly the distance the particle will initially deviate from its target
   const x1 = shouldBeCrazy
     ? round(Math.random() * CRAZY_PARTICLE_CRAZINESS, 2)
-    : 0;
-  const x2 = x1 * -1;
-  const x3 = x1;
+    : 0
+  const x2 = x1 * -1
+  const x3 = x1
   // x-axis arc of explosion, so 90deg and 270deg particles have curve of 1, 0deg and 180deg have 0
   const x4 = round(
     Math.abs(mapRange(Math.abs(rotate(degree, 90) - 180), 0, 180, -1, 1)),
     4
-  );
+  )
 
   // roughly how fast particle reaches end of its explosion curve
-  const y1 = round(Math.random() * BEZIER_MEDIAN, 4);
+  const y1 = round(Math.random() * BEZIER_MEDIAN, 4)
   // roughly maps to the distance particle goes before reaching free-fall
-  const y2 = round(Math.random() * props.force * (coinFlip() ? 1 : -1), 4);
+  const y2 = round(Math.random() * props.force * (coinFlip() ? 1 : -1), 4)
   // roughly how soon the particle transitions from explosion to free-fall
-  const y3 = BEZIER_MEDIAN;
+  const y3 = BEZIER_MEDIAN
   // roughly the ease of free-fall
   const y4 = round(
     Math.max(
@@ -163,49 +163,58 @@ function confettiStyles(
       0
     ),
     4
-  );
+  )
 
   const setCSSVar = (key: string, val: string | number) =>
-    node?.style.setProperty(key, val + "");
+    node?.style.setProperty(key, val + '')
 
-  setCSSVar("--x-landing-point", `${landingPoint}px`);
+  setCSSVar('--x-landing-point', `${landingPoint}px`)
 
-  setCSSVar("--duration-chaos", `${durationChaos}ms`);
+  setCSSVar('--duration-chaos', `${durationChaos}ms`)
 
-  setCSSVar("--x1", `${x1}`);
-  setCSSVar("--x2", `${x2}`);
-  setCSSVar("--x3", `${x3}`);
-  setCSSVar("--x4", `${x4}`);
+  setCSSVar('--x1', `${x1}`)
+  setCSSVar('--x2', `${x2}`)
+  setCSSVar('--x3', `${x3}`)
+  setCSSVar('--x4', `${x4}`)
 
-  setCSSVar("--y1", `${y1}`);
-  setCSSVar("--y2", `${y2}`);
-  setCSSVar("--y3", `${y3}`);
-  setCSSVar("--y4", `${y4}`);
+  setCSSVar('--y1', `${y1}`)
+  setCSSVar('--y2', `${y2}`)
+  setCSSVar('--y3', `${y3}`)
+  setCSSVar('--y4', `${y4}`)
 
   // set --width and --height here
   setCSSVar(
-    "--width",
+    '--width',
     `${isCircle
       ? props.particleSize
       : Math.round(Math.random() * 4) + props.particleSize / 2
     }px`
-  );
+  )
   setCSSVar(
-    "--height",
+    '--height',
     (isCircle
       ? props.particleSize
-      : Math.round(Math.random() * 2) + props.particleSize) + "px"
-  );
+      : Math.round(Math.random() * 2) + props.particleSize) + 'px'
+  )
 
-  setCSSVar("--rotation", `${rotationTransforms[rotationIndex].join()}`);
-  setCSSVar("--rotation-duration", `${rotation}ms`);
-  setCSSVar("--border-radius", `${isCircle ? "50%" : "0"}`);
+  setCSSVar('--rotation', `${rotationTransforms[rotationIndex].join()}`)
+  setCSSVar('--rotation-duration', `${rotation}ms`)
+  setCSSVar('--border-radius', `${isCircle ? '50%' : '0'}`)
 }
 </script>
 
 <template>
-  <div v-if="isVisible" class="confetti-container" :style="`--floor-height: ${stageHeight}px;`">
-    <div v-for="{ color, degree } in particles" :key="degree" class="particle" :ref="(el) => setItemRef(el, degree)">
+  <div
+    v-if="isVisible"
+    class="confetti-container"
+    :style="`--floor-height: ${stageHeight}px;`"
+  >
+    <div
+      v-for="{ color, degree } in particles"
+      :key="degree"
+      :ref="(el) => setItemRef(el, degree)"
+      class="particle"
+    >
       <div :style="`--bgcolor: ${color};`" />
     </div>
   </div>
