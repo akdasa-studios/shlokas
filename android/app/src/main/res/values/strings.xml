@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">shlokas</string>
+    <string name="title_activity_main">shlokas</string>
+    <string name="package_name">com.akdasa.shlokas</string>
+    <string name="custom_url_scheme">com.akdasa.shlokas</string>
+</resources>
