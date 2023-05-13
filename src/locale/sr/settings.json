@@ -20,13 +20,9 @@
     },
     "email": "EMail",
     "password": "Password",
-    "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
     "name": "Name",
-    "syncTime": "Sync time",
     "logInFailed": {
-      "title": "Login failed"
-    },
-    "loginFailed": {
+      "title": "Login failed",
       "message": "Unable to log in using these credentials"
     }
   }
