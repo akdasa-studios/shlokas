@@ -62,7 +62,7 @@ export function useAuthentication() {
       const authRequest: AuthenticationRequest = {
         authorizationCode: authResult.authorizationCode
       }
-      const sessionResult = await _post('/', authRequest) as AuthenticationResponse
+      const sessionResult = await _post(strategyName, '/', authRequest) as AuthenticationResponse
 
       // Store authentication result
       settingsStore.auth.collectionId = sessionResult.collectionId
@@ -82,9 +82,11 @@ export function useAuthentication() {
   async function refresh() {
     inProgress.value = true
     try {
-      const result = await _post('/refresh', {
-        sessionId: settingsStore.auth.sessionId
-      }) as RefreshTokenResponse
+      const result = await _post(
+        settingsStore.auth.strategy, '/refresh', {
+          sessionId: settingsStore.auth.sessionId
+        }
+      ) as RefreshTokenResponse
       settingsStore.auth.token = result.idToken
     } catch (error) {
       throw new Error('Error refreshing token: ' + error)
@@ -99,10 +101,11 @@ export function useAuthentication() {
   /* -------------------------------------------------------------------------- */
 
   async function _post(
+    strategyName: string,
     url: string,
     data: any,
   ): Promise<any> {
-    const fullUrl = env.getAuthUrl(settingsStore.auth.strategy) + url
+    const fullUrl = env.getAuthUrl(strategyName) + url
     const response = await fetch(fullUrl, {
       method: 'POST',
       headers: {
