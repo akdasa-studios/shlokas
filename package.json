@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build --mode prod",
     "build:dev": "vue-tsc && vite build",
     "build:testing:dev": "vue-tsc && vite build --mode testing:dev",
     "build:testing:prod": "vue-tsc && vite build --mode testing:prod",
