@@ -8,26 +8,22 @@
     "contactUs": "Зв'язатися з нами"
   },
   "account": {
-    "welcomeBack": "Welcome back!",
-    "logIn": "Log In",
-    "signUp": "Sign Up",
-    "logOut": "Log Out",
-    "syncData": "Force Syncing",
-    "deleteAllData": "Delete all data",
+    "welcomeBack": "З Поверненням!",
+    "logIn": "Увійти",
+    "signUp": "Зареєструватися",
+    "logOut": "Вийти",
+    "syncData": "Примусова синхронізація",
+    "deleteAllData": "Видалити всі дані",
     "token": {
-      "refresh": "Refresh Token",
-      "validTill": "Token is valid till"
+      "refresh": "Оновити токен",
+      "validTill": "Токен є валідним до"
     },
-    "email": "EMail",
-    "password": "Password",
-    "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
-    "name": "Name",
-    "syncTime": "Sync time",
+    "email": "Ел.пошта",
+    "password": "Пароль",
+    "name": "Ім’я",
     "logInFailed": {
-      "title": "Login failed"
-    },
-    "loginFailed": {
-      "message": "Unable to log in using these credentials"
+      "title": "Помилка входу",
+      "message": "Не вдається увійти в систему з використанням цих облікових даних (невірні логін або пароль)"
     }
   }
 }
