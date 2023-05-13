@@ -1,0 +1,13 @@
+{
+  "common": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "close": "Close",
+    "revert": "Revert",
+    "wait": "Please wait...",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "forward": "Go forward!"
+  }
+}
