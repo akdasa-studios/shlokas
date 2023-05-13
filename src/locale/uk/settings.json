@@ -6,5 +6,28 @@
     "gradeButtons": "Показувати кнопки оцінок",
     "colorfulCards": "Кольорові картки",
     "contactUs": "Зв'язатися з нами"
+  },
+  "account": {
+    "welcomeBack": "Welcome back!",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "logOut": "Log Out",
+    "syncData": "Force Syncing",
+    "deleteAllData": "Delete all data",
+    "token": {
+      "refresh": "Refresh Token",
+      "validTill": "Token is valid till"
+    },
+    "email": "EMail",
+    "password": "Password",
+    "confirmEmail": "To complete your registration, please confirm that you have received the email that was sent to you. Thank you",
+    "name": "Name",
+    "syncTime": "Sync time",
+    "logInFailed": {
+      "title": "Login failed"
+    },
+    "loginFailed": {
+      "message": "Unable to log in using these credentials"
+    }
   }
 }
