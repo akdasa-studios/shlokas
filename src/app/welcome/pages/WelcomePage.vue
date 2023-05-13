@@ -61,7 +61,6 @@ import { logoApple, mail } from 'ionicons/icons'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { DarkImage, go, useSyncTask, useAuthentication, useApplication } from '@/app/shared'
-import { AppleAuthenticationStrategy } from '@/services/auth/strategies'
 
 
 /* -------------------------------------------------------------------------- */
@@ -75,7 +74,7 @@ const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const settingsStore = useSettingsStore()
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const router = useIonRouter()
-const appleAuth = useAuthentication(new AppleAuthenticationStrategy())
+const appleAuth = useAuthentication()
 const syncTask = useSyncTask()
 
 
@@ -106,7 +105,7 @@ async function onOpened() {
 
 async function onAppleSignIn() {
   try {
-    await appleAuth.authenticate()
+    await appleAuth.authenticate('apple')
     await appleAuth.refresh()
   } catch (e) {
     const alert = await alertController.create({

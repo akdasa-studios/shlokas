@@ -3,11 +3,7 @@ import { AuthenticationStrategy, AuthenticationResult } from './strategy'
 
 
 export class AppleAuthenticationStrategy implements AuthenticationStrategy {
-  get name(): string {
-    return 'apple'
-  }
-
-  async authorize(): Promise<AuthenticationResult> {
+  async authenticate(): Promise<AuthenticationResult> {
     const result = (await SignInWithApple.authorize({
       clientId: 'com.akdasa.shlokas',
       redirectURI: 'https://jocular-torte-90cd8e.netlify.app/welcome',

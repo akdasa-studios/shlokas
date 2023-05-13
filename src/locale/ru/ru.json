@@ -90,7 +90,8 @@
     "loadingData": "Загрузка данных...",
     "login": {
       "asGuest": "Войти как гость",
-      "withAppleId": "Войти с Apple"
+      "withAppleId": "Войти с Apple",
+      "withEmail": "Войти с EMail"
     }
   },
   "sync": {

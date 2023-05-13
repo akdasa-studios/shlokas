@@ -77,8 +77,7 @@
 <script setup lang="ts">
 import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter } from '@ionic/vue'
 import { ref } from 'vue'
-import { useAuthentication, useEnv } from '@/app/shared'
-import { EmailAuthenticationStrategy } from '@/services/auth/strategies/email'
+import { useAuthentication } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -94,11 +93,8 @@ const props = defineProps<{
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const env = useEnv()
 const router = useIonRouter()
-const auth = useAuthentication(
-  new EmailAuthenticationStrategy(env.getAuthUrl('email'))
-)
+const auth = useAuthentication()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -121,7 +117,7 @@ const code = ref('')
 
 /** Send email to get a validation code. */
 async function onSendValidationCode() {
-  await auth.authenticate({
+  await auth.authenticate('email', {
     email: email.value,
   })
   state.value = LoginState.Code
@@ -129,7 +125,7 @@ async function onSendValidationCode() {
 
 /** User has recieved email with code and entered it. */
 async function onSignIn() {
-  await auth.authenticate({
+  await auth.authenticate('email', {
     email: email.value,
     code: code.value,
   })

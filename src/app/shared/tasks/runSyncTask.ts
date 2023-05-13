@@ -38,12 +38,12 @@ export function runSyncTask(app: Application, emitter: EventEmitter2) {
     const env = useEnv()
 
     if (!settings.auth.token)    { return false }
-    if (!settings.auth.database) { return false }
+    if (!settings.auth.collectionId) { return false }
 
     taskState.inProgress.value = true
     try {
       log.debug('Syncing...')
-      const databaseUrl = env.getDatabaseUrl(settings.auth.database)
+      const databaseUrl = env.getDatabaseUrl(settings.auth.collectionId)
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
       await app.sync(new Context('sync', new TimeMachine(), remoteRepos))
       emitter.emit('syncCompleted')

@@ -1,7 +1,7 @@
 
 export interface AuthenticationResult {
-  token: string,
   authorizationCode: string,
+  token: string,
   email?: string|null,
   user: {
     id?: string|null,
@@ -11,6 +11,5 @@ export interface AuthenticationResult {
 }
 
 export interface AuthenticationStrategy {
-  get name(): string
-  authorize(data: any): Promise<AuthenticationResult>
+  authenticate(data: any): Promise<AuthenticationResult>
 }

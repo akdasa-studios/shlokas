@@ -22,8 +22,9 @@ interface WelcomeSettings {
 
 interface AuthSettings {
   token: string
-  database: string
-  session: string
+  collectionId: string
+  sessionId: string
+  strategy: string
 }
 
 
@@ -53,8 +54,9 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const auth = ref<AuthSettings>({
     token: '',
-    database: '',
-    session: ''
+    collectionId: '',
+    sessionId: '',
+    strategy: ''
   })
 
 
@@ -92,9 +94,10 @@ export const useSettingsStore = defineStore('settings', () => {
       welcome.value.done = loadedWelcome.done
     }
     if (loadedAuth) {
-      auth.value.database = loadedAuth.database
+      auth.value.collectionId = loadedAuth.database
       auth.value.token = loadedAuth.token
-      auth.value.session = loadedAuth.session
+      auth.value.sessionId = loadedAuth.session
+      auth.value.strategy = loadedAuth.strategy
     }
   }
 

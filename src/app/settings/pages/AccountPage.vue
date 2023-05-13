@@ -85,7 +85,7 @@ const isAuthenticated = computed(() => !!settings.auth.token)
 async function onSync() {
   inProgress.value = true
   const remoteRepos = createRepositories(
-    env.getDatabaseUrl(settings.auth.database),
+    env.getDatabaseUrl(settings.auth.collectionId),
     settings.auth.token
   )
   await application.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
