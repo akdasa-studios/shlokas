@@ -1,0 +1,39 @@
+{
+  "cards": {
+    "grade": {
+      "remember": "Remember",
+      "forgot": "Forgot",
+      "hard": "Hard",
+      "good": "Good",
+      "easy": "Easy"
+    },
+    "questions": {
+      "number": "Recall verse number",
+      "text": "Recall text",
+      "translation": "Recall translation"
+    },
+    "memorized": "Card memorized",
+    "inbox": {
+      "memorized": "Memorized",
+      "memorizing": "Memorizing"
+    },
+    "schedule": {
+      "inDays": "today | + {count} day | + {count} days",
+      "inMonths": "+ {count} month | + {count} months",
+      "inYears": "+ {count} year | + {count} years"
+    }
+  },
+  "decks": {
+    "inbox": {
+      "empty": "Your inbox is empty.",
+      "goToLibrary": "Go to the Library and add a verse.",
+      "title": "Inbox",
+      "verseAdded": "Verse {verseNumber} added to inbox"
+    },
+    "review": {
+      "empty": "Your have nothing to review today.",
+      "title": "Review",
+      "dueToTomorrow": "You have {count} card scheduled for tomorrow.|You have {count} cards scheduled for tomorrow."
+    }
+  }
+}

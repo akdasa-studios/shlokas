@@ -1,0 +1,39 @@
+{
+  "cards": {
+    "grade": {
+      "remember": "Помню",
+      "forgot": "Забыл",
+      "hard": "Трудно",
+      "good": "Хорошо",
+      "easy": "Легко"
+    },
+    "questions": {
+      "number": "Вспомните номер стиха",
+      "text": "Вспомните текст",
+      "translation": "Вспомните перевод"
+    },
+    "memorized": "Карточка запомнена",
+    "inbox": {
+      "memorized": "Запомнил",
+      "memorizing": "Учу"
+    },
+    "schedule": {
+      "inDays": "сегодня | + {count} день | + {count} дней",
+      "inMonths": "{count} месяц | {count} месяцев",
+      "inYears": "{count} год | {count} лет"
+    }
+  },
+  "decks": {
+    "inbox": {
+      "empty": "Входящие пусты.",
+      "goToLibrary": "Зайдите в библиотеку и добавьте стих.",
+      "title": "Входящие",
+      "verseAdded": "{verseNumber} добавлен во \"Входящие\""
+    },
+    "review": {
+      "empty": "На сегодня у вас нет карточек.",
+      "title": "Обзор",
+      "dueToTomorrow": "Карточек на завтра: {count}"
+    }
+  }
+}
