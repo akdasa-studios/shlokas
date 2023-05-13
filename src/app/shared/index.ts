@@ -1,14 +1,21 @@
-export * from './tasks/RefreshTokenTask'
-export * from './tasks/runSyncTask'
-export { default as VerseAudioPlayer } from './components/VerseAudioPlayer.vue'
-export { default as DarkImage } from './components/DarkImage.vue'
+
+// services:
 export * from './services/downloadService'
+
+// composables:
 export * from './composables/useLinks'
 export * from './composables/useEnv'
 export * from './composables/useStringHasher'
 export * from './composables/useLogger'
 export * from './composables/useApp'
 export * from './composables/useDeviceStorage'
-export { default as ConfettiExplosion } from './components/ConfettiExplosion.vue'
-
 export * from './composables/useAuthentication'
+
+// tasks:
+export * from './tasks/runRefreshTokenTask'
+export * from './tasks/runSyncTask'
+
+// components:
+export { default as ConfettiExplosion } from './components/ConfettiExplosion.vue'
+export { default as VerseAudioPlayer } from './components/VerseAudioPlayer.vue'
+export { default as DarkImage } from './components/DarkImage.vue'

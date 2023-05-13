@@ -9,6 +9,7 @@ import { initEmitter } from './infrastructure/initEmitter'
 import { initAppStateChange } from './infrastructure/initAppStateChange'
 import { initBackgroundTask } from './app/initBackgroundTask'
 import { initShlokasApp } from './infrastructure/initShlokasApp'
+import { initAuth } from './infrastructure/initAuth'
 
 // stage 1: logic
 import { initCommands } from './app/initCommands'
@@ -29,6 +30,7 @@ export const appInitStages = [
   initI18n,
   initEmitter,
   initAppStateChange,
+  initAuth,
   initBackgroundTask,
   initShlokasApp,
 
