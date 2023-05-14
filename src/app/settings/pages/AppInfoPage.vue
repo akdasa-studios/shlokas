@@ -4,17 +4,37 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>{{ $t('app.name') }}</ion-title>
+
+        <ion-buttons slot="start">
+          <ion-back-button />
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+          <ion-button
+            v-if="data.updatesAvailable"
+            fill="solid"
+            color="warning"
+            @click="onUpdateClick"
+          >
+            Update
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <!-- Content -->
     <ion-content>
-      <ion-list>
+      <ion-list
+        :inset="true"
+      >
         <ion-item
           v-for="item, key in data"
           :key="key"
         >
-          <ion-label>{{ key }}: {{ item }}</ion-label>
+          <ion-label>
+            <h3>{{ variableToTitle(key) }}</h3>
+            <p>{{ item }}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -24,8 +44,9 @@
 
 <script lang="ts" setup>
 import {
+IonButton,
   IonContent, IonHeader, IonItem, IonLabel, IonList,
-  IonPage, IonTitle, IonToolbar
+  IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons,
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
 import { onMounted, reactive } from 'vue'
@@ -36,9 +57,12 @@ import { onMounted, reactive } from 'vue'
 /* -------------------------------------------------------------------------- */
 
 const data = reactive({
-  version: '',
-  build: '',
-  channel: '',
+  binaryVersionCode: 'unknown',
+  binaryVersionName: 'unknown',
+  version: 'unknown',
+  build: 'unknown',
+  channel: 'unknown',
+  updatesAvailable: false,
 })
 
 
@@ -55,9 +79,29 @@ onMounted(onLoadAppInfo)
 
 async function onLoadAppInfo() {
   const version = await Deploy.getCurrentVersion()
+  data.binaryVersionCode = version?.binaryVersionCode ?? 'unknown'
+  data.binaryVersionName = version?.binaryVersionName ?? 'unknown'
   data.version = version?.versionId ?? 'unknown'
   data.build = version?.buildId ?? 'unknown'
   data.channel = version?.channel ?? 'unknown'
+
+  const updates = await Deploy.checkForUpdate()
+  data.updatesAvailable = updates?.available ?? false
 }
 
+async function onUpdateClick() {
+  await Deploy.sync({
+    updateMethod: 'auto',
+  })
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+function variableToTitle(variable: string) {
+  return variable.replace(/([A-Z])/g, ' $1')
+}
 </script>
+
