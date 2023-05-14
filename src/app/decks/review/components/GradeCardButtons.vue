@@ -65,38 +65,44 @@ const intervalToText = useIntervalToText()
 
 <style scoped>
 .group {
-	 display: flex;
-	 flex-direction: row;
-	 flex-wrap: nowrap;
-	 padding: 10px;
-	 gap: 10px;
-	 text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 10px;
+  gap: 10px;
+  text-align: center;
 }
+
 .group div {
-	 padding: 10px;
-	 padding-top: 5px;
-	 padding-bottom: 5px;
-	 border-radius: 5px;
-	 text-transform: lowercase;
-	 flex-basis: 25%;
-	 font-weight: bold;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  text-transform: lowercase;
+  flex-basis: 25%;
+  font-weight: bold;
 }
+
 .group div.forgot {
-	 background-color: var(--ion-color-danger-tint);
+  background-color: var(--ion-color-danger-tint);
 }
+
 .group div.hard {
-	 background-color: var(--ion-color-warning-shade);
+  background-color: var(--ion-color-warning-shade);
 }
+
 .group div.good {
-	 background-color: var(--ion-color-success-shade);
+  background-color: var(--ion-color-success-shade);
 }
+
 .group div.easy {
-	 background-color: var(--ion-color-success-tint);
+  background-color: var(--ion-color-success-tint);
 }
+
 .group div div {
-	 padding: 2px;
-	 font-size: small;
-	 font-weight: normal;
+  padding: 2px;
+  font-size: small;
+  font-weight: normal;
 }
 </style>
 
