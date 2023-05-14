@@ -57,10 +57,10 @@ import { onMounted, reactive } from 'vue'
 /* -------------------------------------------------------------------------- */
 
 const data = reactive({
-  binaryVersionCode: 'unknown',
-  binaryVersionName: 'unknown',
-  version: 'unknown',
+  binaryVersion: 'unknown',
+  binaryBuild: 'unknown',
   build: 'unknown',
+  version: 'unknown',
   channel: 'unknown',
   updatesAvailable: false,
 })
@@ -79,8 +79,8 @@ onMounted(onLoadAppInfo)
 
 async function onLoadAppInfo() {
   const version = await Deploy.getCurrentVersion()
-  data.binaryVersionCode = version?.binaryVersionCode ?? 'unknown'
-  data.binaryVersionName = version?.binaryVersionName ?? 'unknown'
+  data.binaryVersion = version?.binaryVersionName ?? 'unknown'
+  data.binaryBuild = version?.binaryVersionCode ?? 'unknown'
   data.version = version?.versionId ?? 'unknown'
   data.build = version?.buildId ?? 'unknown'
   data.channel = version?.channel ?? 'unknown'
@@ -101,7 +101,8 @@ async function onUpdateClick() {
 /* -------------------------------------------------------------------------- */
 
 function variableToTitle(variable: string) {
-  return variable.replace(/([A-Z])/g, ' $1')
+  const res = variable.replace(/([A-Z])/g, ' $1')
+  return res.charAt(0).toUpperCase() + res.slice(1)
 }
 </script>
 
