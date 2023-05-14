@@ -1,6 +1,7 @@
 // stage 0: infrastructure
-import { initSentry } from './infrastructure/initSentry'
 import { initLogging } from './infrastructure/initLogging'
+import { initSentry } from './infrastructure/initSentry'
+import { initLiveUpdate } from './infrastructure/initLiveUpdate'
 import { initDeviceStorage } from './infrastructure/initDeviceStorage'
 import { initDatabases } from './infrastructure/initDatabases'
 import { initI18n } from './infrastructure/initI18n'
@@ -24,6 +25,7 @@ import { initRoutes } from './app/initRoutes'
 export const appInitStages = [
   initLogging,
   initSentry,
+  initLiveUpdate,
   initDeviceStorage,
   initDatabases,
   initPinia,
