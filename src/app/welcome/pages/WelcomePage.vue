@@ -46,6 +46,10 @@
         expand="block"
         fill="outline"
       >
+        <ion-icon
+          slot="start"
+          :icon="people"
+        />
         {{ $t("welcome.login.asGuest") }}
       </IonButton>
     </div>
@@ -57,7 +61,7 @@
 import { IonPage, IonButton, IonIcon, useIonRouter, alertController } from '@ionic/vue'
 import { usePreferredDark } from '@vueuse/core'
 import { inject, onMounted , computed } from 'vue'
-import { logoApple, mail } from 'ionicons/icons'
+import { logoApple, mail, people } from 'ionicons/icons'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { DarkImage, go, useSyncTask, useAuthentication, useApplication } from '@/app/shared'
