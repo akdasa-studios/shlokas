@@ -14,5 +14,9 @@ export const routes: Array<RouteRecordRaw> = [
     name: 'settings-account-email',
     path: 'settings/account/email',
     component: () => import('@/app/settings/pages/EmailPage.vue'),
+  },
+  {
+    path: 'settings/app',
+    component: () => import('@/app/settings/pages/AppInfoPage.vue'),
   }
 ]

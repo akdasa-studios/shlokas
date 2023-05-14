@@ -43,7 +43,7 @@
             v-model="settings.appearanceSettings.gradeButtons"
           >
             {{ $t('settings.gradeButtons') }}
-           </ion-toggle>
+          </ion-toggle>
         </ion-item>
 
         <ion-item>
@@ -60,6 +60,14 @@
           >
             {{ $t('settings.contactUs') }}
           </ion-label>
+        </ion-item>
+
+        <ion-item
+          :detail="true"
+          router-link="/home/settings/app"
+          router-direction="forward"
+        >
+          <ion-label>{{ $t('app.name') }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
