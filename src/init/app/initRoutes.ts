@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
+import { createRouter, createWebHistory } from '@ionic/vue-router'
 
-import routes from '@/router';
-import { InitArgs } from '../initialization';
+import routes from '@/router'
+import { InitArgs } from '../initialization'
 
 
 export async function initRoutes(
