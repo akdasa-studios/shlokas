@@ -1,4 +1,5 @@
 import { Deploy } from 'cordova-plugin-ionic'
+import { Capacitor } from '@capacitor/core'
 import { useEnv } from '@/app/shared'
 
 
@@ -8,11 +9,14 @@ import { useEnv } from '@/app/shared'
 export async function initLiveUpdate() {
   const env = useEnv()
 
+  // Live update is not supported in web
+  if (Capacitor.getPlatform() === 'web') { return }
+
+  // Live update is not supported in development
   if (env.isDevelopment()) {
-    // Do not use live update in development
     await Deploy.configure({
       channel: 'Development',
-      updateMethod: 'none'
+      updateMethod: 'none',
     })
   }
 }
