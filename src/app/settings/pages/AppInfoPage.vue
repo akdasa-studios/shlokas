@@ -37,6 +37,13 @@
           </ion-label>
         </ion-item>
       </ion-list>
+
+      <ion-loading
+        :is-open="isUpdating"
+        :backgground-disabled="true"
+        :duration="5000"
+        :message="$t('common.wait')"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -49,7 +56,7 @@ IonButton,
   IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons,
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 
 /* -------------------------------------------------------------------------- */
@@ -64,6 +71,7 @@ const data = reactive({
   channel: 'unknown',
   updatesAvailable: false,
 })
+const isUpdating = ref(false)
 
 
 /* -------------------------------------------------------------------------- */
@@ -90,9 +98,11 @@ async function onLoadAppInfo() {
 }
 
 async function onUpdateClick() {
+  isUpdating.value = true
   await Deploy.sync({
     updateMethod: 'auto',
   })
+  isUpdating.value = false
 }
 
 
