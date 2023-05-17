@@ -88,6 +88,7 @@ export function useAuthentication() {
         }
       ) as RefreshTokenResponse
       settingsStore.auth.token = result.idToken
+      settingsStore.auth.refreshedAt = new Date().getTime()
     } catch (error) {
       throw new Error('Error refreshing token: ' + error)
     } finally {

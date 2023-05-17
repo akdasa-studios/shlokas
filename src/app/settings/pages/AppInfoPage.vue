@@ -57,6 +57,13 @@ IonButton,
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
 import { onMounted, reactive, ref } from 'vue'
+import { useSettingsStore } from '../stores/useSettingsStore'
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const settingsStore = useSettingsStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -70,6 +77,11 @@ const data = reactive({
   version: 'unknown',
   channel: 'unknown',
   updatesAvailable: false,
+  collectionId: settingsStore.auth.collectionId ?? 'unknown',
+  sessionId: settingsStore.auth.sessionId ?? 'unknown',
+  refreshedAt: settingsStore.auth.refreshedAt
+               ? new Date(settingsStore.auth.refreshedAt).toISOString()
+               : 'unknown'
 })
 const isUpdating = ref(false)
 

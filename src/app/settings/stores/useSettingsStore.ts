@@ -25,6 +25,7 @@ interface AuthSettings {
   collectionId: string
   sessionId: string
   strategy: string
+  refreshedAt?: number
 }
 
 
@@ -56,7 +57,8 @@ export const useSettingsStore = defineStore('settings', () => {
     token: '',
     collectionId: '',
     sessionId: '',
-    strategy: ''
+    strategy: '',
+    refreshedAt: 0
   })
 
 
@@ -98,6 +100,7 @@ export const useSettingsStore = defineStore('settings', () => {
       auth.value.token = loadedAuth.token
       auth.value.sessionId = loadedAuth.session
       auth.value.strategy = loadedAuth.strategy
+      auth.value.refreshedAt = loadedAuth.refreshedAt
     }
   }
 
