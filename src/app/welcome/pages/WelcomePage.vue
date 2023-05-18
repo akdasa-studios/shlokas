@@ -22,13 +22,24 @@
       <IonButton
         expand="block"
         color="dark"
-        @click="onAppleSignIn"
+        @click="onSignIn('apple')"
       >
         <ion-icon
           slot="start"
           :icon="logoApple"
         />
         {{ $t("welcome.login.withAppleId") }}
+      </IonButton>
+      <IonButton
+        expand="block"
+        color="danger"
+        @click="onSignIn('google')"
+      >
+        <ion-icon
+          slot="start"
+          :icon="logoGoogle"
+        />
+        {{ $t("welcome.login.withGoogle") }}
       </IonButton>
       <IonButton
         expand="block"
@@ -61,7 +72,7 @@
 import { IonPage, IonButton, IonIcon, useIonRouter, alertController } from '@ionic/vue'
 import { usePreferredDark } from '@vueuse/core'
 import { inject, onMounted , computed } from 'vue'
-import { logoApple, mail, people } from 'ionicons/icons'
+import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { DarkImage, go, useSyncTask, useAuthentication, useApplication } from '@/app/shared'
@@ -78,7 +89,7 @@ const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const settingsStore = useSettingsStore()
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const router = useIonRouter()
-const appleAuth = useAuthentication()
+const auth = useAuthentication()
 const syncTask = useSyncTask()
 
 
@@ -107,14 +118,13 @@ async function onOpened() {
   settingsStore.welcome.done = true
 }
 
-async function onAppleSignIn() {
+async function onSignIn(strategy: string) {
   try {
-    await appleAuth.authenticate('apple')
-    await appleAuth.refresh()
+    await auth.authenticate(strategy)
   } catch (e) {
     const alert = await alertController.create({
       header: 'Error',
-      subHeader: 'Unable to sign in with Apple.',
+      subHeader: `Unable to sign in with ${strategy}.`,
       message: ((e as Error).message),
       buttons: ['OK'],
     })
