@@ -15,7 +15,7 @@ export async function initLiveUpdate() {
   // Live update is not supported in development
   if (env.isDevelopment()) {
     await Deploy.configure({
-      channel: 'Development',
+      channel: 'Production',
       updateMethod: 'none',
     })
   }
