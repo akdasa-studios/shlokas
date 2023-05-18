@@ -64,6 +64,8 @@
         {{ $t("welcome.login.asGuest") }}
       </IonButton>
     </div>
+    {{ env.getMode() }}
+    {{ env.getAuthUrl("apple") }}
   </ion-page>
 </template>
 
@@ -75,7 +77,7 @@ import { inject, onMounted , computed } from 'vue'
 import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { DarkImage, go, useSyncTask, useAuthentication, useApplication } from '@/app/shared'
+import { DarkImage, go, useSyncTask, useAuthentication, useApplication, useEnv } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -91,6 +93,7 @@ const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryData
 const router = useIonRouter()
 const auth = useAuthentication()
 const syncTask = useSyncTask()
+const env = useEnv()
 
 
 /* -------------------------------------------------------------------------- */
@@ -129,7 +132,6 @@ async function onSignIn(strategy: string) {
       buttons: ['OK'],
     })
     await alert.present()
-    return
   }
 
   syncTask.run()
