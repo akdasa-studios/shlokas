@@ -5,7 +5,8 @@
     "login": {
       "asGuest": "Enter as a guest",
       "withAppleId": "Sign in with Apple",
-      "withEmail": "Sign in with Email"
+      "withEmail": "Sign in with Email",
+      "withGoogle": "Sign in with Google"
     }
   }
 }

@@ -20,6 +20,7 @@ def capacitor_pods
   pod 'CapacitorSplashScreen', :path => '../../node_modules/@capacitor/splash-screen'
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapawesomeCapacitorBackgroundTask', :path => '../../node_modules/@capawesome/capacitor-background-task'
+  pod 'CodetrixStudioCapacitorGoogleAuth', :path => '../../node_modules/@codetrix-studio/capacitor-google-auth'
   pod 'SentryCapacitor', :path => '../../node_modules/@sentry/capacitor'
   pod 'CapacitorBlobWriter', :path => '../../node_modules/capacitor-blob-writer'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
@@ -32,4 +33,16 @@ end
 
 post_install do |installer|
   assertDeploymentTarget(installer)
+
+  if not ENV['APPLE_DEVELOPMENT_TEAM'] then
+    puts "Error: NO APPLE_DEVELOPMENT_TEAM provided"
+  end
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if config.build_settings['WRAPPER_EXTENSION'] == 'bundle'
+        config.build_settings['DEVELOPMENT_TEAM'] = ENV['APPLE_DEVELOPMENT_TEAM']
+      end
+    end
+  end
 end
