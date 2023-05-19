@@ -121,6 +121,8 @@ async function onOpened() {
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
+    syncTask.run()
+    router.replace(go('library'))
   } catch (e) {
     const alert = await alertController.create({
       header: 'Error',
@@ -130,9 +132,6 @@ async function onSignIn(strategy: string) {
     })
     await alert.present()
   }
-
-  syncTask.run()
-  router.replace(go('library'))
 }
 
 async function onEmailSignIn() {

@@ -89,7 +89,7 @@ import { computed, inject, ref } from 'vue'
 import { EventEmitter2 } from 'eventemitter2'
 import { Context, TimeMachine } from '@akdasa-studios/shlokas-core'
 import { createRepositories } from '@/app/utils/sync'
-import { go, useApplication, useAuthentication, useEnv } from '@/app/shared'
+import { go, useApplication, useAuthentication, useEnv, useSyncTask } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
@@ -103,6 +103,7 @@ const settings = useSettingsStore()
 const env = useEnv()
 const auth = useAuthentication()
 const router = useIonRouter()
+const syncTask = useSyncTask()
 
 
 /* -------------------------------------------------------------------------- */
@@ -131,6 +132,7 @@ async function onSync() {
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
+    syncTask.run()
   } catch (e) {
     const alert = await alertController.create({
       header: 'Error',
