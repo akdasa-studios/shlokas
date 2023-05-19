@@ -58,6 +58,14 @@
       >
         {{ $t('account.syncData') }}
       </ion-button>
+      <ion-button
+        v-if="isAuthenticated"
+        expand="block"
+        fill="outline"
+        @click="onLogOut"
+      >
+        {{ $t('account.logOut') }}
+      </ion-button>
     </ion-content>
 
     <ion-loading
@@ -136,5 +144,10 @@ async function onSignIn(strategy: string) {
 
 async function onEmailSignIn() {
   router.push(go('welcome-email'))
+}
+
+async function onLogOut() {
+  settings.auth.sessionId = ''
+  settings.auth.token = ''
 }
 </script>
