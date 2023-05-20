@@ -25,7 +25,7 @@ export function useEnv() {
   }
 
   function isDevelopment() {
-    return MODE === 'dev' || MODE === 'testing' || MODE === 'testing:dev' || MODE === 'testing:prod'
+    return ['dev', 'development', 'testing', 'testing:dev', 'testing:prod'].includes(MODE)
   }
 
   function getHost() {

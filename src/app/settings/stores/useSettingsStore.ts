@@ -59,7 +59,8 @@ export const useSettingsStore = defineStore('settings', () => {
     collectionId: '',
     sessionId: '',
     strategy: '',
-    refreshedAt: 0
+    refreshedAt: 0,
+    expiresAt: 0
   })
 
 
@@ -97,11 +98,12 @@ export const useSettingsStore = defineStore('settings', () => {
       welcome.value.done = loadedWelcome.done
     }
     if (loadedAuth) {
-      auth.value.collectionId = loadedAuth.database
+      auth.value.collectionId = loadedAuth.collectionId
       auth.value.token = loadedAuth.token
-      auth.value.sessionId = loadedAuth.session
+      auth.value.sessionId = loadedAuth.sessionId
       auth.value.strategy = loadedAuth.strategy
       auth.value.refreshedAt = loadedAuth.refreshedAt
+      auth.value.expiresAt = loadedAuth.expiresAt
     }
   }
 
