@@ -12,7 +12,7 @@ import { CURRENT_STEP_KEY, DATE_KEY } from './shared'
  *  - Current tutorial step
  *  - Tutorial date
  */
-export async function runTutorialPersistenceTask() {
+export function runTutorialPersistenceTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
