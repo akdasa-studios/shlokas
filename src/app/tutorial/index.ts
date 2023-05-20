@@ -12,3 +12,4 @@ export * from './models/TutorialStep'
 // tasks:
 export * from './tasks/runTutorialPersistenceTask'
 export * from './tasks/runTutorialRestoreTask'
+export * from './tasks/runSettingsPersistenceTask'

@@ -1,56 +1,54 @@
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
-import { useApplication, useDeviceStore, useLogger } from '@/app/shared'
-import { useTutorialStore } from '@/app/tutorial'
-import { CURRENT_STEP_KEY, DATE_KEY } from './shared'
+import { useDeviceStore, useLogger } from '@/app/shared'
+import { useSettingsStore } from '@/app/settings'
 
 
 /**
- * Saves tutorial state to device storage.
- *
- * Data saved:
- *  - Current tutorial step
- *  - Tutorial date
+ * Saves settings state to device storage.
  */
-export function runTutorialPersistenceTask() {
+export function runSettingsPersistenceTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const logger        = useLogger('tutorial:persistence')
-  const application   = useApplication()
-  const tutorialStore = useTutorialStore()
+  const logger        = useLogger('settings:persistence')
+  const settingsStore = useSettingsStore()
   const deviceStore   = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const { currentStep } = storeToRefs(tutorialStore)
+  const {
+    locale, appearance, library, welcome, auth
+  } = storeToRefs(settingsStore)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch(currentStep, onTutorialStepChanged)
-  watch(application.now, onDateChanged)
+  watch([
+    locale.value,
+    appearance.value,
+    library.value,
+    welcome.value,
+    auth.value
+  ], () => onSettingsChanged())
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  function onTutorialStepChanged(value: number) {
-    logger.debug(`Saving step ${value}`)
-    deviceStore.set(CURRENT_STEP_KEY, value)
-  }
-
-  function onDateChanged(value: Date) {
-    if (application.currentContextName.value === 'tutorial') {
-      logger.debug(`Saving date ${value}`)
-      deviceStore.set(DATE_KEY, value.getTime())
-    }
+  async function onSettingsChanged() {
+    logger.debug('Saving settings')
+    await deviceStore.set('locale',     JSON.stringify(locale.value))
+    await deviceStore.set('appearance', JSON.stringify(appearance.value))
+    await deviceStore.set('library',    JSON.stringify(library.value))
+    await deviceStore.set('welcome',    JSON.stringify(welcome.value))
+    await deviceStore.set('auth',       JSON.stringify(auth.value))
   }
 }

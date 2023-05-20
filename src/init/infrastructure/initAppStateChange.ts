@@ -1,12 +1,9 @@
 import { App } from '@capacitor/app'
-import { EventEmitter2 } from 'eventemitter2'
-import { InitArgs } from '../initialization'
+import { useEmitter } from '@/app/shared'
 
 
-export async function initAppStateChange(
-  { get }: InitArgs
-) {
-  const emitter = get<EventEmitter2>('emitter')
+export async function initAppStateChange() {
+  const emitter = useEmitter()
   App.addListener('appStateChange', async ({ isActive }) => {
     emitter.emit('appStateChanged', { isActive: isActive })
   })

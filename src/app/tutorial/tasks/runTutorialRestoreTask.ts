@@ -18,10 +18,10 @@ export async function runTutorialRestoreTask() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const log = useLogger('tutorial:restore')
-  const application = useApplication()
+  const logger        = useLogger('tutorial:restore')
+  const application   = useApplication()
   const tutorialStore = useTutorialStore()
-  const deviceStorage = useDeviceStore()
+  const deviceStore   = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
   /*                                    Watch                                   */
@@ -35,10 +35,10 @@ export async function runTutorialRestoreTask() {
   /* -------------------------------------------------------------------------- */
 
   const { currentStep } = storeToRefs(tutorialStore)
-  currentStep.value = (await deviceStorage.get(CURRENT_STEP_KEY)) || 0
-  log.debug(`Started with ${currentStep.value} step`)
+  currentStep.value = (await deviceStore.get(CURRENT_STEP_KEY)) || 0
+  logger.debug(`Started with ${currentStep.value} step`)
   if (tutorialStore.isStarted && !tutorialStore.isCompleted) {
-    log.debug('Switching to tutorial context')
+    logger.debug('Switching to tutorial context')
     application.switchContextTo('tutorial')
   }
 
@@ -50,13 +50,13 @@ export async function runTutorialRestoreTask() {
   async function onApplicationContextChanged(context: string) {
     if (context !== 'tutorial') { return }
 
-    log.debug('Restoring tutorial state')
-    const tutorialDate = await deviceStorage.get(DATE_KEY)
+    logger.debug('Restoring tutorial state')
+    const tutorialDate = await deviceStore.get(DATE_KEY)
     if (tutorialDate) {
-      log.debug('Restored date', tutorialDate)
+      logger.debug('Restored date', tutorialDate)
       application.setTime(new Date(tutorialDate))
     } else {
-      log.debug('No tutorial date saved')
+      logger.debug('No tutorial date saved')
     }
   }
 }

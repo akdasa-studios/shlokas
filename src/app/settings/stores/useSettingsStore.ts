@@ -37,11 +37,11 @@ export const useSettingsStore = defineStore('settings', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const localeSettings = ref<LocaleSettings>({
+  const locale = ref<LocaleSettings>({
     language: 'en'
   })
 
-  const appearanceSettings = ref<AppearanceSettings>({
+  const appearance = ref<AppearanceSettings>({
     gradeButtons: true,
     colorfulCards: true
   })
@@ -63,16 +63,6 @@ export const useSettingsStore = defineStore('settings', () => {
     expiresAt: 0
   })
 
-
-  watch([
-    localeSettings.value,
-    appearanceSettings.value,
-    library.value,
-    welcome.value,
-    auth.value
-  ], () => onSettingsChanged())
-
-
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
@@ -85,11 +75,11 @@ export const useSettingsStore = defineStore('settings', () => {
     const loadedAuth       = JSON.parse(await storage.get('auth'))
 
     if (loadedLocale) {
-      localeSettings.value.language = loadedLocale.language
+      locale.value.language = loadedLocale.language
     }
     if (loadedAppearance) {
-      appearanceSettings.value.gradeButtons  = loadedAppearance.gradeButtons
-      appearanceSettings.value.colorfulCards = loadedAppearance.colorfulCards
+      appearance.value.gradeButtons  = loadedAppearance.gradeButtons
+      appearance.value.colorfulCards = loadedAppearance.colorfulCards
     }
     if (loadedLibrary) {
       library.value.lastSyncDate = loadedLibrary.lastSyncDate
@@ -109,21 +99,8 @@ export const useSettingsStore = defineStore('settings', () => {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                  Handlers                                  */
-  /* -------------------------------------------------------------------------- */
-
-  async function onSettingsChanged() {
-    await storage.set('locale',     JSON.stringify(localeSettings.value))
-    await storage.set('appearance', JSON.stringify(appearanceSettings.value))
-    await storage.set('library',    JSON.stringify(library.value))
-    await storage.set('welcome',    JSON.stringify(welcome.value))
-    await storage.set('auth',       JSON.stringify(auth.value))
-  }
-
-
-  /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { localeSettings, appearanceSettings, library, welcome, load, auth }
+  return { locale, appearance, library, welcome, load, auth }
 })

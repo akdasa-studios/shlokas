@@ -11,7 +11,7 @@ export function runSyncTask() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const syncTask = useSync()
+  const sync    = useSync()
   const emitter = useEmitter()
 
 
@@ -19,14 +19,14 @@ export function runSyncTask() {
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  emitter.on('appStateChanged', async () => await onExecute())
+  emitter.on('appStateChanged', onSync)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onExecute(): Promise<boolean> {
-    return await syncTask.run()
+  async function onSync(): Promise<boolean> {
+    return await sync.run()
   }
 }

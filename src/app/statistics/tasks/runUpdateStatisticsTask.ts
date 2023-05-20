@@ -5,37 +5,58 @@ import { useStatisticsStore } from '@/app/statistics'
 import { useApplication, useEmitter } from '@/app/shared'
 
 
+/**
+ * Updates statistics in the background.
+ */
 export function runUpdateStatisticsTask() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const app = useApplication()
-  const statistics = useStatisticsStore()
-  const emitter = useEmitter()
+  const app             = useApplication()
+  const statisticsStore = useStatisticsStore()
+  const emitter         = useEmitter()
 
 
-  watch(app.now, async () => await updateStatistics())
-  watch(app.currentContextName, async () => await updateStatistics())
+  /* -------------------------------------------------------------------------- */
+  /*                                  Triggers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  watch(app.now, onUpdateStatistics)
+  watch(app.currentContextName, onUpdateStatistics)
 
   emitter.on('commandExecuted', async (e) => {
-    if (e instanceof ReviewCardReviewed) { await updateStatistics() }
-    if (e instanceof InboxCardMemorized) { await updateStatistics() }
-    if (e instanceof AddVerseToInboxDeck) { await updateStatistics() }
+    if (e instanceof ReviewCardReviewed)  { await onUpdateStatistics() }
+    if (e instanceof InboxCardMemorized)  { await onUpdateStatistics() }
+    if (e instanceof AddVerseToInboxDeck) { await onUpdateStatistics() }
   })
-  emitter.on('appStateChanged', async () => await updateStatistics())
-  emitter.on('syncCompleted', async () => await updateStatistics())
+  emitter.on('appStateChanged', onUpdateStatistics)
+  emitter.on('syncCompleted',   onUpdateStatistics)
 
-  async function updateStatistics() {
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Handlers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  async function onUpdateStatistics() {
     const date = nextDays(1, app.application.timeMachine.today)
-    statistics.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
-    statistics.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
-    statistics.cardsInInbox = (await app.application.inboxDeck.cards()).length
+    statisticsStore.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
+    statisticsStore.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
+    statisticsStore.cardsInInbox = (await app.application.inboxDeck.cards()).length
   }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  function nextDays(days: number, date?: Date) {
+    const result = date ? new Date(date) : new Date()
+    result.setDate(result.getDate()+days)
+    return result
+  }
+
 }
 
-function nextDays(days: number, date?: Date) {
-  const result = date ? new Date(date) : new Date()
-  result.setDate(result.getDate()+days)
-  return result
-}
+
+

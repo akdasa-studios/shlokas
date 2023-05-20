@@ -21,7 +21,7 @@
 
         <ion-item>
           <ion-select
-            v-model="settings.localeSettings.language"
+            v-model="settings.locale.language"
             interface="action-sheet"
             placeholder="Language"
             data-testid="language"
@@ -40,7 +40,7 @@
 
         <ion-item>
           <ion-toggle
-            v-model="settings.appearanceSettings.gradeButtons"
+            v-model="settings.appearance.gradeButtons"
           >
             {{ $t('settings.gradeButtons') }}
           </ion-toggle>
@@ -48,7 +48,7 @@
 
         <ion-item>
           <ion-toggle
-            v-model="settings.appearanceSettings.colorfulCards"
+            v-model="settings.appearance.colorfulCards"
           >
             {{ $t('settings.colorfulCards') }}
           </ion-toggle>
