@@ -1,4 +1,3 @@
-import { log } from 'console'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useDeviceStore, useLogger } from '@/app/shared'

@@ -5,7 +5,7 @@ import { useSettingsStore } from '@/app/settings'
 /**
  * Restores tutorial state from device storage once application context is changed to tutorial.
  */
-export function runSettingsRestoreTask() {
+export async function runSettingsRestoreTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
@@ -28,7 +28,7 @@ export function runSettingsRestoreTask() {
   /*                                    Init                                    */
   /* -------------------------------------------------------------------------- */
 
-  onRestore() // Load settings imidiatly
+  await onRestore() // Load settings imidiatly
 
   /* -------------------------------------------------------------------------- */
   /*                                   Handlers                                 */

@@ -5,7 +5,7 @@ import { runTutorialPersistenceTask, runTutorialRestoreTask, runSettingsPersiste
 
 export async function initTasks() {
   runSettingsPersistenceTask()
-  runSettingsRestoreTask()
+  await runSettingsRestoreTask()
   runUpdateStatisticsTask()
   runSyncTask()
   runTutorialPersistenceTask()

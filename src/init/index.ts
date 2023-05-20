@@ -33,10 +33,10 @@ export const appInitStages = [
   initShlokasApp,
 
   initStores,
+  initTasks,
   initLocale,
   initParams,
   initCommands,
-  initTasks,
   initMigrations,
   initStaticData,
   initRoutes

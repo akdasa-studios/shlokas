@@ -20,7 +20,7 @@ export async function initLocale(
   const finalLang    = check(savedLang) || check(deviceLang) || fallbackLang
 
   // update state:
-  i18n.locale.value             = finalLang
+  i18n.locale.value     = finalLang
   store.locale.language = finalLang
 }
 
