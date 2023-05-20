@@ -45,12 +45,12 @@ export async function initShlokasApp(
     verseImagesRepo,
     declamationsRepo,
     // @ts-ignore
-    new PouchRepository<VerseStatus>(
+    new SyncRepository(new PouchRepository<VerseStatus>(
       userData,
       'verseStatus',
       new VerseStatusSerializer(),
       new VerseStatusDeserializer()
-    ),
+    )),
     new SyncRepository(new PouchRepository<InboxCard>(
       userData,
       'inbox',
