@@ -34,8 +34,7 @@
 
 <script lang="ts" setup>
 import { ReviewCard, Verse } from '@akdasa-studios/shlokas-core'
-
-import { testId } from '@/app/shared/composables/useTestId'
+import { testId } from '@/app/shared'
 import { ReviewCardTextSide, ReviewCardTranslationSide, ReviewCardVerseNumberSide } from '@/app/decks/review'
 import FlipCard from '@/app/decks/shared/components/FlipCard.vue'
 

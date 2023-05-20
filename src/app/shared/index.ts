@@ -9,6 +9,7 @@ export * from './composables/useDeviceStorage'
 export * from './composables/useAuthentication'
 export * from './composables/useSync'
 export * from './composables/useEmitter'
+export * from './composables/useTestId'
 
 // tasks:
 export * from './tasks/runSyncTask'
