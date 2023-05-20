@@ -73,17 +73,16 @@ import { IonPage, IonButton, IonIcon, useIonRouter, alertController } from '@ion
 import { usePreferredDark } from '@vueuse/core'
 import { inject, onMounted , computed } from 'vue'
 import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
-import EventEmitter2 from 'eventemitter2'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { DarkImage, go, useSyncTask, useAuthentication, useApplication } from '@/app/shared'
+import { DarkImage, go, useSync, useAuthentication, useApplication, useEmitter } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const emitter = inject('emitter') as EventEmitter2
+const emitter = useEmitter()
 const application = useApplication()
 const isDark = usePreferredDark()
 const libraryDatabase = inject('verses')
@@ -92,7 +91,7 @@ const settingsStore = useSettingsStore()
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const router = useIonRouter()
 const auth = useAuthentication()
-const syncTask = useSyncTask()
+const syncTask = useSync()
 
 
 /* -------------------------------------------------------------------------- */

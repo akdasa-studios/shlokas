@@ -21,7 +21,7 @@
 import { onMounted, ref } from 'vue'
 import { SVGTextLines } from '@akdasa-studios/shlokas-uikit'
 import { usePreferredDark } from '@vueuse/core'
-import { DarkImage, useDownloadService, useEnv } from '@/app/shared'
+import { DarkImage, useDownloader, useEnv } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -37,7 +37,7 @@ const props = defineProps<{
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const downloadService = useDownloadService()
+const downloadService = useDownloader()
 const isDark = usePreferredDark()
 const env = useEnv()
 

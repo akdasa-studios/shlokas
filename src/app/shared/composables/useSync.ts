@@ -6,6 +6,7 @@ import { useEnv } from './useEnv'
 import { useAuthentication } from './useAuthentication'
 import { useApplication } from './useApp'
 import { useLogger } from './useLogger'
+import { useEmitter } from './useEmitter'
 
 /* -------------------------------------------------------------------------- */
 /*                                Shared State                                */
@@ -14,7 +15,7 @@ import { useLogger } from './useLogger'
 const inProgress = ref(false)
 
 
-export function useSyncTask() {
+export function useSync() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
@@ -24,6 +25,7 @@ export function useSyncTask() {
   const auth     = useAuthentication()
   const env      = useEnv()
   const log      = useLogger('sync')
+  const emitter  = useEmitter()
 
 
   /* -------------------------------------------------------------------------- */
@@ -51,6 +53,7 @@ export function useSyncTask() {
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
       log.debug(`Syncing to ${databaseUrl}...`)
       await app.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
+      emitter.emit('syncCompleted')
     } catch (e) {
       log.error('Syncing failed...', e)
     } finally {

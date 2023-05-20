@@ -1,33 +1,32 @@
-import { EventEmitter2 } from 'eventemitter2'
-import { useSyncTask } from '../composables/useSyncTask'
+import { useSync as useSync } from '../composables/useSync'
+import { useEmitter } from '../composables/useEmitter'
 
 /**
  * Runs sync task on app state change
  * @param app Application instance
  * @param emitter Event emitter instance
  */
-export function runSyncTask(
-  emitter: EventEmitter2
-) {
+export function runSyncTask() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const syncTask = useSyncTask()
+  const sync    = useSync()
+  const emitter = useEmitter()
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  emitter.on('appStateChanged', async () => await onExecute())
+  emitter.on('appStateChanged', onSync)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onExecute(): Promise<boolean> {
-    return await syncTask.run()
+  async function onSync(): Promise<boolean> {
+    return await sync.run()
   }
 }

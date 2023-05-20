@@ -109,7 +109,7 @@ const cardsToShow = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval: 0 })
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
-const showGradeButtons = computed(() => topCard.value?.flipped && settings.appearanceSettings.gradeButtons)
+const showGradeButtons = computed(() => topCard.value?.flipped && settings.appearance.gradeButtons)
 const { currentStep } = storeToRefs(tutorial)
 
 let reviewCards: readonly ReviewCard[] = []

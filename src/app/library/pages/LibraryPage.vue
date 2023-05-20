@@ -70,7 +70,7 @@ const tutorial = useTutorialStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { localeSettings } = storeToRefs(settings)
+const { locale } = storeToRefs(settings)
 
 
 /* -------------------------------------------------------------------------- */
@@ -101,7 +101,7 @@ async function onSearchQueryChanged(value: string) {
   const app = application.instance()
 
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
-  const languageCode = localeSettings.value.language
+  const languageCode = locale.value.language
   const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))

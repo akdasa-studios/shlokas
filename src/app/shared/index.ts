@@ -1,8 +1,5 @@
-
-// services:
-export * from './services/downloadService'
-
 // composables:
+export * from './composables/useDownloader'
 export * from './composables/useLinks'
 export * from './composables/useEnv'
 export * from './composables/useStringHasher'
@@ -10,7 +7,9 @@ export * from './composables/useLogger'
 export * from './composables/useApp'
 export * from './composables/useDeviceStorage'
 export * from './composables/useAuthentication'
-export * from './composables/useSyncTask'
+export * from './composables/useSync'
+export * from './composables/useEmitter'
+export * from './composables/useTestId'
 
 // tasks:
 export * from './tasks/runSyncTask'

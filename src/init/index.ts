@@ -6,9 +6,7 @@ import { initDeviceStorage } from './infrastructure/initDeviceStorage'
 import { initDatabases } from './infrastructure/initDatabases'
 import { initI18n } from './infrastructure/initI18n'
 import { initPinia } from './infrastructure/initPinia'
-import { initEmitter } from './infrastructure/initEmitter'
 import { initAppStateChange } from './infrastructure/initAppStateChange'
-import { initBackgroundTask } from './app/initBackgroundTask'
 import { initShlokasApp } from './infrastructure/initShlokasApp'
 import { initAuth } from './infrastructure/initAuth'
 
@@ -30,17 +28,15 @@ export const appInitStages = [
   initDatabases,
   initPinia,
   initI18n,
-  initEmitter,
   initAppStateChange,
   initAuth,
-  initBackgroundTask,
   initShlokasApp,
 
   initStores,
+  initTasks,
   initLocale,
   initParams,
   initCommands,
-  initTasks,
   initMigrations,
   initStaticData,
   initRoutes

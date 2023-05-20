@@ -1,24 +1,34 @@
-import { Logger } from '@akdasa-studios/framework'
 import { Capacitor } from '@capacitor/core'
 import { Directory, Filesystem } from '@capacitor/filesystem'
 import write_blob from 'capacitor-blob-writer'
 import { ref } from 'vue'
+import { useLogger } from './useLogger'
 
+/**
+ * Downloads and caches a file on the device.
+ */
+export function useDownloader() {
+  /* -------------------------------------------------------------------------- */
+  /*                                Dependencies                                */
+  /* -------------------------------------------------------------------------- */
 
-export function useDownloadService() {
-  const log = new Logger('download')
+  const logger = useLogger('download')
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
+
   const isDownloading = ref(false)
 
   /**
    * Download a file from a URL and return device-specific URI
-   * what can be used to play the file with <audio> tag.
+   * what can be used later.
    * @param url Url of the file to download.
    * @returns The URI of the downloaded file.
    */
   async function download(url: string): Promise<string> {
     // We don't need to download the file if we're on the web
-    // because we can just use the URL directly to play the audio
-    // file.
+    // because we can just use the URL directly.
     if (Capacitor.getPlatform() === 'web') { return url }
 
 
@@ -30,7 +40,7 @@ export function useDownloadService() {
       const stat = await Filesystem.stat({
         path: filePath, directory: Directory.Data
       })
-      log.debug(`Already downloaded ${filePath}`)
+      logger.debug(`Already downloaded ${filePath}`)
       return Capacitor.convertFileSrc(stat.uri)
     } catch (e) {
       // File not found, continue to download
@@ -40,13 +50,13 @@ export function useDownloadService() {
     // because users should be able to play the audio file even
     // if they're offline.
     isDownloading.value = true
-    log.debug(`Downloading ${url}`)
+    logger.debug(`Downloading ${url}`)
     const res = await fetch(url, {
       method: 'GET', mode: 'cors', headers: {}
     })
 
     // Write file to the filesystem
-    log.debug(`Writing ${filePath}`)
+    logger.debug(`Writing ${filePath}`)
     await write_blob({
       path: filePath,
       directory: Directory.Data,
@@ -64,7 +74,9 @@ export function useDownloadService() {
     return Capacitor.convertFileSrc(uri.uri)
   }
 
-  return {
-    download, isDownloading
-  }
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { download, isDownloading }
 }
