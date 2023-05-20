@@ -6,8 +6,12 @@ import { useApplication, useEmitter } from '@/app/shared'
 
 
 export function runUpdateStatisticsTask() {
-  const statisticsStore = useStatisticsStore()
+  /* -------------------------------------------------------------------------- */
+  /*                                Dependencies                                */
+  /* -------------------------------------------------------------------------- */
+
   const app = useApplication()
+  const statistics = useStatisticsStore()
   const emitter = useEmitter()
 
 
@@ -24,9 +28,9 @@ export function runUpdateStatisticsTask() {
 
   async function updateStatistics() {
     const date = nextDays(1, app.application.timeMachine.today)
-    statisticsStore.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
-    statisticsStore.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
-    statisticsStore.cardsInInbox = (await app.application.inboxDeck.cards()).length
+    statistics.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
+    statistics.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
+    statistics.cardsInInbox = (await app.application.inboxDeck.cards()).length
   }
 }
 
