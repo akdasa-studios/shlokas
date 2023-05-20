@@ -35,7 +35,7 @@ import { IonItem, IonLabel, IonIcon } from '@ionic/vue'
 import { computed } from 'vue'
 import { enter, albums } from 'ionicons/icons'
 import { go } from '@/app/shared'
-import { testId } from '@/app/TestId'
+import { testId } from '@/app/shared/composables/useTestId'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

@@ -53,7 +53,7 @@
 import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave } from '@ionic/vue'
 import { computed, ref, reactive, watch } from 'vue'
-import { testId } from '@/app/TestId'
+import { testId } from '@/app/shared/composables/useTestId'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'

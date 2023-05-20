@@ -28,7 +28,7 @@
 import { computed, watch, toRefs, withDefaults, onBeforeUnmount } from 'vue'
 import { playCircle, stopCircle } from 'ionicons/icons'
 import { IonProgressBar , IonIcon } from '@ionic/vue'
-import { useDownloadService, useEnv } from '@/app/shared'
+import { useDownloader, useEnv } from '@/app/shared'
 import { useAudio } from '@/app/decks/inbox'
 
 /* -------------------------------------------------------------------------- */
@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<{
 /* -------------------------------------------------------------------------- */
 
 const env = useEnv()
-const downloadService = useDownloadService()
+const downloadService = useDownloader()
 const audioPlayer = useAudio()
 
 

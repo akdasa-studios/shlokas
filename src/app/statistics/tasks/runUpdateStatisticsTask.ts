@@ -1,14 +1,14 @@
 import { AddVerseToInboxDeck, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
-import { EventEmitter2 } from 'eventemitter2'
 
 import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
-import { useApplication } from '@/app/shared'
+import { useApplication, useEmitter } from '@/app/shared'
 
 
-export function runUpdateStatisticsTask(emitter: EventEmitter2) {
+export function runUpdateStatisticsTask() {
   const statisticsStore = useStatisticsStore()
   const app = useApplication()
+  const emitter = useEmitter()
 
 
   watch(app.now, async () => await updateStatistics())

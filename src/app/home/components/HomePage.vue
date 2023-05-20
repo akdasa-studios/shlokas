@@ -83,7 +83,7 @@ import {
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
-import { useSyncTask } from '@/app/shared'
+import { useSync } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -91,7 +91,7 @@ import { useSyncTask } from '@/app/shared'
 
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
-const syncTask = useSyncTask()
+const syncTask = useSync()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */

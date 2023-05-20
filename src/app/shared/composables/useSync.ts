@@ -14,7 +14,7 @@ import { useLogger } from './useLogger'
 const inProgress = ref(false)
 
 
-export function useSyncTask() {
+export function useSync() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */

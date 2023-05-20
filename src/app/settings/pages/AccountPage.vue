@@ -84,20 +84,19 @@ import {
   IonHeader, IonPage, IonTitle, IonToolbar, IonLoading, IonIcon, useIonRouter, alertController
 } from '@ionic/vue'
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
-import { computed, inject } from 'vue'
-import { EventEmitter2 } from 'eventemitter2'
-import { go, useAuthentication, useSyncTask } from '@/app/shared'
+import { computed } from 'vue'
+import { go, useAuthentication, useEmitter, useSync } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const emitter = inject('emitter') as EventEmitter2
+const emitter = useEmitter()
 const settings = useSettingsStore()
 const auth = useAuthentication()
 const router = useIonRouter()
-const syncTask = useSyncTask()
+const syncTask = useSync()
 
 
 /* -------------------------------------------------------------------------- */

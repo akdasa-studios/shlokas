@@ -22,7 +22,7 @@ import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
 import { onMounted, ref, watch, shallowRef, computed, onBeforeUnmount } from 'vue'
 import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
-import { useDownloadService, useEnv } from '@/app/shared'
+import { useDownloader, useEnv } from '@/app/shared'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
@@ -45,7 +45,7 @@ defineExpose({
 
 const audio = useAudio()
 const env = useEnv()
-const downloader = useDownloadService()
+const downloader = useDownloader()
 const tutorial = useTutorialStore()
 
 
