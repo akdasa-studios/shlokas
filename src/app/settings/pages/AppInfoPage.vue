@@ -81,7 +81,11 @@ const data = reactive({
   sessionId: settingsStore.auth.sessionId ?? 'unknown',
   refreshedAt: settingsStore.auth.refreshedAt
                ? new Date(settingsStore.auth.refreshedAt).toISOString()
-               : 'unknown'
+               : 'unknown',
+  expiresAt: settingsStore.auth.expiresAt
+             ? new Date(settingsStore.auth.expiresAt).toISOString()
+             : 'unknown',
+  now: new Date().toISOString(),
 })
 const isUpdating = ref(false)
 

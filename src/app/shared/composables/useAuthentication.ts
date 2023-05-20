@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { AuthenticationRequest, AuthenticationResponse, RefreshTokenResponse } from '@akdasa-studios/shlokas-protocol'
+import jwt_decode from 'jwt-decode'
 import { AuthenticationStrategy } from '@/services/auth/strategies'
 import { useSettingsStore } from '@/app/settings'
 import { useEnv } from './useEnv'
@@ -63,12 +64,18 @@ export function useAuthentication() {
         authorizationCode: authResult.authorizationCode
       }
       const sessionResult = await _post(strategyName, '/', authRequest) as AuthenticationResponse
+      if (sessionResult.status === 'ok') {
+        // Store authentication result
+        settingsStore.auth.collectionId = sessionResult.collectionId
+        settingsStore.auth.token = sessionResult.idToken
+        settingsStore.auth.sessionId = sessionResult.sessionId
+        settingsStore.auth.strategy = strategyName
 
-      // Store authentication result
-      settingsStore.auth.collectionId = sessionResult.collectionId
-      settingsStore.auth.token = sessionResult.idToken
-      settingsStore.auth.sessionId = sessionResult.sessionId
-      settingsStore.auth.strategy = strategyName
+        // Decode token to get expiration date
+        const decodedToken = jwt_decode(sessionResult.idToken)
+        //@ts-ignore
+        settingsStore.auth.expiresAt = decodedToken.exp * 1000
+      }
     } catch (error) {
       throw new Error('Error authorizing: ' + error)
     } finally {

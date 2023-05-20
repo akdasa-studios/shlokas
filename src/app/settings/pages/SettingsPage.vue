@@ -63,7 +63,6 @@
         </ion-item>
 
         <ion-item
-          v-if="!isWeb"
           :detail="true"
           router-link="/home/settings/app"
           router-direction="forward"
@@ -82,7 +81,6 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
-import { Capacitor } from '@capacitor/core'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages } from '@/app/shared'
 
@@ -99,7 +97,6 @@ const settings = useSettingsStore()
 /* -------------------------------------------------------------------------- */
 
 const languages = getAvailableLanguages()
-const isWeb = Capacitor.getPlatform() === 'web'
 
 
 /* -------------------------------------------------------------------------- */

@@ -10,9 +10,9 @@ export * from './composables/useLogger'
 export * from './composables/useApp'
 export * from './composables/useDeviceStorage'
 export * from './composables/useAuthentication'
+export * from './composables/useSyncTask'
 
 // tasks:
-export * from './tasks/runRefreshTokenTask'
 export * from './tasks/runSyncTask'
 
 // components:

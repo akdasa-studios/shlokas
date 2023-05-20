@@ -70,10 +70,9 @@
 
     <ion-loading
       data-testid="syncing-progress"
-      :is-open="inProgress"
+      :is-open="syncTask.inProgress"
       :duration="3000"
       :message="$t('common.wait')"
-      @did-dismiss="inProgress = false"
     />
   </ion-page>
 </template>
@@ -85,22 +84,17 @@ import {
   IonHeader, IonPage, IonTitle, IonToolbar, IonLoading, IonIcon, useIonRouter, alertController
 } from '@ionic/vue'
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { EventEmitter2 } from 'eventemitter2'
-import { Context, TimeMachine } from '@akdasa-studios/shlokas-core'
-import { createRepositories } from '@/app/utils/sync'
-import { go, useApplication, useAuthentication, useEnv, useSyncTask } from '@/app/shared'
+import { go, useAuthentication, useSyncTask } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const inProgress = ref(false)
 const emitter = inject('emitter') as EventEmitter2
-const application = useApplication()
 const settings = useSettingsStore()
-const env = useEnv()
 const auth = useAuthentication()
 const router = useIonRouter()
 const syncTask = useSyncTask()
@@ -118,21 +112,14 @@ const isAuthenticated = computed(() => !!settings.auth.token)
 /* -------------------------------------------------------------------------- */
 
 async function onSync() {
-  inProgress.value = true
-  const remoteRepos = createRepositories(
-    env.getDatabaseUrl(settings.auth.collectionId),
-    settings.auth.token
-  )
-  await application.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
+  await syncTask.run()
   emitter.emit('syncCompleted')
-  setTimeout(() => inProgress.value = false, 2500)
 }
-
 
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
-    syncTask.run()
+    await syncTask.run()
   } catch (e) {
     const alert = await alertController.create({
       header: 'Error',
@@ -145,7 +132,7 @@ async function onSignIn(strategy: string) {
 }
 
 async function onEmailSignIn() {
-  router.push(go('welcome-email'))
+  router.push(go('settings-account-email'))
 }
 
 async function onLogOut() {

@@ -26,6 +26,7 @@ interface AuthSettings {
   sessionId: string
   strategy: string
   refreshedAt?: number
+  expiresAt?: number
 }
 
 

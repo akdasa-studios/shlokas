@@ -8,5 +8,9 @@ export function useLogger(topic: string) {
     logger.debug(message, ...args)
   }
 
-  return { debug }
+  function error(message: string, ...args: any[]) {
+    logger.error(message, ...args)
+  }
+
+  return { debug, error }
 }
