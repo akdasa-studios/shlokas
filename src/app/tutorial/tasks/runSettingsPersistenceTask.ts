@@ -1,3 +1,4 @@
+import { log } from 'console'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useDeviceStore, useLogger } from '@/app/shared'
@@ -36,7 +37,7 @@ export function runSettingsPersistenceTask() {
     library.value,
     welcome.value,
     auth.value
-  ], () => onSettingsChanged())
+  ], onSettingsChanged)
 
 
   /* -------------------------------------------------------------------------- */
@@ -44,7 +45,7 @@ export function runSettingsPersistenceTask() {
   /* -------------------------------------------------------------------------- */
 
   async function onSettingsChanged() {
-    logger.debug('Saving settings')
+    logger.debug('Saving settings state')
     await deviceStore.set('locale',     JSON.stringify(locale.value))
     await deviceStore.set('appearance', JSON.stringify(appearance.value))
     await deviceStore.set('library',    JSON.stringify(library.value))

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
-import { useDeviceStore } from '@/app/shared'
+import { ref } from 'vue'
 
 
 interface LocaleSettings {
@@ -31,8 +30,6 @@ interface AuthSettings {
 
 
 export const useSettingsStore = defineStore('settings', () => {
-  const storage = useDeviceStore()
-
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
@@ -64,43 +61,8 @@ export const useSettingsStore = defineStore('settings', () => {
   })
 
   /* -------------------------------------------------------------------------- */
-  /*                                   Actions                                  */
-  /* -------------------------------------------------------------------------- */
-
-  async function load() {
-    const loadedLocale     = JSON.parse(await storage.get('locale'))
-    const loadedAppearance = JSON.parse(await storage.get('appearance'))
-    const loadedLibrary    = JSON.parse(await storage.get('library'))
-    const loadedWelcome    = JSON.parse(await storage.get('welcome'))
-    const loadedAuth       = JSON.parse(await storage.get('auth'))
-
-    if (loadedLocale) {
-      locale.value.language = loadedLocale.language
-    }
-    if (loadedAppearance) {
-      appearance.value.gradeButtons  = loadedAppearance.gradeButtons
-      appearance.value.colorfulCards = loadedAppearance.colorfulCards
-    }
-    if (loadedLibrary) {
-      library.value.lastSyncDate = loadedLibrary.lastSyncDate
-    }
-    if (loadedWelcome) {
-      welcome.value.done = loadedWelcome.done
-    }
-    if (loadedAuth) {
-      auth.value.collectionId = loadedAuth.collectionId
-      auth.value.token = loadedAuth.token
-      auth.value.sessionId = loadedAuth.sessionId
-      auth.value.strategy = loadedAuth.strategy
-      auth.value.refreshedAt = loadedAuth.refreshedAt
-      auth.value.expiresAt = loadedAuth.expiresAt
-    }
-  }
-
-
-  /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { locale, appearance, library, welcome, load, auth }
+  return { locale, appearance, library, welcome, auth }
 })
