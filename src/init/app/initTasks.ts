@@ -1,6 +1,7 @@
+import { runSettingsPersistenceTask, runSettingsRestoreTask } from '@/app/settings'
 import { runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
-import { runTutorialPersistenceTask, runTutorialRestoreTask, runSettingsPersistenceTask, runSettingsRestoreTask } from '@/app/tutorial'
+import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 
 
 export async function initTasks() {
