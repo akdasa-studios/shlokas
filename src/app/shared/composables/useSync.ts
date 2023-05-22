@@ -7,6 +7,7 @@ import { useAuthentication } from './useAuthentication'
 import { useApplication } from './useApp'
 import { useLogger } from './useLogger'
 import { useEmitter } from './useEmitter'
+import { useDeviceStore } from './useDeviceStorage'
 
 /* -------------------------------------------------------------------------- */
 /*                                Shared State                                */
@@ -20,12 +21,13 @@ export function useSync() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const app      = useApplication()
-  const settings = useSettingsStore()
-  const auth     = useAuthentication()
-  const env      = useEnv()
-  const log      = useLogger('sync')
-  const emitter  = useEmitter()
+  const app         = useApplication()
+  const settings    = useSettingsStore()
+  const auth        = useAuthentication()
+  const env         = useEnv()
+  const log         = useLogger('sync')
+  const emitter     = useEmitter()
+  const deviceStore = useDeviceStore()
 
 
   /* -------------------------------------------------------------------------- */
@@ -51,8 +53,16 @@ export function useSync() {
       // Sync database
       const databaseUrl = env.getDatabaseUrl(settings.auth.collectionId)
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
-      log.debug(`Syncing to ${databaseUrl}...`)
-      await app.instance().sync(new Context('sync', new TimeMachine(), remoteRepos))
+      const context = new Context('sync', new TimeMachine(), remoteRepos)
+      const lastSyncTime = (await deviceStore.get('lastSyncTime')) || 0
+      const currentTime  = new Date().getTime() // TODO: convert to UTC?
+
+      log.debug(`Syncing to ${databaseUrl} since ${lastSyncTime}...`)
+      await app.instance().sync(context, {
+        lastSyncTime: lastSyncTime,
+        currentTime: currentTime
+      })
+      await deviceStore.set('lastSyncTime', currentTime)
       emitter.emit('syncCompleted')
     } catch (e) {
       log.error('Syncing failed...', e)

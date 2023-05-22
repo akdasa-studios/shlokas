@@ -120,8 +120,14 @@ export class PouchRepository<
 
   async find(query: Query<TAggregate>): Promise<TAggregate[]> {
     log.debug(`[${this._collectionName}] find`, query)
-    const convertedQuery = new QueryConverter().convert(query)
-    convertedQuery.selector['@type'] = this._collectionName
+    const convertedQuery = {
+      selector: {
+        '$and': [
+          ...[new QueryConverter().convert(query)],
+          { '@type': this._collectionName }
+        ]
+      }
+    }
     const items = await this._db.db.find(convertedQuery)
     return items.docs.map(x => this._deserializer.map(x))
   }
@@ -147,7 +153,7 @@ class QueryConverter {
   }
 
   convert(query: Query<any>): any {
-    return { 'selector': this._visit(query) }
+    return this._visit(query)
   }
 
   _visit(query: Query<any>): any {
@@ -172,8 +178,14 @@ class QueryConverter {
         [query.field]: { [this.operatorsMap[query.operator]] : value }
       }
     } else if (query instanceof Expression) {
+      if (query.operator === LogicalOperators.Or) {
+        return { '$or': [ ...query.query.map(x => this._visit(x)) ] }
+      }
       if (query.operator === LogicalOperators.Not) {
         return { '$not': deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
+      }
+      if (query.operator === LogicalOperators.And) {
+        return { '$and': [ ...query.query.map(x => this._visit(x)) ] }
       }
 
       return deepMerge(
