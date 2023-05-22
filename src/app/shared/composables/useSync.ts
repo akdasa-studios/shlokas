@@ -34,7 +34,9 @@ export function useSync() {
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onExecute(): Promise<boolean> {
+  async function onExecute(
+    forceLastSyncTime: number|undefined = undefined
+  ): Promise<boolean> {
     // Check if user is authenticated
     if (!settings.auth.token)        { return false }
     if (!settings.auth.sessionId)    { return false }
@@ -54,10 +56,10 @@ export function useSync() {
       const databaseUrl = env.getDatabaseUrl(settings.auth.collectionId)
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
       const context = new Context('sync', new TimeMachine(), remoteRepos)
-      const lastSyncTime = (await deviceStore.get('lastSyncTime')) || 0
+      const lastSyncTime = forceLastSyncTime !== undefined ? forceLastSyncTime : (await deviceStore.get('lastSyncTime')) || 0
       const currentTime  = new Date().getTime() // TODO: convert to UTC?
 
-      log.debug(`Syncing to ${databaseUrl} since ${lastSyncTime}...`)
+      log.debug(`Syncing to ${databaseUrl} since ${lastSyncTime} (${forceLastSyncTime})...`)
       await app.instance().sync(context, {
         lastSyncTime: lastSyncTime,
         currentTime: currentTime
