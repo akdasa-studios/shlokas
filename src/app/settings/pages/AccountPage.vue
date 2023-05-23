@@ -111,7 +111,7 @@ const isAuthenticated = computed(() => !!settings.auth.token)
 /* -------------------------------------------------------------------------- */
 
 async function onSync() {
-  await syncTask.run()
+  await syncTask.run(0)
   emitter.emit('syncCompleted')
 }
 

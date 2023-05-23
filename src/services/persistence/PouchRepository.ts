@@ -1,4 +1,4 @@
-import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, LogicalOperators , Logger } from '@akdasa-studios/framework'
+import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Query, QueryBuilder, Repository, LogicalOperators, Logger, ResultSet, QueryOptions } from '@akdasa-studios/framework'
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
@@ -11,6 +11,7 @@ const log = new Logger('db')
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)
 PouchDB.plugin(PouchDBAdapterSqlLite)
+
 
 export class CouchDB {
   private _db: PouchDB.Database
@@ -82,15 +83,13 @@ export class PouchRepository<
     this._deserializer = deserializer
   }
 
-  async all(): Promise<readonly TAggregate[]> {
+  async all(): Promise<ResultSet<TAggregate>> {
     log.debug(`[${this._collectionName}] all`)
-    const allDocs = await this.find(
+    return await this.find(
       new QueryBuilder<TAggregate>()
         // @ts-ignore
-        .eq('@type', this._collectionName) // @ts-ignore
-    ) // .allDocs({ include_docs: true })
-    // const mappedDoc = allDocs.value.map(x => this._deserializer.map(x.doc).value)
-    return allDocs
+        .eq('@type', this._collectionName)
+    )
   }
 
   async save(entity: TAggregate): Promise<void> {
@@ -118,12 +117,28 @@ export class PouchRepository<
     return document !== undefined
   }
 
-  async find(query: Query<TAggregate>): Promise<TAggregate[]> {
+  async find(
+    query: Query<TAggregate>,
+    options?: QueryOptions
+  ): Promise<ResultSet<TAggregate>> {
     log.debug(`[${this._collectionName}] find`, query)
-    const convertedQuery = new QueryConverter().convert(query)
-    convertedQuery.selector['@type'] = this._collectionName
+    const convertedQuery = {
+      selector: {
+        '$and': [
+          ...[new QueryConverter().convert(query)],
+          { '@type': this._collectionName }
+        ]
+      },
+      limit: options?.limit,
+      skip: options?.skip,
+      // bookmark: options?.bookmark,
+    }
     const items = await this._db.db.find(convertedQuery)
-    return items.docs.map(x => this._deserializer.map(x))
+
+    return new ResultSet(
+      items.docs.map(x => this._deserializer.map(x)),
+      { start: options?.skip || 0, count: items.docs.length }
+    )
   }
 
   async delete(id: TAggregate['id']): Promise<void> {
@@ -147,7 +162,7 @@ class QueryConverter {
   }
 
   convert(query: Query<any>): any {
-    return { 'selector': this._visit(query) }
+    return this._visit(query)
   }
 
   _visit(query: Query<any>): any {
@@ -172,8 +187,14 @@ class QueryConverter {
         [query.field]: { [this.operatorsMap[query.operator]] : value }
       }
     } else if (query instanceof Expression) {
+      if (query.operator === LogicalOperators.Or) {
+        return { '$or': [ ...query.query.map(x => this._visit(x)) ] }
+      }
       if (query.operator === LogicalOperators.Not) {
         return { '$not': deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
+      }
+      if (query.operator === LogicalOperators.And) {
+        return { '$and': [ ...query.query.map(x => this._visit(x)) ] }
       }
 
       return deepMerge(

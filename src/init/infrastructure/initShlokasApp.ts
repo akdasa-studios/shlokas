@@ -17,6 +17,7 @@ import { InitArgs, InitResult } from '../initialization'
 export async function initShlokasApp(
   { get }: InitArgs
 ): Promise<InitResult> {
+  // TODO: Repository creation should be equal to createRepositories in sync.ts
   const app = useApplication()
 
   const userData = get<CouchDB>('userData')

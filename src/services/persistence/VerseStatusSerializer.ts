@@ -10,6 +10,7 @@ export class VerseStatusSerializer implements ObjectMapper<VerseStatus, any> {
       'verseId': from.verseId.value,
       'inDeck': from.inDeck,
       'version': from.version,
+      'syncedAt': from.syncedAt,
     }
   }
 }
@@ -21,6 +22,7 @@ export class VerseStatusDeserializer implements ObjectMapper<any, VerseStatus> {
       from['inDeck'] as Decks
     )
     ob.version = from['version']
+    ob.syncedAt = from['syncedAt']
     return ob
   }
 }
