@@ -5,7 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import { IonApp, IonRouterOutlet } from '@ionic/vue'
+import { IonApp, IonRouterOutlet, useIonRouter } from '@ionic/vue'
+import { useSettingsStore } from '@/app/settings'
+
+const router = useIonRouter()
+const settingsStore = useSettingsStore()
 
 // Notch!
 try {
@@ -18,6 +22,8 @@ try {
     const style = document.createElement('style')
     head.appendChild(style)
     style.appendChild(document.createTextNode(css))
+    settingsStore.appearance.accountControls = false
+    router.replace('/home/library')
   }
 } catch(e) { console.log(e) }
 </script>

@@ -54,6 +54,7 @@ import {
 IonButton,
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons,
+  IonLoading
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
 import { onMounted, reactive, ref } from 'vue'

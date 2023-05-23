@@ -9,6 +9,7 @@ interface LocaleSettings {
 interface AppearanceSettings {
   gradeButtons: boolean
   colorfulCards: boolean
+  accountControls: boolean
 }
 
 interface LibrarySettings {
@@ -40,7 +41,8 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const appearance = ref<AppearanceSettings>({
     gradeButtons: true,
-    colorfulCards: true
+    colorfulCards: true,
+    accountControls: true
   })
 
   const library = ref<LibrarySettings>({

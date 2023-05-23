@@ -11,6 +11,7 @@
     <ion-content>
       <ion-list>
         <ion-item
+          v-if="settings.appearance.accountControls"
           :detail="true"
           router-link="/home/settings/account"
           router-direction="forward"
