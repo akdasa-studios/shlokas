@@ -13,7 +13,7 @@ const settingsStore = useSettingsStore()
 
 // Notch!
 try {
-  if (window.location.search.includes('demo')) {
+  if (window.location.host === 'shlokas-staging.netlify.app') {
     const css = `:root {
       --ion-safe-area-top: 20px;
       --ion-safe-area-bottom: 22px;
