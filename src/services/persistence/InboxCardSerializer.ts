@@ -13,7 +13,7 @@ export class InboxCardSerializer implements ObjectMapper<InboxCard, any> {
       'addedAt': dateAndTime(from.addedAt),
       'memorizedAt': dateAndTime(from.memorizedAt),
       'version': from.version,
-      'syncedAt': from.syncedAt,
+      'modifiedAt': from.modifiedAt,
     }
   }
 }
@@ -27,7 +27,7 @@ export class InboxCardDeserializer implements ObjectMapper<any, InboxCard> {
       from['memorizedAt'] ? new Date(from['memorizedAt']) : undefined
     )
     card.version = from['version']
-    card.syncedAt = from['syncedAt']
+    card.modifiedAt = from['modifiedAt']
     return card
   }
 }

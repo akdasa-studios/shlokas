@@ -13,7 +13,7 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
       'addedAt': dateAndTime(from.addedAt),
       'dueTo': date(from.dueTo),
       'version': from.version,
-      'syncedAt': from.syncedAt,
+      'modifiedAt': from.modifiedAt,
       'interval': from.interval,
       'ease': from.ease,
       'lapses': from.lapses,
@@ -38,7 +38,7 @@ export class ReviewCardDeserializer implements ObjectMapper<any, ReviewCard> {
       from['difficultyChangedAt'] ? new Date(from['difficultyChangedAt']) : new Date(from['addedAt'])
     )
     ob.version = from['version']
-    ob.syncedAt = from['syncedAt']
+    ob.modifiedAt = from['modifiedAt']
     return ob
   }
 }
