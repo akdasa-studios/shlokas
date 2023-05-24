@@ -85,7 +85,7 @@ import {
 } from '@ionic/vue'
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
 import { computed, inject } from 'vue'
-import { go, useAuthentication, useEmitter, useSync } from '@/app/shared'
+import { go, useAuthentication, useDeviceStore, useEmitter, useSync } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 import { CouchDB } from '@/services/persistence'
 
@@ -99,6 +99,7 @@ const settings = useSettingsStore()
 const auth = useAuthentication()
 const router = useIonRouter()
 const syncTask = useSync()
+const deviceStore = useDeviceStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -143,6 +144,7 @@ async function onLogOut() {
   settings.auth.strategy = ''
   settings.auth.expiresAt = undefined
   settings.auth.refreshedAt = undefined
+  await deviceStore.set('lastSyncTime', 0)
   await userDataDb.destroy()
   emitter.emit('syncCompleted')
 }

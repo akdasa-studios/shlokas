@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter } from '@ionic/vue'
 import { ref } from 'vue'
-import { useAuthentication } from '@/app/shared'
+import { useAuthentication, useEmitter } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -95,6 +95,7 @@ const props = defineProps<{
 
 const router = useIonRouter()
 const auth = useAuthentication()
+const emitter = useEmitter()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -129,6 +130,7 @@ async function onSignIn() {
     email: email.value,
     code: code.value,
   })
+  emitter.emit('signedIn')
   state.value = LoginState.SignedIn
   navigateNext(props.nextUrl, props.navigationType)
 }

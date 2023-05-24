@@ -75,7 +75,7 @@ import { inject, onMounted , computed } from 'vue'
 import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { DarkImage, go, useSync, useAuthentication, useApplication, useEmitter } from '@/app/shared'
+import { DarkImage, go, useAuthentication, useApplication, useEmitter } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -91,7 +91,6 @@ const settingsStore = useSettingsStore()
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const router = useIonRouter()
 const auth = useAuthentication()
-const syncTask = useSync()
 
 
 /* -------------------------------------------------------------------------- */
@@ -105,7 +104,7 @@ onMounted(onOpened)
 /*                                   States                                   */
 /* -------------------------------------------------------------------------- */
 
-const isLoading = computed(() => syncLibraryTask.inProgress.value || loadLibrary.inProgress.value || syncTask.inProgress.value)
+const isLoading = computed(() => syncLibraryTask.inProgress.value || loadLibrary.inProgress.value)
 
 
 /* -------------------------------------------------------------------------- */
@@ -121,8 +120,7 @@ async function onOpened() {
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
-    await syncTask.run()
-    emitter.emit('syncCompleted')
+    emitter.emit('signedIn')
     settingsStore.welcome.done = true
     router.replace(go('library'))
   } catch (e) {
