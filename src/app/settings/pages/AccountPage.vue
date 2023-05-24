@@ -84,14 +84,16 @@ import {
   IonHeader, IonPage, IonTitle, IonToolbar, IonLoading, IonIcon, useIonRouter, alertController
 } from '@ionic/vue'
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { go, useAuthentication, useEmitter, useSync } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
+import { CouchDB } from '@/services/persistence'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
+const userDataDb = inject('userData') as CouchDB
 const emitter = useEmitter()
 const settings = useSettingsStore()
 const auth = useAuthentication()
@@ -137,5 +139,11 @@ async function onEmailSignIn() {
 async function onLogOut() {
   settings.auth.sessionId = ''
   settings.auth.token = ''
+  settings.auth.collectionId = ''
+  settings.auth.strategy = ''
+  settings.auth.expiresAt = undefined
+  settings.auth.refreshedAt = undefined
+  await userDataDb.destroy()
+  emitter.emit('syncCompleted')
 }
 </script>

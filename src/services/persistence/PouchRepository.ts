@@ -13,35 +13,21 @@ PouchDB.plugin(PouchdbFind)
 PouchDB.plugin(PouchDBAdapterSqlLite)
 
 
+export interface CouchDBConfig {
+  adapter?: string,
+  token?: string
+  location?: string
+}
+
 export class CouchDB {
   private _db: PouchDB.Database
+  private _name: string
+  private _config: CouchDBConfig
 
-  constructor(dbName: string, adapter?: string, token?: string) {
-    if (adapter) {
-      this._db = new PouchDB(dbName, {
-        adapter: 'cordova-sqlite',
-        // revs_limit: 1,
-        // auto_compaction: true,
-        // @ts-ignore
-        location: 'default',
-        // iosDatabaseLocation: 'default',
-        // @ts-ignore
-        fetch: function (url, opts) {
-          opts.headers.set('Authorization', 'Bearer ' + token)
-          return PouchDB.fetch(url, opts)
-        }
-      })
-    } else {
-      this._db = new PouchDB(dbName, {
-        fetch: function (url, opts) {
-          // @ts-ignore
-          opts.headers.set('Authorization', 'Bearer ' + token)
-          return PouchDB.fetch(url, opts)
-        }
-        // revs_limit: 1,
-        // auto_compaction: true,
-      })
-    }
+  constructor(name: string, config: CouchDBConfig) {
+    this._name = name
+    this._config = config
+    this._db = this.creaateDatabase()
   }
 
   async sync(to: string) {
@@ -52,14 +38,23 @@ export class CouchDB {
     return await this._db.replicate.from(from)
   }
 
-  async deleteAll() {
-    const docs = await this._db.allDocs()
-    docs.rows.forEach(async y => {
-      await this._db.remove(y.id, y.value.rev)
-    })
+  async destroy() {
+    await this._db.destroy()
+    this._db = this.creaateDatabase()
   }
 
-  get db(): PouchDB.Database { return this ._db }
+  get db(): PouchDB.Database { return this._db }
+
+  private creaateDatabase() {
+    return new PouchDB(this._name, {
+      ...this._config,
+      fetch: (url, opts) => {
+        // @ts-ignore
+        opts.headers.set('Authorization', 'Bearer ' + this._config.token)
+        return PouchDB.fetch(url, opts)
+      }
+    })
+  }
 }
 
 export class PouchRepository<
@@ -146,7 +141,7 @@ export class PouchRepository<
     try {
       const doc = await this._db.db.get(id.value, { latest: true })
       await this._db.db.remove(doc)
-    } catch(e) { console.log('CANT DELETE', e, this._collectionName) }
+    } catch (e) { console.log('CANT DELETE', e, this._collectionName) }
   }
 }
 
@@ -184,17 +179,17 @@ class QueryConverter {
 
       // return query
       return {
-        [query.field]: { [this.operatorsMap[query.operator]] : value }
+        [query.field]: { [this.operatorsMap[query.operator]]: value }
       }
     } else if (query instanceof Expression) {
       if (query.operator === LogicalOperators.Or) {
-        return { '$or': [ ...query.query.map(x => this._visit(x)) ] }
+        return { '$or': [...query.query.map(x => this._visit(x))] }
       }
       if (query.operator === LogicalOperators.Not) {
-        return { '$not': deepMerge({}, ...query.query.map(x => this._visit(x)) ) }
+        return { '$not': deepMerge({}, ...query.query.map(x => this._visit(x))) }
       }
       if (query.operator === LogicalOperators.And) {
-        return { '$and': [ ...query.query.map(x => this._visit(x)) ] }
+        return { '$and': [...query.query.map(x => this._visit(x))] }
       }
 
       return deepMerge(

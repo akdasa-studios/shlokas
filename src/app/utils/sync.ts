@@ -9,7 +9,7 @@ import {
 
 
 export function createRepositories(remote: string, token: string) {
-  const couchDB = new CouchDB(remote, undefined, token)
+  const couchDB = new CouchDB(remote, { token: token })
 
   return new Repositories(
     new InMemoryRepository<Verse>(),
