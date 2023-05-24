@@ -52,10 +52,10 @@
         {{ $t("welcome.login.withEmail") }}
       </IonButton>
       <IonButton
-        router-link="/home/library"
         router-direction="root"
         expand="block"
         fill="outline"
+        @click="onSigInAsGuest"
       >
         <ion-icon
           slot="start"
@@ -116,7 +116,6 @@ async function onOpened() {
   await syncLibraryTask.sync()
   await loadLibrary.sync()
   settingsStore.library.lastSyncDate = new Date().getTime()
-  settingsStore.welcome.done = true
 }
 
 async function onSignIn(strategy: string) {
@@ -124,6 +123,7 @@ async function onSignIn(strategy: string) {
     await auth.authenticate(strategy)
     await syncTask.run()
     emitter.emit('syncCompleted')
+    settingsStore.welcome.done = true
     router.replace(go('library'))
   } catch (e) {
     const alert = await alertController.create({
@@ -138,6 +138,11 @@ async function onSignIn(strategy: string) {
 
 async function onEmailSignIn() {
   router.push(go('welcome-email'))
+}
+
+function onSigInAsGuest() {
+  settingsStore.welcome.done = true
+  router.replace(go('library'))
 }
 </script>
 

@@ -17,7 +17,7 @@ export class ReviewCardSerializer implements ObjectMapper<ReviewCard, any> {
       'interval': from.interval,
       'ease': from.ease,
       'lapses': from.lapses,
-      'difficultyChangedAt': from.difficultyChangedAt,
+      'difficultyChangedAt': date(from.difficultyChangedAt),
     }
   }
 }
