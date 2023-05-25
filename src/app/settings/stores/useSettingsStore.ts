@@ -21,6 +21,7 @@ interface WelcomeSettings {
 }
 
 interface AuthSettings {
+  autoSyncOnLogin: boolean
   token: string
   collectionId: string
   sessionId: string
@@ -59,7 +60,8 @@ export const useSettingsStore = defineStore('settings', () => {
     sessionId: '',
     strategy: '',
     refreshedAt: 0,
-    expiresAt: 0
+    expiresAt: 0,
+    autoSyncOnLogin: true
   })
 
   /* -------------------------------------------------------------------------- */
