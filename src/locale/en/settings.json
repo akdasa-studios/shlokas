@@ -5,7 +5,8 @@
     "account": "Account",
     "gradeButtons": "Show grade buttons",
     "colorfulCards": "Colorful cards",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "update": "Update"
   },
   "account": {
     "welcomeBack": "Welcome back!",
@@ -25,8 +26,5 @@
       "title": "Login failed",
       "message": "Unable to log in using these credentials"
     }
-  },
-  "app": {
-    "update": "Update"
   }
 }
