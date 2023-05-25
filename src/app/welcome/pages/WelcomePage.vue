@@ -20,6 +20,7 @@
 
     <div class="box">
       <IonButton
+        v-if="platform === 'ios'"
         expand="block"
         color="dark"
         @click="onSignIn('apple')"
@@ -31,6 +32,7 @@
         {{ $t("welcome.login.withAppleId") }}
       </IonButton>
       <IonButton
+        v-if="platform !== 'web'"
         expand="block"
         color="danger"
         @click="onSignIn('google')"
@@ -73,6 +75,7 @@ import { IonPage, IonButton, IonIcon, useIonRouter, alertController } from '@ion
 import { usePreferredDark } from '@vueuse/core'
 import { inject, onMounted , computed } from 'vue'
 import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
+import { Capacitor } from '@capacitor/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { DarkImage, go, useAuthentication, useApplication, useEmitter } from '@/app/shared'
@@ -101,10 +104,11 @@ onMounted(onOpened)
 
 
 /* -------------------------------------------------------------------------- */
-/*                                   States                                   */
+/*                                   State                                    */
 /* -------------------------------------------------------------------------- */
 
 const isLoading = computed(() => syncLibraryTask.inProgress.value || loadLibrary.inProgress.value)
+const platform = Capacitor.getPlatform()
 
 
 /* -------------------------------------------------------------------------- */
