@@ -37,7 +37,7 @@ export const useSettingsStore = defineStore('settings', () => {
   /* -------------------------------------------------------------------------- */
 
   const locale = ref<LocaleSettings>({
-    language: '' // language will be set in initLocale at app initialization
+    language: 'en' // language will be set in initLocale at app initialization
   })
 
   const appearance = ref<AppearanceSettings>({

@@ -15,7 +15,7 @@
       </h1>
 
       <IonButton
-        v-if="!isAuthenticated"
+        v-if="!isAuthenticated && platform === 'ios'"
         expand="block"
         color="dark"
         @click="onSignIn('apple')"
@@ -27,7 +27,7 @@
         {{ $t("welcome.login.withAppleId") }}
       </IonButton>
       <IonButton
-        v-if="!isAuthenticated"
+        v-if="!isAuthenticated && platform !== 'web'"
         expand="block"
         color="danger"
         @click="onSignIn('google')"
@@ -85,6 +85,7 @@ import {
 } from '@ionic/vue'
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
 import { computed, inject } from 'vue'
+import { Capacitor } from '@capacitor/core'
 import { go, useAuthentication, useDeviceStore, useEmitter, useSync } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 import { CouchDB } from '@/services/persistence'
@@ -100,6 +101,7 @@ const auth = useAuthentication()
 const router = useIonRouter()
 const syncTask = useSync()
 const deviceStore = useDeviceStore()
+const platform = Capacitor.getPlatform()
 
 
 /* -------------------------------------------------------------------------- */
