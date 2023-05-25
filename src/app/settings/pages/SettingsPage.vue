@@ -105,7 +105,8 @@ const languages = getAvailableLanguages()
 /* -------------------------------------------------------------------------- */
 
 function onLocaleChanged(lang: string) {
-  i18n.locale.value = lang
+  throw new Error('Not implemented')
+  // i18n.locale.value = lang
 }
 
 function onSendEmail() {
