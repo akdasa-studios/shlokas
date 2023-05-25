@@ -1,13 +1,17 @@
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
+import { Capacitor } from '@capacitor/core'
 import { AuthenticationStrategy, AuthenticationResult } from './strategy'
 
 export class GoogleAuthenticationStrategy implements AuthenticationStrategy {
   constructor() {
-    GoogleAuth.initialize({
-      clientId: '879891505939-bs3v8sm9mu1ti65eu81f3b8idtl8bakm.apps.googleusercontent.com',
-      scopes: ['profile', 'email'],
-      grantOfflineAccess: true
-    })
+    if (Capacitor.getPlatform() === 'web') {
+      // Initialize the GoogleAuth plugin only when running on native
+      GoogleAuth.initialize({
+        clientId: '879891505939-bs3v8sm9mu1ti65eu81f3b8idtl8bakm.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+        grantOfflineAccess: true
+      })
+    }
   }
 
   async authenticate(): Promise<AuthenticationResult> {
