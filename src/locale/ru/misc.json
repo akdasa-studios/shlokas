@@ -2,6 +2,9 @@
   "app": {
     "name": "Учи шлоки!"
   },
+  "themes": {
+    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
+  },
   "sync": {
     "syncing": "Синхронизация..."
   }
