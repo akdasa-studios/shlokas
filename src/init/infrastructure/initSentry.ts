@@ -1,9 +1,9 @@
 import { App } from '@capacitor/app'
-import * as Sentry from '@sentry/capacitor'
-import { BrowserTracing } from '@sentry/tracing'
-import * as SentrySibling from '@sentry/vue'
+import * as Sentry from '@sentry/vue'
+// import { BrowserTracing } from '@sentry/tracing'
+// import * as SentrySibling from '@sentry/vue'
+// import * as SE from '@sentry/electron'
 import { App as VueApp } from 'vue'
-// import { Replay } from '@sentry/replay'
 import { useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -38,11 +38,7 @@ export async function initSentry({ get }: InitArgs) {
       // new BrowserTracing({
       //   tracingOrigins: ['localhost', 'https://shlokas.app/'],
       // }),
-      new SentrySibling.Replay({
-        networkDetailAllowUrls: [window.location.origin],
-        maskAllText: false,
-        blockAllMedia: false,
-      }),
+      new Sentry.Replay()
     ],
-  }, SentrySibling.init)
+  })
 }
