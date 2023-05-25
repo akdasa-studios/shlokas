@@ -16,7 +16,7 @@
             color="warning"
             @click="onUpdateClick"
           >
-            Update
+            {{ $t('app.update') }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
