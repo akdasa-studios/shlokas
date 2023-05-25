@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/capacitor'
 import { BrowserTracing } from '@sentry/tracing'
 import * as SentrySibling from '@sentry/vue'
 import { App as VueApp } from 'vue'
+// import { Replay } from '@sentry/replay'
 import { useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -12,7 +13,7 @@ import { InitArgs } from '../initialization'
  */
 export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
-  if (env.isDevelopment()) { return }
+  // if (env.isDevelopment()) { return }
 
   const vue = get<VueApp>('vue')
   let version = 'unknown'
@@ -31,10 +32,17 @@ export async function initSentry({ get }: InitArgs) {
     release: `shlokas@${version}`,
     dist: '1',
     tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
     integrations: [
-      new BrowserTracing({
-        tracingOrigins: ['localhost', 'https://shlokas.app/'],
+      // new BrowserTracing({
+      //   tracingOrigins: ['localhost', 'https://shlokas.app/'],
+      // }),
+      new SentrySibling.Replay({
+        networkDetailAllowUrls: [window.location.origin],
+        maskAllText: false,
+        blockAllMedia: false,
       }),
-    ]
+    ],
   }, SentrySibling.init)
 }
