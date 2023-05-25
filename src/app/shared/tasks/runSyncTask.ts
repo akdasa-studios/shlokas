@@ -1,3 +1,4 @@
+import { useSettingsStore } from '@/app/settings'
 import { useSync as useSync } from '../composables/useSync'
 import { useEmitter } from '../composables/useEmitter'
 
@@ -11,8 +12,9 @@ export function runSyncTask() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const sync    = useSync()
-  const emitter = useEmitter()
+  const sync     = useSync()
+  const emitter  = useEmitter()
+  const settings = useSettingsStore()
 
 
   /* -------------------------------------------------------------------------- */
@@ -20,12 +22,18 @@ export function runSyncTask() {
   /* -------------------------------------------------------------------------- */
 
   emitter.on('appStateChanged', onSync)
-  emitter.on('signedIn', onSync)
+  emitter.on('signedIn', onSignedIn)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
+
+  async function onSignedIn() {
+    if (settings.auth.autoSyncOnLogin) {
+      await onSync()
+    }
+  }
 
   async function onSync(): Promise<boolean> {
     return await sync.run()

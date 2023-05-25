@@ -25,5 +25,8 @@
       "title": "Login failed",
       "message": "Unable to log in using these credentials"
     }
+  },
+  "app": {
+    "update": "Update"
   }
 }

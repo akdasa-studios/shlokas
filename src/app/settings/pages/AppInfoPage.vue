@@ -11,12 +11,12 @@
 
         <ion-buttons slot="end">
           <ion-button
-            v-if="data.updatesAvailable"
+            v-if="updatesAvailable"
             fill="solid"
             color="warning"
             @click="onUpdateClick"
           >
-            Update
+            {{ $t('app.update') }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -77,7 +77,6 @@ const data = reactive({
   build: 'unknown',
   version: 'unknown',
   channel: 'unknown',
-  updatesAvailable: false,
   collectionId: settingsStore.auth.collectionId ?? 'unknown',
   sessionId: settingsStore.auth.sessionId ?? 'unknown',
   refreshedAt: settingsStore.auth.refreshedAt
@@ -88,6 +87,8 @@ const data = reactive({
              : 'unknown',
   now: new Date().toISOString(),
 })
+
+const updatesAvailable = ref(false)
 const isUpdating = ref(false)
 
 
@@ -111,7 +112,7 @@ async function onLoadAppInfo() {
   data.channel = version?.channel ?? 'unknown'
 
   const updates = await Deploy.checkForUpdate()
-  data.updatesAvailable = updates?.available ?? false
+  updatesAvailable.value = updates?.available ?? false
 }
 
 async function onUpdateClick() {

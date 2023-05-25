@@ -5,7 +5,8 @@
     "login": {
       "asGuest": "Войти как гость",
       "withAppleId": "Войти с Apple",
-      "withEmail": "Войти с EMail"
+      "withEmail": "Войти с EMail",
+      "withGoogle": "Войти с Google"
     }
   }
 }

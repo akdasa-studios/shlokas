@@ -11,6 +11,7 @@ export async function initParams(
   const params = new URLSearchParams(window.location.search)
   const tutorialEnabled = params.get('tutorialEnabled')
   const libraryLastSyncDate = params.get('libraryLastSyncDate')
+  const autoSyncOnLogin = params.get('autoSyncOnLogin')
   const date = params.get('date')
 
   const tutorialStore = useTutorialStore()
@@ -24,6 +25,11 @@ export async function initParams(
   if (libraryLastSyncDate) {
     console.debug('[params] libraryLastSyncDate', libraryLastSyncDate)
     settingsStore.library.lastSyncDate = parseInt(libraryLastSyncDate)
+  }
+
+  if (autoSyncOnLogin) {
+    console.debug('[params] autoSyncOnLogin', autoSyncOnLogin)
+    settingsStore.auth.autoSyncOnLogin = ['true', '1'].includes(autoSyncOnLogin)
   }
 
 

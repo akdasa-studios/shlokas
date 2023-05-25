@@ -62,6 +62,7 @@ export async function runSettingsRestoreTask() {
       settingsStore.auth.strategy = loadedAuth.strategy
       settingsStore.auth.refreshedAt = loadedAuth.refreshedAt
       settingsStore.auth.expiresAt = loadedAuth.expiresAt
+      settingsStore.auth.autoSyncOnLogin = loadedAuth.autoSyncOnLogin
     }
   }
 }
