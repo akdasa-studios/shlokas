@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "account": "Account",
+    "gradeButtons": "Show grade buttons",
+    "colorfulCards": "Colorful cards",
+    "contactUs": "Contact us"
+  },
+  "account": {
+    "welcomeBack": "Welcome back!",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "logOut": "Log Out",
+    "syncData": "Force Syncing",
+    "deleteAllData": "Delete all data",
+    "token": {
+      "refresh": "Refresh Token",
+      "validTill": "Token is valid till"
+    },
+    "email": "EMail",
+    "password": "Password",
+    "name": "Name",
+    "logInFailed": {
+      "title": "Login failed",
+      "message": "Unable to log in using these credentials"
+    }
+  },
+  "app": {
+    "update": "Update"
+  }
+}
