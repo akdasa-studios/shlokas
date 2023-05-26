@@ -1,20 +1,20 @@
 {
   "cards": {
     "grade": {
-      "remember": "Remember",
-      "forgot": "Forgot",
-      "hard": "Hard",
-      "good": "Good",
-      "easy": "Easy"
+      "remember": "Zapamti",
+      "forgot": "Zaboravio",
+      "hard": "Trudno",
+      "good": "Dobro",
+      "easy": "Lako"
     },
     "questions": {
-      "number": "Recall verse number",
-      "text": "Recall text",
-      "translation": "Recall translation"
+      "number": "Podseti broj stiha",
+      "text": "Podseti tekst",
+      "translation": "Podseti prevod"
     },
-    "memorized": "Card memorized",
+    "memorized": "Kartica je memorisana",
     "inbox": {
-      "memorized": "Memorized",
+      "memorized": "Memorisane",
       "memorizing": "Memorizing"
     },
     "schedule": {
