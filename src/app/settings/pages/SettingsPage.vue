@@ -110,18 +110,9 @@ function onLocaleChanged(lang: string) {
 }
 
 async function onSendEmail() {
-  alert('ololo')
-  // alert(await EmailComposer.hasPermission())
-  // alert(await EmailComposer.isAvailable())
-  // alert(await EmailComposer.hasClient())
-  // alert(await EmailComposer.hasAccount())
-  // const hasPermission = await EmailComposer.hasPermission()
-  // if (!hasPermission) { await EmailComposer.requestPermission() }
-
-  const res = await EmailComposer.open({
+  await EmailComposer.open({
     to: ['feedback@shlokas.app']
   })
-  alert(res)
   // window.open('mailto:feedback@shlokas.app', '_system')
 }
 </script>

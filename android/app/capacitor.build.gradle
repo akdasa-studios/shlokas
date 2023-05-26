@@ -21,7 +21,6 @@ dependencies {
     implementation project(':codetrix-studio-capacitor-google-auth')
     implementation project(':sentry-capacitor')
     implementation project(':capacitor-blob-writer')
-    implementation project(':capacitor-email-composer')
 
 }
 apply from: "../../node_modules/cordova-plugin-ionic/src/android/cordovapluginionic.gradle"
