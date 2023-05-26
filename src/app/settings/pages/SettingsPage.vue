@@ -82,6 +82,7 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages } from '@/app/shared'
 
@@ -108,7 +109,10 @@ function onLocaleChanged(lang: string) {
   i18n.locale.value = lang
 }
 
-function onSendEmail() {
-  window.open('mailto:feedback@shlokas.app', '_system')
+async function onSendEmail() {
+  await EmailComposer.open({
+    to: ['feedback@shlokas.app']
+  })
+  // window.open('mailto:feedback@shlokas.app', '_system')
 }
 </script>
