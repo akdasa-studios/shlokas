@@ -110,8 +110,8 @@ function onLocaleChanged(lang: string) {
 }
 
 async function onSendEmail() {
-  const hasPermission = await EmailComposer.hasPermission()
-  if (!hasPermission) { await EmailComposer.requestPermission() }
+  // const hasPermission = await EmailComposer.hasPermission()
+  // if (!hasPermission) { await EmailComposer.requestPermission() }
 
   await EmailComposer.open({
     to: ['feedback@shlokas.app']
