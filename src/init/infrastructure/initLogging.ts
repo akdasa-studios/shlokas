@@ -1,37 +1,66 @@
 import { LogRecord, Logs, LogTransport, LogLevel } from '@akdasa-studios/framework'
+import { useEnv } from '@/app/shared'
 
 
 /**
  * Initialize logging system
  */
 export async function initLogging() {
-  Logs.register(new ConsoleLogTransport())
+  const env = useEnv()
+  Logs.register(new ConsoleLogTransport(
+    env.isDevelopment() === true,
+    env.isDevelopment() === false
+  ))
 }
 
 
 class ConsoleLogTransport implements LogTransport {
+  constructor(
+    private readonly useColors = true,
+    private readonly stringifyData = true
+  ) { }
+
   log(record: LogRecord): void {
-
     if (record.type === 'log') {
-      const context = `[${record.context}]`
-      const data = record.data
-      const styles = {
-        context: 'color: #9E9E9E; font-weight: bold',
-      }
-
-      if (record.level === LogLevel.DEBUG) {
-        console.debug('%c' + context, styles.context, record.message, data)
-      } else if (record.level === LogLevel.INFO) {
-        console.info('%c' + context, record.message, data)
-      } else if (record.level === LogLevel.WARN) {
-        console.warn('%c' + context, record.message, data)
-      } else if (record.level === LogLevel.ERROR || record.level === LogLevel.FATAL) {
-        console.error('%c' + context, record.message, data)
-      }
+      this.put(record.level, record.context, record.message, record.data)
     } else if (record.type === 'start-group') {
       console.group(record.label)
     } else if (record.type === 'end-group') {
       console.groupEnd()
+    }
+  }
+
+  put(
+    level: LogLevel,
+    context: string,
+    message: string,
+    data: any
+  ) {
+    const method = {
+      [LogLevel.DEBUG]: console.debug,
+      [LogLevel.INFO]: console.info,
+      [LogLevel.WARN]: console.warn,
+      [LogLevel.ERROR]: console.error,
+      [LogLevel.FATAL]: console.error,
+    }[level]
+    const dataToLog = this.stringifyData ? JSON.stringify(data) : data
+
+
+    if (!this.useColors) {
+      if (data) {
+        method(context, message, dataToLog)
+      } else {
+        method(context, message)
+      }
+    } else {
+      const styles = {
+        context: 'color: #9E9E9E; font-weight: bold',
+      }
+      if (data) {
+        method('%c' + `[${context}]`, styles.context, message, dataToLog)
+      } else {
+        method('%c' + `[${context}]`, styles.context, message)
+      }
     }
   }
 }
