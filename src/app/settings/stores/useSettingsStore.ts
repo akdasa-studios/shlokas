@@ -30,7 +30,6 @@ interface AuthSettings {
   expiresAt?: number
 }
 
-
 export const useSettingsStore = defineStore('settings', () => {
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
@@ -64,9 +63,13 @@ export const useSettingsStore = defineStore('settings', () => {
     autoSyncOnLogin: true
   })
 
+  const sync = ref({
+    lastSyncTime: 0,
+  })
+
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { locale, appearance, library, welcome, auth }
+  return { locale, appearance, library, welcome, auth, sync }
 })

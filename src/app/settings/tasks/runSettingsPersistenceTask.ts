@@ -22,7 +22,7 @@ export function runSettingsPersistenceTask() {
   /* -------------------------------------------------------------------------- */
 
   const {
-    locale, appearance, library, welcome, auth
+    locale, appearance, library, welcome, auth, sync
   } = storeToRefs(settingsStore)
 
 
@@ -35,7 +35,8 @@ export function runSettingsPersistenceTask() {
     appearance.value,
     library.value,
     welcome.value,
-    auth.value
+    auth.value,
+    sync.value
   ], onSettingsChanged)
 
 
@@ -50,5 +51,6 @@ export function runSettingsPersistenceTask() {
     await deviceStore.set('library',    JSON.stringify(library.value))
     await deviceStore.set('welcome',    JSON.stringify(welcome.value))
     await deviceStore.set('auth',       JSON.stringify(auth.value))
+    await deviceStore.set('sync',       JSON.stringify(sync.value))
   }
 }

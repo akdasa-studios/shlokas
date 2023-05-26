@@ -41,6 +41,7 @@ export async function runSettingsRestoreTask() {
     const loadedLibrary    = JSON.parse(await deviceStore.get('library'))
     const loadedWelcome    = JSON.parse(await deviceStore.get('welcome'))
     const loadedAuth       = JSON.parse(await deviceStore.get('auth'))
+    const loadedSync       = JSON.parse(await deviceStore.get('sync'))
 
     if (loadedLocale) {
       settingsStore.locale.language = loadedLocale.language
@@ -63,6 +64,9 @@ export async function runSettingsRestoreTask() {
       settingsStore.auth.refreshedAt = loadedAuth.refreshedAt
       settingsStore.auth.expiresAt = loadedAuth.expiresAt
       settingsStore.auth.autoSyncOnLogin = loadedAuth.autoSyncOnLogin
+    }
+    if (loadedSync) {
+      settingsStore.sync.lastSyncTime = loadedSync.lastSyncTime
     }
   }
 }
