@@ -70,5 +70,9 @@
     <string>30</string>
     <key>IonApi</key>
     <string>https://api.ionicjs.com</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>mailto</string>
+    </array>
   </dict>
 </plist>

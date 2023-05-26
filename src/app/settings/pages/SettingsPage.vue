@@ -82,7 +82,7 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
-import { EmailComposer } from 'capacitor-email-composer'
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages } from '@/app/shared'
 
@@ -110,6 +110,9 @@ function onLocaleChanged(lang: string) {
 }
 
 async function onSendEmail() {
+  const hasPermission = await EmailComposer.hasPermission()
+  if (!hasPermission) { await EmailComposer.requestPermission() }
+
   await EmailComposer.open({
     to: ['feedback@shlokas.app']
   })
