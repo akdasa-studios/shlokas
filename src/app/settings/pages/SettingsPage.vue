@@ -110,6 +110,7 @@ function onLocaleChanged(lang: string) {
 }
 
 async function onSendEmail() {
+  alert('ololo')
   alert(await EmailComposer.hasPermission())
   alert(await EmailComposer.isAvailable())
   alert(await EmailComposer.hasClient())
