@@ -82,6 +82,7 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
 import { inject } from 'vue'
+import { EmailComposer } from 'capacitor-email-composer'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages } from '@/app/shared'
 
@@ -109,6 +110,8 @@ function onLocaleChanged(lang: string) {
 }
 
 function onSendEmail() {
-  window.open('mailto:feedback@shlokas.app', '_system')
+  EmailComposer.open({
+  })
+  // window.open('mailto:feedback@shlokas.app', '_system')
 }
 </script>

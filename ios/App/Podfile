@@ -23,6 +23,7 @@ def capacitor_pods
   pod 'CodetrixStudioCapacitorGoogleAuth', :path => '../../node_modules/@codetrix-studio/capacitor-google-auth'
   pod 'SentryCapacitor', :path => '../../node_modules/@sentry/capacitor'
   pod 'CapacitorBlobWriter', :path => '../../node_modules/capacitor-blob-writer'
+  pod 'CapacitorEmailComposer', :path => '../../node_modules/capacitor-email-composer'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
 end
 

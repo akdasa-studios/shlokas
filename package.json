@@ -46,6 +46,7 @@
     "@trapezedev/configure": "^7.0.10",
     "@vueuse/core": "^9.13.0",
     "capacitor-blob-writer": "^1.1.9",
+    "capacitor-email-composer": "^1.2.1",
     "cordova-plugin-ionic": "5.5.3",
     "cordova-plugin-sign-in-with-apple": "^0.1.2",
     "cordova-sqlite-storage": "^6.1.0",

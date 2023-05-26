@@ -37,3 +37,6 @@ project(':sentry-capacitor').projectDir = new File('../node_modules/@sentry/capa
 
 include ':capacitor-blob-writer'
 project(':capacitor-blob-writer').projectDir = new File('../node_modules/capacitor-blob-writer/android')
+
+include ':capacitor-email-composer'
+project(':capacitor-email-composer').projectDir = new File('../node_modules/capacitor-email-composer/android')
