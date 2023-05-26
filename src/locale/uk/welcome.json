@@ -1,2 +1,12 @@
 {
+  "welcome": {
+    "greetings": "Welcome to Shlokas! Using the spaced repetition system, you can easily and quickly learn verses from the Bhagavad Gita and other scriptures.",
+    "loadingData": "Loading data...",
+    "login": {
+      "asGuest": "Enter as a guest",
+      "withAppleId": "Sign in with Apple",
+      "withEmail": "Sign in with Email",
+      "withGoogle": "Sign in with Google"
+    }
+  }
 }
