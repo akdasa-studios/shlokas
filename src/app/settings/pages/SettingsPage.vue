@@ -110,6 +110,10 @@ function onLocaleChanged(lang: string) {
 }
 
 async function onSendEmail() {
+  alert(await EmailComposer.hasPermission())
+  alert(await EmailComposer.isAvailable())
+  alert(await EmailComposer.hasClient())
+  alert(await EmailComposer.hasAccount())
   // const hasPermission = await EmailComposer.hasPermission()
   // if (!hasPermission) { await EmailComposer.requestPermission() }
 
