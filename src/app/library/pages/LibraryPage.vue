@@ -70,8 +70,7 @@ const tutorial = useTutorialStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { locale } = storeToRefs(settings)
-
+const { locale, sync } = storeToRefs(settings)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -79,13 +78,13 @@ const { locale } = storeToRefs(settings)
 
 onIonViewWillEnter(onOpened)
 
-
 /* -------------------------------------------------------------------------- */
 /*                                    Watch                                   */
 /* -------------------------------------------------------------------------- */
 
 watch(searchQuery, async (v) => await onSearchQueryChanged(v))
 watch(application.currentContextName, async () => await onSearchQueryChanged(''))
+watch(sync.value, onOpened) // synced, update verse statuses
 
 
 /* -------------------------------------------------------------------------- */

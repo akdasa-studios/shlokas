@@ -7,7 +7,6 @@ import { useAuthentication } from './useAuthentication'
 import { useApplication } from './useApp'
 import { useLogger } from './useLogger'
 import { useEmitter } from './useEmitter'
-import { useDeviceStore } from './useDeviceStorage'
 
 /* -------------------------------------------------------------------------- */
 /*                                Shared State                                */
@@ -27,7 +26,6 @@ export function useSync() {
   const env         = useEnv()
   const log         = useLogger('sync')
   const emitter     = useEmitter()
-  const deviceStore = useDeviceStore()
 
 
   /* -------------------------------------------------------------------------- */
@@ -45,6 +43,7 @@ export function useSync() {
     inProgress.value = true
     try {
       // Refresh token if required
+      log.startGroup('Syncing...')
       const now = new Date().getTime()
       const tokenExpiresAt = settings.auth.expiresAt || 0
       if (tokenExpiresAt < now) {
@@ -56,21 +55,21 @@ export function useSync() {
       const databaseUrl = env.getDatabaseUrl(settings.auth.collectionId)
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
       const context = new Context('sync', new TimeMachine(), remoteRepos)
-      const lastSyncTime = forceLastSyncTime !== undefined ? forceLastSyncTime : (await deviceStore.get('lastSyncTime')) || 0
       const currentTime  = new Date().getTime() // TODO: convert to UTC?
 
-      log.debug(`Syncing to ${databaseUrl} since ${lastSyncTime} (${forceLastSyncTime})...`)
+      log.debug(`Syncing to ${databaseUrl} since ${settings.sync.lastSyncTime} (${forceLastSyncTime})...`)
       await app.instance().sync(context, {
-        lastSyncTime: lastSyncTime,
+        lastSyncTime: settings.sync.lastSyncTime,
         currentTime: currentTime
       })
-      await deviceStore.set('lastSyncTime', currentTime)
+      settings.sync.lastSyncTime = currentTime
       emitter.emit('syncCompleted')
     } catch (e) {
       log.error('Syncing failed...', e)
     } finally {
       inProgress.value = false
       log.debug('Syncing complete...')
+      log.endGroup()
     }
     return true
   }

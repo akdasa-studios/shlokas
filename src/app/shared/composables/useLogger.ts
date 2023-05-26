@@ -12,5 +12,13 @@ export function useLogger(topic: string) {
     logger.error(message, ...args)
   }
 
-  return { debug, error }
+  function startGroup(message: string) {
+    logger.startGroup(message)
+  }
+
+  function endGroup() {
+    logger.endGroup()
+  }
+
+  return { debug, error, startGroup, endGroup }
 }
