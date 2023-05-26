@@ -109,8 +109,9 @@ function onLocaleChanged(lang: string) {
   i18n.locale.value = lang
 }
 
-function onSendEmail() {
-  EmailComposer.open({
+async function onSendEmail() {
+  await EmailComposer.open({
+    to: ['feedback@shlokas.app']
   })
   // window.open('mailto:feedback@shlokas.app', '_system')
 }
