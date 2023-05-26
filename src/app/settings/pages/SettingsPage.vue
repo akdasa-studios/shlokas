@@ -118,9 +118,10 @@ async function onSendEmail() {
   // const hasPermission = await EmailComposer.hasPermission()
   // if (!hasPermission) { await EmailComposer.requestPermission() }
 
-  await EmailComposer.open({
+  const res = await EmailComposer.open({
     to: ['feedback@shlokas.app']
   })
+  alert(res)
   // window.open('mailto:feedback@shlokas.app', '_system')
 }
 </script>
