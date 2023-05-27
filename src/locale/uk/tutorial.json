@@ -1,31 +1,31 @@
 {
 	"tutorial": {
-		"introduction": "Ласкаво просимо до Шлокасу! Пандитджі, чи не хотіли б ви продовжувати навчання?",
-		"congratulations": "Вітаємо, Пандитджі, ви закінчили навчання!",
+		"introduction": "Ласкаво просимо до Шлокасу! Пандит-джі, чи хочете ви продовжити навчання?",
+		"congratulations": "Вітаємо, Пандит-джі, ви закінчили навчання!",
 		"daysInFuture": "+{count} днів в майбутньому",
 		"library": {
-			"introduction": "Це бібліотека. Тут ви можете знайти шлоки для вивчення.",
-			"search": "You can search for shlokas in a list or by number and content. Try searching for a particular shloka",
-			"openVerse": "Great! Open BG 1.1",
-			"addVerse": "To start learning a shloka, add it to your 'Inbox' deck by clicking 'Add'",
-			"end": "Shloka has been added. Let's learn it. Go to 'Inbox'"
+			"introduction": "Це бібліотека. Тут ви можете знайти шлоки (це такі вірші на санскриті) для вивчення.",
+			"search": "Ви можете шукати шлоки по списку, або за номером і вмістом. Спробуйте пошукати окрему шлоку",
+			"openVerse": "Чудово! Відкрийте шлоку BG 1.1",
+			"addVerse": "Щоб почати вивчення шлоки, додайте її до вашої колоди \"Вхідні\" натиснувши кнопку \"Додати\"",
+			"end": "Шлока додана. Давайте вивчимо її. Перейдіть до колоди 'Вхідні'"
 		},
 		"inboxDeck": {
-			"introduction": "This is the Inbox deck. Each verse is broken down into two cards: a text and a translation",
-			"swipeCardLeft": "Swipe a card to the left to move to the next card",
-			"flipCard": "On the back of the card is a player and a word-for-word translation. Click to flip it over",
-			"playDeclamation": "Press the circle to start playback. Each line is repeated several times. The word-for-word translation is displayed below",
-			"flipCardAgain": "You can turn the card over and look at the text. Turn the card over",
-			"swipeCardUp": "Once you have learned a card, which can take several days, swipe it up. Swipe all the cards up",
-			"end": "You have memorized all the cards! Go to the 'Review' deck"
+			"introduction": "Це колода Вхідних шлок. Кожний вірш розбитий на дві картки: текст і переклад",
+			"swipeCardLeft": "Проведіть по картці вліво, щоб перейти до наступної карти",
+			"flipCard": "На зворотній стороні карти є програвач і переклад слів. Натисніть на картку, щоб її перевернути",
+			"playDeclamation": "Натисніть на круг, щоб почати відтворення. Кожен рядок повторюється кілька разів. Послівний переклад показується нижче",
+			"flipCardAgain": "Ви можете перевернути картку і переглянути текст на картці. Переверніть картку",
+			"swipeCardUp": "Як тільки ви вивчили карту, що може зайняти кілька днів, проведіть по картці вгору. Проведіть по всім карткам вгору",
+			"end": "Ви запамʼятали всі картки! Перейдіть до колоди \"Перевірити\""
 		},
 		"reviewDeck": {
-			"introduction": "This is the Review deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
-			"questionAndAnswer": "On the front of the card is the question and on the back is the answer. Remember the answer and turn the card over to test your knowledge",
-			"gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the button",
-			"goToFuture": "Great! Now let's move forward a week! Several cards with different questions are created for each verse. Let's see how it looks!",
-			"gradeAllCards": "Try to answer all the cards and give yourself a grade",
-			"end": "Great! You've reviewd all the cards!"
+			"introduction": "Це Колода для Перевірки вивчених карт. Саме сюди потрапляють картки, що вже вивчені. На сьогодні у Вас немає жодної запланованої картки для перевірки, але ви маєте певні на завтра. Давайте перейдемо до запланованих на завтра",
+			"questionAndAnswer": "На передній частині картки є питання, а на задній - відповідь. Дайте відповідь на питання і переверніть картку, для того щоб перевірити свої знання",
+			"gradeCard": "Дайте собі оцінку. Залежно від вашої оцінки, наступний період повторення зміниться і відображатиметься на кнопці",
+			"goToFuture": "Чудово! Тепер давайте перейдемо на тиждень вперед! Декілька карт з різними запитаннями створюються для кожної шлоки. Давайте подивимося, як це виглядає!",
+			"gradeAllCards": "Спробуйте відповісти на всі запитання і дайте собі оцінку по кожній картці",
+			"end": "Чудово! Ви перевірили як запамʼятали всі картки!"
 		}
 	}
 }
