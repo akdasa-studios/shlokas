@@ -76,8 +76,9 @@
 
 <script setup lang="ts">
 import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter } from '@ionic/vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAuthentication, useEmitter } from '@/app/shared'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -111,6 +112,12 @@ const state = ref<LoginState>(LoginState.Email)
 const email = ref('')
 const code = ref('')
 
+/* -------------------------------------------------------------------------- */
+/*                                    Watch                                   */
+/* -------------------------------------------------------------------------- */
+
+watch(email, onEmalChanged)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -135,6 +142,12 @@ async function onSignIn() {
   navigateNext(props.nextUrl, props.navigationType)
 }
 
+function onEmalChanged(value: string) {
+  if (value === 'test@shlokas.app') {
+    code.value = '123456'
+    state.value = LoginState.Code
+  }
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */
