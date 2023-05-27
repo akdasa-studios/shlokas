@@ -2,9 +2,9 @@
 	"tutorial": {
 		"introduction": "Ласкаво просимо до Шлокасу! Пандитджі, чи не хотіли б ви продовжувати навчання?",
 		"congratulations": "Вітаємо, Пандитджі, ви закінчили навчання!",
-		"daysInFuture": "+{count} day in future",
+		"daysInFuture": "+{count} днів в майбутньому",
 		"library": {
-			"introduction": "This is a library. Here you can find shlokas you want to learn",
+			"introduction": "Це бібліотека. Тут ви можете знайти шлоки для вивчення.",
 			"search": "You can search for shlokas in a list or by number and content. Try searching for a particular shloka",
 			"openVerse": "Great! Open BG 1.1",
 			"addVerse": "To start learning a shloka, add it to your 'Inbox' deck by clicking 'Add'",
