@@ -1,7 +1,7 @@
 {
 	"tutorial": {
-		"introduction": "Welcome to Shlokas! Panditji, would you like to go throght training?",
-		"congratulations": "Congratulations! Panditji, you have graduated!",
+		"introduction": "Ласкаво просимо до Шлокасу! Пандитджі, чи не хотіли б ви продовжувати навчання?",
+		"congratulations": "Вітаємо, Пандитджі, ви закінчили навчання!",
 		"daysInFuture": "+{count} day in future",
 		"library": {
 			"introduction": "This is a library. Here you can find shlokas you want to learn",
