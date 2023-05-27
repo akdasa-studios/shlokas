@@ -1,9 +1,9 @@
 {
   "app": {
-    "name": "Шлоки"
+    "name": "Шлокас"
   },
   "themes": {
-    "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
+    "prabhupada": "А. Ч. Бгактіведанта Свамі Прабгупада"
   },
   "sync": {
     "syncing": "Синхронізація..."
