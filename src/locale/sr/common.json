@@ -1,0 +1,13 @@
+{
+  "common": {
+    "add": "Dodaj",
+    "cancel": "Otkaži",
+    "close": "Zatvori",
+    "revert": "Vrati",
+    "wait": "Molimo sačekajte...",
+    "ok": "OK",
+    "yes": "Da",
+    "no": "Ne",
+    "forward": "Idi napred!"
+  }
+}

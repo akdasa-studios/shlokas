@@ -33,7 +33,7 @@
     "review": {
       "empty": "На сегодня у вас нет карточек.",
       "title": "Обзор",
-      "dueToTomorrow": "Карточек на завтра: {count}"
+      "dueToTomorrow": "Карточек на завтра: {count}."
     }
   }
 }

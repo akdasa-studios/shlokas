@@ -1,0 +1,39 @@
+{
+  "cards": {
+    "grade": {
+      "remember": "Zapamti",
+      "forgot": "Zaboravio",
+      "hard": "Trudno",
+      "good": "Dobro",
+      "easy": "Lako"
+    },
+    "questions": {
+      "number": "Podseti broj stiha",
+      "text": "Podseti tekst",
+      "translation": "Podseti prevod"
+    },
+    "memorized": "Kartica je memorisana",
+    "inbox": {
+      "memorized": "Memorisane",
+      "memorizing": "Memorizing"
+    },
+    "schedule": {
+      "inDays": "today | + {count} day | + {count} days",
+      "inMonths": "+ {count} month | + {count} months",
+      "inYears": "+ {count} year | + {count} years"
+    }
+  },
+  "decks": {
+    "inbox": {
+      "empty": "Your inbox is empty.",
+      "goToLibrary": "Go to the Library and add a verse.",
+      "title": "Inbox",
+      "verseAdded": "Verse {verseNumber} added to inbox"
+    },
+    "review": {
+      "empty": "Your have nothing to review today.",
+      "title": "Review",
+      "dueToTomorrow": "You have {count} card scheduled for tomorrow.|You have {count} cards scheduled for tomorrow."
+    }
+  }
+}
