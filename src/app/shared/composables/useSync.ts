@@ -9,6 +9,15 @@ import { useLogger } from './useLogger'
 import { useEmitter } from './useEmitter'
 
 /* -------------------------------------------------------------------------- */
+/*                                  Interface                                 */
+/* -------------------------------------------------------------------------- */
+
+export interface SyncOptions {
+  force: boolean
+}
+
+
+/* -------------------------------------------------------------------------- */
 /*                                Shared State                                */
 /* -------------------------------------------------------------------------- */
 
@@ -32,9 +41,7 @@ export function useSync() {
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onExecute(
-    forceLastSyncTime: number|undefined = undefined
-  ): Promise<boolean> {
+  async function onExecute(options: SyncOptions): Promise<boolean> {
     // Check if user is authenticated
     if (!settings.auth.token)        { return false }
     if (!settings.auth.sessionId)    { return false }
@@ -56,10 +63,11 @@ export function useSync() {
       const remoteRepos = createRepositories(databaseUrl, settings.auth.token)
       const context = new Context('sync', new TimeMachine(), remoteRepos)
       const currentTime  = new Date().getTime() // TODO: convert to UTC?
+      const lastSyncTime = options.force ? 0 : settings.sync.lastSyncTime
 
-      log.debug(`Syncing to ${databaseUrl} since ${settings.sync.lastSyncTime} (${forceLastSyncTime})...`)
+      log.debug(`Syncing to ${databaseUrl} since ${lastSyncTime}`)
       await app.instance().sync(context, {
-        lastSyncTime: settings.sync.lastSyncTime,
+        lastSyncTime: lastSyncTime,
         currentTime: currentTime
       })
       settings.sync.lastSyncTime = currentTime
