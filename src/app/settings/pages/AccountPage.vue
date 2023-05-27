@@ -146,7 +146,7 @@ async function onLogOut() {
   settings.auth.strategy = ''
   settings.auth.expiresAt = undefined
   settings.auth.refreshedAt = undefined
-  await deviceStore.set('lastSyncTime', 0)
+  settings.sync.lastSyncTime = 0
   await userDataDb.destroy()
   emitter.emit('syncCompleted')
 }
