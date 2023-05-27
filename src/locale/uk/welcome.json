@@ -1,12 +1,12 @@
 {
   "welcome": {
-    "greetings": "Welcome to Shlokas! Using the spaced repetition system, you can easily and quickly learn verses from the Bhagavad Gita and other scriptures.",
-    "loadingData": "Loading data...",
+    "greetings": "Ласкаво просимо до додатка Шлокас! Використовуючи систему інтервального повторення, ви можете легко і швидко вивчати та запамʼятовувати вірші з Бхагават Гіти та інших книг святого письма.",
+    "loadingData": "Завантаження даних...",
     "login": {
-      "asGuest": "Enter as a guest",
-      "withAppleId": "Sign in with Apple",
-      "withEmail": "Sign in with Email",
-      "withGoogle": "Sign in with Google"
+      "asGuest": "Увійти як Гість",
+      "withAppleId": "Ввійти за допомогою Apple ID",
+      "withEmail": "Увійти за допомогою електронної пошти",
+      "withGoogle": "Увійти за допомогою Google"
     }
   }
 }
