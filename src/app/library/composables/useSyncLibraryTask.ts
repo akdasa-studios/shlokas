@@ -24,8 +24,9 @@ export function useSyncLibraryTask(
       logger.debug('Library synced')
     } catch (err) {
       logger.error('Failed to sync static data', err)
+    } finally {
+      inProgress.value = false
     }
-    inProgress.value = false
   }
 
   return { sync, inProgress }

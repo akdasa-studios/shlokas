@@ -26,5 +26,8 @@ const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryData
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const visible = computed(_ => syncTask.inProgress.value || syncLibraryTask.inProgress || loadLibrary.inProgress)
+const visible = computed(_ =>
+  syncTask.inProgress.value
+  || syncLibraryTask.inProgress.value
+  || loadLibrary.inProgress.value)
 </script>
