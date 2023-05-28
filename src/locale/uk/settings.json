@@ -6,7 +6,8 @@
     "gradeButtons": "Показувати кнопки оцінок",
     "colorfulCards": "Кольорові картки",
     "contactUs": "Зв'язатися з нами",
-    "update": "Update"
+    "update": "Update",
+    "clearCache": "Clear cache"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
