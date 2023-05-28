@@ -5,7 +5,6 @@
       :src="imageUri"
       :is-dark="isDark"
       mode="invert"
-      class="image"
     />
 
     <SVGTextLines
@@ -70,11 +69,5 @@ async function onOpened() {
   font-family: Georgia;
   fill: var(--ion-color-light-contrast);
   font-size: 20px;
-}
-
-.image {
-  padding: 1px;
-  padding-left: 1em;
-  padding-right: 1em;
 }
 </style>
