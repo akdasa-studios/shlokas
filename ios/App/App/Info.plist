@@ -73,6 +73,8 @@
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>mailto</string>
+      <string>googlegmail</string>
+      <string>ms-outlook</string>
     </array>
   </dict>
 </plist>

@@ -5,6 +5,11 @@
         <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
+
+        <ion-buttons slot="primary">
+          <BackgroundTasks />
+        </ion-buttons>
+
         <ion-title>{{ $t('settings.account') }}</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -86,7 +91,7 @@ import {
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
 import { computed, inject } from 'vue'
 import { Capacitor } from '@capacitor/core'
-import { go, useAuthentication, useEmitter, useSync } from '@/app/shared'
+import { go, useAuthentication, useEmitter, useSync , BackgroundTasks } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 import { CouchDB } from '@/services/persistence'
 

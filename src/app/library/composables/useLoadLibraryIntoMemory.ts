@@ -1,13 +1,12 @@
 import { Application, Language, Synonym, Text, Translation, Verse, VerseId, VerseNumber } from '@akdasa-studios/shlokas-core'
 import { ref } from 'vue'
 
+const inProgress = ref(false)
 
 export function useLoadLibraryIntoMemory(
   app: Application,
   libraryDatabase: any
 ) {
-  const inProgress = ref(false)
-
   async function sync() {
     inProgress.value = true
     const docs: any = await libraryDatabase.db.find({ selector: { '@type': 'verse' }})

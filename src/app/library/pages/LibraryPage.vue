@@ -3,6 +3,9 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>{{ $t('library.title') }}</ion-title>
+        <ion-buttons slot="primary">
+          <BackgroundTasks />
+        </ion-buttons>
       </ion-toolbar>
 
       <ion-toolbar>
@@ -27,12 +30,6 @@
         :verse-statuses="verseStatuses"
       />
     </ion-content>
-
-    <ion-loading
-      :is-open="syncLibraryTask.inProgress.value"
-      message="Loading verses..."
-      duration="3500"
-    />
   </ion-page>
 </template>
 
@@ -40,8 +37,8 @@
 <script lang="ts" setup>
 import { Language, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
 import {
-  IonContent, IonHeader, IonPage, IonLoading, IonRefresher, IonRefresherContent,
-  IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter
+  IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent,
+  IonSearchbar, IonTitle, IonToolbar, onIonViewWillEnter, IonButtons
 } from '@ionic/vue'
 import { inject, ref, shallowRef, watch } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -49,7 +46,7 @@ import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication } from '@/app/shared'
+import { useApplication, BackgroundTasks } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */

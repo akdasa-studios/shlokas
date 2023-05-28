@@ -6,6 +6,10 @@
     >
       <ion-toolbar>
         <ion-title>{{ $t('settings.title') }}</ion-title>
+
+        <ion-buttons slot="primary">
+          <BackgroundTasks />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -89,12 +93,13 @@
 <script lang="ts" setup>
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
-  IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
+  IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
+  IonButtons
 } from '@ionic/vue'
 import { inject, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages, useClearCache } from '@/app/shared'
+import { BackgroundTasks, getAvailableLanguages, useClearCache } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */

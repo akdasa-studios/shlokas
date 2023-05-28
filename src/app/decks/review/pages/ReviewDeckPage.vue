@@ -6,6 +6,9 @@
         <ion-title>
           {{ $t('decks.review.title') }}
         </ion-title>
+        <ion-buttons slot="primary">
+          <BackgroundTasks />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -62,7 +65,7 @@
 
 <script lang="ts" setup>
 import { ReviewCard, ReviewCardReviewed, ReviewGrade, Scheduler, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, IonButtons } from '@ionic/vue'
 import { computed, reactive, ref, watch } from 'vue'
 import { useArrayFind } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
@@ -70,7 +73,7 @@ import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/de
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication } from '@/app/shared'
+import { useApplication , BackgroundTasks } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
