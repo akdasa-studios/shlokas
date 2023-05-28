@@ -6,7 +6,8 @@
     "gradeButtons": "Show grade buttons",
     "colorfulCards": "Colorful cards",
     "contactUs": "Contact us",
-    "update": "Update"
+    "update": "Update",
+    "clearCache": "Clear cache"
   },
   "account": {
     "welcomeBack": "Welcome back!",

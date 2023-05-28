@@ -1,6 +1,6 @@
 import { Directory, Filesystem } from '@capacitor/filesystem'
 
-export function useCleanCache() {
+export function useClearCache() {
   async function cleanCache(): Promise<void> {
     await Filesystem.rmdir({
       path: 'content', directory: Directory.Data, recursive: true
