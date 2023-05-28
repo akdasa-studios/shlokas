@@ -66,7 +66,7 @@ export function useDownloader() {
 
     // Get the URI of the file
     const uri = await Filesystem.getUri({
-      path: filePath,
+      path: `content/${filePath}`,
       directory: Directory.Data
     })
     isDownloading.value = false
