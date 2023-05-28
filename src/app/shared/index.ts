@@ -10,6 +10,7 @@ export * from './composables/useAuthentication'
 export * from './composables/useSync'
 export * from './composables/useEmitter'
 export * from './composables/useTestId'
+export * from './composables/useCleanCache'
 
 // tasks:
 export * from './tasks/runSyncTask'

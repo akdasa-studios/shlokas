@@ -70,6 +70,12 @@
         >
           <ion-label>{{ $t('app.name') }}</ion-label>
         </ion-item>
+
+        <ion-item
+          @click="onCleanCache"
+        >
+          <ion-label>Clean cache</ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -84,7 +90,7 @@ import {
 import { inject } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages } from '@/app/shared'
+import { getAvailableLanguages, useCleanCache } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -92,6 +98,7 @@ import { getAvailableLanguages } from '@/app/shared'
 
 const i18n = inject('i18n') as any
 const settings = useSettingsStore()
+const cleanCache = useCleanCache()
 
 
 /* -------------------------------------------------------------------------- */
@@ -113,6 +120,9 @@ async function onSendEmail() {
   await EmailComposer.open({
     to: ['feedback@shlokas.app']
   })
-  // window.open('mailto:feedback@shlokas.app', '_system')
+}
+
+function onCleanCache() {
+  cleanCache.cleanCache()
 }
 </script>
