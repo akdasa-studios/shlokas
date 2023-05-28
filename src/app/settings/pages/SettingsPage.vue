@@ -1,7 +1,9 @@
 <template>
   <ion-page ref="page">
     <!-- Header -->
-    <ion-header>
+    <ion-header
+      @click="onHeaderClicked"
+    >
       <ion-toolbar>
         <ion-title>{{ $t('settings.title') }}</ion-title>
       </ion-toolbar>
@@ -64,6 +66,7 @@
         </ion-item>
 
         <ion-item
+          v-if="isDevModeEnabled"
           :detail="true"
           router-link="/home/settings/app"
           router-direction="forward"
@@ -72,6 +75,7 @@
         </ion-item>
 
         <ion-item
+          v-if="isDevModeEnabled"
           @click="onClearCache"
         >
           <ion-label>{{ $t('settings.clearCache') }}</ion-label>
@@ -87,7 +91,7 @@ import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/vue'
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages, useClearCache } from '@/app/shared'
@@ -106,6 +110,7 @@ const clearCache = useClearCache()
 /* -------------------------------------------------------------------------- */
 
 const languages = getAvailableLanguages()
+const isDevModeEnabled = ref(false)
 
 
 /* -------------------------------------------------------------------------- */
@@ -122,7 +127,12 @@ async function onSendEmail() {
   })
 }
 
+function onHeaderClicked() {
+  isDevModeEnabled.value = true
+}
+
 function onClearCache() {
   clearCache.cleanCache()
+  alert('Done')
 }
 </script>
