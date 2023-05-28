@@ -73,8 +73,6 @@ async function onOpened() {
 }
 
 .image {
-  padding: 1px;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 3px;
 }
 </style>

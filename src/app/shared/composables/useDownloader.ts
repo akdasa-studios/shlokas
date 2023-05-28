@@ -31,14 +31,13 @@ export function useDownloader() {
     // because we can just use the URL directly.
     if (Capacitor.getPlatform() === 'web') { return url }
 
-
     // Check if the file already downloaded
     const pathName = new URL(url).pathname.split('/')
     const fileName = pathName.pop()
     const filePath = pathName.join('/') + '/' + fileName
     try {
       const stat = await Filesystem.stat({
-        path: filePath, directory: Directory.Data
+        path: `content/${filePath}`, directory: Directory.Data
       })
       logger.debug(`Already downloaded ${filePath}`)
       return Capacitor.convertFileSrc(stat.uri)
@@ -58,7 +57,7 @@ export function useDownloader() {
     // Write file to the filesystem
     logger.debug(`Writing ${filePath}`)
     await write_blob({
-      path: filePath,
+      path: `content/${filePath}`,
       directory: Directory.Data,
       blob: await res.blob(),
       recursive: true,
@@ -67,7 +66,7 @@ export function useDownloader() {
 
     // Get the URI of the file
     const uri = await Filesystem.getUri({
-      path: filePath,
+      path: `content/${filePath}`,
       directory: Directory.Data
     })
     isDownloading.value = false

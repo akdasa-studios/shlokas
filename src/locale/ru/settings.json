@@ -6,7 +6,8 @@
     "gradeButtons": "Кнопки оценки",
     "colorfulCards": "Цветные карточки",
     "contactUs": "Напишите нам",
-    "update": "Обновить"
+    "update": "Обновить",
+    "clearCache": "Очистить кэш"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

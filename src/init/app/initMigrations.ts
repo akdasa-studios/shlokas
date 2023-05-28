@@ -6,6 +6,7 @@ const logger = new Logger('migrations')
 
 const migrations = {
   1: import('../migrations/001-save-bundled-verses'),
+  2: import('../migrations/002-create-content-folder'),
 }
 
 export async function initMigrations(args: InitArgs) {
