@@ -8,13 +8,13 @@
       @click="onTrackSelected(idx)"
     >
       <span v-if="!isDefaultTheme(declamation.theme)">
-        {{ $t(themeTranslationKey(declamation.theme)) }}
+        {{ $t(themeDeclamationKey(declamation.theme)) }}
       </span>
       <span
         v-else
         class="type"
       >
-        {{ declamation.type }}
+        {{ $t(typeDeclamationKey(declamation.type)) }}
       </span>
     </div>
   </div>
@@ -55,8 +55,12 @@ function isDefaultTheme(theme: string) {
   return theme === 'default'
 }
 
-function themeTranslationKey(theme: string) {
+function themeDeclamationKey(theme: string) {
   return `themes.${theme}`
+}
+
+function typeDeclamationKey(theme: string) {
+  return `types.${theme}`
 }
 </script>
 

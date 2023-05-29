@@ -5,6 +5,10 @@
   "themes": {
     "prabhupada": "A. C. Bhaktivedanta Swami Prabhupada"
   },
+  "types": {
+    "verse": "Verse",
+    "translation": "Translation"
+  },
   "sync": {
     "syncing": "Syncing..."
   }
