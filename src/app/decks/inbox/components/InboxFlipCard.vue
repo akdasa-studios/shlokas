@@ -28,6 +28,7 @@
         v-if="index === 0 && props.declamations.length > 0"
         :declamations="props.declamations"
         :synonyms="props.verse.synonyms"
+        :type="card.type === InboxCardType.Text ? 'verse' : 'translation'"
       />
       <InboxCardSynonymsSide
         v-if="props.declamations.length === 0"

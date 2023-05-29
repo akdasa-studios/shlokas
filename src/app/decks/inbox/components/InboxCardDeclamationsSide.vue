@@ -10,6 +10,7 @@
 
   <div class="synonyms">
     <VerseSynonyms
+      v-if="props.type === 'verse'"
       :synonyms="props.synonyms"
       :line-number="currentLine"
     />
@@ -32,6 +33,7 @@ import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 const props = defineProps<{
   declamations: Declamation[]
   synonyms: Synonym[]
+  type: string
 }>()
 
 defineExpose({
@@ -129,7 +131,7 @@ function onAudioProgressChanged(value: boolean) {
 /* -------------------------------------------------------------------------- */
 
 function getDefautltDeclamation(): Declamation|undefined {
-  return props.declamations.find(x => x.theme === 'default' && x.type === 'verse')
+  return props.declamations.find(x => x.theme === 'default' && x.type === props.type)
 }
 
 function play() {
@@ -147,12 +149,20 @@ function stop() { audio.stop() }
 
 <style scoped>
 .progress {
-  display: flex;
-  height: 85%;
-  align-items: center;
+  /* display: flex; */
+  /* height: 85%; */
+  /* align-items: center; */
+  position: absolute;
+  /* left: 50%; */
+  /* top: 50%; */
 }
 
 .synonyms {
-  height: 15%;
+  /* align-items: end; */
+  /* display: flex; */
+  position: absolute;
+  /* bottom: 0%; */
+  /* width: 100%; */
+  /* padding: 10px; */
 }
 </style>
