@@ -1,6 +1,6 @@
 <template>
+  <!-- v-if="lineNumber !== undefined" -->
   <div
-    v-if="lineNumber !== undefined"
     class="synonyms"
   >
     <span
@@ -12,7 +12,7 @@
     </span>
   </div>
 
-  <div
+  <!-- <div
     v-else
     class="synonyms"
   >
@@ -29,7 +29,7 @@
         {{ synonym.translation }};
       </span>
     </div>
-  </div>
+  </div> -->
 </template>
 
 
