@@ -5,6 +5,10 @@
   "themes": {
     "prabhupada": "А. Ч. Бгактіведанта Свамі Прабгупада"
   },
+  "types": {
+    "verse": "Verse",
+    "translation": "Translation"
+  },
   "sync": {
     "syncing": "Синхронізація..."
   }
