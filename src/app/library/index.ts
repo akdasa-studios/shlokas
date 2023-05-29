@@ -10,6 +10,7 @@ export { default as VersesList } from './components/VersesList.vue'
 export { default as VersesListItem } from './components/VersesListItem.vue'
 export * from './composables/useSyncLibraryTask'
 export * from './composables/useLoadLibraryIntoMemory'
+export * from './composables/useSyncLibraryTask'
 
 // routes
 export * from './routes/library'

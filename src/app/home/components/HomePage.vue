@@ -61,11 +61,6 @@
     <TutorialPlayer
       v-if="tutorialEnabled && !isTutorialCompleted"
     />
-
-    <ion-loading
-      :is-open="syncTask.inProgress.value"
-      :message="$t('sync.syncing')"
-    />
   </ion-page>
 </template>
 
@@ -74,7 +69,6 @@
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel,
   IonIcon, IonPage, IonRouterOutlet, IonBadge,
-  IonLoading
 } from '@ionic/vue'
 import {
   enterOutline, libraryOutline, albumsOutline,
@@ -83,7 +77,6 @@ import {
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
-import { useSync } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -91,7 +84,6 @@ import { useSync } from '@/app/shared'
 
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
-const syncTask = useSync()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */

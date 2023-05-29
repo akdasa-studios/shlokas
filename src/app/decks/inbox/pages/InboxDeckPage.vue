@@ -6,6 +6,10 @@
         <ion-title>
           {{ $t('decks.inbox.title') }}
         </ion-title>
+
+        <ion-buttons slot="primary">
+          <BackgroundTasks />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -51,9 +55,9 @@
 
 <script lang="ts" setup>
 import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave } from '@ionic/vue'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave, IonButtons } from '@ionic/vue'
 import { computed, ref, reactive, watch } from 'vue'
-import { testId , useApplication } from '@/app/shared'
+import { testId , useApplication , BackgroundTasks } from '@/app/shared'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
