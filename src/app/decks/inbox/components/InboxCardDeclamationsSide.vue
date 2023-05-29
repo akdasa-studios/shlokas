@@ -1,5 +1,8 @@
 <template>
-  <div class="progress">
+  <div
+    v-if="declamation"
+    class="progress"
+  >
     <CircleProgress
       :progress="porgress"
       :current="repeatCurrent+1"
@@ -8,11 +11,13 @@
     />
   </div>
 
-  <div class="synonyms">
+  <div
+    v-if="props.type === 'verse' || !declamation"
+    :class="{putAtEnd: declamation}"
+  >
     <VerseSynonyms
-      v-if="props.type === 'verse'"
       :synonyms="props.synonyms"
-      :line-number="currentLine"
+      :line-number="declamation ? currentLine : undefined"
     />
   </div>
 </template>
@@ -149,12 +154,12 @@ function stop() { audio.stop() }
 
 <style scoped>
 .progress {
-  display: flex;
-  height: 85%;
-  align-items: center;
+  position: absolute;
 }
 
-.synonyms {
-  height: 15%;
+.putAtEnd {
+  margin-top: auto;
+  margin-bottom: 2rem;
 }
+
 </style>
