@@ -149,20 +149,12 @@ function stop() { audio.stop() }
 
 <style scoped>
 .progress {
-  /* display: flex; */
-  /* height: 85%; */
-  /* align-items: center; */
-  position: absolute;
-  /* left: 50%; */
-  /* top: 50%; */
+  display: flex;
+  height: 85%;
+  align-items: center;
 }
 
 .synonyms {
-  /* align-items: end; */
-  /* display: flex; */
-  position: absolute;
-  /* bottom: 0%; */
-  /* width: 100%; */
-  /* padding: 10px; */
+  height: 15%;
 }
 </style>
