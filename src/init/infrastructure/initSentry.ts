@@ -1,9 +1,8 @@
-import { App } from '@capacitor/app'
 import * as Sentry from '@sentry/capacitor'
-import { BrowserTracing } from '@sentry/tracing'
+import { Replay } from '@sentry/replay'
 import * as SentrySibling from '@sentry/vue'
 import { App as VueApp } from 'vue'
-import { useEnv } from '@/app/shared'
+import { useAppVersion, useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
 
@@ -15,25 +14,21 @@ export async function initSentry({ get }: InitArgs) {
   if (env.isDevelopment()) { return }
 
   const vue = get<VueApp>('vue')
-  let version = 'unknown'
-  try {
-    const info = await App.getInfo()
-    version = info.version
-  } catch (e) {
-    console.error('Failed to get app version', e)
-  }
-
+  const version = await useAppVersion()
   const DSN = 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152'
 
   Sentry.init({
     app: vue,
     dsn: DSN,
-    release: `shlokas@${version}`,
+    release: version,
     dist: '1',
     tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
     integrations: [
-      new BrowserTracing({
-        tracingOrigins: ['localhost', 'https://shlokas.app/'],
+      new Replay({
+        maskAllText: true,
+        blockAllMedia: true,
       }),
     ]
   }, SentrySibling.init)
