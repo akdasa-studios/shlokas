@@ -14,6 +14,10 @@ PODS:
     - GCDWebServer (~> 3.0)
   - CapacitorCommunityAppleSignIn (5.0.0):
     - Capacitor
+  - CapacitorCommunitySqlite (5.0.0):
+    - Capacitor
+    - SQLCipher
+    - ZIPFoundation
   - CapacitorCordova (5.0.4)
   - CapacitorDevice (5.0.2):
     - Capacitor
@@ -51,12 +55,19 @@ PODS:
   - SentryCapacitor (0.11.4):
     - Capacitor
     - Sentry (~> 7.27.1)
+  - SQLCipher (4.5.3):
+    - SQLCipher/standard (= 4.5.3)
+  - SQLCipher/common (4.5.3)
+  - SQLCipher/standard (4.5.3):
+    - SQLCipher/common
+  - ZIPFoundation (0.9.16)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - CapacitorBlobWriter (from `../../node_modules/capacitor-blob-writer`)
   - "CapacitorCommunityAppleSignIn (from `../../node_modules/@capacitor-community/apple-sign-in`)"
+  - "CapacitorCommunitySqlite (from `../../node_modules/@capacitor-community/sqlite`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
@@ -77,6 +88,8 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - Sentry
+    - SQLCipher
+    - ZIPFoundation
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -87,6 +100,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/capacitor-blob-writer"
   CapacitorCommunityAppleSignIn:
     :path: "../../node_modules/@capacitor-community/apple-sign-in"
+  CapacitorCommunitySqlite:
+    :path: "../../node_modules/@capacitor-community/sqlite"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
@@ -116,6 +131,7 @@ SPEC CHECKSUMS:
   CapacitorApp: 28fef1fd75b2b3686e875216806fb8416d421097
   CapacitorBlobWriter: 110eeaf80611f19bf01a8a05ff3672149ed0baad
   CapacitorCommunityAppleSignIn: eafdd59b18b38161fa5cceee7b0e31312b122958
+  CapacitorCommunitySqlite: 8a2b259fe9fdd509e93be6036e1f349493b81aa8
   CapacitorCordova: b1fe6bf1f36974a8e4a9044b342d22d49c0996d6
   CapacitorDevice: 980e172f6fbfa0a945c73f908adc74b5a031e7d4
   CapacitorFilesystem: 3a7bb944feb5b7e9473adeb08662c73141510aa8
@@ -125,14 +141,16 @@ SPEC CHECKSUMS:
   CapacitorStatusBar: 48f2899f6846cc7d8431b251ebfc58e1c10e3d58
   CapawesomeCapacitorBackgroundTask: 53d905ff7c76d3a3ccf7d23bd8078c1ad7c55c09
   CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
-  CordovaPlugins: a285be655a030a7ee235230cc03422e942dc3975
+  CordovaPlugins: 560e5a808f94df9cf65bbc6140b3a78b16376c61
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
   SentryCapacitor: 5ed8f90764c5e4ed701df90bf6433437827e3637
+  SQLCipher: 57fa9f863fa4a3ed9dd3c90ace52315db8c0fdca
+  ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
-PODFILE CHECKSUM: b26102e1b936b167815c2b1e9c19170c4f8ad976
+PODFILE CHECKSUM: 6571257f6e258dd26f5c9151df59120d6030c224
 
 COCOAPODS: 1.12.0
