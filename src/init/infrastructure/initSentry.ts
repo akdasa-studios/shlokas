@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/capacitor'
 import { Replay } from '@sentry/replay'
 import * as SentrySibling from '@sentry/vue'
 import { App as VueApp } from 'vue'
+import { Capacitor } from '@capacitor/core'
 import { useAppVersion, useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -12,6 +13,7 @@ import { InitArgs } from '../initialization'
 export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
   if (env.isDevelopment()) { return }
+  if (Capacitor.getPlatform() === 'web') { return }
 
   const vue = get<VueApp>('vue')
   const version = await useAppVersion()
