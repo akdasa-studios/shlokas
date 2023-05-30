@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.akdasa.shlokas',
   appName: 'shlokas',
   webDir: 'dist',
-  bundledWebRuntime: true,
+  bundledWebRuntime: false,
   plugins: {
     GoogleAuth: {
       'scopes': ['profile', 'email'],
