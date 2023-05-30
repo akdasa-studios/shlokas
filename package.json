@@ -13,7 +13,7 @@
     "ionic:serve": "vite dev --host",
     "ionic:build": "vue-tsc && vite build --mode prod",
     "preview": "vite preview",
-    "run:device": "npm run build:dev && npx cap run ios",
+    "run:device": "npm run build:prod && npx cap run ios",
     "run:device:hot": "npx ionic capacitor run ios --livereload --external",
     "gen:resources": "npx capacitor-assets generate --assetPath 'resources' --ios --android",
     "lint": "eslint"
@@ -56,7 +56,6 @@
     "jwt-decode": "^3.1.2",
     "pinia": "^2.1.3",
     "pouchdb": "^8.0.1",
-    "pouchdb-adapter-cordova-sqlite": "^2.0.8",
     "pouchdb-find": "^8.0.1",
     "pouchdb-upsert": "^2.2.0",
     "vue": "^3.3.4",

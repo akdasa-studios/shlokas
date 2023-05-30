@@ -2,7 +2,6 @@ import { Aggregate, AnyIdentity, Expression, Identity, Operators, Predicate, Que
 import PouchDB from 'pouchdb'
 import PouchdbFind from 'pouchdb-find'
 import PouchDBUpsert from 'pouchdb-upsert'
-import PouchDBAdapterSqlLite from 'pouchdb-adapter-cordova-sqlite'
 import { deepMerge } from './deepMerge'
 import { ObjectMapper } from './ObjectMapper'
 
@@ -10,7 +9,6 @@ const log = new Logger('db')
 
 PouchDB.plugin(PouchDBUpsert)
 PouchDB.plugin(PouchdbFind)
-PouchDB.plugin(PouchDBAdapterSqlLite)
 
 
 export interface CouchDBConfig {
