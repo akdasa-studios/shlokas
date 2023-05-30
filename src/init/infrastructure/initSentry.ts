@@ -27,8 +27,8 @@ export async function initSentry({ get }: InitArgs) {
     replaysOnErrorSampleRate: 1.0,
     integrations: [
       new Replay({
-        maskAllText: true,
-        blockAllMedia: true,
+        // maskAllText: true,
+        // blockAllMedia: true,
       }),
     ]
   }, SentrySibling.init)
