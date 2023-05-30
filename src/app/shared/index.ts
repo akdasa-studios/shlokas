@@ -11,6 +11,7 @@ export * from './composables/useSync'
 export * from './composables/useEmitter'
 export * from './composables/useTestId'
 export * from './composables/useClearCache'
+export * from './composables/useAppVersion'
 
 // tasks:
 export * from './tasks/runSyncTask'

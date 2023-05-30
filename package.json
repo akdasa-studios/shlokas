@@ -43,6 +43,7 @@
     "@ionic/vue": "^7.0.9",
     "@ionic/vue-router": "^7.0.9",
     "@sentry/capacitor": "^0.11.4",
+    "@sentry/replay": "7.50.0",
     "@sentry/vue": "7.50.0",
     "@trapezedev/configure": "^7.0.10",
     "@vueuse/core": "^10.1.2",
