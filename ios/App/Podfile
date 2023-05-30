@@ -19,8 +19,6 @@ def capacitor_pods
   pod 'CapacitorHaptics', :path => '../../node_modules/@capacitor/haptics'
   pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
   pod 'CapacitorSplashScreen', :path => '../../node_modules/@capacitor/splash-screen'
-  pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
-  pod 'CapawesomeCapacitorBackgroundTask', :path => '../../node_modules/@capawesome/capacitor-background-task'
   pod 'CodetrixStudioCapacitorGoogleAuth', :path => '../../node_modules/@codetrix-studio/capacitor-google-auth'
   pod 'SentryCapacitor', :path => '../../node_modules/@sentry/capacitor'
   pod 'CapacitorBlobWriter', :path => '../../node_modules/capacitor-blob-writer'

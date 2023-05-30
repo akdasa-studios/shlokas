@@ -29,10 +29,6 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (5.0.2):
     - Capacitor
-  - CapacitorStatusBar (5.0.2):
-    - Capacitor
-  - CapawesomeCapacitorBackgroundTask (5.0.0):
-    - Capacitor
   - CodetrixStudioCapacitorGoogleAuth (0.0.1):
     - Capacitor
     - GoogleSignIn (~> 6.2.4)
@@ -74,8 +70,6 @@ DEPENDENCIES:
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
-  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
-  - "CapawesomeCapacitorBackgroundTask (from `../../node_modules/@capawesome/capacitor-background-task`)"
   - "CodetrixStudioCapacitorGoogleAuth (from `../../node_modules/@codetrix-studio/capacitor-google-auth`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - "SentryCapacitor (from `../../node_modules/@sentry/capacitor`)"
@@ -114,10 +108,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
-  CapacitorStatusBar:
-    :path: "../../node_modules/@capacitor/status-bar"
-  CapawesomeCapacitorBackgroundTask:
-    :path: "../../node_modules/@capawesome/capacitor-background-task"
   CodetrixStudioCapacitorGoogleAuth:
     :path: "../../node_modules/@codetrix-studio/capacitor-google-auth"
   CordovaPlugins:
@@ -138,8 +128,6 @@ SPEC CHECKSUMS:
   CapacitorHaptics: 864585542a435bd41eaabf7f30d9ff5ec03024d3
   CapacitorKeyboard: e628d4e66d621c69e449945ebabded17c5b9c2e8
   CapacitorSplashScreen: bd2a056394ba0b8807e7bb3e746424f67c426e03
-  CapacitorStatusBar: 48f2899f6846cc7d8431b251ebfc58e1c10e3d58
-  CapawesomeCapacitorBackgroundTask: 53d905ff7c76d3a3ccf7d23bd8078c1ad7c55c09
   CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
   CordovaPlugins: 560e5a808f94df9cf65bbc6140b3a78b16376c61
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
@@ -151,6 +139,6 @@ SPEC CHECKSUMS:
   SQLCipher: 57fa9f863fa4a3ed9dd3c90ace52315db8c0fdca
   ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
-PODFILE CHECKSUM: 6571257f6e258dd26f5c9151df59120d6030c224
+PODFILE CHECKSUM: aa4c425ee4aa739aebd9485510d3f7d39be99591
 
 COCOAPODS: 1.12.0
