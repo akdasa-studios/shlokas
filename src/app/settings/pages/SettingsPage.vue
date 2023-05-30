@@ -84,6 +84,13 @@
         >
           <ion-label>{{ $t('settings.clearCache') }}</ion-label>
         </ion-item>
+
+        <ion-item
+          v-if="isDevModeEnabled"
+          @click="onNextDay"
+        >
+          <ion-label>Next day</ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -99,7 +106,7 @@ import {
 import { inject, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
-import { BackgroundTasks, getAvailableLanguages, useClearCache } from '@/app/shared'
+import { BackgroundTasks, getAvailableLanguages, useApplication, useClearCache } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -108,6 +115,7 @@ import { BackgroundTasks, getAvailableLanguages, useClearCache } from '@/app/sha
 const i18n = inject('i18n') as any
 const settings = useSettingsStore()
 const clearCache = useClearCache()
+const app = useApplication()
 
 
 /* -------------------------------------------------------------------------- */
@@ -116,6 +124,7 @@ const clearCache = useClearCache()
 
 const languages = getAvailableLanguages()
 const isDevModeEnabled = ref(false)
+const daysInFuture = ref(0)
 
 
 /* -------------------------------------------------------------------------- */
@@ -139,5 +148,10 @@ function onHeaderClicked() {
 function onClearCache() {
   clearCache.cleanCache()
   alert('Done')
+}
+
+function onNextDay() {
+  daysInFuture.value += 1
+  app.goInFuture(daysInFuture.value)
 }
 </script>
