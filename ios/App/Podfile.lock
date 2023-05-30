@@ -1,0 +1,138 @@
+PODS:
+  - AppAuth (1.6.2):
+    - AppAuth/Core (= 1.6.2)
+    - AppAuth/ExternalUserAgent (= 1.6.2)
+  - AppAuth/Core (1.6.2)
+  - AppAuth/ExternalUserAgent (1.6.2):
+    - AppAuth/Core
+  - Capacitor (5.0.4):
+    - CapacitorCordova
+  - CapacitorApp (5.0.2):
+    - Capacitor
+  - CapacitorBlobWriter (0.0.1):
+    - Capacitor
+    - GCDWebServer (~> 3.0)
+  - CapacitorCommunityAppleSignIn (5.0.0):
+    - Capacitor
+  - CapacitorCordova (5.0.4)
+  - CapacitorDevice (5.0.2):
+    - Capacitor
+  - CapacitorFilesystem (5.0.2):
+    - Capacitor
+  - CapacitorHaptics (5.0.2):
+    - Capacitor
+  - CapacitorKeyboard (5.0.2):
+    - Capacitor
+  - CapacitorSplashScreen (5.0.2):
+    - Capacitor
+  - CapacitorStatusBar (5.0.2):
+    - Capacitor
+  - CapawesomeCapacitorBackgroundTask (5.0.0):
+    - Capacitor
+  - CodetrixStudioCapacitorGoogleAuth (0.0.1):
+    - Capacitor
+    - GoogleSignIn (~> 6.2.4)
+  - CordovaPlugins (5.0.4):
+    - CapacitorCordova
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (2.3.0)
+  - Sentry (7.27.1):
+    - Sentry/Core (= 7.27.1)
+  - Sentry/Core (7.27.1)
+  - SentryCapacitor (0.11.4):
+    - Capacitor
+    - Sentry (~> 7.27.1)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - CapacitorBlobWriter (from `../../node_modules/capacitor-blob-writer`)
+  - "CapacitorCommunityAppleSignIn (from `../../node_modules/@capacitor-community/apple-sign-in`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
+  - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
+  - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
+  - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - "CapawesomeCapacitorBackgroundTask (from `../../node_modules/@capawesome/capacitor-background-task`)"
+  - "CodetrixStudioCapacitorGoogleAuth (from `../../node_modules/@codetrix-studio/capacitor-google-auth`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
+  - "SentryCapacitor (from `../../node_modules/@sentry/capacitor`)"
+
+SPEC REPOS:
+  trunk:
+    - AppAuth
+    - GCDWebServer
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - Sentry
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../node_modules/@capacitor/app"
+  CapacitorBlobWriter:
+    :path: "../../node_modules/capacitor-blob-writer"
+  CapacitorCommunityAppleSignIn:
+    :path: "../../node_modules/@capacitor-community/apple-sign-in"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorDevice:
+    :path: "../../node_modules/@capacitor/device"
+  CapacitorFilesystem:
+    :path: "../../node_modules/@capacitor/filesystem"
+  CapacitorHaptics:
+    :path: "../../node_modules/@capacitor/haptics"
+  CapacitorKeyboard:
+    :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorSplashScreen:
+    :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
+  CapawesomeCapacitorBackgroundTask:
+    :path: "../../node_modules/@capawesome/capacitor-background-task"
+  CodetrixStudioCapacitorGoogleAuth:
+    :path: "../../node_modules/@codetrix-studio/capacitor-google-auth"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
+  SentryCapacitor:
+    :path: "../../node_modules/@sentry/capacitor"
+
+SPEC CHECKSUMS:
+  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  Capacitor: d3d4463573438b9fa65326d1f3549da6f4c21634
+  CapacitorApp: 28fef1fd75b2b3686e875216806fb8416d421097
+  CapacitorBlobWriter: 110eeaf80611f19bf01a8a05ff3672149ed0baad
+  CapacitorCommunityAppleSignIn: eafdd59b18b38161fa5cceee7b0e31312b122958
+  CapacitorCordova: b1fe6bf1f36974a8e4a9044b342d22d49c0996d6
+  CapacitorDevice: 980e172f6fbfa0a945c73f908adc74b5a031e7d4
+  CapacitorFilesystem: 3a7bb944feb5b7e9473adeb08662c73141510aa8
+  CapacitorHaptics: 864585542a435bd41eaabf7f30d9ff5ec03024d3
+  CapacitorKeyboard: e628d4e66d621c69e449945ebabded17c5b9c2e8
+  CapacitorSplashScreen: bd2a056394ba0b8807e7bb3e746424f67c426e03
+  CapacitorStatusBar: 48f2899f6846cc7d8431b251ebfc58e1c10e3d58
+  CapawesomeCapacitorBackgroundTask: 53d905ff7c76d3a3ccf7d23bd8078c1ad7c55c09
+  CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
+  CordovaPlugins: a285be655a030a7ee235230cc03422e942dc3975
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
+  SentryCapacitor: 5ed8f90764c5e4ed701df90bf6433437827e3637
+
+PODFILE CHECKSUM: b26102e1b936b167815c2b1e9c19170c4f8ad976
+
+COCOAPODS: 1.12.1

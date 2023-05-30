@@ -65,13 +65,15 @@ function onCardFlipped() { emit('flip') }
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
-function getSideComponent(cardType: string, front: boolean) {
+type SideComponent = typeof ReviewCardVerseNumberSide | typeof ReviewCardTextSide | typeof ReviewCardTranslationSide
+
+function getSideComponent(cardType: string, front: boolean) : SideComponent  {
   const name = cardType.split('To')[front ? 0 : 1]
   return {
     'Number': ReviewCardVerseNumberSide,
     'Text': ReviewCardTextSide,
     'Translation': ReviewCardTranslationSide
-  }[name]
+  }[name] as SideComponent
 }
 
 function getQuestion(cardType: string): string {

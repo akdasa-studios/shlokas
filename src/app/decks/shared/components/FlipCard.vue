@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, toRefs, withDefaults } from 'vue'
+import { computed, onMounted, ref, toRefs } from 'vue'
 import { useSettingsStore } from '@/app/settings'
 import { useStringHasher } from '@/app/shared'
 
