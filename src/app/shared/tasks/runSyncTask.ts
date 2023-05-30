@@ -21,13 +21,21 @@ export function runSyncTask() {
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  emitter.on('appStateChanged', onSync)
+  emitter.on('appStateChanged', onAppStateChanaged)
   emitter.on('signedIn', onSignedIn)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
+
+  async function onAppStateChanaged(state: { isActive: boolean }) {
+    if (state.isActive) {
+      await onSync()
+    }
+    // Do not sync on app close, because database maybe closed already
+    // and sync will fail
+  }
 
   async function onSignedIn() {
     if (settings.auth.autoSyncOnLogin) {
