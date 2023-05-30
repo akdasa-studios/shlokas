@@ -12,9 +12,8 @@ export async function useAppVersion() {
 
   const binaryVersion = deployInfo?.binaryVersionName || appInfo.version || '??'
   const binaryBuild = deployInfo?.binaryVersionCode || appInfo.build || '??'
-  const version = deployInfo?.versionId ?? '??'
   const build = deployInfo?.buildId ?? '??'
   const channel = deployInfo?.channel ?? '??'
 
-  return `${binaryVersion}v${binaryBuild} :: ${version}v${build} :: ${channel}`
+  return `${binaryVersion}-${binaryBuild} :: ${build} :: ${channel}`
 }
