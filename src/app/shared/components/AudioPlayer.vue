@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useMediaControls, syncRef } from '@vueuse/core'
-import { ref, toRefs, watch, withDefaults } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
