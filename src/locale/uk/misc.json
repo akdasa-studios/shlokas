@@ -6,8 +6,8 @@
     "prabhupada": "А. Ч. Бгактіведанта Свамі Прабгупада"
   },
   "types": {
-    "verse": "Verse",
-    "translation": "Translation"
+    "verse": "Вірш",
+    "translation": "Переклад"
   },
   "sync": {
     "syncing": "Синхронізація..."
