@@ -22,6 +22,7 @@
     "@akdasa-studios/shlokas-core": "1.1.19",
     "@akdasa-studios/shlokas-protocol": "^0.0.6",
     "@akdasa-studios/shlokas-uikit": "0.0.19",
+    "@awesome-cordova-plugins/core": "6.3.0",
     "@awesome-cordova-plugins/email-composer": "^6.3.0",
     "@capacitor-community/apple-sign-in": "^4.0.0",
     "@capacitor/android": "4.7.3",
