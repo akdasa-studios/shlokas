@@ -14,6 +14,6 @@ export async function initDatabases(): Promise<InitResult> {
   return {
     verses: new CouchDB('verses', config),
     userData: new CouchDB('userData', config),
-    userDataTutorial: new CouchDB('tutorial:userData', config)
+    userDataTutorial: new CouchDB('tutorial_userData', config)
   }
 }

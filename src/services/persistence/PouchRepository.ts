@@ -46,6 +46,7 @@ export class CouchDB {
   get db(): PouchDB.Database { return this._db }
 
   private creaateDatabase() {
+    log.debug(`Creating database ${this._name}`)
     return new PouchDB(this._name, {
       ...this._config,
       fetch: (url, opts) => {
