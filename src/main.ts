@@ -28,14 +28,17 @@ import '@/app/decks/Card.css'
 
 /* Init stages */
 import { appInitStages } from './init'
-import { useEmitter } from './app/shared'
+import { useEmitter, useLogger } from './app/shared'
 
 const services: {[name: string]: any} = { }
 
 
 
 async function initStages(stages: any[]) {
+  const logger = useLogger('init')
+
   for (const stage of stages) {
+    logger.debug(`running ${stage.name}`)
     const result = await stage({
       get: <T>(x:string) => services[x] as T
     } as InitArgs)

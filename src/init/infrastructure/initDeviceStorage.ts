@@ -1,9 +1,13 @@
 import { Storage } from '@ionic/storage'
+import { useDeviceStore } from '@/app/shared'
 import { InitResult } from '../initialization'
 
 /**
- * Initialize the device storage to keep user settings
+ * Initialize the device storage
  */
 export async function initDeviceStorage(): Promise<InitResult> {
-  return { deviceStorage: await new Storage().create() }
+  const deviceStorage = await new Storage().create()
+  const storage = useDeviceStore()
+  storage.init(deviceStorage)
+  return { deviceStorage }
 }

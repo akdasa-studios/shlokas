@@ -1,4 +1,4 @@
-import { useDeviceStore, useEmitter, useLogger } from '@/app/shared'
+import { useDeviceStore, useLogger } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 
 
@@ -14,21 +14,14 @@ export async function runSettingsRestoreTask() {
   const logger        = useLogger('settings:restore')
   const settingsStore = useSettingsStore()
   const deviceStore   = useDeviceStore()
-  const emitter       = useEmitter()
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                                  Triggers                                  */
-  /* -------------------------------------------------------------------------- */
-
-  emitter.on('reload', onRestore)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                    Init                                    */
   /* -------------------------------------------------------------------------- */
 
-  await onRestore() // Load settings imidiatly
+  await onRestore() // Load settings immediately
+
 
   /* -------------------------------------------------------------------------- */
   /*                                   Handlers                                 */
