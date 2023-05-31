@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core'
 import { CouchDB } from '@/services/persistence'
 import { InitResult } from '../initialization'
 
@@ -6,8 +7,8 @@ import { InitResult } from '../initialization'
  */
 export async function initDatabases(): Promise<InitResult> {
   const config = {
-    // adapter: Capacitor.getPlatform() == 'ios' ? 'cordova-sqlite' : undefined,
-    // location: 'default'
+    adapter: Capacitor.getPlatform() !== 'web' ? 'cordova-sqlite' : undefined,
+    location: 'default'
   }
 
   return {
