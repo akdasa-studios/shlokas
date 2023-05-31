@@ -58,23 +58,23 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false />
-    <key>IonAppId</key>
-    <string>196a538d</string>
-    <key>IonChannelName</key>
-    <string>Production</string>
-    <key>IonUpdateMethod</key>
-    <string>background</string>
-    <key>IonMaxVersions</key>
-    <string>2</string>
-    <key>IonMinBackgroundDuration</key>
-    <string>30</string>
-    <key>IonApi</key>
-    <string>https://api.ionicjs.com</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>mailto</string>
       <string>googlegmail</string>
       <string>ms-outlook</string>
     </array>
+    <key>IonAppId</key>
+    <string>196a538d</string>
+    <key>IonChannelName</key>
+    <string>Production</string>
+    <key>IonUpdateMethod</key>
+    <string>none</string>
+    <key>IonMaxVersions</key>
+    <string>2</string>
+    <key>IonMinBackgroundDuration</key>
+    <string>30</string>
+    <key>IonApi</key>
+    <string>https://api.ionicjs.com</string>
   </dict>
 </plist>
