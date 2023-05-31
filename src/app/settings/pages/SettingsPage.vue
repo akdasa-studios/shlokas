@@ -103,7 +103,7 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
   IonButtons
 } from '@ionic/vue'
-import { inject, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
 import { BackgroundTasks, getAvailableLanguages, useApplication, useClearCache } from '@/app/shared'
@@ -123,7 +123,8 @@ const app = useApplication()
 /* -------------------------------------------------------------------------- */
 
 const languages = getAvailableLanguages()
-const isDevModeEnabled = ref(false)
+const isDevModeEnabled = computed(() => devModeClicks.value >= 3)
+const devModeClicks = ref(0)
 const daysInFuture = ref(0)
 
 
@@ -142,7 +143,7 @@ async function onSendEmail() {
 }
 
 function onHeaderClicked() {
-  isDevModeEnabled.value = true
+  devModeClicks.value += 1
 }
 
 function onClearCache() {

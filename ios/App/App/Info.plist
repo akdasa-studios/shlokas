@@ -58,6 +58,12 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false />
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>mailto</string>
+      <string>googlegmail</string>
+      <string>ms-outlook</string>
+    </array>
     <key>IonAppId</key>
     <string>196a538d</string>
     <key>IonChannelName</key>
@@ -70,11 +76,5 @@
     <string>30</string>
     <key>IonApi</key>
     <string>https://api.ionicjs.com</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>mailto</string>
-      <string>googlegmail</string>
-      <string>ms-outlook</string>
-    </array>
   </dict>
 </plist>
