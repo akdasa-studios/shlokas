@@ -59,11 +59,11 @@ async function initApp() {
 
   await initStages(appInitStages)
 
-  const emitter = useEmitter()
-  emitter.emit('appStateChanged', { isActive: true })
-
   services['router'].isReady().then(() => {
     vue.mount('#app')
+
+    const emitter = useEmitter()
+    emitter.emit('appStateChanged', { isActive: true })
   })
 }
 
