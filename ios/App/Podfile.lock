@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   CapacitorKeyboard: e628d4e66d621c69e449945ebabded17c5b9c2e8
   CapacitorSplashScreen: bd2a056394ba0b8807e7bb3e746424f67c426e03
   CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
-  CordovaPlugins: 560e5a808f94df9cf65bbc6140b3a78b16376c61
+  CordovaPlugins: a23e5a8a27c79eee4437744100f56274da64ae10
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
