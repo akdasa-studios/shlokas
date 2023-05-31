@@ -118,7 +118,7 @@ async function onLoadAppInfo() {
 async function onUpdateClick() {
   isUpdating.value = true
   await Deploy.sync({
-    updateMethod: 'auto',
+    updateMethod: 'background',
   })
   isUpdating.value = false
 }
