@@ -1,8 +1,8 @@
+import { Capacitor } from '@capacitor/core'
 import * as Sentry from '@sentry/capacitor'
 import { Replay } from '@sentry/replay'
 import * as SentrySibling from '@sentry/vue'
 import { App as VueApp } from 'vue'
-import { Capacitor } from '@capacitor/core'
 import { useAppVersion, useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -15,14 +15,10 @@ export async function initSentry({ get }: InitArgs) {
   if (env.isDevelopment()) { return }
   if (Capacitor.getPlatform() === 'web') { return }
 
-  const vue = get<VueApp>('vue')
-  const version = await useAppVersion()
-  const DSN = 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152'
-
   Sentry.init({
-    app: vue,
-    dsn: DSN,
-    release: version,
+    app: get<VueApp>('vue'),
+    dsn: 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152',
+    release: await useAppVersion(),
     dist: '1',
     tracesSampleRate: 1.0,
     replaysSessionSampleRate: 0.1,
@@ -30,7 +26,7 @@ export async function initSentry({ get }: InitArgs) {
     integrations: [
       new Replay({
         maskAllText: false,
-        // blockAllMedia: false,
+        blockAllMedia: true,
       }),
     ]
   }, SentrySibling.init)
