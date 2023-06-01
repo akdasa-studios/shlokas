@@ -52,8 +52,9 @@ export function useSync() {
       // Refresh token if required
       log.startGroup('Syncing...')
       const now = new Date().getTime()
-      const tokenExpiresAt = settings.authExpiresAt || 0
-      if (tokenExpiresAt < now) {
+      const timeToSyncInMins = (settings.authExpiresAt - now) / 1000 / 60
+
+      if (timeToSyncInMins <= 5) {  // Refresh token if it expires in 5 mins
         log.debug('Token expired. Refreshing...')
         await auth.refresh()
       }
