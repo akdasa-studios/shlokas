@@ -31,7 +31,9 @@
           v-for="item, key in data"
           :key="key"
         >
-          <ion-label>
+          <ion-label
+            @click="onItemClicked(key)"
+          >
             <h3>{{ variableToTitle(key) }}</h3>
             <p>{{ item }}</p>
           </ion-label>
@@ -58,6 +60,7 @@ IonButton,
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
 import { onMounted, reactive, ref } from 'vue'
+import { useAuthentication } from '@/app/shared'
 import { useSettingsStore } from '../stores/useSettingsStore'
 
 /* -------------------------------------------------------------------------- */
@@ -124,6 +127,13 @@ async function onUpdateClick() {
   isUpdating.value = false
 }
 
+async function onItemClicked(key: string) {
+  if (['sessionId', 'refreshedAt', 'expiresAt', 'timeToSync'].includes(key)) {
+    await refreshToken()
+    alert('Token refreshed!')
+  }
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                   Helpers                                  */
@@ -132,6 +142,11 @@ async function onUpdateClick() {
 function variableToTitle(variable: string) {
   const res = variable.replace(/([A-Z])/g, ' $1')
   return res.charAt(0).toUpperCase() + res.slice(1)
+}
+
+async function refreshToken() {
+  const auth = useAuthentication()
+  await auth.refresh()
 }
 </script>
 
