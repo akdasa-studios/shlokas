@@ -95,6 +95,10 @@ export function useAuthentication() {
       ) as RefreshTokenResponse
       settingsStore.authToken = result.idToken
       settingsStore.authRefreshedAt = new Date().getTime()
+
+      // Decode token to get expiration date
+      const decodedToken: { exp: number } = jwt_decode(result.idToken)
+      settingsStore.authExpiresAt = decodedToken.exp * 1000
     } catch (error) {
       throw new Error('Error refreshing token: ' + error)
     } finally {
