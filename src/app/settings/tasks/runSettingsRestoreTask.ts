@@ -34,7 +34,7 @@ export async function runSettingsRestoreTask() {
       if (value === undefined || value === null) continue
 
       // @ts-ignore
-      settingsStore[key] = JSON.parse(value)
+      settingsStore[key] = value
     }
   }
 }

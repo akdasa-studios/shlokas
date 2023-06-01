@@ -31,7 +31,7 @@ export function runSettingsPersistenceTask() {
     logger.debug('Saving settings state')
     for (const key of settingsKeys) {
       // @ts-ignore
-      await deviceStore.set(key, JSON.stringify(settingsStore[key]))
+      await deviceStore.set(key, settingsStore[key])
     }
   }
 }
