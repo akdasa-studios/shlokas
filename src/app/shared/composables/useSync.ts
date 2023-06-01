@@ -74,6 +74,7 @@ export function useSync() {
       emitter.emit('syncCompleted')
     } catch (e) {
       log.error('Syncing failed...', e)
+      throw new Error('Syncing failed: ' + JSON.stringify(e))
     } finally {
       inProgress.value = false
       log.debug('Syncing complete...')

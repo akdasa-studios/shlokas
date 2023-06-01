@@ -85,6 +85,7 @@ const data = reactive({
   expiresAt: settingsStore.authExpiresAt
              ? new Date(settingsStore.authExpiresAt).toISOString()
              : 'unknown',
+  timeToSync: settingsStore.authExpiresAt - new Date().getTime() / 1000 / 60,
   now: new Date().toISOString(),
 })
 
