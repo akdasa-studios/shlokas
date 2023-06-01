@@ -112,8 +112,9 @@ const cardsToShow = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval: 0 })
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
-const showGradeButtons = computed(() => topCard.value?.flipped && settings.appearance.gradeButtons)
+const showGradeButtons = computed(() => topCard.value?.flipped && settings.showGradeButtons)
 const { currentStep } = storeToRefs(tutorial)
+const { syncAt } = storeToRefs(settings)
 
 let reviewCards: readonly ReviewCard[] = []
 const gradeButtonIntervals = computed(() => {
@@ -140,7 +141,7 @@ watch(currentStep, async (value: number) => {
     await onOpened()
   }
 })
-watch([application.now, application.currentContextName], onOpened)
+watch([application.now, application.currentContextName, syncAt], onOpened)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */

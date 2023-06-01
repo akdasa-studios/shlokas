@@ -12,7 +12,7 @@ export function useSyncLibraryTask(
   libraryDatabase: any
 ) {
   const env = useEnv()
-  const logger = new Logger('init')
+  const logger = new Logger('sync')
 
   async function sync(options?: SyncOptions) {
     try {

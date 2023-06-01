@@ -38,7 +38,7 @@ export function runSyncTask() {
   }
 
   async function onSignedIn() {
-    if (settings.auth.autoSyncOnLogin) {
+    if (settings.autoSyncOnLogin) {
       await onSync()
     }
   }

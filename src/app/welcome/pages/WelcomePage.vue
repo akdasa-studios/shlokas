@@ -118,14 +118,14 @@ const platform = Capacitor.getPlatform()
 async function onOpened() {
   await syncLibraryTask.sync()
   await loadLibrary.sync()
-  settingsStore.library.lastSyncDate = new Date().getTime()
+  settingsStore.syncLibraryAt = new Date().getTime()
 }
 
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
     emitter.emit('signedIn')
-    settingsStore.welcome.done = true
+    settingsStore.welcomeDone = true
     router.replace(go('library'))
   } catch (e) {
     const alert = await alertController.create({
@@ -143,7 +143,7 @@ async function onEmailSignIn() {
 }
 
 function onSigInAsGuest() {
-  settingsStore.welcome.done = true
+  settingsStore.welcomeDone = true
   router.replace(go('library'))
 }
 </script>

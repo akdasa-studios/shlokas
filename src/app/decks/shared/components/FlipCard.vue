@@ -73,7 +73,7 @@ const colorHueRotate = computed(() => getHueRotate())
 /* -------------------------------------------------------------------------- */
 
 function getHueRotate() {
-  if (!settings.appearance.colorfulCards) { return 0 }
+  if (!settings.colorfulCards) { return 0 }
   return hasher.hash(props.hueColorHash) % 360
 }
 </script>

@@ -57,10 +57,12 @@
 import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from '@akdasa-studios/shlokas-core'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave, IonButtons } from '@ionic/vue'
 import { computed, ref, reactive, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { testId , useApplication , BackgroundTasks } from '@/app/shared'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
+import { useSettingsStore } from '@/app/settings'
 
 
 /* -------------------------------------------------------------------------- */
@@ -71,6 +73,7 @@ const application = useApplication()
 const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
+const settings = useSettingsStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -95,6 +98,7 @@ interface SwipePopup {
 const cards = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
 const isEmpty = computed(() => cards.value.length === 0)
+const { syncAt } = storeToRefs(settings)
 
 let inboxCards: readonly InboxCard[] = []
 
@@ -104,7 +108,9 @@ let inboxCards: readonly InboxCard[] = []
 
 onIonViewWillEnter(async () => await onOpened())
 onIonViewDidLeave(() => cards.value = [])
-watch([application.now, application.currentContextName], onOpened)
+watch([
+  application.now, application.currentContextName, syncAt
+], onOpened)
 
 
 /* -------------------------------------------------------------------------- */

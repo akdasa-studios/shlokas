@@ -66,15 +66,14 @@ export function useAuthentication() {
       const sessionResult = await _post(strategyName, '/', authRequest) as AuthenticationResponse
       if (sessionResult.status === 'ok') {
         // Store authentication result
-        settingsStore.auth.collectionId = sessionResult.collectionId
-        settingsStore.auth.token = sessionResult.idToken
-        settingsStore.auth.sessionId = sessionResult.sessionId
-        settingsStore.auth.strategy = strategyName
+        settingsStore.syncCollectionId = sessionResult.collectionId
+        settingsStore.authToken = sessionResult.idToken
+        settingsStore.authSessionId = sessionResult.sessionId
+        settingsStore.authStrategy = strategyName
 
         // Decode token to get expiration date
-        const decodedToken = jwt_decode(sessionResult.idToken)
-        //@ts-ignore
-        settingsStore.auth.expiresAt = decodedToken.exp * 1000
+        const decodedToken: { exp: number } = jwt_decode(sessionResult.idToken)
+        settingsStore.authExpiresAt = decodedToken.exp * 1000
       }
     } catch (error) {
       throw new Error('Error authorizing: ' + error)
@@ -90,12 +89,12 @@ export function useAuthentication() {
     inProgress.value = true
     try {
       const result = await _post(
-        settingsStore.auth.strategy, '/refresh', {
-          sessionId: settingsStore.auth.sessionId
+        settingsStore.authStrategy, '/refresh', {
+          sessionId: settingsStore.authSessionId
         }
       ) as RefreshTokenResponse
-      settingsStore.auth.token = result.idToken
-      settingsStore.auth.refreshedAt = new Date().getTime()
+      settingsStore.authToken = result.idToken
+      settingsStore.authRefreshedAt = new Date().getTime()
     } catch (error) {
       throw new Error('Error refreshing token: ' + error)
     } finally {

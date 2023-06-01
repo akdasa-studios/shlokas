@@ -67,7 +67,7 @@ const tutorial = useTutorialStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { locale, sync } = storeToRefs(settings)
+const { language, syncAt, syncLibraryAt } = storeToRefs(settings)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -81,7 +81,7 @@ onIonViewWillEnter(onOpened)
 
 watch(searchQuery, async (v) => await onSearchQueryChanged(v))
 watch(application.currentContextName, async () => await onSearchQueryChanged(''))
-watch(sync.value, onOpened) // synced, update verse statuses
+watch(syncAt, onOpened) // synced, update verse statuses
 
 
 /* -------------------------------------------------------------------------- */
@@ -97,7 +97,7 @@ async function onSearchQueryChanged(value: string) {
   const app = application.instance()
 
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
-  const languageCode = locale.value.language
+  const languageCode = language.value
   const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
@@ -136,11 +136,11 @@ function compareVerseNumber(a: string, b: string): number {
 async function syncLibrary(force = false) {
   const now = new Date().getTime()
   const week = 604800000 // 1000 * 60 * 60 * 24 * 7
-  const syncedMoreThanAWeekAgo = (now - (settings.library.lastSyncDate || 0)) > week
+  const syncedMoreThanAWeekAgo = (now - syncLibraryAt.value) > week
   if (syncedMoreThanAWeekAgo || force) {
     await syncLibraryTask.sync({ showProgress: !force })
     await loadLibrary.sync()
-    settings.library.lastSyncDate = now
+    settings.syncLibraryAt = now
   }
 }
 

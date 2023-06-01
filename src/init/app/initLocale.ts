@@ -14,14 +14,14 @@ export async function initLocale(
   const store         = useSettingsStore()
 
   // get language:
-  const savedLang    = store.locale.language
+  const savedLang    = store.language
   const deviceLang   = (await Device.getLanguageCode()).value
   const fallbackLang = 'en'
   const finalLang    = check(savedLang) || check(deviceLang) || fallbackLang
 
   // update state:
-  i18n.locale.value     = finalLang
-  store.locale.language = finalLang
+  i18n.locale.value  = finalLang
+  store.language     = finalLang
 }
 
 
