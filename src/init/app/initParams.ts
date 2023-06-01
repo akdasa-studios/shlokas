@@ -24,12 +24,12 @@ export async function initParams(
 
   if (libraryLastSyncDate) {
     console.debug('[params] libraryLastSyncDate', libraryLastSyncDate)
-    settingsStore.library.lastSyncDate = parseInt(libraryLastSyncDate)
+    settingsStore.syncLibraryAt = parseInt(libraryLastSyncDate)
   }
 
   if (autoSyncOnLogin) {
     console.debug('[params] autoSyncOnLogin', autoSyncOnLogin)
-    settingsStore.auth.autoSyncOnLogin = ['true', '1'].includes(autoSyncOnLogin)
+    settingsStore.autoSyncOnLogin = ['true', '1'].includes(autoSyncOnLogin)
   }
 
 

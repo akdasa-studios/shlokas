@@ -77,13 +77,13 @@ const data = reactive({
   build: 'unknown',
   version: 'unknown',
   channel: 'unknown',
-  collectionId: settingsStore.auth.collectionId ?? 'unknown',
-  sessionId: settingsStore.auth.sessionId ?? 'unknown',
-  refreshedAt: settingsStore.auth.refreshedAt
-               ? new Date(settingsStore.auth.refreshedAt).toISOString()
+  collectionId: settingsStore.syncCollectionId ?? 'unknown',
+  sessionId: settingsStore.authSessionId ?? 'unknown',
+  refreshedAt: settingsStore.authRefreshedAt
+               ? new Date(settingsStore.authRefreshedAt).toISOString()
                : 'unknown',
-  expiresAt: settingsStore.auth.expiresAt
-             ? new Date(settingsStore.auth.expiresAt).toISOString()
+  expiresAt: settingsStore.authExpiresAt
+             ? new Date(settingsStore.authExpiresAt).toISOString()
              : 'unknown',
   now: new Date().toISOString(),
 })

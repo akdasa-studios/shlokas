@@ -112,7 +112,7 @@ const platform = Capacitor.getPlatform()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const isAuthenticated = computed(() => !!settings.auth.token)
+const isAuthenticated = computed(() => !!settings.authToken)
 
 
 /* -------------------------------------------------------------------------- */
@@ -144,13 +144,13 @@ async function onEmailSignIn() {
 }
 
 async function onLogOut() {
-  settings.auth.sessionId = ''
-  settings.auth.token = ''
-  settings.auth.collectionId = ''
-  settings.auth.strategy = ''
-  settings.auth.expiresAt = undefined
-  settings.auth.refreshedAt = undefined
-  settings.sync.lastSyncTime = 0
+  settings.authSessionId = ''
+  settings.authToken = ''
+  settings.authStrategy = ''
+  settings.authExpiresAt = 0
+  settings.authRefreshedAt = 0
+  settings.syncCollectionId = ''
+  settings.syncAt = 0
   await userDataDb.destroy()
   emitter.emit('syncCompleted')
 }

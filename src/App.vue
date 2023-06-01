@@ -22,7 +22,7 @@ try {
     const style = document.createElement('style')
     head.appendChild(style)
     style.appendChild(document.createTextNode(css))
-    settingsStore.appearance.accountControls = false
+    settingsStore.showAccountControls = false
     router.replace('/home/library')
   }
 } catch(e) { console.log(e) }

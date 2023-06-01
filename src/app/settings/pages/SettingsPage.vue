@@ -17,7 +17,7 @@
     <ion-content>
       <ion-list>
         <ion-item
-          v-if="settings.appearance.accountControls"
+          v-if="settings.showAccountControls"
           :detail="true"
           router-link="/home/settings/account"
           router-direction="forward"
@@ -28,7 +28,7 @@
 
         <ion-item>
           <ion-select
-            v-model="settings.locale.language"
+            v-model="settings.language"
             interface="action-sheet"
             placeholder="Language"
             data-testid="language"
@@ -47,7 +47,7 @@
 
         <ion-item>
           <ion-toggle
-            v-model="settings.appearance.gradeButtons"
+            v-model="settings.showGradeButtons"
           >
             {{ $t('settings.gradeButtons') }}
           </ion-toggle>
@@ -55,7 +55,7 @@
 
         <ion-item>
           <ion-toggle
-            v-model="settings.appearance.colorfulCards"
+            v-model="settings.colorfulCards"
           >
             {{ $t('settings.colorfulCards') }}
           </ion-toggle>

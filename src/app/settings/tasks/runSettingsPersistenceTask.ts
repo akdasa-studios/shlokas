@@ -1,7 +1,6 @@
-import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useDeviceStore, useLogger } from '@/app/shared'
-import { useSettingsStore } from '@/app/settings'
+import { useSettingsStore, settingsKeys } from '@/app/settings'
 
 
 /**
@@ -18,26 +17,10 @@ export function runSettingsPersistenceTask() {
   const deviceStore   = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
-  /*                                    State                                   */
-  /* -------------------------------------------------------------------------- */
-
-  const {
-    locale, appearance, library, welcome, auth, sync
-  } = storeToRefs(settingsStore)
-
-
-  /* -------------------------------------------------------------------------- */
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch([
-    locale.value,
-    appearance.value,
-    library.value,
-    welcome.value,
-    auth.value,
-    sync.value
-  ], onSettingsChanged)
+  watch(settingsStore, onSettingsChanged)
 
 
   /* -------------------------------------------------------------------------- */
@@ -46,11 +29,9 @@ export function runSettingsPersistenceTask() {
 
   async function onSettingsChanged() {
     logger.debug('Saving settings state')
-    await deviceStore.set('locale',     JSON.stringify(locale.value))
-    await deviceStore.set('appearance', JSON.stringify(appearance.value))
-    await deviceStore.set('library',    JSON.stringify(library.value))
-    await deviceStore.set('welcome',    JSON.stringify(welcome.value))
-    await deviceStore.set('auth',       JSON.stringify(auth.value))
-    await deviceStore.set('sync',       JSON.stringify(sync.value))
+    for (const key of settingsKeys) {
+      // @ts-ignore
+      await deviceStore.set(key, JSON.stringify(settingsStore[key]))
+    }
   }
 }
