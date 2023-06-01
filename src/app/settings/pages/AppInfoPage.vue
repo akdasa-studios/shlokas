@@ -77,8 +77,8 @@ const data = reactive({
   build: 'unknown',
   version: 'unknown',
   channel: 'unknown',
-  collectionId: settingsStore.syncCollectionId ?? 'unknown',
-  sessionId: settingsStore.authSessionId ?? 'unknown',
+  collectionId: settingsStore.syncCollectionId || 'unknown',
+  sessionId: settingsStore.authSessionId || 'unknown',
   refreshedAt: settingsStore.authRefreshedAt
                ? new Date(settingsStore.authRefreshedAt).toISOString()
                : 'unknown',
