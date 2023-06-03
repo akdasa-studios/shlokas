@@ -9,6 +9,7 @@
       @click="onCardClicked"
       @button-clicked="onButtonClicked"
     >
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <span v-html="$t(activeCard.text)" />
     </TutorialCard>
   </div>
