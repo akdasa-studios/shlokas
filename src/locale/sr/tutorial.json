@@ -6,9 +6,9 @@
 		"library": {
 			"introduction": "This is a library. Here you can find shlokas you want to learn",
 			"search": "You can search for shlokas in a list or by number and content. Try searching for a particular shloka",
-			"openVerse": "Great! Open BG 1.1",
-			"addVerse": "To start learning a shloka, add it to your 'Inbox' deck by clicking 'Add'",
-			"end": "Shloka has been added. Let's learn it. Go to 'Inbox'"
+			"openVerse": "Great! Open <b>BG 1.1</b>",
+			"addVerse": "To start learning a shloka, add it to your <i>Inbox</i> deck by clicking <b>Add</b> for <b>BG 1.1</b>",
+			"end": "Shloka has been added. Let's learn it. Go to <i>Inbox</i>"
 		},
 		"inboxDeck": {
 			"introduction": "This is the Inbox deck. Each verse is broken down into two cards: a text and a translation",
@@ -17,7 +17,7 @@
 			"playDeclamation": "Press the circle to start playback. Each line is repeated several times. The word-for-word translation is displayed below",
 			"flipCardAgain": "You can turn the card over and look at the text. Turn the card over",
 			"swipeCardUp": "Once you have learned a card, which can take several days, swipe it up. Swipe all the cards up",
-			"end": "You have memorized all the cards! Go to the 'Review' deck"
+			"end": "You have memorized all the cards! Go to the <i>Review</i> deck"
 		},
 		"reviewDeck": {
 			"introduction": "This is the Review deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
