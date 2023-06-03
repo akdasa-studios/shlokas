@@ -9,6 +9,7 @@
     <TutorialCards
       :cards="tutorialSteps"
       :step="currentStep"
+      :last-invalid-action-at="lastInvalidActionAt"
     />
   </div>
 </template>
@@ -33,7 +34,7 @@ const tutorialStore = useTutorialStore()
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { currentStep } = storeToRefs(tutorialStore)
+const { currentStep, lastInvalidActionAt } = storeToRefs(tutorialStore)
 const showConfetti = ref(false)
 
 

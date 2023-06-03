@@ -5,10 +5,11 @@
       :visible="activeCardVisible"
       :buttons="activeCard.buttons"
       :progress="activeCardProgress"
+      :shaking="activeCardShaking"
       @click="onCardClicked"
       @button-clicked="onButtonClicked"
     >
-      {{ $t(activeCard.text) }}
+      <span v-html="$t(activeCard.text)" />
     </TutorialCard>
   </div>
 </template>
@@ -26,6 +27,7 @@ import TutorialCard from './TutorialCard.vue'
 const props = defineProps<{
   cards: TutorialStep[]
   step: number
+  lastInvalidActionAt: number
 }>()
 
 const emit = defineEmits<{
@@ -37,11 +39,12 @@ const emit = defineEmits<{
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const { step } = toRefs(props)
+const { step, lastInvalidActionAt } = toRefs(props)
 const activeCardIdx = ref(step.value)
 const activeCard = computed(() => props.cards[activeCardIdx.value])
 const activeCardProgress = ref(0)
 const activeCardVisible = ref(true)
+const activeCardShaking = ref(false)
 const positionBottom = computed(() => {
   if (activeCard.value?.position === 'aboveGradeButtons') { return 120 }
   else return 50
@@ -53,6 +56,7 @@ const positionBottom = computed(() => {
 /* -------------------------------------------------------------------------- */
 
 watch(step, (v) => next(v))
+watch(lastInvalidActionAt, startCardShaking)
 onMounted(() => onSetupCard())
 
 
@@ -91,9 +95,12 @@ function next(value: number) {
     activeCardVisible.value = true
     onSetupCard()
   }, 250)
-
 }
 
+function startCardShaking() {
+  activeCardShaking.value = true
+  setTimeout(() => activeCardShaking.value = false, 500)
+}
 
 setInterval(() => {
   if (!activeCard.value.duration) { return }

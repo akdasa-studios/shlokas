@@ -1,7 +1,7 @@
 <template>
   <div
     class="tutorial-card"
-    :class="{ 'visible': props.visible, 'hidden': !props.visible }"
+    :class="{ 'visible': props.visible, 'hidden': !props.visible, 'shaking': props.shaking}"
   >
     <slot />
     <div class="progress" />
@@ -42,6 +42,7 @@ const props = defineProps<{
   visible: boolean,
   buttons?: Button[]
   progress?: number
+  shaking?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -113,5 +114,17 @@ function onClicked(buttonId: string) {
   height: 5px;
   width: calc(v-bind(progress) * 1%);
   transition: .1s ease-out;
+}
+
+.shaking {
+  animation: .5s shaking;
+}
+
+@keyframes shaking {
+ 0% { transform: translateX(0) }
+ 25% { transform: translateX(10px) }
+ 50% { transform: translateX(-10px) }
+ 75% { transform: translateX(10px) }
+ 100% { transform: translateX(0) }
 }
 </style>
