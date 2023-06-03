@@ -21,7 +21,6 @@ export enum TutorialSteps {
   OverallIntroduction,
 
   LibraryIntroduction,
-  LibrarySearch,
   LibraryOpenVerse,
   LibraryAddVerse,
   LibraryEnd,

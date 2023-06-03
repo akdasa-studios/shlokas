@@ -127,7 +127,6 @@ async function fetchData() {
 /* -------------------------------------------------------------------------- */
 
 onMounted(() => {
-  completeTutorialStep(TutorialSteps.LibrarySearch)
   completeTutorialStep(TutorialSteps.LibraryOpenVerse)
 })
 

@@ -92,12 +92,6 @@ const tutorialSteps: TutorialStep[] = [
   },
 
   {
-    id: TutorialSteps.LibrarySearch,
-    text: 'tutorial.library.search'
-  },
-
-
-  {
     id: TutorialSteps.LibraryOpenVerse,
     text: 'tutorial.library.openVerse'
   },
