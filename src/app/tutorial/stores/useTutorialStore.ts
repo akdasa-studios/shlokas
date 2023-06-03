@@ -33,7 +33,6 @@ export const useTutorialStore = defineStore('tutorial', () => {
     lastInvalidActionAt.value = new Date().getTime()
   }
 
-
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
