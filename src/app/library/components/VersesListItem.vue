@@ -1,6 +1,6 @@
 <template>
   <ion-item
-    :router-link="linkToVerse"
+    @click="onClick"
   >
     <ion-label text-wrap>
       <h2 class="verse-number">
@@ -31,10 +31,11 @@
 
 <script lang="ts" setup>
 import { Decks, Verse, VerseStatus } from '@akdasa-studios/shlokas-core'
-import { IonItem, IonLabel, IonIcon } from '@ionic/vue'
+import { IonItem, IonLabel, IonIcon, useIonRouter } from '@ionic/vue'
 import { computed } from 'vue'
 import { enter, albums } from 'ionicons/icons'
 import { go, testId } from '@/app/shared'
+import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -44,6 +45,14 @@ const props = defineProps<{
   verse: Verse,
   verseStatus: VerseStatus
 }>()
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Dependencies                                */
+/* -------------------------------------------------------------------------- */
+
+const router = useIonRouter()
+const tutorialStore = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -58,7 +67,29 @@ const deckIcons = {
 
 const deckIcon = computed(() => deckIcons[props.verseStatus.inDeck])
 const showBadge = computed(() => props.verseStatus.inDeck != Decks.None)
-const linkToVerse = go('library:verse', {id:props.verse.id.value})
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+function onClick() {
+  // Tutorial: Don't allow opening any verse other than BG 1.1
+  if (tutorialStore.isEnabled && tutorialStore.currentStep <= TutorialSteps.LibraryOpenVerse && props.verse.reference !== 'BG 1.1') {
+    tutorialStore.invalidAction()
+    return
+  }
+  openVerse()
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+function openVerse() {
+  router.push(go('library:verse', {id:props.verse.id.value}))
+}
 </script>
 
 

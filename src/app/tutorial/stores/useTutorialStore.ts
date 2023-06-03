@@ -13,22 +13,29 @@ export const useTutorialStore = defineStore('tutorial', () => {
   const isEnabled = ref(true)
   const isCompleted = computed(() => currentStep.value >= TutorialSteps.TutorialEnd)
   const isStarted = computed(() => currentStep.value > TutorialSteps.OverallIntroduction)
+  const lastInvalidActionAt = ref(0)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function completeStep(step: number|undefined) {
+  function completeStep(step: number|undefined) {
     if (currentStep.value === step || step === undefined) {
       currentStep.value += 1
     }
   }
 
+  /**
+   * User performed an invalid action
+   */
+  function invalidAction() {
+    lastInvalidActionAt.value = new Date().getTime()
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep, completeStep, isEnabled, isCompleted, isStarted }
+  return { currentStep, completeStep, isEnabled, isCompleted, isStarted, invalidAction, lastInvalidActionAt }
 })
