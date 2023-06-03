@@ -101,10 +101,6 @@ async function onSearchQueryChanged(value: string) {
   const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
-
-  if (value.length > 0) {
-    completeTutorialStep(TutorialSteps.LibrarySearch)
-  }
 }
 
 async function onRefresherPullDown(
