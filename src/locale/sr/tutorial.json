@@ -5,13 +5,12 @@
 		"daysInFuture": "+{count} day in future",
 		"library": {
 			"introduction": "This is a library. Here you can find shlokas you want to learn",
-			"search": "You can search for shlokas in a list or by number and content. Try searching for a particular shloka",
-			"openVerse": "Great! Open <b>BG 1.1</b>",
+			"openVerse": "You can search for shlokas in a list or by number and content.  Open <b>BG 1.1</b>",
 			"addVerse": "To start learning a shloka, add it to your <i>Inbox</i> deck by clicking <b>Add</b> for <b>BG 1.1</b>",
 			"end": "Shloka has been added. Let's learn it. Go to <i>Inbox</i>"
 		},
 		"inboxDeck": {
-			"introduction": "This is the Inbox deck. Each verse is broken down into two cards: a text and a translation",
+			"introduction": "This is the <i>Inbox</i> deck. Each verse is broken down into two cards: a text and a translation",
 			"swipeCardLeft": "Swipe a card to the left to move to the next card",
 			"flipCard": "On the back of the card is a player and a word-for-word translation. Click to flip it over",
 			"playDeclamation": "Press the circle to start playback. Each line is repeated several times. The word-for-word translation is displayed below",
@@ -20,7 +19,7 @@
 			"end": "You have memorized all the cards! Go to the <i>Review</i> deck"
 		},
 		"reviewDeck": {
-			"introduction": "This is the Review deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
+			"introduction": "This is the <i>Review</i> deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
 			"questionAndAnswer": "On the front of the card is the question and on the back is the answer. Remember the answer and turn the card over to test your knowledge",
 			"gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the button",
 			"goToFuture": "Great! Now let's move forward a week! Several cards with different questions are created for each verse. Let's see how it looks!",
