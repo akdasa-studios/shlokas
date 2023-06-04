@@ -4,9 +4,9 @@
     "loadingData": "Завантаження даних...",
     "login": {
       "asGuest": "Увійти як Гість",
-      "withAppleId": "Ввійти за допомогою Apple ID",
-      "withEmail": "Увійти за допомогою електронної пошти",
-      "withGoogle": "Увійти за допомогою Google"
+      "withAppleId": "Увійти з Apple ID",
+      "withEmail": "Увійти з EMail",
+      "withGoogle": "Увійти з Google"
     }
   }
 }
