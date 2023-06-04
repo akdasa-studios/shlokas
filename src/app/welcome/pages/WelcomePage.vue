@@ -119,13 +119,13 @@ async function onOpened() {
   await syncLibraryTask.sync()
   await loadLibrary.sync()
   settingsStore.syncLibraryAt = new Date().getTime()
+  settingsStore.welcomeDone = true
 }
 
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
     emitter.emit('signedIn')
-    settingsStore.welcomeDone = true
     router.replace(go('library'))
   } catch (e) {
     const alert = await alertController.create({
@@ -143,7 +143,6 @@ async function onEmailSignIn() {
 }
 
 function onSigInAsGuest() {
-  settingsStore.welcomeDone = true
   router.replace(go('library'))
 }
 </script>
