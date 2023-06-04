@@ -73,7 +73,7 @@ import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/de
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication , BackgroundTasks } from '@/app/shared'
+import { useApplication , BackgroundTasks, useArrayShuffler } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -85,6 +85,7 @@ const libraryCache = useLibraryCache(application.instance())
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
+const shuffler = useArrayShuffler()
 
 
 /* -------------------------------------------------------------------------- */
@@ -159,12 +160,21 @@ async function onOpened() {
   reviewCards = await app.reviewDeck.dueToCards(app.timeMachine.now)
   await libraryCache.load(reviewCards.map(x => x.verseId))
 
+  // Create cards order array and shuffle if needed
+  const orderArray = [...Array(reviewCards.length).keys()]
+  const order = settings.reviewCardsInRandomOrder
+    ? shuffler.shuffle(orderArray)
+    : orderArray
+
+  // Create view cards
   const result = []
   for (const [index, card] of reviewCards.entries()) {
     result.push({
-      id: card.id.value, index, flipped: false, verseId: card.verseId
+      id: card.id.value, index: order[index], flipped: false, verseId: card.verseId
     })
   }
+
+  // Return result
   cardsToShow.value = result
 }
 

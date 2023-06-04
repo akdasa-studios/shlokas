@@ -7,7 +7,8 @@
     "colorfulCards": "Colorful cards",
     "contactUs": "Contact us",
     "update": "Update",
-    "clearCache": "Clear cache"
+    "clearCache": "Clear cache",
+    "reviewCardsInRandomOrder": "Random order"
   },
   "account": {
     "welcomeBack": "Welcome back!",

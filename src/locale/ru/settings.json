@@ -7,7 +7,8 @@
     "colorfulCards": "Цветные карточки",
     "contactUs": "Напишите нам",
     "update": "Обновить",
-    "clearCache": "Очистить кэш"
+    "clearCache": "Очистить кэш",
+    "reviewCardsInRandomOrder": "Случайный порядок"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",
