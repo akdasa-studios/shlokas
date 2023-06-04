@@ -12,6 +12,7 @@ export async function initParams(
   const tutorialEnabled = params.get('tutorialEnabled')
   const libraryLastSyncDate = params.get('libraryLastSyncDate')
   const autoSyncOnLogin = params.get('autoSyncOnLogin')
+  const reviewCardsInRandomOrder = params.get('reviewCardsInRandomOrder')
   const date = params.get('date')
 
   const tutorialStore = useTutorialStore()
@@ -30,6 +31,11 @@ export async function initParams(
   if (autoSyncOnLogin) {
     console.debug('[params] autoSyncOnLogin', autoSyncOnLogin)
     settingsStore.autoSyncOnLogin = ['true', '1'].includes(autoSyncOnLogin)
+  }
+
+  if (reviewCardsInRandomOrder) {
+    console.debug('[params] reviewCardsInRandomOrder', reviewCardsInRandomOrder)
+    settingsStore.reviewCardsInRandomOrder = ['true', '1'].includes(reviewCardsInRandomOrder)
   }
 
 

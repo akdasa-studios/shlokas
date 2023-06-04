@@ -5,7 +5,7 @@ export const settingsKeys = [
   'language', 'showGradeButtons', 'colorfulCards',
   'welcomeDone', 'authToken', 'authSessionId', 'authStrategy',
   'authRefreshedAt', 'authExpiresAt', 'syncCollectionId', 'syncAt',
-  'syncLibraryAt'
+  'syncLibraryAt', 'reviewCardsInRandomOrder'
 ]
 
 
@@ -18,6 +18,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const language = ref('') // language will be set in initLocale at app initialization
   const showGradeButtons = ref(true)
   const colorfulCards = ref(true)
+  const reviewCardsInRandomOrder = ref(true)
 
   // welcome
   const welcomeDone = ref(false)
@@ -45,6 +46,6 @@ export const useSettingsStore = defineStore('settings', () => {
   return {
     language, showGradeButtons, colorfulCards, syncLibraryAt, welcomeDone,
     authToken, authSessionId, authStrategy, authRefreshedAt, authExpiresAt, syncCollectionId, syncAt,
-    showAccountControls, autoSyncOnLogin,
+    showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder
   }
 })

@@ -62,6 +62,14 @@
         </ion-item>
 
         <ion-item>
+          <ion-toggle
+            v-model="settings.reviewCardsInRandomOrder"
+          >
+            {{ $t('settings.reviewCardsInRandomOrder') }}
+          </ion-toggle>
+        </ion-item>
+
+        <ion-item>
           <ion-label
             @click="onSendEmail"
           >
