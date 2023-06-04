@@ -7,7 +7,8 @@
     "colorfulCards": "Кольорові картки",
     "contactUs": "Зв'язатися з нами",
     "update": "Update",
-    "clearCache": "Clear cache"
+    "clearCache": "Clear cache",
+    "reviewCardsInRandomOrder": "Випадковий порядок"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
