@@ -107,6 +107,7 @@ async function onRefresherPullDown(
   event: IonRefresherCustomEvent<RefresherEventDetail>
 ) {
   await syncLibrary(true)
+  await onSearchQueryChanged(searchQuery.value)
   event.target.complete()
 }
 
