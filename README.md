@@ -11,19 +11,22 @@
   <a href="https://apps.apple.com/rs/app/learn-shlokas/id1663506324">
     <img src="docs/download-app-store.png" height="50">
   </a>
+  <a href="https://play.google.com/store/apps/details?id=com.akdasa.shlokas">
+    <img src="docs/download-google-play.png" height="50">
+  </a>
 </p>
 
 
 <p align="center">
   <a href="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml"><img src="https://github.com/akdasa-studios/shlokas/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/akdasa-studios/shlokas-e2e/actions/workflows/tests-nightly.yml"><img src="https://github.com/akdasa-studios/shlokas-e2e/actions/workflows/tests-nightly.yml/badge.svg?event=schedule" alt="Tests"></a>
   <a href="https://codecov.io/gh/akdasa-studios/shlokas"><img src="https://codecov.io/gh/akdasa-studios/shlokas/branch/main/graph/badge.svg?token=QUAOR54W17"/></a>
   <a href="https://www.codacy.com/gh/akdasa-studios/shlokas/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=akdasa-studios/shlokas&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/45de0ace9ee248c9a7b722035dbb4657" alt="Codacy Badge"></a>
-  <a href="https://github.com/akdasa-studios/shlokas/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/akdasa-studios/shlokas/good%20first%20issue"></a>
+  <a href="https://github.com/akdasa-**studios**/shlokas/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/akdasa-studios/shlokas/good%20first%20issue"></a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/shlokas"><img src="https://badges.crowdin.net/shlokas/localized.svg"></a>
   <!--
   <a href="https://app.netlify.com/sites/shlokas-staging/deploys"><img src="https://api.netlify.com/api/v1/badges/c005fb9b-d8a8-410e-ae86-89e3dc213202/deploy-status" alt="Netlify Status"></a>-->
 </p>
-
 
 
 ## Get involved
@@ -56,15 +59,15 @@ It will download all the necessary images and run all the services in the docker
 # somewhere in your projects folder outside of this repo
 gh repo clone akdasa-studios/shlokas-server
 cd ./shlokas-server
-./dev.run.sh
+./shlokas.run.sh
 ```
 
 ### Build all the services from the sources
 If you are working on a specific service and you want to build it and run you should do the following:
 
 1. Clone all the repositories in the same folder like `shlokas`
-2. Run `local.build.sh` script to build all the services from the sources
-4. Run all the services with `local.run.sh` script
+2. Run `shlokas.build.sh` script to build all the services from the sources
+4. Run all the services with `shlokas.run.sh` script
 
 ```bash
 # clone all the repos
@@ -74,32 +77,35 @@ done
 
 # build and run all the services
 cd ./akdasa-studios/shlokas-server
-./local.build.sh
-./local.run.sh
+./shlokas.build.sh
+./shlokas.run.sh
 ```
 
 ## Services
 
 The following services will be started:
 
-| Repo                                                           | Description                                                                           | Link                       |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------- |
-| [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page.                                                                         | http://localhost           |
-| [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content. You can add verses, images, declamations and so on     | http://localhost/admin     |
+| Repo                                                           | Description                                                                          | Link                       |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------- |
+| [Landing](https://github.com/akdasa-studios/shlokas-landing)   | Landing page.                                                                        | http://localhost           |
+| [Admin](https://github.com/akdasa-studios/shlokas-admin)       | Admin panel to manage content. You can add verses, images, declamations and so on    | http://localhost/admin     |
 | [Database](https://github.com/akdasa-studios/shlokas-db)       | Database and bootstrap scripts. Starts CouchDB and bootstraps it with necessary data | http://localhost/db/_utils |
-| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service. Registers and logins user via CouchDB                                                                | No UI                      |
-| [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                                                                              | No UI                      |
-| [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server. Allows to download and upload images and declamations                 | No UI                      |
-| [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service                                                             | No UI                      |
-| Mailcather                                                     | Email service. Used only for debugging purposes in dev environment.                   | http://localhost:1080      |
+| [Auth](https://github.com/akdasa-studios/shlokas-auth)         | Authenticatoin service. Registers and logins user via CouchDB                        | No UI                      |
+| [Balancer](https://github.com/akdasa-studios/shlokas-balancer) | Balancer                                                                             | No UI                      |
+| [Content](https://github.com/akdasa-studios/shlokas-content)   | Content server. Allows to download and upload images and declamations                | No UI                      |
+| [TOTP](https://github.com/akdasa-studios/shlokas-totp)         | One time password service                                                            | No UI                      |
+| Mailcather                                                     | Email service. Used only for debugging purposes in dev environment.                  | http://localhost:1080      |
 
 
 ## Related Repositories
 
-| Repo                                                       | Description                            |
-| ---------------------------------------------------------- | -------------------------------------- |
-| [Core](https://github.com/akdasa-studios/shlokas-core)     | Core Library. Contains business logic. |
-| [Server](https://github.com/akdasa-studios/shlokas-server) | Scripts to run related services        |
-| [E2E](https://github.com/akdasa-studios/shlokas-e2e)       | End to end tests                       |
-| [UiKit](https://github.com/akdasa-studios/shlokas-uikit)   | UI Kit                                 |
-| [Utils](https://github.com/akdasa-studios/shlokas-utils)   | Utils                                  |
+Here is a list of related repositories:
+
+| Repo                                                           | Description                                                             |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [Core](https://github.com/akdasa-studios/shlokas-core)         | Core Library. Contains business logic.                                  |
+| [Server](https://github.com/akdasa-studios/shlokas-server)     | Scripts to run related services                                         |
+| [E2E](https://github.com/akdasa-studios/shlokas-e2e)           | End to end tests                                                        |
+| [UiKit](https://github.com/akdasa-studios/shlokas-uikit)       | UI Kit                                                                  |
+| [Utils](https://github.com/akdasa-studios/shlokas-utils)       | Utils                                                                   |
+| [Protocol](https://github.com/akdasa-studios/shlokas-protocol) | Interfaces describes communication protocol between services and client |
