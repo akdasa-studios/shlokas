@@ -39,6 +39,7 @@
           :flipped="getCardState(data.id).flipped"
           :show-overlay="false"
           :index="getCardState(data.id).index"
+          :image="getDefaultImage(data.id)"
           class="color"
           @click="onCardFlipped(data)"
         />
@@ -274,6 +275,11 @@ function getGrade(direction: string, distance: number): ReviewGrade | undefined 
     if (distance > 80) { return ReviewGrade.Good }
     if (distance > 40) { return ReviewGrade.Hard }
   }
+}
+
+function getDefaultImage(inboxCardId: string) {
+  const verseId = getReviewCard(inboxCardId).verseId
+  return libraryCache.getVerseImage(verseId)
 }
 
 /* -------------------------------------------------------------------------- */
