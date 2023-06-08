@@ -4,7 +4,7 @@ import { useEnv } from '@/app/shared'
 
 
 /**
- * Initialize logging system
+ * Initialize live update system
  */
 export async function initLiveUpdate() {
   const env = useEnv()
@@ -13,11 +13,8 @@ export async function initLiveUpdate() {
   if (Capacitor.getPlatform() === 'web') { return }
 
   // Live update is not supported in development
-  if (env.isDevelopment()) {
-    await Deploy.configure({
-      channel: 'Production',
-      updateMethod: 'none',
-    })
-  }
+  await Deploy.configure({
+    channel: 'Production',
+    updateMethod: env.isDevelopment() ? 'none' : 'background',
+  })
 }
-
