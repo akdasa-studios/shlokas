@@ -18,9 +18,9 @@
       "memorizing": "Учу"
     },
     "schedule": {
-      "inDays": "сегодня | + {count} день | + {count} дней",
-      "inMonths": "{count} месяц | {count} месяцев",
-      "inYears": "{count} год | {count} лет"
+      "inDays": "сегодня | {count} д | {count} д",
+      "inMonths": "{count} м. | {count} м",
+      "inYears": "{count} г. | {count} л"
     }
   },
   "decks": {
