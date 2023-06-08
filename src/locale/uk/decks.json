@@ -18,9 +18,9 @@
       "memorizing": "В процесі"
     },
     "schedule": {
-      "inDays": "сьогодні | + {count} день | + {count} днів",
-      "inMonths": "+ {count} місяць | + {count} місяців",
-      "inYears": "+ {count} рік | + {count} років"
+      "inDays": "сьогодні | {count} д | {count} д",
+      "inMonths": "{count} м | {count} м",
+      "inYears": "{count} р | {count} р"
     }
   },
   "decks": {
