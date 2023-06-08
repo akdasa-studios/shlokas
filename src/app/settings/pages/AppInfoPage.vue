@@ -60,7 +60,8 @@ IonButton,
 } from '@ionic/vue'
 import { Deploy } from 'cordova-plugin-ionic'
 import { onMounted, reactive, ref } from 'vue'
-import { useAuthentication } from '@/app/shared'
+import { Capacitor } from '@capacitor/core'
+import { useAuthentication, useEnv } from '@/app/shared'
 import { useSettingsStore } from '../stores/useSettingsStore'
 
 /* -------------------------------------------------------------------------- */
@@ -68,6 +69,7 @@ import { useSettingsStore } from '../stores/useSettingsStore'
 /* -------------------------------------------------------------------------- */
 
 const settingsStore = useSettingsStore()
+const env = useEnv()
 
 
 /* -------------------------------------------------------------------------- */
@@ -90,6 +92,9 @@ const data = reactive({
              : 'unknown',
   timeToSync: (settingsStore.authExpiresAt - new Date().getTime()) / 1000 / 60,
   now: new Date().toISOString(),
+  mode: env.getMode(),
+  platform: Capacitor.getPlatform(),
+  isDev: env.isDevelopment()
 })
 
 const updatesAvailable = ref(false)
