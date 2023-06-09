@@ -18,9 +18,9 @@
       "memorizing": "Memorizing"
     },
     "schedule": {
-      "inDays": "today | {count} d | {count} d",
-      "inMonths": "{count} m | {count} m",
-      "inYears": "{count} y | {count} y"
+      "inDays": "today | {count}d. | {count}d.",
+      "inMonths": "{count}m. | {count}m.",
+      "inYears": "{count}y. | {count}y."
     }
   },
   "decks": {
