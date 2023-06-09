@@ -17,7 +17,7 @@
       >
         <ion-item>
           <p>
-            Enter your email address to sign in. We'll send you a 6-digit code to verify your email address.
+            {{ $t("welcome.login.withEmailInstructions") }}
           </p>
         </ion-item>
 
@@ -29,7 +29,7 @@
             label-placement="stacked"
             type="email"
             inputmode="email"
-            helper-text="Enter your email address to sign in"
+            :helper-text="$t('welcome.login.enterEmail')"
             autocomplete="email"
             :disabled="state >= LoginState.Code"
           />
@@ -44,7 +44,7 @@
             placeholder="123456"
             label-placement="stacked"
             type="number"
-            helper-text="6-digit code sent to your email"
+            :helper-text="$t('welcome.login.sixDigitsCode')"
           />
         </ion-item>
       </ion-list>
