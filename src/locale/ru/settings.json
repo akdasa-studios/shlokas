@@ -12,7 +12,7 @@
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",
-    "logIn": "Войти",
+    "logIn": "Sign In",
     "signUp": "Регистрация",
     "logOut": "Выйти",
     "syncData": "Синхронизация",
