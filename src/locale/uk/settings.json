@@ -8,11 +8,12 @@
     "contactUs": "Зв'язатися з нами",
     "update": "Update",
     "clearCache": "Clear cache",
-    "reviewCardsInRandomOrder": "Випадковий порядок"
+    "reviewCardsInRandomOrder": "Випадковий порядок",
+    "cache": "Кеш"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
-    "logIn": "Sign In",
+    "logIn": "Увійти",
     "signUp": "Зареєструватися",
     "logOut": "Вийти",
     "syncData": "Примусова синхронізація",
