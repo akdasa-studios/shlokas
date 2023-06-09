@@ -70,7 +70,7 @@ import { useSettingsStore } from '@/app/settings'
 /* -------------------------------------------------------------------------- */
 
 const application = useApplication()
-const libraryCache = useLibraryCache(application.instance())
+const libraryCache = useLibraryCache()
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
 const settings = useSettingsStore()

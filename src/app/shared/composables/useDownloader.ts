@@ -73,9 +73,30 @@ export function useDownloader() {
     return Capacitor.convertFileSrc(uri.uri)
   }
 
+  /**
+   * Check if a file is already being downloaded.
+   * @param url Url to check
+   * @returns If a file is already being downloaded, return true, otherwise false.
+   */
+  async function isDownloaded(
+    url: string
+  ): Promise<boolean> {
+    const pathName = new URL(url).pathname.split('/')
+    const fileName = pathName.pop()
+    const filePath = pathName.join('/') + '/' + fileName
+    try {
+      await Filesystem.stat({
+        path: `content/${filePath}`, directory: Directory.Data
+      })
+      return true
+    } catch (e) {
+      return false
+    }
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { download, isDownloading }
+  return { download, isDownloading, isDownloaded }
 }
