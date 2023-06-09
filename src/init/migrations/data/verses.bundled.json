@@ -19,75 +19,85 @@
           "дхр̣тара̄шт̣рах̣",
           "ува̄ча"
         ],
-        "translation": "царь Дхритараштра сказал"
+        "translation": "царь Дхритараштра сказал",
+        "lineNumber": 0
       },
       {
         "words": [
-          "дхарма",
-          "кшетре"
+          "дхарма-кшетре"
         ],
-        "translation": "в месте паломничества"
+        "translation": "в месте паломничества",
+        "lineNumber": 1
       },
       {
         "words": [
-          "куру",
-          "кшетре"
+          "куру-кшетре"
         ],
-        "translation": "в месте под названием Курукшетра"
+        "translation": "в месте под названием Курукшетра",
+        "lineNumber": 1
       },
       {
         "words": [
           "самавета̄х̣"
         ],
-        "translation": "собравшиеся"
+        "translation": "собравшиеся",
+        "lineNumber": 2
       },
       {
         "words": [
           "йуйутсавах̣"
         ],
-        "translation": "желающие вступить в бой"
+        "translation": "желающие вступить в бой",
+        "lineNumber": 2
       },
       {
         "words": [
           "ма̄мака̄х̣"
         ],
-        "translation": "те, кто на моей стороне (мои сыновья)"
+        "translation": "те, кто на моей стороне (мои сыновья)",
+        "lineNumber": 3
       },
       {
         "words": [
           "па̄н̣д̣ава̄х̣"
         ],
-        "translation": "сыновья Панду"
+        "translation": "сыновья Панду",
+        "lineNumber": 3
       },
       {
         "words": [
           "ча"
         ],
-        "translation": "и"
+        "translation": "и",
+        "lineNumber": 3
       },
       {
         "words": [
           "эва"
         ],
-        "translation": "безусловно"
+        "translation": "безусловно",
+        "lineNumber": 3
       },
       {
         "words": [
           "ким"
         ],
-        "translation": "что"
+        "translation": "что",
+        "lineNumber": 4
       },
       {
         "words": [
           "акурвата"
         ],
-        "translation": "сделали"
+        "translation": "сделали",
+        "lineNumber": 4
       },
       {
         "words": [
           "сан̃джайа"
         ],
-        "translation": "о Санджая"
+        "translation": "о Санджая",
+        "lineNumber": 4
       }
     ]
   },
@@ -111,75 +121,87 @@
           "dhṛtarāṣṭraḥ",
           "uvāca"
         ],
-        "translation": "King Dhṛtarāṣṭra said"
+        "translation": "King Dhṛtarāṣṭra said",
+        "lineNumber": 0
       },
       {
         "words": [
           "dharma",
           "kṣetre"
         ],
-        "translation": "in the place of pilgrimage"
+        "translation": "in the place of pilgrimage",
+        "lineNumber": 1
       },
       {
         "words": [
           "kuru",
           "kṣetre"
         ],
-        "translation": "in the place named Kurukṣetra"
+        "translation": "in the place named Kurukṣetra",
+        "lineNumber": 1
       },
       {
         "words": [
           "samavetāḥ"
         ],
-        "translation": "assembled"
+        "translation": "assembled",
+        "lineNumber": 2
       },
       {
         "words": [
           "yuyutsavaḥ"
         ],
-        "translation": "desiring to fight"
+        "translation": "desiring to fight",
+        "lineNumber": 2
       },
       {
         "words": [
           "māmakāḥ"
         ],
-        "translation": "my party (sons)"
+        "translation": "my party (sons)",
+        "lineNumber": 3
       },
       {
         "words": [
           "pāṇḍavāḥ"
         ],
-        "translation": "the sons of Pāṇḍu"
+        "translation": "the sons of Pāṇḍu",
+        "lineNumber": 3
       },
       {
         "words": [
           "ca"
         ],
-        "translation": "and"
+        "translation": "and",
+        "lineNumber": 3
       },
       {
         "words": [
           "eva"
         ],
-        "translation": "certainly"
+        "translation": "certainly",
+        "lineNumber": 3
       },
       {
         "words": [
           "kim"
         ],
-        "translation": "what"
+        "translation": "what",
+        "lineNumber": 4
       },
       {
         "words": [
           "akurvata"
         ],
-        "translation": "did they do"
+        "translation": "did they do",
+        "lineNumber": 4
       },
       {
         "words": [
           "sañjaya"
         ],
-        "translation": "O Sañjaya"
+        "translation": "O Sañjaya",
+        "lineNumber": "4"
       }
     ]
   },
@@ -189,99 +211,214 @@
     "language": "en",
     "number": "BG 2.13",
     "text": [
-        "dehino ’smin yathā dehe",
-        "kaumāraṁ yauvanaṁ jarā",
-        "tathā dehāntara-prāptir",
-        "dhīras tatra na muhyati"
+      "dehino ’smin yathā dehe",
+      "kaumāraṁ yauvanaṁ jarā",
+      "tathā dehāntara-prāptir",
+      "dhīras tatra na muhyati"
     ],
     "translation": "As the embodied soul continuously passes, in this body, from boyhood to youth to old age, the soul similarly passes into another body at death. A sober person is not bewildered by such a change.",
     "reference": "BG 2.13",
     "synonyms": [
-        {
-            "words": [
-                "dehinaḥ"
-            ],
-            "translation": "of the embodied"
-        },
-        {
-            "words": [
-                "asmin"
-            ],
-            "translation": "in this"
-        },
-        {
-            "words": [
-                "yathā"
-            ],
-            "translation": "as"
-        },
-        {
-            "words": [
-                "dehe"
-            ],
-            "translation": "in the body"
-        },
-        {
-            "words": [
-                "kaumāram"
-            ],
-            "translation": "boyhood"
-        },
-        {
-            "words": [
-                "yauvanam"
-            ],
-            "translation": "youth"
-        },
-        {
-            "words": [
-                "jarā"
-            ],
-            "translation": "old age"
-        },
-        {
-            "words": [
-                "tathā"
-            ],
-            "translation": "similarly"
-        },
-        {
-            "words": [
-                "deha",
-                "antara"
-            ],
-            "translation": "of transference of the body"
-        },
-        {
-            "words": [
-                "prāptiḥ"
-            ],
-            "translation": "achievement"
-        },
-        {
-            "words": [
-                "dhīraḥ"
-            ],
-            "translation": "the sober"
-        },
-        {
-            "words": [
-                "tatra"
-            ],
-            "translation": "thereupon"
-        },
-        {
-            "words": [
-                "na"
-            ],
-            "translation": "never"
-        },
-        {
-            "words": [
-                "muhyati"
-            ],
-            "translation": "is deluded"
-        }
+      {
+        "words": [
+          "dehinaḥ"
+        ],
+        "translation": "of the embodied",
+        "lineNumber": 0
+      },
+      {
+        "words": [
+          "asmin"
+        ],
+        "translation": "in this",
+        "lineNumber": 0
+      },
+      {
+        "words": [
+          "yathā"
+        ],
+        "translation": "as",
+        "lineNumber": 0
+      },
+      {
+        "words": [
+          "dehe"
+        ],
+        "translation": "in the body",
+        "lineNumber": 0
+      },
+      {
+        "words": [
+          "kaumāram"
+        ],
+        "translation": "boyhood",
+        "lineNumber": 1
+      },
+      {
+        "words": [
+          "yauvanam"
+        ],
+        "translation": "youth",
+        "lineNumber": 1
+      },
+      {
+        "words": [
+          "jarā"
+        ],
+        "translation": "old age",
+        "lineNumber": 1
+      },
+      {
+        "words": [
+          "tathā"
+        ],
+        "translation": "similarly",
+        "lineNumber": 2
+      },
+      {
+        "words": [
+          "deha-antara"
+        ],
+        "translation": "of transference of the body",
+        "lineNumber": 2
+      },
+      {
+        "words": [
+          "prāptiḥ"
+        ],
+        "translation": "achievement",
+        "lineNumber": 2
+      },
+      {
+        "words": [
+          "dhīraḥ"
+        ],
+        "translation": "the sober",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "tatra"
+        ],
+        "translation": "thereupon",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "na"
+        ],
+        "translation": "never",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "muhyati"
+        ],
+        "translation": "is deluded",
+        "lineNumber": 3
+      }
     ]
-}
+  },
+  {
+    "_id": "f871e459-7b75-5df3-9470-f3ddc64da0ed",
+    "@type": "verse",
+    "language": "uk",
+    "number": "БҐ 1.1",
+    "text": [
+      "дгр̣тара̄шт̣ра ува̄ча",
+      "дгарма-кшетре куру-кшетре",
+      "самавета̄ йуйутсавах̣",
+      "ма̄мака̄х̣ па̄н̣д̣ава̄ш́ чаіва",
+      "кім акурвата сан̃джайа "
+    ],
+    "translation": "Дгр̣тара̄шт̣ра сказав: О Сан̃джайо, що роблять мої сини й сини Па̄н̣д̣у, зібравшись в місці прощ на полі Курукшетра з наміром битися?",
+    "reference": "BG 1.1",
+    "synonyms": [
+      {
+        "words": [
+          "дгр̣тара̄шт̣рах̣",
+          "ува̄ча"
+        ],
+        "translation": "цар Дгр̣ітара̄шт̣ра сказав",
+        "lineNumber": 0
+      },
+      {
+        "words": [
+          "дгарма-кшетре"
+        ],
+        "translation": "на місці поломництва",
+        "lineNumber": 1
+      },
+      {
+        "words": [
+          "куру-кшетре"
+        ],
+        "translation": "в місцевості під назвою Курукшетра",
+        "lineNumber": 1
+      },
+      {
+        "words": [
+          "самавета̄х̣"
+        ],
+        "translation": "ті, що зібралися",
+        "lineNumber": 2
+      },
+      {
+        "words": [
+          "йуйутсавах̣"
+        ],
+        "translation": "ті, що жадають бою",
+        "lineNumber": 2
+      },
+      {
+        "words": [
+          "ма̄мака̄х̣"
+        ],
+        "translation": "моя партія (сини)",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "па̄н̣д̣ава̄х̣"
+        ],
+        "translation": "сини Па̄н̣д̣у",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "ча"
+        ],
+        "translation": "і",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "ева"
+        ],
+        "translation": "неодмінно",
+        "lineNumber": 3
+      },
+      {
+        "words": [
+          "кім"
+        ],
+        "translation": "що",
+        "lineNumber": 4
+      },
+      {
+        "words": [
+          "акурвата"
+        ],
+        "translation": "вони зробили",
+        "lineNumber": 4
+      },
+      {
+        "words": [
+          "сан̃джайа"
+        ],
+        "translation": "о Сан̃джайо",
+        "lineNumber": 4
+      }
+    ]
+  }
 ]
