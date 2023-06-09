@@ -133,6 +133,7 @@ async function syncLibrary(force = false) {
   const week = 604800000 // 1000 * 60 * 60 * 24 * 7
   const syncedMoreThanAWeekAgo = (now - syncLibraryAt.value) > week
   const notSyncedAtAll = syncLibraryAt.value === 0
+
   if (syncedMoreThanAWeekAgo || notSyncedAtAll || force) {
     await syncLibraryTask.sync({ showProgress: !force })
     if (!syncLibraryTask.isFailed) {
