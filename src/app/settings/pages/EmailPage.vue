@@ -134,22 +134,35 @@ async function onSendValidationCode() {
     const alert = await alertController.create({
       header: 'Error',
       subHeader: 'Unable to sign in with Email.',
-      message: 'Check your internrt connection and try again',
+      message: 'Check your internet connection and try again',
       buttons: ['OK'],
     })
     await alert.present()
+    state.value = LoginState.Email
   }
 }
 
 /** User has recieved email with code and entered it. */
 async function onSignIn() {
-  await auth.authenticate('email', {
-    email: email.value,
-    code: code.value,
-  })
-  emitter.emit('signedIn')
-  state.value = LoginState.SignedIn
-  navigateNext(props.nextUrl, props.navigationType)
+  try {
+    await auth.authenticate('email', {
+      email: email.value,
+      code: code.value,
+    })
+    emitter.emit('signedIn')
+    state.value = LoginState.SignedIn
+    navigateNext(props.nextUrl, props.navigationType)
+  } catch (e) {
+    const alert = await alertController.create({
+      header: 'Error',
+      subHeader: 'Unable to sign in with Email.',
+      message: 'Code is invalid',
+      buttons: ['OK'],
+    })
+    await alert.present()
+    state.value = LoginState.Email
+    code.value = ''
+  }
 }
 
 function onEmalChanged(value: string) {

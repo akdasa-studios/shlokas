@@ -74,6 +74,8 @@ export function useAuthentication() {
         // Decode token to get expiration date
         const decodedToken: { exp: number } = jwt_decode(sessionResult.idToken)
         settingsStore.authExpiresAt = decodedToken.exp * 1000
+      } else if (sessionResult.status != 'next') {
+        throw new Error('Unknown error')
       }
     } catch (error) {
       throw new Error('Error authorizing: ' + error)
