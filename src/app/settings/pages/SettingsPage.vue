@@ -80,6 +80,7 @@
         <ion-item
           router-link="/home/settings/cache"
           router-direction="forward"
+          :detail="true"
         >
           <ion-label>{{ $t('settings.cache') }}</ion-label>
         </ion-item>
