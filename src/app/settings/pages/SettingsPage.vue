@@ -78,19 +78,20 @@
         </ion-item>
 
         <ion-item
+          router-link="/home/settings/cache"
+          router-direction="forward"
+          :detail="true"
+        >
+          <ion-label>{{ $t('settings.cache') }}</ion-label>
+        </ion-item>
+
+        <ion-item
           v-if="isDevModeEnabled"
           :detail="true"
           router-link="/home/settings/app"
           router-direction="forward"
         >
           <ion-label>{{ $t('app.name') }}</ion-label>
-        </ion-item>
-
-        <ion-item
-          v-if="isDevModeEnabled"
-          @click="onClearCache"
-        >
-          <ion-label>{{ $t('settings.clearCache') }}</ion-label>
         </ion-item>
 
         <ion-item
@@ -114,7 +115,7 @@ import {
 import { computed, inject, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { useSettingsStore } from '@/app/settings'
-import { BackgroundTasks, getAvailableLanguages, useApplication, useClearCache } from '@/app/shared'
+import { BackgroundTasks, getAvailableLanguages, useApplication } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -122,7 +123,6 @@ import { BackgroundTasks, getAvailableLanguages, useApplication, useClearCache }
 
 const i18n = inject('i18n') as any
 const settings = useSettingsStore()
-const clearCache = useClearCache()
 const app = useApplication()
 
 
@@ -152,11 +152,6 @@ async function onSendEmail() {
 
 function onHeaderClicked() {
   devModeClicks.value += 1
-}
-
-function onClearCache() {
-  clearCache.cleanCache()
-  alert('Done')
 }
 
 function onNextDay() {

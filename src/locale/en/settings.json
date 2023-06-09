@@ -8,7 +8,8 @@
     "contactUs": "Contact us",
     "update": "Update",
     "clearCache": "Clear cache",
-    "reviewCardsInRandomOrder": "Randomize review cards"
+    "reviewCardsInRandomOrder": "Randomize review cards",
+    "cache": "Cache"
   },
   "account": {
     "welcomeBack": "Welcome back!",

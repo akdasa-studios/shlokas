@@ -82,7 +82,7 @@ import { useApplication , BackgroundTasks, useArrayShuffler } from '@/app/shared
 /* -------------------------------------------------------------------------- */
 
 const application = useApplication()
-const libraryCache = useLibraryCache(application.instance())
+const libraryCache = useLibraryCache()
 const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()

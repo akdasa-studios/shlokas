@@ -8,7 +8,8 @@
     "contactUs": "Напишите нам",
     "update": "Обновить",
     "clearCache": "Очистить кэш",
-    "reviewCardsInRandomOrder": "Обзор в случайном порядке"
+    "reviewCardsInRandomOrder": "Обзор в случайном порядке",
+    "cache": "Кэш"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

@@ -18,5 +18,9 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: 'settings/app',
     component: () => import('@/app/settings/pages/AppInfoPage.vue'),
+  },
+  {
+    path: 'settings/cache',
+    component: () => import('@/app/settings/pages/LibraryCache.vue'),
   }
 ]

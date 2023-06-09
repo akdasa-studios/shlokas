@@ -1,15 +1,29 @@
-import { Application, Declamation, Verse, VerseId, VerseImage } from '@akdasa-studios/shlokas-core'
+import { Declamation, Verse, VerseId, VerseImage } from '@akdasa-studios/shlokas-core'
+import { useApplication } from '@/app/shared'
 
 const verses = new Map<string, Verse>()
 const declamations = new Map<string, Declamation[]>()
 const verseImages = new Map<string, VerseImage[]>()
 
-export function useLibraryCache(app: Application) {
+
+export function useLibraryCache() {
+
+  /* -------------------------------------------------------------------------- */
+  /*                                Dependencies                                */
+  /* -------------------------------------------------------------------------- */
+
+  const app = useApplication()
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Methods                                  */
+  /* -------------------------------------------------------------------------- */
+
   async function load(verseIds: VerseId[]) {
     for (const verseId of verseIds) {
       if (verses.has(verseId.value)) { continue }
 
-      const verse = await app.library.getById(verseId)
+      const verse = await app.instance().library.getById(verseId)
       verses.set(verse.id.value, verse)
 
       if (!declamations.has(verseId.value)) {
@@ -21,14 +35,14 @@ export function useLibraryCache(app: Application) {
       }
 
       declamations.get(verseId.value)?.push(
-        ...await app.library.getDeclamations(verseId)
+        ...await app.instance().library.getDeclamations(verseId)
       )
       declamations.get(verseId.value)?.push(
-        ...await app.library.getDeclamations(verse.reference)
+        ...await app.instance().library.getDeclamations(verse.reference)
       )
 
       verseImages.get(verseId.value)?.push(
-        ...await app.library.getImages(verseId)
+        ...await app.instance().library.getImages(verseId)
       )
     }
   }
