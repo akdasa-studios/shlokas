@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "7e99bce2-d61a-5b26-a531-4a257c63a608",
+    "verseReference": "BG 1.1",
+    "type": "verse",
+    "theme": "default",
+    "url": "declamation-7e99bce2-d61a-5b26-a531-4a257c63a608.mp3",
+    "markers": [
+      1.7516042633474123,
+      4.899018174049793,
+      7.01325925754335,
+      9.859616185482894
+    ],
+    "@type": "declamation"
+  }
+]

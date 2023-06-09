@@ -45,7 +45,6 @@ import { storeToRefs } from 'pinia'
 import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 import { useApplication, BackgroundTasks } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
@@ -57,7 +56,6 @@ const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const settings = useSettingsStore()
-const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -67,7 +65,7 @@ const tutorial = useTutorialStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { language, syncAt, syncLibraryAt } = storeToRefs(settings)
+const { language, syncAt } = storeToRefs(settings)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -131,21 +129,7 @@ function compareVerseNumber(a: string, b: string): number {
 }
 
 async function syncLibrary(force = false) {
-  const now = new Date().getTime()
-  const week = 604800000 // 1000 * 60 * 60 * 24 * 7
-  const syncedMoreThanAWeekAgo = (now - syncLibraryAt.value) > week
-  if (syncedMoreThanAWeekAgo || force) {
-    await syncLibraryTask.sync({ showProgress: !force })
-    await loadLibrary.sync()
-    settings.syncLibraryAt = now
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                  Tutorial                                  */
-/* -------------------------------------------------------------------------- */
-
-function completeTutorialStep(step: TutorialSteps) {
-  tutorial.completeStep(step)
+  await syncLibraryTask.sync({ force })
+  await loadLibrary.sync()
 }
 </script>

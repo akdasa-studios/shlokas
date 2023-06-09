@@ -49,3 +49,9 @@ export function useLibraryCache(app: Application) {
     load, getVerse, getDeclamations, getVerseImage
   }
 }
+
+export function invalidateLibraryCache() {
+  verses.clear()
+  declamations.clear()
+  verseImages.clear()
+}
