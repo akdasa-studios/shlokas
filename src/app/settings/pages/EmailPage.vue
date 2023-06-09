@@ -17,7 +17,7 @@
       >
         <ion-item>
           <p>
-            Enter your email address to sign in. We'll send you a 6-digit code to verify your email address.
+            {{ $t("welcome.login.withEmailInstructions") }}
           </p>
         </ion-item>
 
@@ -29,7 +29,7 @@
             label-placement="stacked"
             type="email"
             inputmode="email"
-            helper-text="Enter your email address to sign in"
+            :helper-text="$t('welcome.login.enterEmail')"
             autocomplete="email"
             :disabled="state >= LoginState.Code"
           />
@@ -44,7 +44,7 @@
             placeholder="123456"
             label-placement="stacked"
             type="number"
-            helper-text="6-digit code sent to your email"
+            :helper-text="$t('welcome.login.sixDigitsCode')"
           />
         </ion-item>
       </ion-list>
@@ -58,7 +58,7 @@
           :disabled="!email"
           @click="onSendValidationCode"
         >
-          Send Email
+          {{ $t('common.next') }}
         </ion-button>
 
         <ion-button
@@ -67,7 +67,7 @@
           :disabled="!code"
           @click="onSignIn"
         >
-          Sign In
+          {{ $t('account.logIn') }}
         </ion-button>
       </ion-toolbar>
     </ion-footer>
@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter } from '@ionic/vue'
+import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter, alertController } from '@ionic/vue'
 import { ref, watch } from 'vue'
 import { useAuthentication, useEmitter } from '@/app/shared'
 
@@ -125,21 +125,44 @@ watch(email, onEmalChanged)
 
 /** Send email to get a validation code. */
 async function onSendValidationCode() {
-  await auth.authenticate('email', {
-    email: email.value,
-  })
-  state.value = LoginState.Code
+  try {
+    await auth.authenticate('email', {
+      email: email.value,
+    })
+    state.value = LoginState.Code
+  } catch (e) {
+    const alert = await alertController.create({
+      header: 'Error',
+      subHeader: 'Unable to sign in with Email.',
+      message: 'Check your internet connection and try again',
+      buttons: ['OK'],
+    })
+    await alert.present()
+    state.value = LoginState.Email
+  }
 }
 
 /** User has recieved email with code and entered it. */
 async function onSignIn() {
-  await auth.authenticate('email', {
-    email: email.value,
-    code: code.value,
-  })
-  emitter.emit('signedIn')
-  state.value = LoginState.SignedIn
-  navigateNext(props.nextUrl, props.navigationType)
+  try {
+    await auth.authenticate('email', {
+      email: email.value,
+      code: code.value,
+    })
+    emitter.emit('signedIn')
+    state.value = LoginState.SignedIn
+    navigateNext(props.nextUrl, props.navigationType)
+  } catch (e) {
+    const alert = await alertController.create({
+      header: 'Error',
+      subHeader: 'Unable to sign in with Email.',
+      message: 'Code is invalid',
+      buttons: ['OK'],
+    })
+    await alert.present()
+    state.value = LoginState.Email
+    code.value = ''
+  }
 }
 
 function onEmalChanged(value: string) {
