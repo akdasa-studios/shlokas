@@ -45,7 +45,6 @@ import { storeToRefs } from 'pinia'
 import { IonRefresherCustomEvent, RefresherEventDetail } from '@ionic/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask, VersesList } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 import { useApplication, BackgroundTasks } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
@@ -57,7 +56,6 @@ const libraryDatabase = inject('verses')
 const syncLibraryTask = useSyncLibraryTask(libraryDatabase)
 const loadLibrary = useLoadLibraryIntoMemory(application.instance(), libraryDatabase)
 const settings = useSettingsStore()
-const tutorial = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -134,18 +132,13 @@ async function syncLibrary(force = false) {
   const now = new Date().getTime()
   const week = 604800000 // 1000 * 60 * 60 * 24 * 7
   const syncedMoreThanAWeekAgo = (now - syncLibraryAt.value) > week
-  if (syncedMoreThanAWeekAgo || force) {
+  const notSyncedAtAll = syncLibraryAt.value === 0
+  if (syncedMoreThanAWeekAgo || notSyncedAtAll || force) {
     await syncLibraryTask.sync({ showProgress: !force })
-    await loadLibrary.sync()
-    settings.syncLibraryAt = now
+    if (!syncLibraryTask.isFailed) {
+      await loadLibrary.sync()
+      settings.syncLibraryAt = now
+    }
   }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                  Tutorial                                  */
-/* -------------------------------------------------------------------------- */
-
-function completeTutorialStep(step: TutorialSteps) {
-  tutorial.completeStep(step)
 }
 </script>

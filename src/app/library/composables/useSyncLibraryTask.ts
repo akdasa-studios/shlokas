@@ -7,6 +7,7 @@ export interface SyncOptions {
 }
 
 const inProgress = ref(false)
+const isFailed = ref(false)
 
 export function useSyncLibraryTask(
   libraryDatabase: any
@@ -22,12 +23,14 @@ export function useSyncLibraryTask(
       logger.debug('Syncing library...')
       await libraryDatabase.replicateFrom(env.getDatabaseUrl('shlokas'))
       logger.debug('Library synced')
+      isFailed.value = false
     } catch (err) {
       logger.error('Failed to sync static data', err)
+      isFailed.value = true
     } finally {
       inProgress.value = false
     }
   }
 
-  return { sync, inProgress }
+  return { sync, inProgress, isFailed }
 }
