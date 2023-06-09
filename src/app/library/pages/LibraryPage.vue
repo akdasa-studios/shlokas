@@ -65,7 +65,7 @@ const settings = useSettingsStore()
 const searchQuery = ref('')
 const filteredVerses = shallowRef<Verse[]>([])
 const verseStatuses = shallowRef<{ [verseId: string]: VerseStatus}>({})
-const { language, syncAt, syncLibraryAt } = storeToRefs(settings)
+const { language, syncAt } = storeToRefs(settings)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
@@ -129,17 +129,7 @@ function compareVerseNumber(a: string, b: string): number {
 }
 
 async function syncLibrary(force = false) {
-  const now = new Date().getTime()
-  const week = 604800000 // 1000 * 60 * 60 * 24 * 7
-  const syncedMoreThanAWeekAgo = (now - syncLibraryAt.value) > week
-  const notSyncedAtAll = syncLibraryAt.value === 0
-
-  if (syncedMoreThanAWeekAgo || notSyncedAtAll || force) {
-    await syncLibraryTask.sync({ showProgress: !force })
-    if (!syncLibraryTask.isFailed) {
-      await loadLibrary.sync()
-      settings.syncLibraryAt = now
-    }
-  }
+  await syncLibraryTask.sync({ force })
+  await loadLibrary.sync()
 }
 </script>

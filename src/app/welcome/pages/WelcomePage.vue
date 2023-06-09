@@ -118,7 +118,6 @@ const platform = Capacitor.getPlatform()
 async function onOpened() {
   await syncLibraryTask.sync()
   await loadLibrary.sync()
-  settingsStore.syncLibraryAt = new Date().getTime()
   settingsStore.welcomeDone = true
 }
 
