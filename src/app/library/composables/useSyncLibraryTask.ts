@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { Logger } from '@akdasa-studios/framework'
 import { useEnv } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
+import { invalidateLibraryCache } from '@/app/decks/shared'
 
 export interface SyncOptions {
   force?: boolean
@@ -45,6 +46,7 @@ export function useSyncLibraryTask(
       await libraryDatabase.replicateFrom(env.getDatabaseUrl('shlokas'))
       logger.debug('Library synced')
       settings.syncLibraryAt = new Date().getTime()
+      invalidateLibraryCache()
     } catch (err) {
       logger.error('Failed to sync static data', err)
     } finally {
