@@ -58,7 +58,7 @@
           :disabled="!email"
           @click="onSendValidationCode"
         >
-          Send Email
+          {{ $t('common.next') }}
         </ion-button>
 
         <ion-button
@@ -67,7 +67,7 @@
           :disabled="!code"
           @click="onSignIn"
         >
-          Sign In
+          {{ $t('account.logIn') }}
         </ion-button>
       </ion-toolbar>
     </ion-footer>
@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter } from '@ionic/vue'
+import { IonContent, IonHeader, IonList, IonItem, IonToolbar, IonButtons, IonButton, IonTitle, IonInput, IonPage, IonBackButton, IonFooter, useIonRouter, alertController } from '@ionic/vue'
 import { ref, watch } from 'vue'
 import { useAuthentication, useEmitter } from '@/app/shared'
 
@@ -125,10 +125,20 @@ watch(email, onEmalChanged)
 
 /** Send email to get a validation code. */
 async function onSendValidationCode() {
-  await auth.authenticate('email', {
-    email: email.value,
-  })
-  state.value = LoginState.Code
+  try {
+    await auth.authenticate('email', {
+      email: email.value,
+    })
+    state.value = LoginState.Code
+  } catch (e) {
+    const alert = await alertController.create({
+      header: 'Error',
+      subHeader: 'Unable to sign in with Email.',
+      message: 'Check your internrt connection and try again',
+      buttons: ['OK'],
+    })
+    await alert.present()
+  }
 }
 
 /** User has recieved email with code and entered it. */
