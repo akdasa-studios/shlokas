@@ -12,7 +12,7 @@
   },
   "account": {
     "welcomeBack": "Welcome back!",
-    "logIn": "Log In",
+    "logIn": "Sign In",
     "signUp": "Sign Up",
     "logOut": "Log Out",
     "syncData": "Force Syncing",
