@@ -5,6 +5,7 @@
 
       <!-- Tabs -->
       <ion-tab-bar
+        v-if="showTabs"
         slot="bottom"
         data-testid="tabs-bar"
       >
@@ -75,8 +76,10 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
+import { useScreenOrientation } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -84,11 +87,13 @@ import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
 
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
+const screenOrientation = useScreenOrientation()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
+const showTabs = computed(() => screenOrientation.isPortrait.value)
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
   isEnabled: tutorialEnabled,

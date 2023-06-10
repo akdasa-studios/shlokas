@@ -13,6 +13,7 @@ export * from './composables/useTestId'
 export * from './composables/useClearCache'
 export * from './composables/useAppVersion'
 export * from './composables/useArrayShuffler'
+export * from './composables/useScreenOrientation'
 
 // tasks:
 export * from './tasks/runSyncTask'

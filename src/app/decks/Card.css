@@ -21,7 +21,7 @@
   text-transform: uppercase;
   padding: .4em;
   font-weight: bold;
-  font-size: 11vw;
+  font-size: 2rem;
 }
 
 .side .question {
@@ -43,5 +43,5 @@
 }
 
 .flip-card {
-  padding: 10px;
+  /* padding: 10px; */
 }

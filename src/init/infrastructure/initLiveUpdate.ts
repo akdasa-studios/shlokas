@@ -17,4 +17,5 @@ export async function initLiveUpdate() {
     channel: 'Production',
     updateMethod: env.isDevelopment() ? 'none' : 'background',
   })
+
 }

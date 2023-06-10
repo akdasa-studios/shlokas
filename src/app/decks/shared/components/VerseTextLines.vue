@@ -5,7 +5,6 @@
       :src="imageUri"
       :is-dark="isDark"
       mode="invert"
-      class="image"
     />
 
     <SVGTextLines
