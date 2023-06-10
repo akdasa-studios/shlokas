@@ -45,7 +45,7 @@
     "@sentry/vue": "7.37.1",
     "@trapezedev/configure": "^7.0.10",
     "@vueuse/core": "^9.13.0",
-    "capacitor-blob-writer": "^1.1.9",
+    "capacitor-blob-writer": "^1.1.11",
     "cordova-plugin-email-composer": "^0.10.1",
     "cordova-plugin-ionic": "5.5.3",
     "cordova-sqlite-storage": "^6.1.0",
