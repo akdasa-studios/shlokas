@@ -23,7 +23,6 @@ import '@ionic/vue/css/display.css'
 import './theme/variables.css'
 
 /* Shlokas UI kit */
-// import '@akdasa-studios/shlokas-uikit/style.css'
 import '@/app/decks/Card.css'
 
 /* Init stages */

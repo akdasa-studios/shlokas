@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   padding: 8px;
-  font-size: 25px;
+  font-size: 1.75em;
   text-align: center;
 
   border: 1px solid black;
@@ -19,9 +19,9 @@
 
 .side .number {
   text-transform: uppercase;
-  padding: .4em;
+  padding: .2em;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.25em;
 }
 
 .side .question {
@@ -32,16 +32,8 @@
 }
 
 
-.big-text {
-  font-size: 9vw;
-}
-
 .side-color-0 {
   background-color: var(--ion-color-cards);
   border-color: var(--ion-color-cards-shade);
   border-bottom-color: var(--ion-color-cards-shade);
-}
-
-.flip-card {
-  /* padding: 10px; */
 }

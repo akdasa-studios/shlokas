@@ -2,28 +2,27 @@ import { ScreenOrientation } from '@capacitor/screen-orientation'
 import { computed, ref } from 'vue'
 
 
+const type = ref('portrait')
+const isLocked = ref(false)
+
+ScreenOrientation.addListener(
+  'screenOrientationChange',
+  (r) => {
+    type.value = isLocked.value ? type.value : r.type
+  }
+)
+
+
 export function useScreenOrientation() {
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const type = ref('portrait')
-  const isLocked = ref(false)
 
   const isPortrait = computed(() => [
     'portrait', 'portrait-primary', 'portrait-secondary'
   ].includes(type.value))
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                                    Setup                                   */
-  /* -------------------------------------------------------------------------- */
-
-  ScreenOrientation.addListener(
-    'screenOrientationChange',
-    (r) => type.value = isLocked.value ? type.value : r.type
-  )
 
 
   /* -------------------------------------------------------------------------- */

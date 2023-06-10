@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <DarkImage
-      v-if="imageUri"
-      :src="imageUri"
-      :is-dark="isDark"
-      mode="invert"
-    />
+  <DarkImage
+    v-if="imageUri"
+    :src="imageUri"
+    :is-dark="isDark"
+    :class="$attrs.class"
+    mode="invert"
+  />
 
+  <div v-else>
     <SVGTextLines
-      v-else
       :lines="props.lines"
       :line-height="20"
       line-class="line"
@@ -73,5 +73,9 @@ async function onOpened() {
 
 .image {
   padding: 3px;
+}
+
+.image-landscape {
+  height: 277px;
 }
 </style>
