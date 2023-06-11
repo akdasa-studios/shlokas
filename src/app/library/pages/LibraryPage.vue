@@ -96,7 +96,10 @@ async function onSearchQueryChanged(value: string) {
 
   // NOTE: assign filteredVerses AFTER verseStatuses are fetched
   const languageCode = language.value
-  const verses = await app.library.findByContent(new Language(languageCode, languageCode), value)
+  const verses = await app.library.findByContent(value, {
+    lang: new Language(languageCode, languageCode),
+    unpublished: settings.showUnpublishedVerses
+  })
   verseStatuses.value = await app.library.getStatuses(verses.map(x => x.id))
   filteredVerses.value = Array.from(verses).sort((a, b) => compareVerseNumber(a.number.value, b.number.value))
 }

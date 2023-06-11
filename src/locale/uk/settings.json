@@ -8,7 +8,8 @@
     "contactUs": "Зв'язатися з нами",
     "update": "Update",
     "reviewCardsInRandomOrder": "Випадковий порядок",
-    "cache": "Кеш"
+    "cache": "Кеш",
+    "showUnpublishedVerses": "Неопубліковані вірші"
   },
   "account": {
     "welcomeBack": "З Поверненням!",

@@ -5,7 +5,7 @@ export const settingsKeys = [
   'language', 'showGradeButtons', 'colorfulCards',
   'welcomeDone', 'authToken', 'authSessionId', 'authStrategy',
   'authRefreshedAt', 'authExpiresAt', 'syncCollectionId', 'syncAt',
-  'syncLibraryAt', 'reviewCardsInRandomOrder'
+  'syncLibraryAt', 'reviewCardsInRandomOrder', 'showUnpublishedVerses'
 ]
 
 
@@ -29,6 +29,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const authStrategy = ref('')
   const authRefreshedAt = ref(0)
   const authExpiresAt = ref(0)
+  const showUnpublishedVerses = ref(false)
 
   // sync
   const syncCollectionId =  ref('')
@@ -46,6 +47,6 @@ export const useSettingsStore = defineStore('settings', () => {
   return {
     language, showGradeButtons, colorfulCards, syncLibraryAt, welcomeDone,
     authToken, authSessionId, authStrategy, authRefreshedAt, authExpiresAt, syncCollectionId, syncAt,
-    showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder
+    showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder, showUnpublishedVerses
   }
 })

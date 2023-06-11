@@ -19,7 +19,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@akdasa-studios/shlokas-core": "1.1.19",
+    "@akdasa-studios/shlokas-core": "1.2.5",
     "@akdasa-studios/shlokas-protocol": "^0.0.6",
     "@akdasa-studios/shlokas-uikit": "0.0.19",
     "@awesome-cordova-plugins/core": "6.3.0",
