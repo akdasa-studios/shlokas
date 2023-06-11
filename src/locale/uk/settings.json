@@ -9,7 +9,8 @@
     "update": "Update",
     "clearCache": "Clear cache",
     "reviewCardsInRandomOrder": "Випадковий порядок",
-    "cache": "Кеш"
+    "cache": "Кеш",
+    "showUnpublishedVerses": "Неопубліковані вірші"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
