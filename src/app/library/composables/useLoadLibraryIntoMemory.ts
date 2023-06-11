@@ -28,6 +28,16 @@ export function useLoadLibraryIntoMemory(
           synonyms
         )
 
+        // Data structure migration workaround
+        // feel free to remove it later
+        if (verse?.publication?.publishedAt === undefined) {
+          v.publication.publish()
+        }
+
+        if (verse?.publication?.publishedAt) {
+          v.publication.publish()
+        }
+
         await app.repositories.verses.save(v)
       }
     } finally {

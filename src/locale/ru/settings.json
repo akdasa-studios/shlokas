@@ -9,7 +9,8 @@
     "update": "Обновить",
     "clearCache": "Очистить кэш",
     "reviewCardsInRandomOrder": "Обзор в случайном порядке",
-    "cache": "Кэш"
+    "cache": "Кэш",
+    "showUnpublishedVerses": "Неопубликованные стихи"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

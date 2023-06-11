@@ -69,6 +69,16 @@
           </ion-toggle>
         </ion-item>
 
+        <ion-item
+          v-if="isDevModeEnabled"
+        >
+          <ion-toggle
+            v-model="settings.showUnpublishedVerses"
+          >
+            {{ $t('settings.showUnpublishedVerses') }}
+          </ion-toggle>
+        </ion-item>
+
         <ion-item>
           <ion-label
             @click="onSendEmail"
