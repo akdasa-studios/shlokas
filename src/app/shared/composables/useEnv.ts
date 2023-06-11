@@ -21,19 +21,14 @@ export function useEnv() {
   }
 
   function getMode() {
-    return MODE
-  }
-
-  function isDevelopment() {
-    return ['dev', 'development', 'testing', 'testing:dev', 'testing:prod'].includes(MODE)
+    return MODE as ('dev' | 'staging'  | 'prod')
   }
 
   function getHost() {
     return HOST
   }
 
-
-  return { getContentUrl, getDatabaseUrl, getMode, isDevelopment, getAuthUrl, getHost }
+  return { getContentUrl, getDatabaseUrl, getMode, getAuthUrl, getHost }
 }
 
 export function getAvailableLanguages() {

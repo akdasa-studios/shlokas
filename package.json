@@ -3,8 +3,8 @@
   "version": "1.2.3",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "appflow:build": "if [ \"$CI_PLATFORM\" != \"web\" ]; then npx trapeze run appflow.yml -y --$CI_PLATFORM; fi && npm run build",
+    "dev": "vite --host --mode dev",
+    "appflow:build": "if [ \"$CI_PLATFORM\" != \"web\" ]; then npx trapeze run appflow.yml -y --$CI_PLATFORM; fi && vue-tsc && vite build --mode ${MODE:-dev}",
     "build": "vue-tsc && vite build --mode prod",
     "build:dev": "vue-tsc && vite build --mode dev",
     "build:prod": "vue-tsc && vite build --mode prod",

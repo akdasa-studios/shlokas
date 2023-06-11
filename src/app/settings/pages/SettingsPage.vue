@@ -88,6 +88,17 @@
         </ion-item>
 
         <ion-item
+          v-if="updateInfo.available"
+        >
+          <ion-label @click="onUpdate">
+            {{ $t('settings.update') }}
+            <p>
+              from {{ updateInfo.channel }} to {{ updateInfo.nextVersion }}
+            </p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item
           router-link="/home/settings/cache"
           router-direction="forward"
           :detail="true"
@@ -122,8 +133,9 @@ import {
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
   IonButtons
 } from '@ionic/vue'
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
+import { Deploy } from 'cordova-plugin-ionic'
 import { useSettingsStore } from '@/app/settings'
 import { BackgroundTasks, getAvailableLanguages, useApplication } from '@/app/shared'
 
@@ -144,7 +156,18 @@ const languages = getAvailableLanguages()
 const isDevModeEnabled = computed(() => devModeClicks.value >= 3)
 const devModeClicks = ref(0)
 const daysInFuture = ref(0)
+const updateInfo = reactive({
+  available: false,
+  nextVersion: 'xxxx',
+  channel: 'channel'
+})
 
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+onMounted(checkUdates)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -167,5 +190,19 @@ function onHeaderClicked() {
 function onNextDay() {
   daysInFuture.value += 1
   app.goInFuture(daysInFuture.value)
+}
+
+async function onUpdate() {
+  await Deploy.sync({
+    updateMethod: 'auto',
+  })
+}
+
+async function checkUdates() {
+  const updates = await Deploy.checkForUpdate()
+  const config = await Deploy.getConfiguration()
+  updateInfo.available = updates.available
+  updateInfo.nextVersion = updates.build || '?'
+  updateInfo.channel = config.channel
 }
 </script>
