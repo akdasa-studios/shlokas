@@ -76,6 +76,6 @@ async function onOpened() {
 }
 
 .image-landscape {
-  height: 277px;
+  max-height: 277px;
 }
 </style>
