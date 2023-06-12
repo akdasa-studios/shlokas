@@ -45,8 +45,6 @@
           <ion-label>{{ $t('settings.account') }}</ion-label>
         </ion-item>
 
-
-
         <ion-item
           :detail="true"
         >
