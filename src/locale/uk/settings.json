@@ -17,7 +17,8 @@
     "info": "Інформація про додаток",
     "nextDay": "Наступний день",
     "clearCache": "Очистити кеш",
-    "noUpdatesAvailable": "Немає оновлень"
+    "noUpdatesAvailable": "Немає оновлень",
+    "hideControlsInLandscapeMode": "Приховати елементи керування в ландшафтному режимі"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
