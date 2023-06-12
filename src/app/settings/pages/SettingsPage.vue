@@ -184,7 +184,7 @@ const updateInfo = reactive({
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
-onMounted(checkUdates)
+onMounted(checkUpdates)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -215,11 +215,11 @@ async function onUpdate() {
   })
 }
 
-async function checkUdates() {
+async function checkUpdates() {
   const updates = await Deploy.checkForUpdate()
   const config = await Deploy.getConfiguration()
   updateInfo.available = updates.available
-  updateInfo.nextVersion = updates.build || '?'
+  updateInfo.nextVersion = updates.build || updates.snapshot || '?'
   updateInfo.channel = config.channel
 }
 </script>
