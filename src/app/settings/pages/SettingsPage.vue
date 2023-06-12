@@ -83,6 +83,14 @@
           </ion-toggle>
         </ion-item>
 
+        <ion-item>
+          <ion-toggle
+            v-model="settings.hideControlsInLandscapeMode"
+          >
+            {{ $t('settings.hideControlsInLandscapeMode') }}
+          </ion-toggle>
+        </ion-item>
+
         <ion-list-header>
           <ion-label>{{ $t('settings.system') }}</ion-label>
         </ion-list-header>
