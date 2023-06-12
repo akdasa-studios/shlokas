@@ -1,7 +1,7 @@
 <template>
   <ion-page :data-testid="testId('inboxPage')">
     <!-- Header -->
-    <ion-header v-if="showHeader">
+    <ion-header v-if="!appStateStore.fullscreen">
       <ion-toolbar>
         <ion-title>
           {{ $t('decks.inbox.title') }}
@@ -58,7 +58,7 @@ import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave, IonButtons } from '@ionic/vue'
 import { computed, ref, reactive, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { testId , useApplication , BackgroundTasks, useScreenOrientation } from '@/app/shared'
+import { testId , useApplication , BackgroundTasks, useAppStateStore } from '@/app/shared'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
@@ -74,7 +74,7 @@ const libraryCache = useLibraryCache()
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
 const settings = useSettingsStore()
-const screenOrientation = useScreenOrientation()
+const appStateStore = useAppStateStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -98,7 +98,6 @@ interface SwipePopup {
 const cards = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
 const isEmpty = computed(() => cards.value.length === 0)
-const showHeader = computed(() => screenOrientation.isPortrait.value || !settings.hideControlsInLandscapeMode)
 const { syncAt } = storeToRefs(settings)
 
 let inboxCards: readonly InboxCard[] = []

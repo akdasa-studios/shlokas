@@ -1,5 +1,5 @@
 import { runSettingsPersistenceTask, runSettingsRestoreTask } from '@/app/settings'
-import { runEnterFullscreenMode, runSyncTask } from '@/app/shared'
+import { runEnterFullscreenMode, runHideStatusBar, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
 import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 
@@ -12,4 +12,5 @@ export async function initTasks() {
   runTutorialPersistenceTask()
   await runTutorialRestoreTask()
   runEnterFullscreenMode()
+  runHideStatusBar()
 }

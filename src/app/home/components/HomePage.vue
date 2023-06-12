@@ -5,7 +5,7 @@
 
       <!-- Tabs -->
       <ion-tab-bar
-        v-if="showTabs"
+        v-if="!fullscreen"
         slot="bottom"
         data-testid="tabs-bar"
       >
@@ -76,12 +76,9 @@ import {
   constructOutline
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
-import { useScreenOrientation } from '@/app/shared'
-import { useSettingsStore } from '@/app/settings'
+import { useAppStateStore } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -89,22 +86,19 @@ import { useSettingsStore } from '@/app/settings'
 
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
-const screenOrientation = useScreenOrientation()
-const settingsStore = useSettingsStore()
-const route = useRoute()
+const appStateStore = useAppStateStore()
 
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const showTabs = computed(() =>
-  screenOrientation.isPortrait.value || !settingsStore.hideControlsInLandscapeMode
-  || !(['inboxDeck', 'reviewDeck'].includes(route.name as string))
-)
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
   isEnabled: tutorialEnabled,
   isCompleted: isTutorialCompleted
 } = storeToRefs(tutorialStore)
+const {
+  fullscreen
+} = storeToRefs(appStateStore)
 </script>

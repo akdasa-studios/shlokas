@@ -1,49 +1,42 @@
 import { watch } from 'vue'
+import { StatusBar } from '@capacitor/status-bar'
 import { storeToRefs } from 'pinia'
-import { useSettingsStore } from '@/app/settings'
-import { useScreenOrientation } from '../composables/useScreenOrientation'
+import { Capacitor } from '@capacitor/core'
 import { useAppStateStore } from '../stores/appStateStore'
 
-
 /**
- * Enter fullscreen mode when in landscape mode and hide controls is enabled.
+ * Hide status bar when fullscreen is true, otherwise show it.
  */
-export function runEnterFullscreenMode() {
+export function runHideStatusBar() {
+  // Only run on native platforms
+  if (Capacitor.getPlatform() === 'web') { return }
+
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const screenOrientation = useScreenOrientation()
   const appStateStore = useAppStateStore()
-  const settingsStore = useSettingsStore()
+
 
   /* -------------------------------------------------------------------------- */
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const fullscrenEligibleRoutes = ['inboxDeck', 'reviewDeck']
-  const { routeName } = storeToRefs(appStateStore)
-  const { hideControlsInLandscapeMode } = storeToRefs(settingsStore)
+  const { fullscreen } = storeToRefs(appStateStore)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                    Init                                    */
   /* -------------------------------------------------------------------------- */
 
-  watch(
-    [screenOrientation.isPortrait, routeName],
-    onChanged
-  )
+  watch(fullscreen, onChanged)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onChanged() {
-    const isLandscape = !screenOrientation.isPortrait.value
-    const isFullscreenEligible = fullscrenEligibleRoutes.includes(routeName.value)
-    const hideControls = hideControlsInLandscapeMode.value
-    appStateStore.fullscreen = isLandscape && isFullscreenEligible && hideControls
+  async function onChanged(value: boolean) {
+    if (value) { await StatusBar.hide() } else { await StatusBar.show() }
   }
 }
