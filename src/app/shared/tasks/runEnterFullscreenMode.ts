@@ -12,7 +12,7 @@ export function runEnterFullscreenMode() {
 
   async function onScreenOrientatonChanged() {
     alert('Changing')
-    if (!screenOrientation.isPortrait) {
+    if (!screenOrientation.isPortrait.value) {
       await StatusBar.hide()
       alert('Done')
     } else {
