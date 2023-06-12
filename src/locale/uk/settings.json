@@ -7,10 +7,17 @@
     "colorfulCards": "Кольорові картки",
     "contactUs": "Зв'язатися з нами",
     "update": "Update",
-    "clearCache": "Clear cache",
+    "clearCache": "Очистити кеш",
     "reviewCardsInRandomOrder": "Випадковий порядок",
     "cache": "Кеш",
-    "showUnpublishedVerses": "Неопубліковані вірші"
+    "showUnpublishedVerses": "Неопубліковані вірші",
+    "general": "Загальні",
+    "appearance": "Зовнішній вигляд",
+    "system": "Системні",
+    "info": "Інформація про додаток",
+    "debug": "Налагодження",
+    "nextDay": "Наступний день",
+    "noUpdatesAvailable": "Немає оновлень"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
