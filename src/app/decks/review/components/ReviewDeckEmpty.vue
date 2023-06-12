@@ -45,5 +45,6 @@ const { cardsCountDueToTomorrow } = storeToRefs(statisticsStore)
 
 .img {
   max-width: 50%;
+  max-height: 35%;
 }
 </style>

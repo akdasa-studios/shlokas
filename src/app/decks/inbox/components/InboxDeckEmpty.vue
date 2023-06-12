@@ -36,6 +36,7 @@ const isDark = usePreferredDark()
 
 .img {
     max-width: 50%;
+    max-height: 35%;
 }
 
 .dark {
