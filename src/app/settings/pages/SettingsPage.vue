@@ -148,7 +148,7 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonButtons, IonListHeader, IonButton
+  IonListHeader
 } from '@ionic/vue'
 import { computed, inject, onMounted, reactive, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
