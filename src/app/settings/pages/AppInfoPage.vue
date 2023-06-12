@@ -8,17 +8,6 @@
         <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
-
-        <ion-buttons slot="end">
-          <ion-button
-            v-if="updatesAvailable"
-            fill="solid"
-            color="warning"
-            @click="onUpdateClick"
-          >
-            {{ $t('settings.update') }}
-          </ion-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -53,7 +42,6 @@
 
 <script lang="ts" setup>
 import {
-IonButton,
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons,
   IonLoading
@@ -126,14 +114,6 @@ async function onLoadAppInfo() {
 
   const updates = await Deploy.checkForUpdate()
   updatesAvailable.value = updates?.available ?? false
-}
-
-async function onUpdateClick() {
-  isUpdating.value = true
-  await Deploy.sync({
-    updateMethod: 'auto',
-  })
-  isUpdating.value = false
 }
 
 async function onItemClicked(key: string) {

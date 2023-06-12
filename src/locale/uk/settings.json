@@ -9,7 +9,15 @@
     "update": "Update",
     "reviewCardsInRandomOrder": "Випадковий порядок",
     "cache": "Кеш",
-    "showUnpublishedVerses": "Неопубліковані вірші"
+    "showUnpublishedVerses": "Неопубліковані вірші",
+    "appearance": "Зовнішній вигляд",
+    "general": "Загальні",
+    "system": "Системні",
+    "debug": "Налагодження",
+    "info": "Інформація про додаток",
+    "nextDay": "Наступний день",
+    "clearCache": "Очистити кеш",
+    "noUpdatesAvailable": "Немає оновлень"
   },
   "account": {
     "welcomeBack": "З Поверненням!",

@@ -8,8 +8,8 @@ import { useEnv } from '@/app/shared'
 export async function initLogging() {
   const env = useEnv()
   Logs.register(new ConsoleLogTransport(
-    env.isDevelopment() === true,
-    env.isDevelopment() === false
+    env.getMode() === 'dev',
+    env.getMode() !== 'dev'
   ))
 }
 

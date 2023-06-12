@@ -9,13 +9,21 @@ import { useEnv } from '@/app/shared'
 export async function initLiveUpdate() {
   const env = useEnv()
 
-  // Live update is not supported in web
+  // Live update is not supported in web or dev
   if (Capacitor.getPlatform() === 'web') { return }
+
+  // Configs for different envs
+  const mode =  env.getMode()
+  const channels = {
+    dev:     { channel: 'Development', updateMethod: 'none' },
+    staging: { channel: 'Staging',     updateMethod: 'background' },
+    prod:    { channel: 'Production',  updateMethod: 'background' },
+  }
 
   // Live update is not supported in development
   await Deploy.configure({
-    channel: 'Production',
-    updateMethod: env.isDevelopment() ? 'none' : 'background',
+    channel: channels[mode].channel,
+    updateMethod: (channels[mode].updateMethod as ('none'|'background')),
   })
 
 }
