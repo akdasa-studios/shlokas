@@ -88,7 +88,7 @@
         </ion-list-header>
 
         <ion-item
-          :disabled="updateInfo.available && updateInfo.nextVersion"
+          :disabled="!(updateInfo.available && updateInfo.nextVersion !== '')"
         >
           <ion-label
             @click="onUpdate"
