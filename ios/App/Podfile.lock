@@ -27,6 +27,8 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (5.0.4):
     - Capacitor
+  - CapacitorStatusBar (5.0.4):
+    - Capacitor
   - CodetrixStudioCapacitorGoogleAuth (0.0.1):
     - Capacitor
     - GoogleSignIn (~> 6.2.4)
@@ -62,6 +64,7 @@ DEPENDENCIES:
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CodetrixStudioCapacitorGoogleAuth (from `../../node_modules/@codetrix-studio/capacitor-google-auth`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - "SentryCapacitor (from `../../node_modules/@sentry/capacitor`)"
@@ -98,6 +101,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
   CodetrixStudioCapacitorGoogleAuth:
     :path: "../../node_modules/@codetrix-studio/capacitor-google-auth"
   CordovaPlugins:
@@ -118,6 +123,7 @@ SPEC CHECKSUMS:
   CapacitorKeyboard: d1b25fde6f19744ad09c890862aefc6e2a7ded3d
   CapacitorScreenOrientation: 566575e032ebb9506b328525c6237452efb51fb1
   CapacitorSplashScreen: 93a389d4f7673c08214ae25bb6f21d867d5305c5
+  CapacitorStatusBar: 190e0321b8734f4244d0c81baa183a00d5806ddf
   CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
   CordovaPlugins: 377a0bde74ff71beffca2c79b6746d19bcaca99b
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
@@ -127,6 +133,6 @@ SPEC CHECKSUMS:
   Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
   SentryCapacitor: 638939d27175c8003b9a1d549f2ef5ee0a2f5f94
 
-PODFILE CHECKSUM: 08ad6791fc0286bd3477f9cd185647bd9a87e7fb
+PODFILE CHECKSUM: c5f46e0e6ff10619ebc38fa82d7901198351dd8b
 
 COCOAPODS: 1.12.0

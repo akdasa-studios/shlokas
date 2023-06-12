@@ -36,6 +36,7 @@
     "@capacitor/keyboard": "^5.0.4",
     "@capacitor/screen-orientation": "^5.0.4",
     "@capacitor/splash-screen": "^5.0.4",
+    "@capacitor/status-bar": "^5.0.4",
     "@codetrix-studio/capacitor-google-auth": "^3.3.2",
     "@ionic/core": "^7.0.12",
     "@ionic/storage": "^4.0.0",

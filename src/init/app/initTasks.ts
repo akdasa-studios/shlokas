@@ -1,5 +1,5 @@
 import { runSettingsPersistenceTask, runSettingsRestoreTask } from '@/app/settings'
-import { runSyncTask } from '@/app/shared'
+import { runEnterFullscreenMode, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
 import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 
@@ -11,4 +11,5 @@ export async function initTasks() {
   runSyncTask()
   runTutorialPersistenceTask()
   await runTutorialRestoreTask()
+  runEnterFullscreenMode()
 }

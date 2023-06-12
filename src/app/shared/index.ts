@@ -17,6 +17,7 @@ export * from './composables/useScreenOrientation'
 
 // tasks:
 export * from './tasks/runSyncTask'
+export * from './tasks/runEnterFullscreenMode'
 
 // components:
 export { default as ConfettiExplosion } from './components/ConfettiExplosion.vue'
