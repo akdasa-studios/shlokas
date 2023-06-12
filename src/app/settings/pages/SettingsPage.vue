@@ -88,7 +88,7 @@
         </ion-list-header>
 
         <ion-item
-          :disabled="!(updateInfo.available && updateInfo.nextVersion !== '')"
+          :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
         >
           <ion-label
             @click="onUpdate"
@@ -97,6 +97,7 @@
             <p>
               {{ updateInfo.channel }}
               <span v-if="updateInfo.nextVersion">:: {{ updateInfo.nextVersion }}</span>
+              <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
             </p>
           </ion-label>
         </ion-item>

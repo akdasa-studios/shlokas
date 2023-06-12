@@ -16,7 +16,8 @@
     "system": "System",
     "info": "App info",
     "debug": "Debug",
-    "nextDay": "Next day"
+    "nextDay": "Next day",
+    "noUpdatesAvailable": "No updates available"
   },
   "account": {
     "welcomeBack": "Welcome back!",

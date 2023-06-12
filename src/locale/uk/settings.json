@@ -16,7 +16,8 @@
     "debug": "Налагодження",
     "info": "Інформація про додаток",
     "nextDay": "Наступний день",
-    "clearCache": "Очистити кеш"
+    "clearCache": "Очистити кеш",
+    "noUpdatesAvailable": "Немає оновлень"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
