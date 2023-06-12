@@ -6,14 +6,6 @@
     >
       <ion-toolbar>
         <ion-title>{{ $t('settings.title') }}</ion-title>
-
-        <ion-buttons slot="primary">
-          <ion-button
-            @click="onSendEmail"
-          >
-            {{ $t("settings.contactUs") }}
-          </ion-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -23,16 +15,6 @@
         <ion-list-header>
           <ion-label>{{ $t('settings.general') }}</ion-label>
         </ion-list-header>
-
-        <ion-item
-          v-if="settings.showAccountControls"
-          :detail="true"
-          router-link="/home/settings/account"
-          router-direction="forward"
-          data-testid="account"
-        >
-          <ion-label>{{ $t('settings.account') }}</ion-label>
-        </ion-item>
 
         <ion-item>
           <ion-select
@@ -51,6 +33,28 @@
               {{ lang.name }}
             </ion-select-option>
           </ion-select>
+        </ion-item>
+
+        <ion-item
+          v-if="settings.showAccountControls"
+          :detail="true"
+          router-link="/home/settings/account"
+          router-direction="forward"
+          data-testid="account"
+        >
+          <ion-label>{{ $t('settings.account') }}</ion-label>
+        </ion-item>
+
+
+
+        <ion-item
+          :detail="true"
+        >
+          <ion-label
+            @click="onSendEmail"
+          >
+            {{ $t('settings.contactUs') }}
+          </ion-label>
         </ion-item>
 
         <ion-list-header>
@@ -81,27 +85,20 @@
           </ion-toggle>
         </ion-item>
 
-        <ion-item
-          v-if="isDevModeEnabled"
-        >
-          <ion-toggle
-            v-model="settings.showUnpublishedVerses"
-          >
-            {{ $t('settings.showUnpublishedVerses') }}
-          </ion-toggle>
-        </ion-item>
-
         <ion-list-header>
           <ion-label>{{ $t('settings.system') }}</ion-label>
         </ion-list-header>
 
         <ion-item
-          v-if="updateInfo.available"
+          :disabled="updateInfo.available"
         >
-          <ion-label @click="onUpdate">
+          <ion-label
+            @click="onUpdate"
+          >
             {{ $t('settings.update') }}
             <p>
-              from {{ updateInfo.channel }} to {{ updateInfo.nextVersion }}
+              {{ updateInfo.channel }}
+              <span v-if="updateInfo.nextVersion">:: {{ updateInfo.nextVersion }}</span>
             </p>
           </ion-label>
         </ion-item>
@@ -113,21 +110,35 @@
         >
           <ion-label>{{ $t('settings.cache') }}</ion-label>
         </ion-item>
+      </ion-list>
+
+      <ion-list
+        v-if="isDevModeEnabled"
+      >
+        <ion-list-header>
+          <ion-label>{{ $t('settings.debug') }}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-toggle
+            v-model="settings.showUnpublishedVerses"
+          >
+            {{ $t('settings.showUnpublishedVerses') }}
+          </ion-toggle>
+        </ion-item>
 
         <ion-item
-          v-if="isDevModeEnabled"
           :detail="true"
           router-link="/home/settings/app"
           router-direction="forward"
         >
-          <ion-label>{{ $t('app.name') }}</ion-label>
+          <ion-label>{{ $t('settings.info') }}</ion-label>
         </ion-item>
 
         <ion-item
-          v-if="isDevModeEnabled"
           @click="onNextDay"
         >
-          <ion-label>Next day</ion-label>
+          <ion-label>{{ $t('settings.nextDay') }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -166,8 +177,8 @@ const devModeClicks = ref(0)
 const daysInFuture = ref(0)
 const updateInfo = reactive({
   available: false,
-  nextVersion: 'xxxx',
-  channel: 'channel'
+  nextVersion: '',
+  channel: ''
 })
 
 

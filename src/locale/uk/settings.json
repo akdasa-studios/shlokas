@@ -5,14 +5,18 @@
     "account": "Обліковий запис",
     "gradeButtons": "Показувати кнопки оцінок",
     "colorfulCards": "Кольорові картки",
-    "contactUs": "Відгук",
+    "contactUs": "Зв'язатися з нами",
     "update": "Update",
     "reviewCardsInRandomOrder": "Випадковий порядок",
     "cache": "Кеш",
     "showUnpublishedVerses": "Неопубліковані вірші",
     "appearance": "Зовнішній вигляд",
     "general": "Загальні",
-    "system": "Системні"
+    "system": "Системні",
+    "debug": "Налагодження",
+    "info": "Інформація про додаток",
+    "nextDay": "Наступний день",
+    "clearCache": "Очистити кеш"
   },
   "account": {
     "welcomeBack": "З Поверненням!",

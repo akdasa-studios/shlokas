@@ -13,7 +13,10 @@
     "showUnpublishedVerses": "Unpublished verses",
     "general": "General",
     "appearance": "Appearance",
-    "system": "System"
+    "system": "System",
+    "info": "App info",
+    "debug": "Debug",
+    "nextDay": "Next day"
   },
   "account": {
     "welcomeBack": "Welcome back!",

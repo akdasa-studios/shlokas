@@ -5,7 +5,7 @@
     "account": "Аккаунт",
     "gradeButtons": "Кнопки оценки",
     "colorfulCards": "Цветные карточки",
-    "contactUs": "Отзыв",
+    "contactUs": "Напишите нам",
     "update": "Обновить",
     "clearCache": "Очистить кэш",
     "reviewCardsInRandomOrder": "Обзор в случайном порядке",
@@ -13,7 +13,10 @@
     "showUnpublishedVerses": "Неопубликованные стихи",
     "appearance": "Вид",
     "general": "Общие",
-    "system": "Системные"
+    "system": "Системные",
+    "debug": "Отладка",
+    "info": "Информация о приложении",
+    "nextDay": "Следующий день"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",
