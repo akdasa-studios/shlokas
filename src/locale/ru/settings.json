@@ -10,7 +10,14 @@
     "clearCache": "Очистить кэш",
     "reviewCardsInRandomOrder": "Обзор в случайном порядке",
     "cache": "Кэш",
-    "showUnpublishedVerses": "Неопубликованные стихи"
+    "showUnpublishedVerses": "Неопубликованные стихи",
+    "appearance": "Вид",
+    "general": "Общие",
+    "system": "Системные",
+    "debug": "Отладка",
+    "info": "Информация о приложении",
+    "nextDay": "Следующий день",
+    "noUpdatesAvailable": "Нет обновлений"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

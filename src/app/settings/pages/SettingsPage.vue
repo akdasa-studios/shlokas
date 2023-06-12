@@ -6,25 +6,15 @@
     >
       <ion-toolbar>
         <ion-title>{{ $t('settings.title') }}</ion-title>
-
-        <ion-buttons slot="primary">
-          <BackgroundTasks />
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <!-- Content -->
     <ion-content>
       <ion-list>
-        <ion-item
-          v-if="settings.showAccountControls"
-          :detail="true"
-          router-link="/home/settings/account"
-          router-direction="forward"
-          data-testid="account"
-        >
-          <ion-label>{{ $t('settings.account') }}</ion-label>
-        </ion-item>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.general') }}</ion-label>
+        </ion-list-header>
 
         <ion-item>
           <ion-select
@@ -44,6 +34,30 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
+
+        <ion-item
+          v-if="settings.showAccountControls"
+          :detail="true"
+          router-link="/home/settings/account"
+          router-direction="forward"
+          data-testid="account"
+        >
+          <ion-label>{{ $t('settings.account') }}</ion-label>
+        </ion-item>
+
+        <ion-item
+          :detail="true"
+        >
+          <ion-label
+            @click="onSendEmail"
+          >
+            {{ $t('settings.contactUs') }}
+          </ion-label>
+        </ion-item>
+
+        <ion-list-header>
+          <ion-label>{{ $t('settings.appearance') }}</ion-label>
+        </ion-list-header>
 
         <ion-item>
           <ion-toggle
@@ -69,21 +83,22 @@
           </ion-toggle>
         </ion-item>
 
-        <ion-item
-          v-if="isDevModeEnabled"
-        >
-          <ion-toggle
-            v-model="settings.showUnpublishedVerses"
-          >
-            {{ $t('settings.showUnpublishedVerses') }}
-          </ion-toggle>
-        </ion-item>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.system') }}</ion-label>
+        </ion-list-header>
 
-        <ion-item>
+        <ion-item
+          :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
+        >
           <ion-label
-            @click="onSendEmail"
+            @click="onUpdate"
           >
-            {{ $t('settings.contactUs') }}
+            {{ $t('settings.update') }}
+            <p>
+              <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
+              <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
+              <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
+            </p>
           </ion-label>
         </ion-item>
 
@@ -94,21 +109,35 @@
         >
           <ion-label>{{ $t('settings.cache') }}</ion-label>
         </ion-item>
+      </ion-list>
+
+      <ion-list
+        v-if="isDevModeEnabled"
+      >
+        <ion-list-header>
+          <ion-label>{{ $t('settings.debug') }}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-toggle
+            v-model="settings.showUnpublishedVerses"
+          >
+            {{ $t('settings.showUnpublishedVerses') }}
+          </ion-toggle>
+        </ion-item>
 
         <ion-item
-          v-if="isDevModeEnabled"
           :detail="true"
           router-link="/home/settings/app"
           router-direction="forward"
         >
-          <ion-label>{{ $t('app.name') }}</ion-label>
+          <ion-label>{{ $t('settings.info') }}</ion-label>
         </ion-item>
 
         <ion-item
-          v-if="isDevModeEnabled"
           @click="onNextDay"
         >
-          <ion-label>Next day</ion-label>
+          <ion-label>{{ $t('settings.nextDay') }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -120,12 +149,13 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonButtons
+  IonListHeader
 } from '@ionic/vue'
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
+import { Deploy } from 'cordova-plugin-ionic'
 import { useSettingsStore } from '@/app/settings'
-import { BackgroundTasks, getAvailableLanguages, useApplication } from '@/app/shared'
+import { getAvailableLanguages, useApplication } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -144,7 +174,18 @@ const languages = getAvailableLanguages()
 const isDevModeEnabled = computed(() => devModeClicks.value >= 3)
 const devModeClicks = ref(0)
 const daysInFuture = ref(0)
+const updateInfo = reactive({
+  available: false,
+  nextVersion: '',
+  channel: ''
+})
 
+
+/* -------------------------------------------------------------------------- */
+/*                                  Lifehooks                                 */
+/* -------------------------------------------------------------------------- */
+
+onMounted(checkUpdates)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -167,5 +208,19 @@ function onHeaderClicked() {
 function onNextDay() {
   daysInFuture.value += 1
   app.goInFuture(daysInFuture.value)
+}
+
+async function onUpdate() {
+  await Deploy.sync({
+    updateMethod: 'auto',
+  })
+}
+
+async function checkUpdates() {
+  const updates = await Deploy.checkForUpdate()
+  const config = await Deploy.getConfiguration()
+  updateInfo.available = updates.available
+  updateInfo.nextVersion = updates.build || updates.snapshot || ''
+  updateInfo.channel = config.channel
 }
 </script>

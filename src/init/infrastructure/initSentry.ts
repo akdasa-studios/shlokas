@@ -12,8 +12,8 @@ import { InitArgs } from '../initialization'
  */
 export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
-  if (env.isDevelopment()) { return }
   if (Capacitor.getPlatform() === 'web') { return }
+  if (env.getMode() === 'dev') { return }
 
   Sentry.init({
     app: get<VueApp>('vue'),
