@@ -88,7 +88,7 @@
         </ion-list-header>
 
         <ion-item
-          :disabled="updateInfo.available"
+          :disabled="updateInfo.available && updateInfo.nextVersion"
         >
           <ion-label
             @click="onUpdate"
@@ -219,7 +219,7 @@ async function checkUpdates() {
   const updates = await Deploy.checkForUpdate()
   const config = await Deploy.getConfiguration()
   updateInfo.available = updates.available
-  updateInfo.nextVersion = updates.build || updates.snapshot || '?'
+  updateInfo.nextVersion = updates.build || updates.snapshot || ''
   updateInfo.channel = config.channel
 }
 </script>
