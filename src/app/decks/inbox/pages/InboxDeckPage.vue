@@ -76,7 +76,6 @@ const tutorial = useTutorialStore()
 const settings = useSettingsStore()
 const screenOrientation = useScreenOrientation()
 
-
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
@@ -99,7 +98,7 @@ interface SwipePopup {
 const cards = ref<CardState[]>([])
 const swipePopup = reactive<SwipePopup>({ show: false, status: 'none'})
 const isEmpty = computed(() => cards.value.length === 0)
-const showHeader = computed(() => screenOrientation.isPortrait.value)
+const showHeader = computed(() => screenOrientation.isPortrait.value || !settings.hideControlsInLandscapeMode)
 const { syncAt } = storeToRefs(settings)
 
 let inboxCards: readonly InboxCard[] = []

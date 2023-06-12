@@ -80,6 +80,7 @@ import { computed } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
 import { useScreenOrientation } from '@/app/shared'
+import { useSettingsStore } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -88,12 +89,13 @@ import { useScreenOrientation } from '@/app/shared'
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
 const screenOrientation = useScreenOrientation()
+const settingsStore = useSettingsStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const showTabs = computed(() => screenOrientation.isPortrait.value)
+const showTabs = computed(() => screenOrientation.isPortrait.value || !settingsStore.hideControlsInLandscapeMode)
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
   isEnabled: tutorialEnabled,

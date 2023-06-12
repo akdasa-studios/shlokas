@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <!-- Header -->
-    <ion-header>
+    <ion-header v-if="showHeader">
       <ion-toolbar>
         <ion-title>
           {{ $t('decks.review.title') }}
@@ -74,7 +74,7 @@ import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/de
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication , BackgroundTasks, useArrayShuffler } from '@/app/shared'
+import { useApplication , BackgroundTasks, useArrayShuffler, useScreenOrientation } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -87,6 +87,7 @@ const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
 const shuffler = useArrayShuffler()
+const screenOrientation = useScreenOrientation()
 
 
 /* -------------------------------------------------------------------------- */
@@ -115,6 +116,7 @@ const swipePopup = reactive<SwipePopup>({ show: false, status: 'none', interval:
 const isEmpty = computed(() => cardsToShow.value.length === 0)
 const topCard = useArrayFind(cardsToShow, x => x.index === 0)
 const showGradeButtons = computed(() => topCard.value?.flipped && settings.showGradeButtons)
+const showHeader = computed(() => screenOrientation.isPortrait.value || !settings.hideControlsInLandscapeMode)
 const { currentStep } = storeToRefs(tutorial)
 const { syncAt } = storeToRefs(settings)
 
