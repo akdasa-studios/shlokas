@@ -8,7 +8,11 @@
         <ion-title>{{ $t('settings.title') }}</ion-title>
 
         <ion-buttons slot="primary">
-          <BackgroundTasks />
+          <ion-button
+            @click="onSendEmail"
+          >
+            {{ $t("settings.contactUs") }}
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -16,6 +20,10 @@
     <!-- Content -->
     <ion-content>
       <ion-list>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.general') }}</ion-label>
+        </ion-list-header>
+
         <ion-item
           v-if="settings.showAccountControls"
           :detail="true"
@@ -44,6 +52,10 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
+
+        <ion-list-header>
+          <ion-label>{{ $t('settings.appearance') }}</ion-label>
+        </ion-list-header>
 
         <ion-item>
           <ion-toggle
@@ -79,13 +91,9 @@
           </ion-toggle>
         </ion-item>
 
-        <ion-item>
-          <ion-label
-            @click="onSendEmail"
-          >
-            {{ $t('settings.contactUs') }}
-          </ion-label>
-        </ion-item>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.system') }}</ion-label>
+        </ion-list-header>
 
         <ion-item
           v-if="updateInfo.available"
@@ -131,13 +139,13 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonButtons
+  IonButtons, IonListHeader, IonButton
 } from '@ionic/vue'
 import { computed, inject, onMounted, reactive, ref } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
 import { useSettingsStore } from '@/app/settings'
-import { BackgroundTasks, getAvailableLanguages, useApplication } from '@/app/shared'
+import { getAvailableLanguages, useApplication } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */

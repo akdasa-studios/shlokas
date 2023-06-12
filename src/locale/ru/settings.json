@@ -5,12 +5,15 @@
     "account": "Аккаунт",
     "gradeButtons": "Кнопки оценки",
     "colorfulCards": "Цветные карточки",
-    "contactUs": "Напишите нам",
+    "contactUs": "Отзыв",
     "update": "Обновить",
     "clearCache": "Очистить кэш",
     "reviewCardsInRandomOrder": "Обзор в случайном порядке",
     "cache": "Кэш",
-    "showUnpublishedVerses": "Неопубликованные стихи"
+    "showUnpublishedVerses": "Неопубликованные стихи",
+    "appearance": "Вид",
+    "general": "Общие",
+    "system": "Системные"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

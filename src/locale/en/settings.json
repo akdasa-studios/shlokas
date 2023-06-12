@@ -10,7 +10,10 @@
     "clearCache": "Clear cache",
     "reviewCardsInRandomOrder": "Randomize review cards",
     "cache": "Cache",
-    "showUnpublishedVerses": "Unpublished verses"
+    "showUnpublishedVerses": "Unpublished verses",
+    "general": "General",
+    "appearance": "Appearance",
+    "system": "System"
   },
   "account": {
     "welcomeBack": "Welcome back!",

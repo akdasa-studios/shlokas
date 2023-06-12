@@ -5,11 +5,14 @@
     "account": "Обліковий запис",
     "gradeButtons": "Показувати кнопки оцінок",
     "colorfulCards": "Кольорові картки",
-    "contactUs": "Зв'язатися з нами",
+    "contactUs": "Відгук",
     "update": "Update",
     "reviewCardsInRandomOrder": "Випадковий порядок",
     "cache": "Кеш",
-    "showUnpublishedVerses": "Неопубліковані вірші"
+    "showUnpublishedVerses": "Неопубліковані вірші",
+    "appearance": "Зовнішній вигляд",
+    "general": "Загальні",
+    "system": "Системні"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
