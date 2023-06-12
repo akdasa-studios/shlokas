@@ -77,6 +77,7 @@ import {
 } from 'ionicons/icons'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
 import { useScreenOrientation } from '@/app/shared'
@@ -90,12 +91,17 @@ const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
 const screenOrientation = useScreenOrientation()
 const settingsStore = useSettingsStore()
+const route = useRoute()
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
-const showTabs = computed(() => screenOrientation.isPortrait.value || !settingsStore.hideControlsInLandscapeMode)
+const showTabs = computed(() =>
+  screenOrientation.isPortrait.value || !settingsStore.hideControlsInLandscapeMode
+  || !(['inboxDeck', 'reviewDeck'].includes(route.name as string))
+)
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
   isEnabled: tutorialEnabled,
