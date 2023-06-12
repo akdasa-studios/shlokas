@@ -95,8 +95,8 @@
           >
             {{ $t('settings.update') }}
             <p>
-              {{ updateInfo.channel }}
-              <span v-if="updateInfo.nextVersion">:: {{ updateInfo.nextVersion }}</span>
+              <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
+              <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
               <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
             </p>
           </ion-label>
