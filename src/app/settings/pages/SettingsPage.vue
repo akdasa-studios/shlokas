@@ -96,21 +96,6 @@
         </ion-list-header>
 
         <ion-item
-          :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
-        >
-          <ion-label
-            @click="onUpdate"
-          >
-            {{ $t('settings.update') }}
-            <p>
-              <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
-              <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
-              <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
-            </p>
-          </ion-label>
-        </ion-item>
-
-        <ion-item
           router-link="/home/settings/cache"
           router-direction="forward"
           :detail="true"
@@ -118,6 +103,23 @@
           <ion-label>{{ $t('settings.cache') }}</ion-label>
         </ion-item>
       </ion-list>
+
+      <ion-item
+        :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
+      >
+        <ion-label
+          @click="onUpdate"
+        >
+          {{ $t('settings.update') }}
+          <p>
+            <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
+            <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
+            <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
+          </p>
+        </ion-label>
+      </ion-item>
+
+
 
       <ion-list
         v-if="isDevModeEnabled"
