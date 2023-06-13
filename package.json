@@ -8,6 +8,7 @@
     "build": "vue-tsc && vite build --mode prod",
     "build:dev": "vue-tsc && vite build --mode dev",
     "build:prod": "vue-tsc && vite build --mode prod",
+    "build:staging": "vue-tsc && vite build --mode staging",
     "build:testing:dev": "vue-tsc && vite build --mode testing:dev",
     "build:testing:prod": "vue-tsc && vite build --mode testing:prod",
     "ionic:serve": "vite dev --host",
@@ -42,8 +43,8 @@
     "@ionic/storage": "^4.0.0",
     "@ionic/vue": "^7.0.2",
     "@ionic/vue-router": "^7.0.2",
-    "@sentry/capacitor": "^0.11.2",
-    "@sentry/vue": "7.37.1",
+    "@sentry/capacitor": "^0.12.0",
+    "@sentry/vue": "7.50.0",
     "@trapezedev/configure": "^7.0.10",
     "@vueuse/core": "^9.13.0",
     "capacitor-blob-writer": "^1.1.11",
@@ -63,7 +64,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.0.0",
+    "@capacitor/cli": "^5.0.5",
     "@ionic/cli": "7.1.1",
     "@types/node": "^18.11.1",
     "@types/pouchdb": "^6.4.0",

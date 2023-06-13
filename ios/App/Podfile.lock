@@ -48,7 +48,7 @@ PODS:
   - Sentry (7.27.1):
     - Sentry/Core (= 7.27.1)
   - Sentry/Core (7.27.1)
-  - SentryCapacitor (0.11.2):
+  - SentryCapacitor (0.12.0):
     - Capacitor
     - Sentry (~> 7.27.1)
 
@@ -131,7 +131,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
-  SentryCapacitor: 638939d27175c8003b9a1d549f2ef5ee0a2f5f94
+  SentryCapacitor: ec7067c38aa38ab6f20d919a4ca96a03573afdf4
 
 PODFILE CHECKSUM: c5f46e0e6ff10619ebc38fa82d7901198351dd8b
 
