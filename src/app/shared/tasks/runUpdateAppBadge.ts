@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
 import { useSettingsStore } from '@/app/settings'
+import { useLogger } from '../composables/useLogger'
 
 
 export function useUpdateAppBadge() {
@@ -13,6 +14,7 @@ export function useUpdateAppBadge() {
 
   const statisticsStore = useStatisticsStore()
   const settingsStore = useSettingsStore()
+  const logger = useLogger('badge')
 
 
   /* -------------------------------------------------------------------------- */
@@ -28,13 +30,17 @@ export function useUpdateAppBadge() {
   /* -------------------------------------------------------------------------- */
 
   async function run() {
-    const isSupportd = await Badge.isSupported()
-    if (!isSupportd) { return }
+    try {
+      const isSupportd = await Badge.isSupported()
+      if (!isSupportd) { return }
 
-    watch([
-      cardsInReview,
-      showAppBadge
-    ], onCardsInReviewChanged)
+      watch([
+        cardsInReview,
+        showAppBadge
+      ], onCardsInReviewChanged)
+    } catch (e) {
+      logger.error('Error while starting UpdateAppBadge task: ' + e)
+    }
   }
 
 

@@ -2,6 +2,7 @@ import { LocalNotifications } from '@capacitor/local-notifications'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useSettingsStore } from '@/app/settings'
+import { useLogger } from '../composables/useLogger'
 
 
 export function useScheduleNotifications() {
@@ -11,6 +12,7 @@ export function useScheduleNotifications() {
   /* -------------------------------------------------------------------------- */
 
   const settingsStore = useSettingsStore()
+  const logger = useLogger('notifications')
 
 
   /* -------------------------------------------------------------------------- */
@@ -27,23 +29,31 @@ export function useScheduleNotifications() {
   /* -------------------------------------------------------------------------- */
 
   async function run() {
-    // Once "enable notifications" is changed, orf "notification time" is
-    // changed, schedule notifications
-    watch([
-      enableNotifications,
-      notificationTime
-    ], scheduleNotifications)
+    try {
+      // Once "enable notifications" is changed, orf "notification time" is
+      // changed, schedule notifications
+      watch([
+        enableNotifications,
+        notificationTime
+      ], scheduleNotifications)
+    } catch (e) {
+      logger.error('Error while starting ScheduleNotifications task: ' + e)
+    }
   }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
   async function scheduleNotifications() {
+    const permissions = await LocalNotifications.checkPermissions()
+    if (permissions.display !== 'granted') { return }
+
     // Cancel all previously scheduled notifications
     for (
       let id = SCHEDULE_NOTIFICATION_IDS;
-      id <= SCHEDULE_NOTIFICATION_IDS+MAX_SCHEDULES;
+      id <= SCHEDULE_NOTIFICATION_IDS + MAX_SCHEDULES;
       id++
     ) {
       await LocalNotifications.cancel({ notifications: [{ id }] })
