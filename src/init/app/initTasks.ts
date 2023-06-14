@@ -1,5 +1,5 @@
 import { useSettingsPersistenceTask } from '@/app/settings'
-import { runEnterFullscreenMode, runHideStatusBar, useScheduleNotifications, runSyncTask } from '@/app/shared'
+import { runEnterFullscreenMode, runHideStatusBar, useScheduleNotifications, runSyncTask, useUpdateAppBadge } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
 import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 
@@ -7,6 +7,7 @@ import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutori
 export async function initTasks() {
   await useSettingsPersistenceTask().run()
   await useScheduleNotifications().run()
+  await useUpdateAppBadge().run()
 
   runUpdateStatisticsTask()
   runSyncTask()

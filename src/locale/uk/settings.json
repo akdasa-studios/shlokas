@@ -21,7 +21,8 @@
     "hideControlsInLandscapeMode": "Приховати елементи керування в ландшафтному режимі",
     "enableNotifications": "Сповіщення",
     "notification": "Сповіщення",
-    "sadhana": "Садхана"
+    "sadhana": "Садхана",
+    "showAppBadge": "Бейдж"
   },
   "account": {
     "welcomeBack": "З Поверненням!",

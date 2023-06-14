@@ -21,7 +21,8 @@
     "hideControlsInLandscapeMode": "Скрывать панели управления",
     "enableNotifications": "Напоминания",
     "notification": "Напоминение",
-    "sadhana": "Садхана"
+    "sadhana": "Садхана",
+    "showAppBadge": "Бейдж"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

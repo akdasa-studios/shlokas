@@ -13,6 +13,10 @@ const config: CapacitorConfig = {
       'androidClientId': '879891505939-bs3v8sm9mu1ti65eu81f3b8idtl8bakm.apps.googleusercontent.com',
       'forceCodeForRefreshToken': true
     },
+    Badge: {
+      persist: true,
+      autoClear: false,
+    },
   }
 }
 

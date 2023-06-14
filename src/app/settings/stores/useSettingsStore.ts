@@ -6,7 +6,8 @@ export const settingsKeys = [
   'welcomeDone', 'authToken', 'authSessionId', 'authStrategy',
   'authRefreshedAt', 'authExpiresAt', 'syncCollectionId', 'syncAt',
   'syncLibraryAt', 'reviewCardsInRandomOrder', 'showUnpublishedVerses',
-  'hideControlsInLandscapeMode', 'enableNotifications', 'notificationTime'
+  'hideControlsInLandscapeMode', 'enableNotifications', 'notificationTime',
+  'showAppBadge'
 ]
 
 
@@ -20,6 +21,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const showGradeButtons = ref(true)
   const colorfulCards = ref(true)
   const reviewCardsInRandomOrder = ref(true)
+  const showAppBadge = ref(false)
 
   // welcome
   const welcomeDone = ref(false)
@@ -54,6 +56,6 @@ export const useSettingsStore = defineStore('settings', () => {
     language, showGradeButtons, colorfulCards, syncLibraryAt, welcomeDone,
     authToken, authSessionId, authStrategy, authRefreshedAt, authExpiresAt, syncCollectionId, syncAt,
     showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder, showUnpublishedVerses,
-    hideControlsInLandscapeMode, enableNotifications, notificationTime
+    hideControlsInLandscapeMode, enableNotifications, notificationTime, showAppBadge
   }
 })

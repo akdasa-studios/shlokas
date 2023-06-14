@@ -39,6 +39,7 @@
     "@capacitor/screen-orientation": "^5.0.4",
     "@capacitor/splash-screen": "^5.0.4",
     "@capacitor/status-bar": "^5.0.4",
+    "@capawesome/capacitor-badge": "^5.0.0",
     "@codetrix-studio/capacitor-google-auth": "^3.3.2",
     "@ionic/core": "^7.0.13",
     "@ionic/storage": "^4.0.0",

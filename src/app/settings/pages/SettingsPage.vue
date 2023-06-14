@@ -91,6 +91,14 @@
           </ion-toggle>
         </ion-item>
 
+        <ion-item>
+          <ion-toggle
+            v-model="settings.showAppBadge"
+          >
+            {{ $t('settings.showAppBadge') }}
+          </ion-toggle>
+        </ion-item>
+
         <!-- Sadhana -->
 
 

@@ -21,7 +21,8 @@
     "hideControlsInLandscapeMode": "Hide controls in landscape mode",
     "sadhana": "Sadhana",
     "enableNotifications": "Enable notifications",
-    "notification": "Notification"
+    "notification": "Notification",
+    "showAppBadge": "App badge"
   },
   "account": {
     "welcomeBack": "Welcome back!",

@@ -20,6 +20,7 @@ export * from './tasks/runSyncTask'
 export * from './tasks/runEnterFullscreenMode'
 export * from './tasks/runHideStatusBar'
 export * from './tasks/runScheduleNotifications'
+export * from './tasks/runUpdateAppBadge'
 
 // stores:
 export * from './stores/appStateStore'
