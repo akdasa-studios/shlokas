@@ -18,6 +18,7 @@ export function useScheduleNotifications() {
   /* -------------------------------------------------------------------------- */
 
   const SCHEDULE_NOTIFICATION_IDS = 1000
+  const MAX_SCHEDULES = 5
   const { enableNotifications, notificationTime } = storeToRefs(settingsStore)
 
 
@@ -40,8 +41,12 @@ export function useScheduleNotifications() {
 
   async function scheduleNotifications() {
     // Cancel all previously scheduled notifications
-    for (const [idx] of settingsStore.notificationTime.entries()) {
-      await LocalNotifications.cancel({ notifications: [{ id: SCHEDULE_NOTIFICATION_IDS + idx }] })
+    for (
+      let id = SCHEDULE_NOTIFICATION_IDS;
+      id <= SCHEDULE_NOTIFICATION_IDS+MAX_SCHEDULES;
+      id++
+    ) {
+      await LocalNotifications.cancel({ notifications: [{ id }] })
     }
 
     // If notifications are disabled, do nothing
@@ -49,15 +54,7 @@ export function useScheduleNotifications() {
 
     // Schedule notifications for each time
     for (const [idx, time] of settingsStore.notificationTime.entries()) {
-      const alarmTime        = new Date()
       const [hours, minutes] = time
-      const isEarlierThanNow = hours <= alarmTime.getHours() && minutes <= alarmTime.getMinutes()
-
-      // If the alarm time is earlier than now, schedule it for tomorrow
-      if (isEarlierThanNow) {
-        alarmTime.setDate(alarmTime.getDate() + 1)
-      }
-      alarmTime.setHours(hours, minutes, 0, 0)
 
       // Schedule notification
       LocalNotifications.schedule({
@@ -66,7 +63,13 @@ export function useScheduleNotifications() {
             id: SCHEDULE_NOTIFICATION_IDS + idx,
             title: 'Shlokas',
             body: 'Time to learn shlokas',
-            schedule: { at: alarmTime },
+            schedule: {
+              on: {
+                hour: hours,
+                minute: minutes
+              },
+              every: 'day'
+            },
           }
         ]
       })
