@@ -93,101 +93,95 @@
 
         <!-- Sadhana -->
 
-        <ion-list>
-          <ion-list-header>
-            <ion-label>{{ $t('settings.sadhana') }}</ion-label>
-          </ion-list-header>
 
-          <ion-item>
-            <ion-toggle
-              v-model="settings.enableNotifications"
-            >
-              {{ $t('settings.enableNotifications') }}
-            </ion-toggle>
-          </ion-item>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.sadhana') }}</ion-label>
+        </ion-list-header>
 
-          <ion-item>
-            <ion-label>{{ $t('settings.notification') }}</ion-label>
-            <ion-datetime-button datetime="datetime" />
-          </ion-item>
-        </ion-list>
+        <ion-item>
+          <ion-toggle
+            v-model="settings.enableNotifications"
+          >
+            {{ $t('settings.enableNotifications') }}
+          </ion-toggle>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{ $t('settings.notification') }}</ion-label>
+          <ion-datetime-button datetime="datetime" />
+        </ion-item>
 
 
         <!-- System -->
 
-        <ion-list>
-          <ion-list-header>
-            <ion-label>{{ $t('settings.system') }}</ion-label>
-          </ion-list-header>
+        <ion-list-header>
+          <ion-label>{{ $t('settings.system') }}</ion-label>
+        </ion-list-header>
 
-          <ion-item
-            router-link="/home/settings/cache"
-            router-direction="forward"
-            :detail="true"
-          >
-            <ion-label>{{ $t('settings.cache') }}</ion-label>
-          </ion-item>
-
-
-          <ion-item
-            :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
-          >
-            <ion-label
-              @click="onUpdate"
-            >
-              {{ $t('settings.update') }}
-              <p>
-                <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
-                <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
-                <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
-              </p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-
-
-
-        <ion-list
-          v-if="isDevModeEnabled"
+        <ion-item
+          router-link="/home/settings/cache"
+          router-direction="forward"
+          :detail="true"
         >
-          <ion-list-header>
-            <ion-label>{{ $t('settings.debug') }}</ion-label>
-          </ion-list-header>
+          <ion-label>{{ $t('settings.cache') }}</ion-label>
+        </ion-item>
 
-          <ion-item>
-            <ion-toggle
-              v-model="settings.showUnpublishedVerses"
-            >
-              {{ $t('settings.showUnpublishedVerses') }}
-            </ion-toggle>
-          </ion-item>
 
-          <ion-item
-            :detail="true"
-            router-link="/home/settings/app"
-            router-direction="forward"
+        <ion-item
+          :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
+        >
+          <ion-label
+            @click="onUpdate"
           >
-            <ion-label>{{ $t('settings.info') }}</ion-label>
-          </ion-item>
+            {{ $t('settings.update') }}
+            <p>
+              <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
+              <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
+              <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
-          <ion-item
-            @click="onNextDay"
+      <ion-list
+        v-if="isDevModeEnabled"
+      >
+        <ion-list-header>
+          <ion-label>{{ $t('settings.debug') }}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-toggle
+            v-model="settings.showUnpublishedVerses"
           >
-            <ion-label>{{ $t('settings.nextDay') }}</ion-label>
-          </ion-item>
-        </ion-list>
+            {{ $t('settings.showUnpublishedVerses') }}
+          </ion-toggle>
+        </ion-item>
 
+        <ion-item
+          :detail="true"
+          router-link="/home/settings/app"
+          router-direction="forward"
+        >
+          <ion-label>{{ $t('settings.info') }}</ion-label>
+        </ion-item>
 
-        <ion-modal :keep-contents-mounted="true">
-          <ion-datetime
-            id="datetime"
-            presentation="time"
-            :value="getNotificationDateTime()"
-            @ion-change="onNotificationTimeChange"
-          />
-        </ion-modal>
+        <ion-item
+          @click="onNextDay"
+        >
+          <ion-label>{{ $t('settings.nextDay') }}</ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
+
+    <ion-modal :keep-contents-mounted="true">
+      <ion-datetime
+        id="datetime"
+        presentation="time"
+        :value="getNotificationDateTime()"
+        @ion-change="onNotificationTimeChange"
+      />
+    </ion-modal>
   </ion-page>
 </template>
 
