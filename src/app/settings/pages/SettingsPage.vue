@@ -91,64 +91,101 @@
           </ion-toggle>
         </ion-item>
 
-        <ion-list-header>
-          <ion-label>{{ $t('settings.system') }}</ion-label>
-        </ion-list-header>
+        <!-- Sadhana -->
 
-        <ion-item
-          router-link="/home/settings/cache"
-          router-direction="forward"
-          :detail="true"
-        >
-          <ion-label>{{ $t('settings.cache') }}</ion-label>
-        </ion-item>
-      </ion-list>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>{{ $t('settings.sadhana') }}</ion-label>
+          </ion-list-header>
 
-      <ion-item
-        :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
-      >
-        <ion-label
-          @click="onUpdate"
-        >
-          {{ $t('settings.update') }}
-          <p>
-            <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
-            <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
-            <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
-          </p>
-        </ion-label>
-      </ion-item>
+          <ion-item>
+            <ion-toggle
+              v-model="settings.enableNotifications"
+            >
+              {{ $t('settings.enableNotifications') }}
+            </ion-toggle>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>{{ $t('settings.notification') }}</ion-label>
+            <ion-datetime-button datetime="datetime" />
+          </ion-item>
+        </ion-list>
 
 
+        <!-- System -->
 
-      <ion-list
-        v-if="isDevModeEnabled"
-      >
-        <ion-list-header>
-          <ion-label>{{ $t('settings.debug') }}</ion-label>
-        </ion-list-header>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>{{ $t('settings.system') }}</ion-label>
+          </ion-list-header>
 
-        <ion-item>
-          <ion-toggle
-            v-model="settings.showUnpublishedVerses"
+          <ion-item
+            router-link="/home/settings/cache"
+            router-direction="forward"
+            :detail="true"
           >
-            {{ $t('settings.showUnpublishedVerses') }}
-          </ion-toggle>
-        </ion-item>
+            <ion-label>{{ $t('settings.cache') }}</ion-label>
+          </ion-item>
 
-        <ion-item
-          :detail="true"
-          router-link="/home/settings/app"
-          router-direction="forward"
-        >
-          <ion-label>{{ $t('settings.info') }}</ion-label>
-        </ion-item>
 
-        <ion-item
-          @click="onNextDay"
+          <ion-item
+            :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
+          >
+            <ion-label
+              @click="onUpdate"
+            >
+              {{ $t('settings.update') }}
+              <p>
+                <span v-if="updateInfo.channel">{{ updateInfo.channel }}&nbsp;::&nbsp;</span>
+                <span v-if="updateInfo.nextVersion">{{ updateInfo.nextVersion }}</span>
+                <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+
+
+        <ion-list
+          v-if="isDevModeEnabled"
         >
-          <ion-label>{{ $t('settings.nextDay') }}</ion-label>
-        </ion-item>
+          <ion-list-header>
+            <ion-label>{{ $t('settings.debug') }}</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-toggle
+              v-model="settings.showUnpublishedVerses"
+            >
+              {{ $t('settings.showUnpublishedVerses') }}
+            </ion-toggle>
+          </ion-item>
+
+          <ion-item
+            :detail="true"
+            router-link="/home/settings/app"
+            router-direction="forward"
+          >
+            <ion-label>{{ $t('settings.info') }}</ion-label>
+          </ion-item>
+
+          <ion-item
+            @click="onNextDay"
+          >
+            <ion-label>{{ $t('settings.nextDay') }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-modal :keep-contents-mounted="true">
+          <ion-datetime
+            id="datetime"
+            presentation="time"
+            :value="getNotificationDateTime()"
+            @ion-change="onNotificationTimeChange"
+          />
+        </ion-modal>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -159,13 +196,19 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonListHeader
+  IonListHeader, IonDatetime, IonDatetimeButton, IonModal
 } from '@ionic/vue'
-import { computed, inject, onMounted, reactive, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
+import { LocalNotifications } from '@capacitor/local-notifications'
+import { storeToRefs } from 'pinia'
 import { useSettingsStore } from '@/app/settings'
 import { getAvailableLanguages, useApplication } from '@/app/shared'
+
+// function onch(v: any) {
+//   console.log(new Date(v.detail.value).getHours())
+// }
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -189,6 +232,7 @@ const updateInfo = reactive({
   nextVersion: '',
   channel: ''
 })
+const { enableNotifications } = storeToRefs(settings)
 
 
 /* -------------------------------------------------------------------------- */
@@ -196,6 +240,15 @@ const updateInfo = reactive({
 /* -------------------------------------------------------------------------- */
 
 onMounted(checkUpdates)
+
+watch([enableNotifications], async (value) => {
+  if (!value) { return }
+
+  const perms = await LocalNotifications.checkPermissions()
+  if (perms.display != 'granted') {
+    await LocalNotifications.requestPermissions()
+  }
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -232,5 +285,18 @@ async function checkUpdates() {
   updateInfo.available = updates.available
   updateInfo.nextVersion = updates.build || updates.snapshot || ''
   updateInfo.channel = config.channel
+}
+
+function onNotificationTimeChange(v: any) {
+  const tokens = v.detail.value.split(':')
+  settings.notificationTime = [
+    [parseInt(tokens[0]), parseInt(tokens[1])]
+  ]
+}
+
+function getNotificationDateTime() {
+  const setting = settings.notificationTime[0]
+  if (!setting) { return '09:00' }
+  return `${setting[0].toString().padStart(2, '0')}:${setting[1].toString().padStart(2, '0')}`
 }
 </script>

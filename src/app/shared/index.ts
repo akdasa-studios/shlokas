@@ -19,6 +19,7 @@ export * from './composables/useScreenOrientation'
 export * from './tasks/runSyncTask'
 export * from './tasks/runEnterFullscreenMode'
 export * from './tasks/runHideStatusBar'
+export * from './tasks/runScheduleNotifications'
 
 // stores:
 export * from './stores/appStateStore'

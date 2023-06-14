@@ -23,6 +23,8 @@ PODS:
     - Capacitor
   - CapacitorKeyboard (5.0.4):
     - Capacitor
+  - CapacitorLocalNotifications (5.0.4):
+    - Capacitor
   - CapacitorScreenOrientation (5.0.4):
     - Capacitor
   - CapacitorSplashScreen (5.0.4):
@@ -62,6 +64,7 @@ DEPENDENCIES:
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - "CapacitorLocalNotifications (from `../../node_modules/@capacitor/local-notifications`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
@@ -97,6 +100,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorKeyboard:
     :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorLocalNotifications:
+    :path: "../../node_modules/@capacitor/local-notifications"
   CapacitorScreenOrientation:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorSplashScreen:
@@ -121,6 +126,7 @@ SPEC CHECKSUMS:
   CapacitorFilesystem: e1bdfab09b95b181c844c16abcfda45ec8e8ed6b
   CapacitorHaptics: e36653b37326d71bb35ae42b944124037dbc3d97
   CapacitorKeyboard: d1b25fde6f19744ad09c890862aefc6e2a7ded3d
+  CapacitorLocalNotifications: 2c95d27ccf9cc28ecc59d69b54d29074c1740172
   CapacitorScreenOrientation: 566575e032ebb9506b328525c6237452efb51fb1
   CapacitorSplashScreen: 93a389d4f7673c08214ae25bb6f21d867d5305c5
   CapacitorStatusBar: 190e0321b8734f4244d0c81baa183a00d5806ddf
@@ -133,6 +139,6 @@ SPEC CHECKSUMS:
   Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
   SentryCapacitor: ec7067c38aa38ab6f20d919a4ca96a03573afdf4
 
-PODFILE CHECKSUM: c5f46e0e6ff10619ebc38fa82d7901198351dd8b
+PODFILE CHECKSUM: de46d669ac5290b22988c0ba9eb23b8ed79c0be7
 
 COCOAPODS: 1.12.0

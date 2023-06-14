@@ -8,7 +8,6 @@ export { default as AppInfoPage } from './pages/AppInfoPage.vue'
 
 // tasks:
 export * from './tasks/runSettingsPersistenceTask'
-export * from './tasks/runSettingsRestoreTask'
 
 // routes:
 export * from './routes/settings'

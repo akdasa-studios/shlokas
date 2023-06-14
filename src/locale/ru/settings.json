@@ -18,7 +18,10 @@
     "info": "Информация о приложении",
     "nextDay": "Следующий день",
     "noUpdatesAvailable": "Нет обновлений",
-    "hideControlsInLandscapeMode": "Скрывать панели управления"
+    "hideControlsInLandscapeMode": "Скрывать панели управления",
+    "enableNotifications": "Напоминания",
+    "notification": "Напоминение",
+    "sadhana": "Садхана"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

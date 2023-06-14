@@ -1,12 +1,13 @@
-import { runSettingsPersistenceTask, runSettingsRestoreTask } from '@/app/settings'
-import { runEnterFullscreenMode, runHideStatusBar, runSyncTask } from '@/app/shared'
+import { useSettingsPersistenceTask } from '@/app/settings'
+import { runEnterFullscreenMode, runHideStatusBar, useScheduleNotifications, runSyncTask } from '@/app/shared'
 import { runUpdateStatisticsTask } from '@/app/statistics'
 import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
 
 
 export async function initTasks() {
-  runSettingsPersistenceTask()
-  await runSettingsRestoreTask()
+  await useSettingsPersistenceTask().run()
+  await useScheduleNotifications().run()
+
   runUpdateStatisticsTask()
   runSyncTask()
   runTutorialPersistenceTask()

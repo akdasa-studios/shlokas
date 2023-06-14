@@ -4,23 +4,28 @@ import { useSettingsStore, settingsKeys } from '@/app/settings'
 
 
 /**
- * Saves settings state to device storage.
+ * Saves and restores settings state to device storage.
  */
-export function runSettingsPersistenceTask() {
+export function useSettingsPersistenceTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const logger        = useLogger('settings:persistence')
+  const logger        = useLogger('settings')
   const settingsStore = useSettingsStore()
   const deviceStore   = useDeviceStore()
 
   /* -------------------------------------------------------------------------- */
-  /*                                  Triggers                                  */
+  /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch(settingsStore, onSettingsChanged)
+  /** Starts the task. */
+  async function run() {
+    await onLoadSettings()
+
+    watch(settingsStore, onSettingsChanged)
+  }
 
 
   /* -------------------------------------------------------------------------- */
@@ -31,7 +36,28 @@ export function runSettingsPersistenceTask() {
     logger.debug('Saving settings state')
     for (const key of settingsKeys) {
       // @ts-ignore
-      await deviceStore.set(key, settingsStore[key])
+      const value = typeof settingsStore[key] === 'object' ? JSON.stringify(settingsStore[key]) : settingsStore[key]
+      await deviceStore.set(key, value)
     }
   }
+
+  async function onLoadSettings() {
+    logger.debug('Restoring settings state')
+    for (const key of settingsKeys) {
+      // @ts-ignore
+      const type  = typeof settingsStore[key]
+      const value = await deviceStore.get(key)
+      if (value === undefined || value === null) continue
+
+      // @ts-ignore
+      // Note: load scalar values as is, and objects as JSON strings
+      settingsStore[key] = type === 'object' ? JSON.parse(value) : value
+    }
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { run }
 }
