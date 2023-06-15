@@ -1,4 +1,5 @@
 import { Badge } from '@capawesome/capacitor-badge'
+import { Capacitor } from '@capacitor/core'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useStatisticsStore } from '@/app/statistics'
@@ -13,8 +14,8 @@ export function useUpdateAppBadge() {
   /* -------------------------------------------------------------------------- */
 
   const statisticsStore = useStatisticsStore()
-  const settingsStore = useSettingsStore()
-  const logger = useLogger('badge')
+  const settingsStore   = useSettingsStore()
+  const logger          = useLogger('badge')
 
 
   /* -------------------------------------------------------------------------- */
@@ -29,10 +30,16 @@ export function useUpdateAppBadge() {
   /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
+  /**
+   * Runs the task to update the app badge
+   */
   async function run() {
     try {
-      const isSupportd = await Badge.isSupported()
-      if (!isSupportd) { return }
+      const available = await isAvailable()
+      if (!available) {
+        logger.debug('Badge plugin is not available')
+        return
+      }
 
       watch([
         cardsInReview,
@@ -43,23 +50,44 @@ export function useUpdateAppBadge() {
     }
   }
 
+  async function requestPermissions() {
+    const permissions = await Badge.checkPermissions()
+    if (permissions.display !== 'granted') {
+      await Badge.requestPermissions()
+    }
+  }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
   async function onCardsInReviewChanged() {
-    if (!showAppBadge.value) { Badge.clear(); return }
-
-    // Check for permissions
     const permissions = await Badge.checkPermissions()
-    if (permissions.display !== 'granted') {
-      await Badge.requestPermissions()
-    }
+    if (permissions.display !== 'granted') { return }
 
-    // Set value
-    Badge.set({ count: cardsInReview.value })
+    await setBadgeValue(cardsInReview.value)
   }
 
-  return { run }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  async function isAvailable() {
+    const isPluginAvailable = Capacitor.isPluginAvailable('Badge')
+    if (!isPluginAvailable) { return false }
+
+    const isSupportd = await Badge.isSupported()
+    if (!isSupportd) { return false }
+
+    return true
+  }
+
+  async function setBadgeValue(value: number) {
+    if (!showAppBadge.value) { Badge.clear(); return }
+    Badge.set({ count: value })
+  }
+
+  return { run, requestPermissions }
 }

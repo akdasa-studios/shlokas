@@ -182,11 +182,17 @@
       </ion-list>
     </ion-content>
 
-    <ion-modal :keep-contents-mounted="true">
+    <ion-modal
+      :keep-contents-mounted="true"
+      :initial-breakpoint="1"
+      :breakpoints="[1]"
+    >
       <ion-datetime
         id="datetime"
         presentation="time"
+        size="cover"
         :value="getNotificationDateTime()"
+        :minute-values="[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]"
         @ion-change="onNotificationTimeChange"
       />
     </ion-modal>
@@ -203,14 +209,10 @@ import {
 import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
-import { LocalNotifications } from '@capacitor/local-notifications'
 import { storeToRefs } from 'pinia'
 import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages, useApplication } from '@/app/shared'
+import { getAvailableLanguages, useApplication, useScheduleNotifications, useUpdateAppBadge } from '@/app/shared'
 
-// function onch(v: any) {
-//   console.log(new Date(v.detail.value).getHours())
-// }
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -219,6 +221,8 @@ import { getAvailableLanguages, useApplication } from '@/app/shared'
 const i18n = inject('i18n') as any
 const settings = useSettingsStore()
 const app = useApplication()
+const scheduleNotifications = useScheduleNotifications()
+const updateAppBadge = useUpdateAppBadge()
 
 
 /* -------------------------------------------------------------------------- */
@@ -234,7 +238,7 @@ const updateInfo = reactive({
   nextVersion: '',
   channel: ''
 })
-const { enableNotifications } = storeToRefs(settings)
+const { enableNotifications, showAppBadge } = storeToRefs(settings)
 
 
 /* -------------------------------------------------------------------------- */
@@ -245,12 +249,14 @@ onMounted(checkUpdates)
 
 watch([enableNotifications], async (value) => {
   if (!value) { return }
-
-  const perms = await LocalNotifications.checkPermissions()
-  if (perms.display != 'granted') {
-    await LocalNotifications.requestPermissions()
-  }
+  await scheduleNotifications.requestPermissions()
 })
+
+watch([showAppBadge], async (value) => {
+  if (!value) { return }
+  await updateAppBadge.requestPermissions()
+})
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -302,3 +308,11 @@ function getNotificationDateTime() {
   return `${setting[0].toString().padStart(2, '0')}:${setting[1].toString().padStart(2, '0')}`
 }
 </script>
+
+
+<style scoped>
+ion-modal {
+  --height: auto;
+  --width: 100%
+}
+</style>

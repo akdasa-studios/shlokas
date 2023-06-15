@@ -1,6 +1,7 @@
 import { LocalNotifications } from '@capacitor/local-notifications'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
+import { Capacitor } from '@capacitor/core'
 import { useSettingsStore } from '@/app/settings'
 import { useLogger } from '../composables/useLogger'
 
@@ -12,7 +13,7 @@ export function useScheduleNotifications() {
   /* -------------------------------------------------------------------------- */
 
   const settingsStore = useSettingsStore()
-  const logger = useLogger('notifications')
+  const logger        = useLogger('notifications')
 
 
   /* -------------------------------------------------------------------------- */
@@ -25,11 +26,17 @@ export function useScheduleNotifications() {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                    Hooks                                   */
+  /*                                  Actions                                   */
   /* -------------------------------------------------------------------------- */
 
+  /**
+   * Runs the task to schedule notifications
+   */
   async function run() {
     try {
+      const available = await isAvailable()
+      if (!available) { return }
+
       // Once "enable notifications" is changed, orf "notification time" is
       // changed, schedule notifications
       watch([
@@ -38,6 +45,16 @@ export function useScheduleNotifications() {
       ], scheduleNotifications)
     } catch (e) {
       logger.error('Error while starting ScheduleNotifications task: ' + e)
+    }
+  }
+
+  /**
+   * Requests permissions to schedule notifications
+   */
+  async function requestPermissions() {
+    const permissions = await LocalNotifications.checkPermissions()
+    if (permissions.display !== 'granted') {
+      await LocalNotifications.requestPermissions()
     }
   }
 
@@ -86,5 +103,15 @@ export function useScheduleNotifications() {
     }
   }
 
-  return { run }
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  async function isAvailable() {
+    const isPluginAvailable = Capacitor.isPluginAvailable('LocalNotifications')
+    if (!isPluginAvailable) { return false }
+    return true
+  }
+
+  return { run, requestPermissions }
 }
