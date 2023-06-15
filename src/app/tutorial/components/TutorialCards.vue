@@ -1,7 +1,7 @@
 <template>
   <div class="tutorial-cards">
     <TutorialCard
-      v-if="activeCard"
+      v-if="activeCard && activeCard.text"
       :visible="activeCardVisible"
       :buttons="activeCard.buttons"
       :progress="activeCardProgress"
