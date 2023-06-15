@@ -22,7 +22,9 @@
     "sadhana": "Sadhana",
     "enableNotifications": "Enable notifications",
     "notification": "Notification",
-    "showAppBadge": "App badge"
+    "showAppBadge": "App badge",
+    "memorizationTime": "Memorization time",
+    "minutes": "min"
   },
   "account": {
     "welcomeBack": "Welcome back!",

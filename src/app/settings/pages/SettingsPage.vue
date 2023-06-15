@@ -114,9 +114,30 @@
           </ion-toggle>
         </ion-item>
 
-        <ion-item>
+        <ion-item
+          v-for="alarm, idx of settings.notificationTime"
+          :key="idx"
+          @click="onNotificationTimeClicked()"
+        >
           <ion-label>{{ $t('settings.notification') }}</ion-label>
-          <ion-datetime-button datetime="datetime" />
+          <ion-button
+            slot="end"
+            color="medium"
+          >
+            {{ alarm[0].toString().padStart(2, '0') }}:{{ alarm[1].toString().padStart(2, '0') }}
+          </ion-button>
+        </ion-item>
+
+        <ion-item
+          @click="onMemorizationTimeClicked"
+        >
+          <ion-label>{{ $t('settings.memorizationTime') }}</ion-label>
+          <ion-button
+            slot="end"
+            color="medium"
+          >
+            {{ settings.memorizationTime }} {{ $t("settings.minutes") }}
+          </ion-button>
         </ion-item>
 
 
@@ -182,20 +203,14 @@
       </ion-list>
     </ion-content>
 
-    <ion-modal
-      :keep-contents-mounted="true"
-      :initial-breakpoint="1"
-      :breakpoints="[1]"
-    >
-      <ion-datetime
-        id="datetime"
-        presentation="time"
-        size="cover"
-        :value="getNotificationDateTime()"
-        :minute-values="[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]"
-        @ion-change="onNotificationTimeChange"
-      />
-    </ion-modal>
+    <MemorizationTimePicker
+      :is-open="isMemorizationTimePickerOpen"
+      @close="isMemorizationTimePickerOpen = false"
+    />
+    <NotificationTimePicker
+      :is-open="isNotificationTimePickerOpen"
+      @close="isNotificationTimePickerOpen = false"
+    />
   </ion-page>
 </template>
 
@@ -204,13 +219,13 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonListHeader, IonDatetime, IonDatetimeButton, IonModal
+  IonListHeader, IonButton
 } from '@ionic/vue'
 import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
 import { storeToRefs } from 'pinia'
-import { useSettingsStore } from '@/app/settings'
+import { useSettingsStore, NotificationTimePicker, MemorizationTimePicker } from '@/app/settings'
 import { getAvailableLanguages, useApplication, useScheduleNotifications, useUpdateAppBadge } from '@/app/shared'
 
 
@@ -238,6 +253,8 @@ const updateInfo = reactive({
   nextVersion: '',
   channel: ''
 })
+const isNotificationTimePickerOpen = ref(false)
+const isMemorizationTimePickerOpen = ref(false)
 const { enableNotifications, showAppBadge } = storeToRefs(settings)
 
 
@@ -295,17 +312,12 @@ async function checkUpdates() {
   updateInfo.channel = config.channel
 }
 
-function onNotificationTimeChange(v: any) {
-  const tokens = v.detail.value.split(':')
-  settings.notificationTime = [
-    [parseInt(tokens[0]), parseInt(tokens[1])]
-  ]
+function onNotificationTimeClicked() {
+  isNotificationTimePickerOpen.value = true
 }
 
-function getNotificationDateTime() {
-  const setting = settings.notificationTime[0]
-  if (!setting) { return '09:00' }
-  return `${setting[0].toString().padStart(2, '0')}:${setting[1].toString().padStart(2, '0')}`
+function onMemorizationTimeClicked() {
+  isMemorizationTimePickerOpen.value = true
 }
 </script>
 

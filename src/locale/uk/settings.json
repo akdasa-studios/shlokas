@@ -22,7 +22,9 @@
     "enableNotifications": "Сповіщення",
     "notification": "Сповіщення",
     "sadhana": "Садхана",
-    "showAppBadge": "Бейдж"
+    "showAppBadge": "Бейдж",
+    "memorizationTime": "Час запам'ятовування",
+    "minutes": "хв"
   },
   "account": {
     "welcomeBack": "З Поверненням!",

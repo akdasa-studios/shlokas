@@ -7,7 +7,7 @@ export const settingsKeys = [
   'authRefreshedAt', 'authExpiresAt', 'syncCollectionId', 'syncAt',
   'syncLibraryAt', 'reviewCardsInRandomOrder', 'showUnpublishedVerses',
   'hideControlsInLandscapeMode', 'enableNotifications', 'notificationTime',
-  'showAppBadge', 'memorizingTime'
+  'showAppBadge', 'memorizationTime'
 ]
 
 
@@ -42,8 +42,8 @@ export const useSettingsStore = defineStore('settings', () => {
 
   // sadhana
   const enableNotifications = ref(false)
-  const notificationTime = ref<Array<[number, number]>>([])
-  const memorizingTime = ref(0)
+  const notificationTime = ref<Array<[number, number]>>([[7, 0]])
+  const memorizationTime = ref(0)
 
   // Debug configs
   const showAccountControls = ref(true)
@@ -57,6 +57,6 @@ export const useSettingsStore = defineStore('settings', () => {
     language, showGradeButtons, colorfulCards, syncLibraryAt, welcomeDone,
     authToken, authSessionId, authStrategy, authRefreshedAt, authExpiresAt, syncCollectionId, syncAt,
     showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder, showUnpublishedVerses,
-    hideControlsInLandscapeMode, enableNotifications, notificationTime, showAppBadge, memorizingTime
+    hideControlsInLandscapeMode, enableNotifications, notificationTime, showAppBadge, memorizationTime
   }
 })
