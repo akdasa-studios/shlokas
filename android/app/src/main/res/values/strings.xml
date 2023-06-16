@@ -5,7 +5,6 @@
   <string name="package_name">com.akdasa.shlokas</string>
   <string name="custom_url_scheme">com.akdasa.shlokas</string>
   <string name="ionic_app_id">196a538d</string>
-  <string name="ionic_channel_name">Production</string>
   <string name="ionic_update_method">none</string>
   <string name="ionic_max_versions">2</string>
   <string name="ionic_min_background_duration">30</string>
