@@ -21,6 +21,8 @@ export * from './tasks/runEnterFullscreenMode'
 export * from './tasks/runHideStatusBar'
 export * from './tasks/runScheduleNotifications'
 export * from './tasks/runUpdateAppBadge'
+export * from './tasks/useResetMemorizationTime'
+export * from './tasks/useAppStatePersistenceTask'
 
 // stores:
 export * from './stores/appStateStore'

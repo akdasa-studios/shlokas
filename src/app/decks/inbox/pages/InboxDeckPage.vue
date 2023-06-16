@@ -10,6 +10,10 @@
         <ion-buttons slot="primary">
           <BackgroundTasks />
         </ion-buttons>
+
+        <ion-buttons slot="secondary">
+          <MemorizationTimer />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -59,7 +63,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnte
 import { computed, ref, reactive, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { testId , useApplication , BackgroundTasks, useAppStateStore } from '@/app/shared'
-import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
+import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty, MemorizationTimer } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
 import { useSettingsStore } from '@/app/settings'
