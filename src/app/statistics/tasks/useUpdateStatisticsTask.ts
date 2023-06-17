@@ -48,7 +48,7 @@ export function useUpdateStatisticsTask() {
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onCommandExecuted(e) {
+  async function onCommandExecuted(e: any) {
     if (e instanceof ReviewCardReviewed)  { await updateStatistics() }
     if (e instanceof InboxCardMemorized)  { await updateStatistics() }
     if (e instanceof AddVerseToInboxDeck) { await updateStatistics() }
