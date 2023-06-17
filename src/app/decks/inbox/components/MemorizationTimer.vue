@@ -1,5 +1,8 @@
 <template>
-  <span class="timer">
+  <span
+    class="timer"
+    :class="{completed: timeLeft <= 0}"
+  >
     {{ format(timeLeft / 60 / 1000) }}
   </span>
 </template>
@@ -27,13 +30,14 @@ let timerInterval: any = undefined
 
 const { memorizationTimeSpend, routeName, isActive } = storeToRefs(appStateStore)
 const timeLeft = computed(() =>
-  Math.max((settingsStore.memorizationTime * 1000 * 60) - memorizationTimeSpend.value, 0))
+  (settingsStore.memorizationTime * 1000 * 60) - memorizationTimeSpend.value)
 
 /* -------------------------------------------------------------------------- */
 /*                                  Lifehooks                                 */
 /* -------------------------------------------------------------------------- */
 
 watch([routeName, isActive], onStateChanged, { immediate: true })
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -82,32 +86,34 @@ function format(number: number) {
   // Round to nearest minute
   decpart = min * Math.round(decpart / min)
 
-  let minute = Math.floor(decpart * 60) + ''
+  let minute = Math.floor(decpart * 59).toString()
 
   // Add padding if need
   if (minute.length < 2) {
     minute = '0' + minute
   }
 
-  // // Add Sign in final result
-  // sign = sign == 1 ? '' : '-'
-
-  // // Concate hours and minutes
-  // time = sign + hour + ':' + minute
-
-  return  hour + ':' + minute
+  return  (sign == 1 ? '' : '+') + hour + ':' + minute
 }
 </script>
 
 
 <style scoped>
 .timer {
-  background-color: var(--ion-color-dark-tint);
-  color: var(--ion-color-dark-contrast);
+  background-color: var(--ion-color-tertiary-tint);
+  color: var(--ion-color-tertiary-contrast);
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
   font-variant-numeric: tabular-nums;
+  font-size: small;
+}
+
+.completed {
+  background-color: var(--ion-color-success-tint);
+  color: var(--ion-color-success-contrast);
 }
 </style>
