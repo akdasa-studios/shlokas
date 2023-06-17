@@ -48,14 +48,9 @@ const isPortrait = computed(() => screenOrientation.isPortrait.value)
 
 <style scoped>
 :deep(.image-landscape) {
-  height: 277px;
+  max-height: 277px;
 }
 .image-portrait {
   width: 100%;
 }
 </style>
-
-<!-- :class="{
-  'image-portrait': isPortrait,
-  'image-landscape': !isPortrait
-}" -->

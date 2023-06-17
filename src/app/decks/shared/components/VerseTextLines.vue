@@ -77,8 +77,4 @@ async function onOpened() {
 .image {
   padding: 3px;
 }
-
-.image-landscape {
-  max-height: 277px;
-}
 </style>
