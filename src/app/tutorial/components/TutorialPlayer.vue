@@ -207,7 +207,7 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: TutorialSteps.ConfigNotificationTimeUserSets,
     onEnter: async () => {
-      isNotificationTimePickerOpen.value = true
+      setTimeout(() => { isMemorizationTimePickerOpen.value = true }, 10)
     },
   },
 

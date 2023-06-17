@@ -1,7 +1,7 @@
 import { useSettingsPersistenceTask } from '@/app/settings'
 import { runEnterFullscreenMode, runHideStatusBar, useScheduleNotifications, useSyncTask, useUpdateAppBadge, useResetMemorizationTime, useAppStatePersistenceTask } from '@/app/shared'
 import { useUpdateStatisticsTask } from '@/app/statistics'
-import { runTutorialPersistenceTask, runTutorialRestoreTask } from '@/app/tutorial'
+import { useTutorialPersistenceTask, } from '@/app/tutorial'
 
 
 export async function initTasks() {
@@ -12,9 +12,8 @@ export async function initTasks() {
   await useScheduleNotifications().run()
   await useUpdateAppBadge().run()
   await useResetMemorizationTime().run()
+  await useTutorialPersistenceTask().run()
 
-  runTutorialPersistenceTask()
-  await runTutorialRestoreTask()
   runEnterFullscreenMode()
   runHideStatusBar()
 }
