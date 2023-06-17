@@ -22,7 +22,7 @@ export function useSyncTask() {
   /* -------------------------------------------------------------------------- */
 
   const { isActive } = storeToRefs(appStateStore)
-  const { authSessionId } = storeToRefs(settingsStore)
+  const { authSessionId, autoSyncOnLogin } = storeToRefs(settingsStore)
 
 
   /* -------------------------------------------------------------------------- */
@@ -41,7 +41,7 @@ export function useSyncTask() {
   async function onStateChanaged() {
     // Do not sync on app close, because database maybe closed already
     // and sync will fail
-    const shouldSync = isActive.value && authSessionId.value
+    const shouldSync = isActive.value && autoSyncOnLogin.value
     if (shouldSync) { await sync.run() }
   }
 
