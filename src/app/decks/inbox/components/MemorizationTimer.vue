@@ -45,8 +45,11 @@ watch([routeName, isActive], onStateChanged, { immediate: true })
 
 function onStateChanged() {
   if (routeName.value === 'inboxDeck' && isActive.value) {
+    // Timer should work only when user is on the inbox deck page
+    /// and the app is active
     startTimer()
   } else {
+    // Otherwise stop the timer
     stopTimer()
   }
 }
@@ -72,7 +75,6 @@ function tick() {
 }
 
 function format(number: number) {
-  // Check sign of given number
   const sign = (number >= 0) ? 1 : -1
 
   // Set positive value of number of sign negative
