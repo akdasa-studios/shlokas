@@ -1,8 +1,9 @@
 import { AddVerseToInboxDeck, InboxCardMemorized, ReviewCardReviewed } from '@akdasa-studios/shlokas-core'
-
 import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
-import { useApplication, useEmitter } from '@/app/shared'
+import { useAppStateStore, useApplication, useEmitter } from '@/app/shared'
+import { useSettingsStore } from '@/app/settings'
 
 
 /**
@@ -14,24 +15,36 @@ export function runUpdateStatisticsTask() {
   /* -------------------------------------------------------------------------- */
 
   const app             = useApplication()
-  const statisticsStore = useStatisticsStore()
   const emitter         = useEmitter()
+  const statisticsStore = useStatisticsStore()
+  const appStateStore   = useAppStateStore()
+  const settingsStore   = useSettingsStore()
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
+
+  const { isActive } = storeToRefs(appStateStore)
+  const { syncAt }   = storeToRefs(settingsStore)
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch(app.now, onUpdateStatistics)
-  watch(app.currentContextName, onUpdateStatistics)
+  watch([
+    app.now,
+    app.currentContextName,
+    isActive,
+    syncAt
+  ], onUpdateStatistics)
 
   emitter.on('commandExecuted', async (e) => {
     if (e instanceof ReviewCardReviewed)  { await onUpdateStatistics() }
     if (e instanceof InboxCardMemorized)  { await onUpdateStatistics() }
     if (e instanceof AddVerseToInboxDeck) { await onUpdateStatistics() }
   })
-  emitter.on('appStateChanged', onUpdateStatistics)
-  emitter.on('syncCompleted',   onUpdateStatistics)
 
 
   /* -------------------------------------------------------------------------- */
