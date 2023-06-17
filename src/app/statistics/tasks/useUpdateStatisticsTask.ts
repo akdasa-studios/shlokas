@@ -2,7 +2,7 @@ import { AddVerseToInboxDeck, InboxCardMemorized, ReviewCardReviewed } from '@ak
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
-import { useAppStateStore, useApplication, useEmitter } from '@/app/shared'
+import { useAppStateStore, useApplication } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 
 
@@ -15,7 +15,6 @@ export function useUpdateStatisticsTask() {
   /* -------------------------------------------------------------------------- */
 
   const app             = useApplication()
-  const emitter         = useEmitter()
   const statisticsStore = useStatisticsStore()
   const appStateStore   = useAppStateStore()
   const settingsStore   = useSettingsStore()
@@ -39,13 +38,9 @@ export function useUpdateStatisticsTask() {
       app.currentContextName,
       isActive,
       syncAt
-    ], onUpdateStatistics)
+    ], updateStatistics)
 
-    emitter.on('commandExecuted', async (e) => {
-      if (e instanceof ReviewCardReviewed)  { await onUpdateStatistics() }
-      if (e instanceof InboxCardMemorized)  { await onUpdateStatistics() }
-      if (e instanceof AddVerseToInboxDeck) { await onUpdateStatistics() }
-    })
+    app.instance().commandExecuted.subscribe(onCommandExecuted)
   }
 
 
@@ -53,17 +48,23 @@ export function useUpdateStatisticsTask() {
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onUpdateStatistics() {
-    const date = nextDays(1, app.application.timeMachine.today)
-    statisticsStore.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
-    statisticsStore.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
-    statisticsStore.cardsInInbox = (await app.application.inboxDeck.cards()).length
+  async function onCommandExecuted(e) {
+    if (e instanceof ReviewCardReviewed)  { await updateStatistics() }
+    if (e instanceof InboxCardMemorized)  { await updateStatistics() }
+    if (e instanceof AddVerseToInboxDeck) { await updateStatistics() }
   }
 
 
   /* -------------------------------------------------------------------------- */
   /*                                   Helpers                                  */
   /* -------------------------------------------------------------------------- */
+
+  async function updateStatistics() {
+    const date = nextDays(1, app.application.timeMachine.today)
+    statisticsStore.cardsCountDueToTomorrow = (await app.application.reviewDeck.dueToCards(date)).length
+    statisticsStore.cardsInReview = (await app.application.reviewDeck.dueToCards(app.application.timeMachine.now)).length
+    statisticsStore.cardsInInbox = (await app.application.inboxDeck.cards()).length
+  }
 
   function nextDays(days: number, date?: Date) {
     const result = date ? new Date(date) : new Date()

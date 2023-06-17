@@ -11,7 +11,6 @@ import { initShlokasApp } from './infrastructure/initShlokasApp'
 import { initAuth } from './infrastructure/initAuth'
 
 // stage 1: logic
-import { initCommands } from './app/initCommands'
 import { initTasks } from './app/initTasks'
 import { initParams } from './app/initParams'
 import { initStaticData } from './app/initStaticData'
@@ -34,7 +33,6 @@ export const appInitStages = [
   initTasks,
   initLocale,
   initParams,
-  initCommands,
   initMigrations,
   initStaticData,
   initRoutes
