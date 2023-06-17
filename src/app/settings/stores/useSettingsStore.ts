@@ -43,7 +43,7 @@ export const useSettingsStore = defineStore('settings', () => {
   // sadhana
   const enableNotifications = ref(false)
   const notificationTime = ref<Array<[number, number]>>([[7, 0]])
-  const memorizationTime = ref(0)
+  const memorizationTime = ref(10)
 
   // Debug configs
   const showAccountControls = ref(true)

@@ -91,11 +91,9 @@ function format(number: number) {
   let minute = Math.floor(decpart * 59).toString()
 
   // Add padding if need
-  if (minute.length < 2) {
-    minute = '0' + minute
-  }
+  if (minute.length < 2) { minute = '0' + minute }
 
-  return  (sign == 1 ? '' : '+') + hour + ':' + minute
+  return  hour + ':' + minute
 }
 </script>
 
