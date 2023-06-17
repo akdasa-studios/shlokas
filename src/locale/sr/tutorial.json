@@ -1,30 +1,35 @@
 {
-	"tutorial": {
-		"introduction": "Welcome to Shlokas! Panditji, would you like to go throght training?",
-		"congratulations": "Congratulations! Panditji, you have graduated!",
-		"daysInFuture": "+{count} day in future",
-		"library": {
-			"introduction": "This is a library. Here you can find shlokas you want to learn",
-			"openVerse": "You can search for shlokas in a list or by number and content.  Open <b>BG 1.1</b>",
-			"addVerse": "To start learning a shloka, add it to your <i>Inbox</i> deck by clicking <b>Add</b> for <b>BG 1.1</b>",
-			"end": "Shloka has been added. Let's learn it. Go to <i>Inbox</i>"
-		},
-		"inboxDeck": {
-			"introduction": "This is the <i>Inbox</i> deck. Each verse is broken down into two cards: a text and a translation",
-			"swipeCardLeft": "Swipe a card to the left to move to the next card",
-			"flipCard": "On the back of the card is a player and a word-for-word translation. Click to flip it over",
-			"playDeclamation": "Press the circle to start playback. Each line is repeated several times. The word-for-word translation is displayed below",
-			"flipCardAgain": "You can turn the card over and look at the text. Turn the card over",
-			"swipeCardUp": "Once you have learned a card, which can take several days, swipe it up. Swipe all the cards up",
-			"end": "You have memorized all the cards! Go to the <i>Review</i> deck"
-		},
-		"reviewDeck": {
-			"introduction": "This is the <i>Review</i> deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
-			"questionAndAnswer": "On the front of the card is the question and on the back is the answer. Remember the answer and turn the card over to test your knowledge",
-			"gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the button",
-			"goToFuture": "Great! Now let's move forward a week! Several cards with different questions are created for each verse. Let's see how it looks!",
-			"gradeAllCards": "Try to answer all the cards and give yourself a grade",
-			"end": "Great! You've reviewd all the cards!"
-		}
-	}
+  "tutorial": {
+    "introduction": "Welcome to Shlokas! Panditji, would you like to go throght training?",
+    "congratulations": "Congratulations! Panditji, you have graduated!",
+    "daysInFuture": "+{count} day in future",
+    "library": {
+      "introduction": "This is a library. Here you can find shlokas you want to learn",
+      "openVerse": "You can search for shlokas in a list or by number and content.  Open <b>BG 1.1</b>",
+      "addVerse": "To start learning a shloka, add it to your <i>Inbox</i> deck by clicking <b>Add</b> for <b>BG 1.1</b>",
+      "end": "Shloka has been added. Let's learn it. Go to <i>Inbox</i>"
+    },
+    "inboxDeck": {
+      "introduction": "This is the <i>Inbox</i> deck. Each verse is broken down into two cards: a text and a translation",
+      "swipeCardLeft": "Swipe a card to the left to move to the next card",
+      "flipCard": "On the back of the card is a player and a word-for-word translation. Click to flip it over",
+      "playDeclamation": "Press the circle to start playback. Each line is repeated several times. The word-for-word translation is displayed below",
+      "flipCardAgain": "You can turn the card over and look at the text. Turn the card over",
+      "swipeCardUp": "Once you have learned a card, which can take several days, swipe it up. Swipe all the cards up",
+      "end": "You have memorized all the cards! Go to the <i>Review</i> deck"
+    },
+    "reviewDeck": {
+      "introduction": "This is the <i>Review</i> deck. This is where the cards you have already memorized go. You don't have any cards planned for today, but you do have some for tomorrow. Let's move to tomorrow",
+      "questionAndAnswer": "On the front of the card is the question and on the back is the answer. Remember the answer and turn the card over to test your knowledge",
+      "gradeCard": "Give yourself a grade. Depending on your grade, the next repetition period will change and is displayed on the button",
+      "goToFuture": "Great! Now let's move forward a week! Several cards with different questions are created for each verse. Let's see how it looks!",
+      "gradeAllCards": "Try to answer all the cards and give yourself a grade",
+      "end": "Great! You've reviewd all the cards!"
+    },
+    "config": {
+      "introduction": "To achieve a better result, let's set a few settings",
+      "notificationsIntro": "Set the notification time for memorizing slokas. The application may request permission to do so.",
+      "memorizeTimeIntro": "How long would you like to memorize slokas every day?"
+    }
+  }
 }
