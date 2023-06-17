@@ -17,7 +17,7 @@ export function useTutorialPersistenceTask() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const CURRENT_STEP_KEY = 'tutorial:currentStep'
+  const CURRENT_STEP_KEY = 'tutorial:step'
   const DATE_KEY         = 'tutorial:date'
 
   const logger        = useLogger('tutorial:persistence')
