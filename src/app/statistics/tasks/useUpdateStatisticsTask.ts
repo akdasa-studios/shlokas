@@ -9,7 +9,7 @@ import { useSettingsStore } from '@/app/settings'
 /**
  * Updates statistics in the background.
  */
-export function runUpdateStatisticsTask() {
+export function useUpdateStatisticsTask() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
@@ -30,21 +30,23 @@ export function runUpdateStatisticsTask() {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                  Triggers                                  */
+  /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch([
-    app.now,
-    app.currentContextName,
-    isActive,
-    syncAt
-  ], onUpdateStatistics)
+  async function run() {
+    watch([
+      app.now,
+      app.currentContextName,
+      isActive,
+      syncAt
+    ], onUpdateStatistics)
 
-  emitter.on('commandExecuted', async (e) => {
-    if (e instanceof ReviewCardReviewed)  { await onUpdateStatistics() }
-    if (e instanceof InboxCardMemorized)  { await onUpdateStatistics() }
-    if (e instanceof AddVerseToInboxDeck) { await onUpdateStatistics() }
-  })
+    emitter.on('commandExecuted', async (e) => {
+      if (e instanceof ReviewCardReviewed)  { await onUpdateStatistics() }
+      if (e instanceof InboxCardMemorized)  { await onUpdateStatistics() }
+      if (e instanceof AddVerseToInboxDeck) { await onUpdateStatistics() }
+    })
+  }
 
 
   /* -------------------------------------------------------------------------- */
@@ -68,6 +70,13 @@ export function runUpdateStatisticsTask() {
     result.setDate(result.getDate()+days)
     return result
   }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { run }
 
 }
 

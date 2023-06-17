@@ -91,7 +91,7 @@ import {
 import { mail, logoApple, logoGoogle } from 'ionicons/icons'
 import { computed, inject } from 'vue'
 import { Capacitor } from '@capacitor/core'
-import { go, useAuthentication, useEmitter, useSync , BackgroundTasks } from '@/app/shared'
+import { go, useAuthentication, useSync , BackgroundTasks } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 import { CouchDB } from '@/services/persistence'
 
@@ -100,7 +100,6 @@ import { CouchDB } from '@/services/persistence'
 /* -------------------------------------------------------------------------- */
 
 const userDataDb = inject('userData') as CouchDB
-const emitter = useEmitter()
 const settings = useSettingsStore()
 const auth = useAuthentication()
 const router = useIonRouter()
@@ -121,7 +120,6 @@ const isAuthenticated = computed(() => !!settings.authToken)
 
 async function onSync() {
   await syncTask.run({ force: true })
-  emitter.emit('syncCompleted')
 }
 
 async function onSignIn(strategy: string) {
@@ -152,6 +150,5 @@ async function onLogOut() {
   settings.syncCollectionId = ''
   settings.syncAt = 0
   await userDataDb.destroy()
-  emitter.emit('syncCompleted')
 }
 </script>
