@@ -229,8 +229,8 @@ function swipeTopCard() {
 <style scoped>
 :deep(.card) {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
   perspective: 2500px;
 
   pointer-events: all;
@@ -245,6 +245,7 @@ function swipeTopCard() {
   touch-action: none;
   user-select: none;
   pointer-events: none;
+  padding: 10px;
   /* background-color: aquamarine; */
 }
 </style>

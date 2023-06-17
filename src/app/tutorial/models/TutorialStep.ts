@@ -6,7 +6,7 @@ export interface TutorialButton {
 
 export interface TutorialStep {
   id: number
-  text: string
+  text?: string
   actionText?: string
   position?: string
   duration?: number
@@ -39,6 +39,12 @@ export enum TutorialSteps {
   ReviewDeckGoToFuture,
   ReviewDeckGradeAllCards,
   ReviewDeckEnd,
+
+  ConfigIntroduction,
+  ConfigNotificationTimeIntro,
+  ConfigNotificationTimeUserSets,
+  ConfigMemorizeTimeInto,
+  ConfigMemorizeTimeUserSets,
 
   TutorialCongratulations,
   TutorialEnd

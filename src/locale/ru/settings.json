@@ -17,7 +17,14 @@
     "debug": "Отладка",
     "info": "Информация о приложении",
     "nextDay": "Следующий день",
-    "noUpdatesAvailable": "Нет обновлений"
+    "noUpdatesAvailable": "Нет обновлений",
+    "hideControlsInLandscapeMode": "Скрывать панели управления",
+    "enableNotifications": "Напоминания",
+    "notification": "Напоминение",
+    "sadhana": "Садхана",
+    "showAppBadge": "Бейдж",
+    "memorizationTime": "Время запоминания",
+    "minutes": "мин"
   },
   "account": {
     "welcomeBack": "Добро пожаловать!",

@@ -2,7 +2,7 @@
   <VerseTextLines
     :lines="props.verse.text.lines"
     :url="verseImage?.url"
-    class="section box"
+    class="section box padding"
   />
 
   <DeclamationsPlayer
@@ -58,5 +58,9 @@ const verseImage = props.verseImages.find(x => x.theme === 'default')
 
 .section {
   margin-bottom: 1rem;
+}
+
+.padding {
+  padding: 5px;
 }
 </style>

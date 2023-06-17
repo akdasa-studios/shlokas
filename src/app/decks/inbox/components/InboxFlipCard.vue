@@ -5,7 +5,6 @@
     :flipped="props.flipped"
     :hue-color-hash="props.verse.number.value+card.type"
     side-class="side side-color-0"
-    card-class="flip-card"
     @click.stop="onCardFlipped"
   >
     <template #front>

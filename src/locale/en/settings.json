@@ -17,7 +17,14 @@
     "info": "App info",
     "debug": "Debug",
     "nextDay": "Next day",
-    "noUpdatesAvailable": "No updates available"
+    "noUpdatesAvailable": "No updates available",
+    "hideControlsInLandscapeMode": "Hide controls in landscape mode",
+    "sadhana": "Sadhana",
+    "enableNotifications": "Enable notifications",
+    "notification": "Notification",
+    "showAppBadge": "App badge",
+    "memorizationTime": "Memorization time",
+    "minutes": "min"
   },
   "account": {
     "welcomeBack": "Welcome back!",

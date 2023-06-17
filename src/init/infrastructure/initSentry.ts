@@ -12,9 +12,12 @@ import { InitArgs } from '../initialization'
  */
 export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
-  if (Capacitor.getPlatform() === 'web') { return }
-  if (env.getMode() === 'dev') { return }
 
+  // Do not initialize sentry on web or dev mode
+  const isNotCompatible = Capacitor.getPlatform() === 'web' || env.getMode() === 'dev'
+  if (isNotCompatible) { return }
+
+  // Initialize sentry plugin
   Sentry.init({
     app: get<VueApp>('vue'),
     dsn: 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152',

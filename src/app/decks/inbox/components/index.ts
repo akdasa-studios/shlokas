@@ -4,3 +4,4 @@ export { default as InboxCardDeclamationsSide } from './InboxCardDeclamationsSid
 export { default as InboxCardSynonymsSide } from './InboxCardSynonymsSide.vue'
 export { default as InboxCardVerseTextSide } from './InboxCardVerseTextSide.vue'
 export { default as InboxCardTranslationSide } from './InboxCardTranslationSide.vue'
+export { default as MemorizationTimer } from './MemorizationTimer.vue'

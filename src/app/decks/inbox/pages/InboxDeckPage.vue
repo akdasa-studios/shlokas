@@ -1,7 +1,7 @@
 <template>
   <ion-page :data-testid="testId('inboxPage')">
     <!-- Header -->
-    <ion-header>
+    <ion-header v-if="!appStateStore.fullscreen">
       <ion-toolbar>
         <ion-title>
           {{ $t('decks.inbox.title') }}
@@ -9,6 +9,10 @@
 
         <ion-buttons slot="primary">
           <BackgroundTasks />
+        </ion-buttons>
+
+        <ion-buttons slot="secondary">
+          <MemorizationTimer />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -58,8 +62,8 @@ import { InboxCard, InboxCardMemorized, UpdateVerseStatus, Verse, VerseId } from
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, onIonViewWillEnter, onIonViewDidLeave, IonButtons } from '@ionic/vue'
 import { computed, ref, reactive, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { testId , useApplication , BackgroundTasks } from '@/app/shared'
-import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty } from '@/app/decks/inbox'
+import { testId , useApplication , BackgroundTasks, useAppStateStore } from '@/app/shared'
+import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty, MemorizationTimer } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
 import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
 import { useSettingsStore } from '@/app/settings'
@@ -74,7 +78,7 @@ const libraryCache = useLibraryCache()
 const indexedList = useIndexedList()
 const tutorial = useTutorialStore()
 const settings = useSettingsStore()
-
+const appStateStore = useAppStateStore()
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */

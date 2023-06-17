@@ -11,6 +11,15 @@
       :step="currentStep"
       :last-invalid-action-at="lastInvalidActionAt"
     />
+
+    <MemorizationTimePicker
+      :is-open="isMemorizationTimePickerOpen"
+      @close="goToTheNextStep"
+    />
+    <NotificationTimePicker
+      :is-open="isNotificationTimePickerOpen"
+      @close="goToTheNextStep"
+    />
   </div>
 </template>
 
@@ -19,8 +28,8 @@
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { TutorialCards, TutorialStep, TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication, ConfettiExplosion } from '@/app/shared'
-
+import { useApplication, ConfettiExplosion, useScheduleNotifications } from '@/app/shared'
+import { MemorizationTimePicker, NotificationTimePicker } from '@/app/settings'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -28,6 +37,7 @@ import { useApplication, ConfettiExplosion } from '@/app/shared'
 
 const application = useApplication()
 const tutorialStore = useTutorialStore()
+const scheduleNotifications = useScheduleNotifications()
 
 
 /* -------------------------------------------------------------------------- */
@@ -36,30 +46,8 @@ const tutorialStore = useTutorialStore()
 
 const { currentStep, lastInvalidActionAt } = storeToRefs(tutorialStore)
 const showConfetti = ref(false)
-
-
-/* -------------------------------------------------------------------------- */
-/*                                    Watch                                   */
-/* -------------------------------------------------------------------------- */
-
-watch(currentStep, onStepChanged)
-
-/* -------------------------------------------------------------------------- */
-/*                                  Handlers                                  */
-/* -------------------------------------------------------------------------- */
-
-async function onStepChanged(current: TutorialSteps, prev: TutorialSteps) {
-  const prevStep = tutorialSteps[prev]
-  const currStep = tutorialSteps[current]
-
-  if (prevStep && prevStep.onLeave) { await prevStep.onLeave() }
-  if (currStep && currStep.onEnter) { await currStep.onEnter() }
-}
-
-
-function goToTheNextStep() {
-  tutorialStore.completeStep(tutorialStore.currentStep)
-}
+const isNotificationTimePickerOpen = ref(false)
+const isMemorizationTimePickerOpen = ref(false)
 
 const tutorialSteps: TutorialStep[] = [
   {
@@ -200,6 +188,49 @@ const tutorialSteps: TutorialStep[] = [
   },
 
   {
+    id: TutorialSteps.ConfigIntroduction,
+    text: 'tutorial.config.introduction',
+    duration: 5000,
+    onTimeout: goToTheNextStep
+  },
+
+  {
+    id: TutorialSteps.ConfigNotificationTimeIntro,
+    text: 'tutorial.config.notificationsIntro',
+    duration: 5000,
+    onTimeout: async () => {
+      await scheduleNotifications.requestPermissions()
+      goToTheNextStep()
+    },
+  },
+
+  {
+    id: TutorialSteps.ConfigNotificationTimeUserSets,
+    onEnter: async () => {
+      isNotificationTimePickerOpen.value = true
+    },
+  },
+
+  {
+    id: TutorialSteps.ConfigMemorizeTimeInto,
+    text: 'tutorial.config.memorizeTimeIntro',
+    duration: 5000,
+    onTimeout: goToTheNextStep
+  },
+
+  {
+    id: TutorialSteps.ConfigMemorizeTimeUserSets,
+    onEnter: async () => {
+      // NOTE: setTimeout is workaround that fixes issue of not showing picker
+      setTimeout(() => { isMemorizationTimePickerOpen.value = true }, 10)
+    },
+  },
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Finish                                   */
+  /* -------------------------------------------------------------------------- */
+
+  {
     id: TutorialSteps.TutorialCongratulations,
     text: 'tutorial.congratulations',
     duration: 5000,
@@ -212,6 +243,29 @@ const tutorialSteps: TutorialStep[] = [
     }
   },
 ]
+
+/* -------------------------------------------------------------------------- */
+/*                                    Watch                                   */
+/* -------------------------------------------------------------------------- */
+
+watch(currentStep, onStepChanged, { immediate: true })
+
+/* -------------------------------------------------------------------------- */
+/*                                  Handlers                                  */
+/* -------------------------------------------------------------------------- */
+
+async function onStepChanged(current: TutorialSteps, prev: TutorialSteps | undefined) {
+  const prevStep = prev ? tutorialSteps[prev] : undefined
+  const currStep = tutorialSteps[current]
+
+  if (prevStep && prevStep.onLeave) { await prevStep.onLeave() }
+  if (currStep && currStep.onEnter) { await currStep.onEnter() }
+}
+
+
+function goToTheNextStep() {
+  tutorialStore.completeStep(tutorialStore.currentStep)
+}
 </script>
 
 
@@ -220,5 +274,9 @@ const tutorialSteps: TutorialStep[] = [
   position: absolute;
   top: 5%;
   left: 50%;
+}
+ion-modal {
+  --height: auto;
+  --width: 100%
 }
 </style>

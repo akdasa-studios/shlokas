@@ -82,6 +82,8 @@ const data = reactive({
   now: new Date().toISOString(),
   mode: env.getMode(),
   platform: Capacitor.getPlatform(),
+  liveUpdateDisabled: 'unknown',
+  liveUpdateMethod: 'unknown'
 })
 
 const updatesAvailable = ref(false)
@@ -101,11 +103,14 @@ onMounted(onLoadAppInfo)
 
 async function onLoadAppInfo() {
   const version = await Deploy.getCurrentVersion()
+  const liveUpdateConfig = await Deploy.getConfiguration()
   data.binaryVersion = version?.binaryVersionName ?? 'unknown'
   data.binaryBuild = version?.binaryVersionCode ?? 'unknown'
   data.version = version?.versionId ?? 'unknown'
   data.build = version?.buildId ?? 'unknown'
   data.channel = version?.channel ?? 'unknown'
+  data.liveUpdateDisabled = liveUpdateConfig.disabled.toString()
+  data.liveUpdateMethod = liveUpdateConfig.updateMethod
 
   const updates = await Deploy.checkForUpdate()
   updatesAvailable.value = updates?.available ?? false

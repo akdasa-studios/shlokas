@@ -13,9 +13,19 @@ export * from './composables/useTestId'
 export * from './composables/useClearCache'
 export * from './composables/useAppVersion'
 export * from './composables/useArrayShuffler'
+export * from './composables/useScreenOrientation'
 
 // tasks:
 export * from './tasks/runSyncTask'
+export * from './tasks/runEnterFullscreenMode'
+export * from './tasks/runHideStatusBar'
+export * from './tasks/runScheduleNotifications'
+export * from './tasks/runUpdateAppBadge'
+export * from './tasks/useResetMemorizationTime'
+export * from './tasks/useAppStatePersistenceTask'
+
+// stores:
+export * from './stores/appStateStore'
 
 // components:
 export { default as ConfettiExplosion } from './components/ConfettiExplosion.vue'

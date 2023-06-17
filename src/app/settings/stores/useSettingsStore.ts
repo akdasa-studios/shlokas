@@ -5,7 +5,9 @@ export const settingsKeys = [
   'language', 'showGradeButtons', 'colorfulCards',
   'welcomeDone', 'authToken', 'authSessionId', 'authStrategy',
   'authRefreshedAt', 'authExpiresAt', 'syncCollectionId', 'syncAt',
-  'syncLibraryAt', 'reviewCardsInRandomOrder', 'showUnpublishedVerses'
+  'syncLibraryAt', 'reviewCardsInRandomOrder', 'showUnpublishedVerses',
+  'hideControlsInLandscapeMode', 'enableNotifications', 'notificationTime',
+  'showAppBadge', 'memorizationTime'
 ]
 
 
@@ -19,6 +21,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const showGradeButtons = ref(true)
   const colorfulCards = ref(true)
   const reviewCardsInRandomOrder = ref(true)
+  const showAppBadge = ref(false)
 
   // welcome
   const welcomeDone = ref(false)
@@ -30,11 +33,17 @@ export const useSettingsStore = defineStore('settings', () => {
   const authRefreshedAt = ref(0)
   const authExpiresAt = ref(0)
   const showUnpublishedVerses = ref(false)
+  const hideControlsInLandscapeMode = ref(true)
 
   // sync
   const syncCollectionId =  ref('')
   const syncAt = ref(0)
   const syncLibraryAt = ref(0)
+
+  // sadhana
+  const enableNotifications = ref(false)
+  const notificationTime = ref<Array<[number, number]>>([[7, 0]])
+  const memorizationTime = ref(0)
 
   // Debug configs
   const showAccountControls = ref(true)
@@ -47,6 +56,7 @@ export const useSettingsStore = defineStore('settings', () => {
   return {
     language, showGradeButtons, colorfulCards, syncLibraryAt, welcomeDone,
     authToken, authSessionId, authStrategy, authRefreshedAt, authExpiresAt, syncCollectionId, syncAt,
-    showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder, showUnpublishedVerses
+    showAccountControls, autoSyncOnLogin, reviewCardsInRandomOrder, showUnpublishedVerses,
+    hideControlsInLandscapeMode, enableNotifications, notificationTime, showAppBadge, memorizationTime
   }
 })

@@ -83,9 +83,78 @@
           </ion-toggle>
         </ion-item>
 
+        <ion-item>
+          <ion-toggle
+            v-model="settings.hideControlsInLandscapeMode"
+          >
+            {{ $t('settings.hideControlsInLandscapeMode') }}
+          </ion-toggle>
+        </ion-item>
+
+        <ion-item>
+          <ion-toggle
+            v-model="settings.showAppBadge"
+          >
+            {{ $t('settings.showAppBadge') }}
+          </ion-toggle>
+        </ion-item>
+
+        <!-- Sadhana -->
+
+
+        <ion-list-header>
+          <ion-label>{{ $t('settings.sadhana') }}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-toggle
+            v-model="settings.enableNotifications"
+          >
+            {{ $t('settings.enableNotifications') }}
+          </ion-toggle>
+        </ion-item>
+
+        <ion-item
+          v-for="alarm, idx of settings.notificationTime"
+          :key="idx"
+          @click="onNotificationTimeClicked()"
+        >
+          <ion-label>{{ $t('settings.notification') }}</ion-label>
+          <ion-button
+            slot="end"
+            color="medium"
+          >
+            {{ alarm[0].toString().padStart(2, '0') }}:{{ alarm[1].toString().padStart(2, '0') }}
+          </ion-button>
+        </ion-item>
+
+        <ion-item
+          @click="onMemorizationTimeClicked"
+        >
+          <ion-label>{{ $t('settings.memorizationTime') }}</ion-label>
+          <ion-button
+            slot="end"
+            color="medium"
+          >
+            {{ settings.memorizationTime }} {{ $t("settings.minutes") }}
+          </ion-button>
+        </ion-item>
+
+
+        <!-- System -->
+
         <ion-list-header>
           <ion-label>{{ $t('settings.system') }}</ion-label>
         </ion-list-header>
+
+        <ion-item
+          router-link="/home/settings/cache"
+          router-direction="forward"
+          :detail="true"
+        >
+          <ion-label>{{ $t('settings.cache') }}</ion-label>
+        </ion-item>
+
 
         <ion-item
           :disabled="!(updateInfo.available && updateInfo.nextVersion != '')"
@@ -100,14 +169,6 @@
               <span v-else>{{ $t('settings.noUpdatesAvailable') }}</span>
             </p>
           </ion-label>
-        </ion-item>
-
-        <ion-item
-          router-link="/home/settings/cache"
-          router-direction="forward"
-          :detail="true"
-        >
-          <ion-label>{{ $t('settings.cache') }}</ion-label>
         </ion-item>
       </ion-list>
 
@@ -141,6 +202,15 @@
         </ion-item>
       </ion-list>
     </ion-content>
+
+    <MemorizationTimePicker
+      :is-open="isMemorizationTimePickerOpen"
+      @close="isMemorizationTimePickerOpen = false"
+    />
+    <NotificationTimePicker
+      :is-open="isNotificationTimePickerOpen"
+      @close="isNotificationTimePickerOpen = false"
+    />
   </ion-page>
 </template>
 
@@ -149,13 +219,15 @@
 import {
   IonContent, IonHeader, IonItem, IonLabel, IonList,
   IonPage, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar,
-  IonListHeader
+  IonListHeader, IonButton
 } from '@ionic/vue'
-import { computed, inject, onMounted, reactive, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
-import { useSettingsStore } from '@/app/settings'
-import { getAvailableLanguages, useApplication } from '@/app/shared'
+import { storeToRefs } from 'pinia'
+import { useSettingsStore, NotificationTimePicker, MemorizationTimePicker } from '@/app/settings'
+import { getAvailableLanguages, useApplication, useScheduleNotifications, useUpdateAppBadge } from '@/app/shared'
+
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -164,6 +236,8 @@ import { getAvailableLanguages, useApplication } from '@/app/shared'
 const i18n = inject('i18n') as any
 const settings = useSettingsStore()
 const app = useApplication()
+const scheduleNotifications = useScheduleNotifications()
+const updateAppBadge = useUpdateAppBadge()
 
 
 /* -------------------------------------------------------------------------- */
@@ -179,6 +253,9 @@ const updateInfo = reactive({
   nextVersion: '',
   channel: ''
 })
+const isNotificationTimePickerOpen = ref(false)
+const isMemorizationTimePickerOpen = ref(false)
+const { enableNotifications, showAppBadge } = storeToRefs(settings)
 
 
 /* -------------------------------------------------------------------------- */
@@ -186,6 +263,17 @@ const updateInfo = reactive({
 /* -------------------------------------------------------------------------- */
 
 onMounted(checkUpdates)
+
+watch([enableNotifications], async (value) => {
+  if (!value) { return }
+  await scheduleNotifications.requestPermissions()
+})
+
+watch([showAppBadge], async (value) => {
+  if (!value) { return }
+  await updateAppBadge.requestPermissions()
+})
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
@@ -223,4 +311,20 @@ async function checkUpdates() {
   updateInfo.nextVersion = updates.build || updates.snapshot || ''
   updateInfo.channel = config.channel
 }
+
+function onNotificationTimeClicked() {
+  isNotificationTimePickerOpen.value = true
+}
+
+function onMemorizationTimeClicked() {
+  isMemorizationTimePickerOpen.value = true
+}
 </script>
+
+
+<style scoped>
+ion-modal {
+  --height: auto;
+  --width: 100%
+}
+</style>

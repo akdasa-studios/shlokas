@@ -5,6 +5,7 @@
 
       <!-- Tabs -->
       <ion-tab-bar
+        v-if="!fullscreen"
         slot="bottom"
         data-testid="tabs-bar"
       >
@@ -77,6 +78,7 @@ import {
 import { storeToRefs } from 'pinia'
 import { useStatisticsStore } from '@/app/statistics'
 import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
+import { useAppStateStore } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
@@ -84,6 +86,8 @@ import { TutorialPlayer, useTutorialStore } from '@/app/tutorial'
 
 const statisticsStore = useStatisticsStore()
 const tutorialStore = useTutorialStore()
+const appStateStore = useAppStateStore()
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
@@ -94,4 +98,7 @@ const {
   isEnabled: tutorialEnabled,
   isCompleted: isTutorialCompleted
 } = storeToRefs(tutorialStore)
+const {
+  fullscreen
+} = storeToRefs(appStateStore)
 </script>

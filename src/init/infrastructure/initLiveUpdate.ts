@@ -16,13 +16,15 @@ export async function initLiveUpdate() {
   const mode =  env.getMode()
   const channels = {
     dev:     { channel: 'Development', updateMethod: 'none' },
-    staging: { channel: 'Staging',     updateMethod: 'background' },
+    staging: { channel: 'Staging',     updateMethod: 'none' },
     prod:    { channel: 'Production',  updateMethod: 'background' },
   }
 
   // Live update is not supported in development
   await Deploy.configure({
+    appId: '196a538d',
     channel: channels[mode].channel,
     updateMethod: (channels[mode].updateMethod as ('none'|'background')),
   })
+
 }

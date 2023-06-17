@@ -13,6 +13,7 @@
           v-model="searchQuery"
           :placeholder="$t('library.search')"
           animated
+          data-testid="search-bar"
         />
       </ion-toolbar>
     </ion-header>

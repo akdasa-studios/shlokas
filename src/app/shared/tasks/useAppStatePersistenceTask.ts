@@ -1,20 +1,30 @@
 import { watch } from 'vue'
-import { useDeviceStore, useLogger } from '@/app/shared'
-import { useSettingsStore, settingsKeys } from '@/app/settings'
+import { storeToRefs } from 'pinia'
+import { useAppStateStore, useDeviceStore, useLogger } from '@/app/shared'
 
+const settingsKeys = [
+  'memorizationTimeSpend', 'memorizationTimeResetAt'
+]
 
 /**
- * Saves and restores settings state to device storage.
+ * Saves and restores application state
  */
-export function useSettingsPersistenceTask() {
+export function useAppStatePersistenceTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const logger        = useLogger('settings')
-  const settingsStore = useSettingsStore()
+  const logger        = useLogger('appState')
+  const appStateStore = useAppStateStore()
   const deviceStore   = useDeviceStore()
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
+
+  const { isActive } = storeToRefs(appStateStore)
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -22,9 +32,9 @@ export function useSettingsPersistenceTask() {
 
   /** Starts the task. */
   async function run() {
-    await onLoadSettings()
+    await onLoadAppState()
 
-    watch(settingsStore, onSettingsChanged)
+    watch(isActive, onAppStateChanged)
   }
 
 
@@ -32,26 +42,26 @@ export function useSettingsPersistenceTask() {
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onSettingsChanged() {
-    logger.debug('Saving settings state')
+  async function onAppStateChanged() {
+    logger.debug('Saving app state')
     for (const key of settingsKeys) {
       // @ts-ignore
-      const value = typeof settingsStore[key] === 'object' ? JSON.stringify(settingsStore[key]) : settingsStore[key]
+      const value = typeof appStateStore[key] === 'object' ? JSON.stringify(appStateStore[key]) : appStateStore[key]
       await deviceStore.set(key, value)
     }
   }
 
-  async function onLoadSettings() {
-    logger.debug('Restoring settings state')
+  async function onLoadAppState() {
+    logger.debug('Restoring app state')
     for (const key of settingsKeys) {
       // @ts-ignore
-      const type  = typeof settingsStore[key]
+      const type  = typeof appStateStore[key]
       const value = await deviceStore.get(key)
       if (value === undefined || value === null) continue
 
       // @ts-ignore
       // Note: load scalar values as is, and objects as JSON strings
-      settingsStore[key] = type === 'object' ? JSON.parse(value) : value
+      appStateStore[key] = type === 'object' ? JSON.parse(value) : value
     }
   }
 

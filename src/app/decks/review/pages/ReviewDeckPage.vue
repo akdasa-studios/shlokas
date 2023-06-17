@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <!-- Header -->
-    <ion-header>
+    <ion-header v-if="!appStateStore.fullscreen">
       <ion-toolbar>
         <ion-title>
           {{ $t('decks.review.title') }}
@@ -74,7 +74,7 @@ import { StackedFlipCardsDeck , useIndexedList, useLibraryCache } from '@/app/de
 import { ReviewFlipCard, ReviewDeckEmpty, ReviewCardSwipeOverlay, GradeCardButtons } from '@/app/decks/review'
 import { useSettingsStore } from '@/app/settings'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
-import { useApplication , BackgroundTasks, useArrayShuffler } from '@/app/shared'
+import { useApplication , BackgroundTasks, useArrayShuffler, useAppStateStore } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
@@ -87,6 +87,7 @@ const indexedList = useIndexedList()
 const settings = useSettingsStore()
 const tutorial = useTutorialStore()
 const shuffler = useArrayShuffler()
+const appStateStore = useAppStateStore()
 
 
 /* -------------------------------------------------------------------------- */

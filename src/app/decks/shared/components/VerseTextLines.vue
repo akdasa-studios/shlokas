@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div
+    v-if="imageUri"
+  >
     <DarkImage
-      v-if="imageUri"
       :src="imageUri"
       :is-dark="isDark"
+      :class="$attrs.class"
       mode="invert"
-      class="image"
     />
+  </div>
 
+  <div v-else>
     <SVGTextLines
-      v-else
       :lines="props.lines"
       :line-height="20"
       line-class="line"

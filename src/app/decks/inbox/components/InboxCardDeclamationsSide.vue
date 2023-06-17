@@ -2,6 +2,10 @@
   <div
     v-if="declamation"
     class="progress"
+    :class="{
+      'portrait': isPortrait,
+      'landscape': !isPortrait
+    }"
   >
     <CircleProgress
       :progress="porgress"
@@ -13,7 +17,10 @@
 
   <div
     v-if="props.type === 'verse' || !declamation"
-    :class="{putAtEnd: declamation}"
+    :class="{
+      putAtEnd: declamation && isPortrait,
+      putAtRight: declamation && !isPortrait
+    }"
   >
     <VerseSynonyms
       :synonyms="props.synonyms"
@@ -28,7 +35,7 @@ import { Declamation, Synonym } from '@akdasa-studios/shlokas-core'
 import { onMounted, ref, watch, shallowRef, computed, onBeforeUnmount } from 'vue'
 import { CircleProgress, useAudio } from '@/app/decks/inbox'
 import { VerseSynonyms } from '@/app/library'
-import { useDownloader, useEnv } from '@/app/shared'
+import { useDownloader, useEnv, useScreenOrientation } from '@/app/shared'
 import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
@@ -54,6 +61,7 @@ const audio = useAudio()
 const env = useEnv()
 const downloader = useDownloader()
 const tutorial = useTutorialStore()
+const screenOrientation = useScreenOrientation()
 
 
 /* -------------------------------------------------------------------------- */
@@ -73,6 +81,7 @@ const repeatCurrent = ref(0)
 const repeatsPerLine = ref(5)
 const currentLine = ref(0)
 const playing = ref(false)
+const isPortrait = computed(() => screenOrientation.isPortrait.value)
 
 const porgress = computed(function() {
   const lines = (declamation.value?.markers.length ?? 0) + 1
@@ -157,9 +166,25 @@ function stop() { audio.stop() }
   position: absolute;
 }
 
+.portrait {
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.landscape {
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .putAtEnd {
   margin-top: auto;
   margin-bottom: 2rem;
 }
 
+.putAtRight {
+  width:50%;
+  transform: translateX(33%);
+}
 </style>
