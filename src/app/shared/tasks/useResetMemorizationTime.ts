@@ -1,4 +1,6 @@
-import { useAppStateStore } from '@/app/shared'
+import { storeToRefs } from 'pinia'
+import { watch } from 'vue'
+import { useAppStateStore, useApplication } from '@/app/shared'
 
 
 export function useResetMemorizationTime() {
@@ -6,7 +8,15 @@ export function useResetMemorizationTime() {
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
-  const appState = useAppStateStore()
+  const app           = useApplication()
+  const appStateStore = useAppStateStore()
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    State                                   */
+  /* -------------------------------------------------------------------------- */
+
+  const { isActive } = storeToRefs(appStateStore)
 
 
   /* -------------------------------------------------------------------------- */
@@ -14,13 +24,25 @@ export function useResetMemorizationTime() {
   /* -------------------------------------------------------------------------- */
 
   async function run() {
-    const lastResetAt = appState.memorizationTimeResetAt
-    const now         = new Date()
+    watch([
+      isActive, app.now
+    ], reset)
+    reset()
+  }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  async function reset() {
+    const lastResetAt = appStateStore.memorizationTimeResetAt
+    const now         = app.now.value
     const today       = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`
 
     if (lastResetAt !== today) {
-      appState.memorizationTimeSpend = 0
-      appState.memorizationTimeResetAt = today
+      appStateStore.memorizationTimeSpend = 0
+      appStateStore.memorizationTimeResetAt = today
     }
   }
 

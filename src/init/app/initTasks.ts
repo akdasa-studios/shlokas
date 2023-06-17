@@ -9,7 +9,6 @@ export async function initTasks() {
   await useAppStatePersistenceTask().run()
   await useSyncTask().run()
   await useUpdateStatisticsTask().run()
-
   await useScheduleNotifications().run()
   await useUpdateAppBadge().run()
   await useResetMemorizationTime().run()
