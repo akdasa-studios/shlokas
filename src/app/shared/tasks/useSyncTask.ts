@@ -1,20 +1,19 @@
 import { watch } from 'vue'
-import { StatusBar } from '@capacitor/status-bar'
 import { storeToRefs } from 'pinia'
-import { Capacitor } from '@capacitor/core'
+import { useSettingsStore } from '@/app/settings'
+import { useSync } from '../composables/useSync'
 import { useAppStateStore } from '../stores/appStateStore'
 
 /**
- * Hide status bar when fullscreen is true, otherwise show it.
+ * Syncronisation task. Runs sync on app state change and on login.
  */
-export function runHideStatusBar() {
-  // Only run on native platforms
-  if (Capacitor.getPlatform() === 'web') { return }
-
+export function useSyncTask() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
 
+  const sync          = useSync()
+  const settingsStore = useSettingsStore()
   const appStateStore = useAppStateStore()
 
 
@@ -22,21 +21,34 @@ export function runHideStatusBar() {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const { fullscreen } = storeToRefs(appStateStore)
+  const { isActive } = storeToRefs(appStateStore)
+  const { authSessionId, autoSyncOnLogin } = storeToRefs(settingsStore)
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                    Init                                    */
+  /*                                  Triggers                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch(fullscreen, onChanged)
+  async function run() {
+    watch([isActive, authSessionId], onStateChanaged)
+  }
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  async function onChanged(value: boolean) {
-    if (value) { await StatusBar.hide() } else { await StatusBar.show() }
+  async function onStateChanaged() {
+    // Do not sync on app close, because database maybe closed already
+    // and sync will fail
+    const shouldSync = isActive.value && autoSyncOnLogin.value
+    if (shouldSync) { await sync.run() }
   }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { run }
 }

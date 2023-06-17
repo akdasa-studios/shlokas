@@ -1,14 +1,14 @@
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { StatusBar } from '@capacitor/status-bar'
+import { Capacitor } from '@capacitor/core'
+import { useScreenOrientation , useAppStateStore } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
-import { useScreenOrientation } from '../composables/useScreenOrientation'
-import { useAppStateStore } from '../stores/appStateStore'
-
 
 /**
  * Enter fullscreen mode when in landscape mode and hide controls is enabled.
  */
-export function runEnterFullscreenMode() {
+export function useEnterFullscreenMode() {
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
@@ -27,13 +27,15 @@ export function runEnterFullscreenMode() {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                    Init                                    */
+  /*                                 Actions                                    */
   /* -------------------------------------------------------------------------- */
 
-  watch(
-    [screenOrientation.isPortrait, routeName],
-    onChanged
-  )
+  async function run() {
+    watch(
+      [screenOrientation.isPortrait, routeName],
+      onChanged
+    )
+  }
 
 
   /* -------------------------------------------------------------------------- */
@@ -45,5 +47,16 @@ export function runEnterFullscreenMode() {
     const isFullscreenEligible = fullscrenEligibleRoutes.includes(routeName.value)
     const hideControls = hideControlsInLandscapeMode.value
     appStateStore.fullscreen = isLandscape && isFullscreenEligible && hideControls
+
+    if (Capacitor.getPlatform() !== 'web') {
+      if (appStateStore.fullscreen) { await StatusBar.hide() } else { await StatusBar.show() }
+    }
   }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { run }
 }

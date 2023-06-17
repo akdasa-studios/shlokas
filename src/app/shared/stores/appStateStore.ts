@@ -5,8 +5,7 @@ import { ref } from 'vue'
  * Global app state.
  */
 export const useAppStateStore = defineStore('appState', () => {
-  const isActive = ref(true)
-  // const appStateChangedAt = ref(0)
+  const isActive = ref(false)
 
   /**
    * If true, the app is in fullscreen mode, otherwise not. In fullscreen mode,

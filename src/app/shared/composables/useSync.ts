@@ -6,7 +6,6 @@ import { useEnv } from './useEnv'
 import { useAuthentication } from './useAuthentication'
 import { useApplication } from './useApp'
 import { useLogger } from './useLogger'
-import { useEmitter } from './useEmitter'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -34,7 +33,6 @@ export function useSync() {
   const auth        = useAuthentication()
   const env         = useEnv()
   const log         = useLogger('sync')
-  const emitter     = useEmitter()
 
 
   /* -------------------------------------------------------------------------- */
@@ -72,7 +70,6 @@ export function useSync() {
         currentTime: currentTime
       })
       settings.syncAt = currentTime
-      emitter.emit('syncCompleted')
     } catch (e) {
       log.error('Syncing failed...', e)
       throw new Error('Syncing failed: ' + JSON.stringify(e))

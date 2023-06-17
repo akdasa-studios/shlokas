@@ -78,14 +78,13 @@ import { logoApple, logoGoogle, mail, people } from 'ionicons/icons'
 import { Capacitor } from '@capacitor/core'
 import { useLoadLibraryIntoMemory, useSyncLibraryTask } from '@/app/library'
 import { useSettingsStore } from '@/app/settings'
-import { DarkImage, go, useAuthentication, useApplication, useEmitter } from '@/app/shared'
+import { DarkImage, go, useAuthentication, useApplication } from '@/app/shared'
 
 
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
 
-const emitter = useEmitter()
 const application = useApplication()
 const isDark = usePreferredDark()
 const libraryDatabase = inject('verses')
@@ -124,7 +123,6 @@ async function onOpened() {
 async function onSignIn(strategy: string) {
   try {
     await auth.authenticate(strategy)
-    emitter.emit('signedIn')
     router.replace(go('library'))
   } catch (e) {
     const alert = await alertController.create({

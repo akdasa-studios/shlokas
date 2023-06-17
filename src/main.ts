@@ -27,7 +27,7 @@ import '@/app/decks/Card.css'
 
 /* Init stages */
 import { appInitStages } from './init'
-import { useEmitter, useLogger } from './app/shared'
+import { useAppStateStore, useLogger } from './app/shared'
 
 const services: {[name: string]: any} = { }
 
@@ -60,9 +60,8 @@ async function initApp() {
 
   services['router'].isReady().then(() => {
     vue.mount('#app')
-
-    const emitter = useEmitter()
-    emitter.emit('appStateChanged', { isActive: true })
+    const appStateStore = useAppStateStore()
+    appStateStore.isActive = true
   })
 }
 

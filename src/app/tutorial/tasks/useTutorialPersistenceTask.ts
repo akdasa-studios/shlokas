@@ -2,7 +2,6 @@ import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { useApplication, useDeviceStore, useLogger } from '@/app/shared'
 import { useTutorialStore } from '@/app/tutorial'
-import { CURRENT_STEP_KEY, DATE_KEY } from './shared'
 
 
 /**
@@ -12,11 +11,14 @@ import { CURRENT_STEP_KEY, DATE_KEY } from './shared'
  *  - Current tutorial step
  *  - Tutorial date
  */
-export function runTutorialPersistenceTask() {
+export function useTutorialPersistenceTask() {
 
   /* -------------------------------------------------------------------------- */
   /*                                Dependencies                                */
   /* -------------------------------------------------------------------------- */
+
+  const CURRENT_STEP_KEY = 'tutorial:step'
+  const DATE_KEY         = 'tutorial:date'
 
   const logger        = useLogger('tutorial:persistence')
   const application   = useApplication()
@@ -31,26 +33,51 @@ export function runTutorialPersistenceTask() {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                                  Triggers                                  */
+  /*                                   Actions                                  */
   /* -------------------------------------------------------------------------- */
 
-  watch(currentStep, onTutorialStepChanged)
-  watch(application.now, onDateChanged)
+  async function run() {
+    await load()
+
+    watch([currentStep, application.now], onStateChanged)
+  }
 
 
   /* -------------------------------------------------------------------------- */
   /*                                  Handlers                                  */
   /* -------------------------------------------------------------------------- */
 
-  function onTutorialStepChanged(value: number) {
-    logger.debug(`Saving step ${value}`)
-    deviceStore.set(CURRENT_STEP_KEY, value)
+  async function onStateChanged() {
+    await save()
   }
 
-  function onDateChanged(value: Date) {
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Helpers                                  */
+  /* -------------------------------------------------------------------------- */
+
+  async function save() {
+    logger.debug('Saving tutorial state')
+    deviceStore.set(CURRENT_STEP_KEY, currentStep.value)
     if (application.currentContextName.value === 'tutorial') {
-      logger.debug(`Saving date ${value}`)
-      deviceStore.set(DATE_KEY, value.getTime())
+      deviceStore.set(DATE_KEY, application.now.value.getTime())
     }
   }
+
+  async function load() {
+    currentStep.value = (await deviceStore.get(CURRENT_STEP_KEY)) || 0
+    const tutorialDate = await deviceStore.get(DATE_KEY)
+
+    if (tutorialStore.isStarted && !tutorialStore.isCompleted) {
+      logger.debug(`Tutorial resored ${currentStep.value} step and ${tutorialDate} date`)
+      application.switchContextTo('tutorial')
+      if (tutorialDate) { application.setTime(new Date(tutorialDate)) }
+    }
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Interface                                 */
+  /* -------------------------------------------------------------------------- */
+
+  return { run }
 }

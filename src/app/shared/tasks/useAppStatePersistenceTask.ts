@@ -43,6 +43,7 @@ export function useAppStatePersistenceTask() {
   /* -------------------------------------------------------------------------- */
 
   async function onAppStateChanged() {
+    if (isActive.value) { return }
     logger.debug('Saving app state')
     for (const key of settingsKeys) {
       // @ts-ignore
