@@ -16,8 +16,6 @@ export * from './composables/useScreenOrientation'
 
 // tasks:
 export * from './tasks/useSyncTask'
-export * from './tasks/runEnterFullscreenMode'
-export * from './tasks/runHideStatusBar'
 export * from './tasks/useScheduleNotifications'
 export * from './tasks/useUpdateAppBadge'
 export * from './tasks/useResetMemorizationTime'
