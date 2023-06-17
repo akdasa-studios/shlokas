@@ -17,7 +17,14 @@
     "info": "Інформація про додаток",
     "debug": "Налагодження",
     "nextDay": "Наступний день",
-    "noUpdatesAvailable": "Немає оновлень"
+    "noUpdatesAvailable": "Немає оновлень",
+    "hideControlsInLandscapeMode": "Приховати елементи керування в ландшафтному режимі",
+    "sadhana": "Садхана",
+    "enableNotifications": "Сповіщення",
+    "notification": "Сповіщення",
+    "showAppBadge": "Бейдж",
+    "memorizationTime": "Час запам'ятовування",
+    "minutes": "хв"
   },
   "account": {
     "welcomeBack": "З Поверненням!",
