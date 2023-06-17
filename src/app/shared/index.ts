@@ -16,7 +16,7 @@ export * from './composables/useArrayShuffler'
 export * from './composables/useScreenOrientation'
 
 // tasks:
-export * from './tasks/runSyncTask'
+export * from './tasks/useSyncTask'
 export * from './tasks/runEnterFullscreenMode'
 export * from './tasks/runHideStatusBar'
 export * from './tasks/runScheduleNotifications'
