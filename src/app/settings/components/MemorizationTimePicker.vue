@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { IonPicker } from '@ionic/vue'
-import { inject, toRefs } from 'vue'
+import { inject, toRefs, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSettingsStore } from '@/app/settings'
 
@@ -26,6 +26,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+
 /* -------------------------------------------------------------------------- */
 /*                                Dependencies                                */
 /* -------------------------------------------------------------------------- */
@@ -40,6 +41,7 @@ const { memorizationTime } = storeToRefs(settingsStore)
 /* -------------------------------------------------------------------------- */
 
 const { isOpen } = toRefs(props)
+const { language } = storeToRefs(settingsStore)
 
 const memorizationTimeColumns = [
   {
@@ -79,10 +81,23 @@ const memorizationTimeButtons = [
 ]
 
 /* -------------------------------------------------------------------------- */
+/*                                    Hooks                                   */
+/* -------------------------------------------------------------------------- */
+
+watch(language, onLanguageChanged)
+
+
+/* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 function onPickerDismiss() {
   emit('close')
+}
+
+function onLanguageChanged() {
+  memorizationTimeColumns[0].suffix = i18n.t('settings.minutes')
+  memorizationTimeButtons[0].text = i18n.t('common.cancel')
+  memorizationTimeButtons[1].text = i18n.t('common.ok')
 }
 </script>

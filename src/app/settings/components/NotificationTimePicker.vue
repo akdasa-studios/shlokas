@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { IonPicker } from '@ionic/vue'
-import { inject, toRefs } from 'vue'
+import { inject, toRefs, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSettingsStore } from '@/app/settings'
 
@@ -34,13 +34,12 @@ const emit = defineEmits<{
 const i18n = inject('i18n') as any
 const settingsStore = useSettingsStore()
 
-
 /* -------------------------------------------------------------------------- */
 /*                                    State                                   */
 /* -------------------------------------------------------------------------- */
 
 const { isOpen } = toRefs(props)
-const { notificationTime, enableNotifications } = storeToRefs(settingsStore)
+const { notificationTime, enableNotifications, language } = storeToRefs(settingsStore)
 const [ hours, minutes ] = notificationTime.value[0]
 
 const notificationTimeColumns = [
@@ -111,10 +110,21 @@ const notificationTimeButtons = [
 ]
 
 /* -------------------------------------------------------------------------- */
+/*                                    Hooks                                   */
+/* -------------------------------------------------------------------------- */
+
+watch(language, onLanguageChanged)
+
+/* -------------------------------------------------------------------------- */
 /*                                  Handlers                                  */
 /* -------------------------------------------------------------------------- */
 
 function onPickerDismiss() {
   emit('close')
+}
+
+function onLanguageChanged() {
+  notificationTimeButtons[0].text = i18n.t('common.cancel')
+  notificationTimeButtons[1].text = i18n.t('common.ok')
 }
 </script>
