@@ -7,6 +7,7 @@ export { default as SettingsPage } from './pages/SettingsPage.vue'
 export { default as AppInfoPage } from './pages/AppInfoPage.vue'
 
 // compoentns:
+export { default as SocialNetworksListItem } from './components/general/SocialNetworksListItem.vue'
 export { default as MemorizationTimePicker } from './components/MemorizationTimePicker.vue'
 export { default as NotificationTimePicker } from './components/NotificationTimePicker.vue'
 

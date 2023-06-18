@@ -55,6 +55,8 @@
           </ion-label>
         </ion-item>
 
+        <SocialNetworksListItem />
+
         <ion-list-header>
           <ion-label>{{ $t('settings.appearance') }}</ion-label>
         </ion-list-header>
@@ -225,7 +227,7 @@ import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer'
 import { Deploy } from 'cordova-plugin-ionic'
 import { storeToRefs } from 'pinia'
-import { useSettingsStore, NotificationTimePicker, MemorizationTimePicker } from '@/app/settings'
+import { useSettingsStore, NotificationTimePicker, MemorizationTimePicker, SocialNetworksListItem } from '@/app/settings'
 import { getAvailableLanguages, useApplication, useScheduleNotifications, useUpdateAppBadge } from '@/app/shared'
 
 
