@@ -2,6 +2,7 @@ import { LocalNotifications } from '@capacitor/local-notifications'
 import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import { Capacitor } from '@capacitor/core'
+import { useLocalization } from '@/app/shared'
 import { useSettingsStore } from '@/app/settings'
 import { useLogger } from '../composables/useLogger'
 
@@ -14,6 +15,7 @@ export function useScheduleNotifications() {
 
   const settingsStore = useSettingsStore()
   const logger        = useLogger('notifications')
+  const localization  = useLocalization()
 
 
   /* -------------------------------------------------------------------------- */
@@ -88,8 +90,8 @@ export function useScheduleNotifications() {
         notifications: [
           {
             id: SCHEDULE_NOTIFICATION_IDS + idx,
-            title: 'Shlokas',
-            body: 'Time to learn shlokas',
+            title: localization.t('app.name'),
+            body: localization.t('notifications.reminder'),
             schedule: {
               on: {
                 hour: hours,
@@ -97,6 +99,7 @@ export function useScheduleNotifications() {
               },
               every: 'day'
             },
+            sound: ''
           }
         ]
       })

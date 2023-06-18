@@ -3,6 +3,7 @@ import { App } from 'vue'
 import en from '@/locale/en'
 import ru from '@/locale/ru'
 import uk from '@/locale/uk'
+import { useLocalization } from '@/app/shared'
 import { InitArgs, InitResult } from '../initialization'
 
 
@@ -13,6 +14,7 @@ export async function initI18n(
   { get }: InitArgs
 ): Promise<InitResult> {
   const vue = get<App>('vue')
+  const localization = useLocalization()
 
   const i18n = createI18n({
     legacy: false,
@@ -25,6 +27,7 @@ export async function initI18n(
     }
   })
   vue.use(i18n)
+  localization.init(i18n)
 
   return { 'i18n': i18n.global }
 }

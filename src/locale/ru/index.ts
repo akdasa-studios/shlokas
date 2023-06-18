@@ -5,6 +5,7 @@ import misc from './misc.json'
 import settings from './settings.json'
 import tutorial from './tutorial.json'
 import welcome from './welcome.json'
+import notifications from './notifications.json'
 
 export default {
   ...common,
@@ -13,5 +14,6 @@ export default {
   ...misc,
   ...settings,
   ...tutorial,
-  ...welcome
+  ...welcome,
+  ...notifications
 }
