@@ -24,7 +24,8 @@
     "notification": "Notification",
     "showAppBadge": "App badge",
     "memorizationTime": "Memorization time",
-    "minutes": "min"
+    "minutes": "min",
+    "joinUs": "Join us"
   },
   "account": {
     "welcomeBack": "Welcome back!",
