@@ -62,6 +62,8 @@
     <false />
     <key>IonAppId</key>
     <string>196a538d</string>
+    <key>IonChannelName</key>
+    <string>Development</string>
     <key>IonUpdateMethod</key>
     <string>none</string>
     <key>IonMaxVersions</key>
