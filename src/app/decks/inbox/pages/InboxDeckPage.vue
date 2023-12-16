@@ -190,8 +190,8 @@ function canBeSwiped(_: string, { direction, distance }: { direction: string, di
   if (tutorial.inProgress) {
     const isUserWasAskedToSwipeCardsUp = tutorial.atStep(TutorialSteps.InboxDeckSwipeCardUp)
     const isUserSwipingCardsUp = ['up', 'bottom'].includes(direction)
-    if (!isUserWasAskedToSwipeCardsUp &&  isUserSwipingCardsUp) { tutorial.invalidAction(); return }
-    if ( isUserWasAskedToSwipeCardsUp && !isUserSwipingCardsUp) { tutorial.invalidAction(); return }
+    if (!isUserWasAskedToSwipeCardsUp &&  isUserSwipingCardsUp) { tutorial.invalidAction(); return false }
+    if ( isUserWasAskedToSwipeCardsUp && !isUserSwipingCardsUp) { tutorial.invalidAction(); return false }
   }
 
   if (['left', 'right'].includes(direction)) {

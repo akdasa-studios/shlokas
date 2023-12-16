@@ -9,15 +9,30 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  const currentStep = ref(0)
+  /** Tutorial module could be enabled or disabled at all */
   const isEnabled = ref(true)
+
+  /** Tutorial enabled, but not started yet */
+  const isNotStartedYet = computed(
+    () => isEnabled.value
+          && currentStep.value === TutorialSteps.OverallIntroduction)
+
+  /** Is tutorial enabled and it is in progress? */
   const inProgress = computed(
-    () => currentStep.value > TutorialSteps.OverallIntroduction &&
-          currentStep.value < TutorialSteps.TutorialEnd)
+    () => isEnabled.value
+          && currentStep.value > TutorialSteps.OverallIntroduction
+          && currentStep.value < TutorialSteps.TutorialEnd)
+
+
+  /** Current step */
+  const currentStep = ref<TutorialSteps>(0)
+
+  /** Last user's action was invalid */
   const lastInvalidActionAt = ref(0)
 
+
   /* -------------------------------------------------------------------------- */
-  /*                                   Actions                                  */
+  /*                                   Getters                                  */
   /* -------------------------------------------------------------------------- */
 
   /**
@@ -26,8 +41,9 @@ export const useTutorialStore = defineStore('tutorial', () => {
    * @returns True if the tutorial is enabled and a user is at the specified step
    */
   function atStep(step: TutorialSteps) {
-    return isEnabled.value && currentStep.value === step
+    return inProgress.value && currentStep.value === step
   }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -46,9 +62,19 @@ export const useTutorialStore = defineStore('tutorial', () => {
     lastInvalidActionAt.value = new Date().getTime()
   }
 
+
   /* -------------------------------------------------------------------------- */
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep, completeStep, isEnabled, inProgress, invalidAction, lastInvalidActionAt, atStep }
+  return {
+    isEnabled,
+    isNotStartedYet,
+    inProgress,
+    currentStep,
+    atStep,
+    lastInvalidActionAt,
+    completeStep,
+    invalidAction,
+  }
 })

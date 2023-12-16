@@ -59,7 +59,7 @@ const tutorialSteps: TutorialStep[] = [
     ],
     onButtonClicked: (buttonId: string) => {
       if (buttonId === 'no') {
-        tutorialStore.currentStep = 9999
+        tutorialStore.currentStep = TutorialSteps.TutorialEnd
       }
       if (buttonId === 'yes') {
         application.switchContextTo('tutorial')

@@ -60,7 +60,7 @@
     </ion-tabs>
 
     <TutorialPlayer
-      v-if="tutorialEnabled && !isTutorialCompleted"
+      v-if="tutorialEnabled && (isTutorialInProgress || isTutorialNotStartedYet)"
     />
   </ion-page>
 </template>
@@ -96,7 +96,8 @@ const appStateStore = useAppStateStore()
 const { cardsInInbox, cardsInReview } = storeToRefs(statisticsStore)
 const {
   isEnabled: tutorialEnabled,
-  isCompleted: isTutorialCompleted
+  inProgress: isTutorialInProgress,
+  isNotStartedYet: isTutorialNotStartedYet,
 } = storeToRefs(tutorialStore)
 const {
   fullscreen
