@@ -35,7 +35,7 @@ import { IonItem, IonLabel, IonIcon, useIonRouter } from '@ionic/vue'
 import { computed } from 'vue'
 import { enter, albums } from 'ionicons/icons'
 import { go, testId } from '@/app/shared'
-import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { TutorialGuards } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -52,7 +52,6 @@ const props = defineProps<{
 /* -------------------------------------------------------------------------- */
 
 const router = useIonRouter()
-const tutorialStore = useTutorialStore()
 
 
 /* -------------------------------------------------------------------------- */
@@ -74,11 +73,7 @@ const showBadge = computed(() => props.verseStatus.inDeck != Decks.None)
 /* -------------------------------------------------------------------------- */
 
 function onClick() {
-  // Tutorial: Don't allow opening any verse other than BG 1.1
-  if (tutorialStore.isEnabled && ((tutorialStore.currentStep < TutorialSteps.LibraryOpenVerse && tutorialStore.currentStep > TutorialSteps.LibraryAddVerse) || props.verse.reference !== 'BG 1.1')) {
-    tutorialStore.invalidAction()
-    return
-  }
+  if (!TutorialGuards.Library.canUserAddVerse(props.verse)) { return }
   openVerse()
 }
 

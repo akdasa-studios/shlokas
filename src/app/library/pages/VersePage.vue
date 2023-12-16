@@ -40,7 +40,7 @@ import { AddVerseToInboxDeck, Decks, Declamation, UpdateVerseStatus, Verse, Vers
 import { Transaction } from '@akdasa-studios/framework'
 import { VerseDetails } from '@/app/library'
 import { go, useApplication } from '@/app/shared'
-import { TutorialSteps, useTutorialStore } from '@/app/tutorial'
+import { TutorialGuards, TutorialSteps, useTutorialStore } from '@/app/tutorial'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */
@@ -84,12 +84,7 @@ onMounted(fetchData)
 
 async function onAddVerseToInboxClicked() {
   if (!verse.value) { return }
-
-  // Tutorial: Do not allow user to add any other verse than BG 1.1 during tutorial
-  if (tutorial.isEnabled && (tutorial.currentStep !== TutorialSteps.LibraryAddVerse || verse.value.reference !== 'BG 1.1')) {
-    tutorial.invalidAction()
-    return
-  }
+  if (!TutorialGuards.Library.canUserAddVerse(verse.value)) { return }
 
   const app = application.instance()
   const transaction = new Transaction()
