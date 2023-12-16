@@ -68,7 +68,7 @@ export function useTutorialPersistenceTask() {
     currentStep.value = (await deviceStore.get(CURRENT_STEP_KEY)) || 0
     const tutorialDate = await deviceStore.get(DATE_KEY)
 
-    if (tutorialStore.isStarted && !tutorialStore.isCompleted) {
+    if (tutorialStore.inProgress) {
       logger.debug(`Tutorial resored ${currentStep.value} step and ${tutorialDate} date`)
       application.switchContextTo('tutorial')
       if (tutorialDate) { application.setTime(new Date(tutorialDate)) }

@@ -59,7 +59,7 @@ const tutorialSteps: TutorialStep[] = [
     ],
     onButtonClicked: (buttonId: string) => {
       if (buttonId === 'no') {
-        tutorialStore.currentStep = 9999
+        tutorialStore.currentStep = TutorialSteps.TutorialEnd
       }
       if (buttonId === 'yes') {
         application.switchContextTo('tutorial')
@@ -207,7 +207,8 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: TutorialSteps.ConfigNotificationTimeUserSets,
     onEnter: async () => {
-      setTimeout(() => { isMemorizationTimePickerOpen.value = true }, 10)
+      // NOTE: setTimeout is workaround that fixes issue of not showing picker
+      setTimeout(() => { isNotificationTimePickerOpen.value = true }, 10)
     },
   },
 
