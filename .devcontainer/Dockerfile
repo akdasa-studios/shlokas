@@ -20,4 +20,5 @@ WORKDIR /workspaces
 COPY --chown=${USER_UID}:${USER_GID} . .
 RUN npm install
 
-CMD ["/bin/bash", "-c", "while true; do echo 'Infinite loop'; sleep 2; done"]
+# Invinite development loop
+CMD ["/bin/bash", "-c", "while true; sleep 1000; done"]
