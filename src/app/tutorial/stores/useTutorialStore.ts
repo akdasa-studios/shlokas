@@ -15,6 +15,19 @@ export const useTutorialStore = defineStore('tutorial', () => {
   const isStarted = computed(() => currentStep.value > TutorialSteps.OverallIntroduction)
   const lastInvalidActionAt = ref(0)
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
+
+  /**
+   * Check if a user is at a specified step of the tutorial
+   * @param step Step number
+   * @returns True if the tutorial is enabled and a user is at the specified step
+   */
+  function atStep(step: TutorialSteps) {
+    return isEnabled.value && currentStep.value === step
+  }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -37,5 +50,5 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep, completeStep, isEnabled, isCompleted, isStarted, invalidAction, lastInvalidActionAt }
+  return { currentStep, completeStep, isEnabled, isCompleted, isStarted, invalidAction, lastInvalidActionAt, atStep }
 })
