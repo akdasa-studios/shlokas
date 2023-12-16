@@ -45,8 +45,12 @@ If you'd like to help develop the project, here's a list of links to get you sta
 2. `npm run run:device` – run application on a device
 3. `npm run run:device:hot` – run an application on a device with hot reloading
 
-### Environment
+### Develop in VSCode decvontainer
+1. Generate Personal Access Token with "package:read" permission from GitHub
+2. Export GITHUB_TOKEN: `echo "GITHUB_PAT_TOKEN=XXXXX > ~/.profile"`
+3. Use "Rebuild and run in container" command in VSCoder
 
+### Environment
 There are two options for launching services:
 1. Use prebuild containers — a fast and easy way to run the application. You don't need to build anything. This option is for you if you are working on the Shlokas app but not the services.
 2. Build all the services from the sources. This option is for you if you are working on a specific service and want to modify, build, and run it.
