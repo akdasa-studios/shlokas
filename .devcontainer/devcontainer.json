@@ -1,9 +1,10 @@
 {
   "name": "Shlokas",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "postCreateCommand": "./.devcontainer/bootstrap.sh",
+	"dockerComposeFile": [
+		"docker-compose.yml"
+	],
+	"service": "shlokas",
+	"workspaceFolder": "/workspaces",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -24,7 +25,8 @@
         "stackbreak.comment-divider",
         "bierner.markdown-mermaid",
         "yzhang.markdown-all-in-one",
-        "Lokalise.i18n-ally"
+        "Lokalise.i18n-ally",
+        "ms-azuretools.vscode-docker"
       ]
     }
   }

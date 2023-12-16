@@ -1,0 +1,22 @@
+name: shlokas
+
+
+services:
+  shlokas:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - USER_UID=${UID:-1003}
+        - USER_GID=${UID:-1003}
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    expose:
+      - 8080
+    networks:
+      - shlokas
+    volumes:
+      - ..:/workspaces
+
+networks:
+  shlokas:
+    name: shlokas
