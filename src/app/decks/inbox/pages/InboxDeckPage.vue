@@ -187,7 +187,7 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
   // Tutorial: Don't allow a user to swipe up all the cards before he is asked
-  if (!TutorialGuards.InboxDeck.canUserSwipeCardsUpInInboxDeck(direction)) { return }
+  if (!TutorialGuards.InboxDeck.canUserSwipeCardsUpInInboxDeck(direction)) { return false }
 
   if (['left', 'right'].includes(direction)) {
     return cards.value.length > 1 && distance > 40
