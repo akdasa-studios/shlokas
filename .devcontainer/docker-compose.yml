@@ -9,7 +9,7 @@ services:
       args:
         - USER_UID=${UID:-1003}
         - USER_GID=${UID:-1003}
-        - GITHUB_TOKEN=${GITHUB_TOKEN}
+        - GITHUB_TOKEN=${GITHUB_PAT_TOKEN}
     expose:
       - 8080
     networks:

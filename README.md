@@ -47,7 +47,7 @@ If you'd like to help develop the project, here's a list of links to get you sta
 
 ### Develop in VSCode decvontainer
 1. Generate Personal Access Token with "package:read" permission from GitHub
-2. Export GITHUB_TOKEN: `echo "GITHUB_TOKEN=XXXXX > ~/.profile"`
+2. Export GITHUB_TOKEN: `echo "GITHUB_PAT_TOKEN=XXXXX > ~/.profile"`
 3. Use "Rebuild and run in container" command in VSCoder
 
 ### Environment
