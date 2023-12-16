@@ -75,7 +75,7 @@ const showBadge = computed(() => props.verseStatus.inDeck != Decks.None)
 
 function onClick() {
   // Tutorial: Don't allow opening any verse other than BG 1.1
-  if (tutorialStore.isEnabled && tutorialStore.currentStep <= TutorialSteps.LibraryOpenVerse && props.verse.reference !== 'BG 1.1') {
+  if (tutorialStore.isEnabled && ((tutorialStore.currentStep < TutorialSteps.LibraryOpenVerse && tutorialStore.currentStep > TutorialSteps.LibraryAddVerse) || props.verse.reference !== 'BG 1.1')) {
     tutorialStore.invalidAction()
     return
   }
