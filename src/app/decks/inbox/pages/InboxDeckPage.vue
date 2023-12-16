@@ -65,7 +65,7 @@ import { storeToRefs } from 'pinia'
 import { testId , useApplication , BackgroundTasks, useAppStateStore } from '@/app/shared'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty, MemorizationTimer } from '@/app/decks/inbox'
 import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
-import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
+import { useTutorialStore, TutorialSteps, TutorialGuards } from '@/app/tutorial'
 import { useSettingsStore } from '@/app/settings'
 
 
@@ -186,13 +186,8 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 /* -------------------------------------------------------------------------- */
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
-  // Tutorial: Don't allow swiping up all the cards before he asked
-  if (tutorial.inProgress) {
-    const isUserWasAskedToSwipeCardsUp = tutorial.atStep(TutorialSteps.InboxDeckSwipeCardUp)
-    const isUserSwipingCardsUp = ['up', 'bottom'].includes(direction)
-    if (!isUserWasAskedToSwipeCardsUp &&  isUserSwipingCardsUp) { tutorial.invalidAction(); return false }
-    if ( isUserWasAskedToSwipeCardsUp && !isUserSwipingCardsUp) { tutorial.invalidAction(); return false }
-  }
+  // Tutorial: Don't allow a user to swipe up all the cards before he is asked
+  if (!TutorialGuards.InboxDeck.canUserSwipeCardsUpInInboxDeck(direction)) { return }
 
   if (['left', 'right'].includes(direction)) {
     return cards.value.length > 1 && distance > 40

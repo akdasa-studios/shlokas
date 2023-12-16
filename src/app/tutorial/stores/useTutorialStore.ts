@@ -9,7 +9,7 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                    State                                   */
   /* -------------------------------------------------------------------------- */
 
-  /** Tutorial module could be enabled or disabled at all */
+  /** The training module can be turned on or off altogether. */
   const isEnabled = ref(true)
 
   /** Tutorial enabled, but not started yet */
@@ -22,7 +22,6 @@ export const useTutorialStore = defineStore('tutorial', () => {
     () => isEnabled.value
           && currentStep.value > TutorialSteps.OverallIntroduction
           && currentStep.value < TutorialSteps.TutorialEnd)
-
 
   /** Current step */
   const currentStep = ref<TutorialSteps>(0)
