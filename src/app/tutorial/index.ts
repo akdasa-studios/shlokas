@@ -11,3 +11,6 @@ export * from './models/TutorialStep'
 
 // tasks:
 export * from './tasks/useTutorialPersistenceTask'
+
+// misc:
+export * from './guards'

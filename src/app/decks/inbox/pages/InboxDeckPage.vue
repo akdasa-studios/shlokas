@@ -64,8 +64,8 @@ import { computed, ref, reactive, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { testId , useApplication , BackgroundTasks, useAppStateStore } from '@/app/shared'
 import { InboxFlipCard, InboxCardSwipeOverlay, InboxDeckEmpty, MemorizationTimer } from '@/app/decks/inbox'
-import { useLibraryCache, useIndexedList, StackedFlipCardsDeck } from '@/app/decks/shared'
-import { useTutorialStore, TutorialSteps } from '@/app/tutorial'
+import { useLibraryCache, useIndexedList, StackedFlipCardsDeck, Direction } from '@/app/decks/shared'
+import { useTutorialStore, TutorialSteps, TutorialGuards } from '@/app/tutorial'
 import { useSettingsStore } from '@/app/settings'
 
 
@@ -185,7 +185,10 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 /*                                   Helpers                                  */
 /* -------------------------------------------------------------------------- */
 
-function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
+function canBeSwiped(_: string, { direction, distance }: { direction: Direction, distance: number }) {
+  // Tutorial: Don't allow a user to swipe up all the cards before he is asked
+  if (!TutorialGuards.InboxDeck.canUserSwipeCardsUpInInboxDeck(direction)) { return false }
+
   if (['left', 'right'].includes(direction)) {
     return cards.value.length > 1 && distance > 40
   }
