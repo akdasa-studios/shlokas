@@ -186,10 +186,12 @@ async function onCardSwipeFinished(id: string, { direction }: { direction: strin
 /* -------------------------------------------------------------------------- */
 
 function canBeSwiped(_: string, { direction, distance }: { direction: string, distance: number }) {
-  // Tutorial: Don't allow swiping up all the cards before asked
-  if (!tutorial.atStep(TutorialSteps.InboxDeckSwipeCardUp) && ['up', 'bottom'].includes(direction)) {
-    tutorial.invalidAction()
-    return false
+  // Tutorial: Don't allow swiping up all the cards before he asked
+  if (tutorial.inProgress) {
+    const isUserWasAskedToSwipeCardsUp = tutorial.atStep(TutorialSteps.InboxDeckSwipeCardUp)
+    const isUserSwipingCardsUp = ['up', 'bottom'].includes(direction)
+    if (!isUserWasAskedToSwipeCardsUp &&  isUserSwipingCardsUp) { tutorial.invalidAction(); return }
+    if ( isUserWasAskedToSwipeCardsUp && !isUserSwipingCardsUp) { tutorial.invalidAction(); return }
   }
 
   if (['left', 'right'].includes(direction)) {

@@ -11,8 +11,9 @@ export const useTutorialStore = defineStore('tutorial', () => {
 
   const currentStep = ref(0)
   const isEnabled = ref(true)
-  const isCompleted = computed(() => currentStep.value >= TutorialSteps.TutorialEnd)
-  const isStarted = computed(() => currentStep.value > TutorialSteps.OverallIntroduction)
+  const inProgress = computed(
+    () => currentStep.value > TutorialSteps.OverallIntroduction &&
+          currentStep.value < TutorialSteps.TutorialEnd)
   const lastInvalidActionAt = ref(0)
 
   /* -------------------------------------------------------------------------- */
@@ -27,7 +28,6 @@ export const useTutorialStore = defineStore('tutorial', () => {
   function atStep(step: TutorialSteps) {
     return isEnabled.value && currentStep.value === step
   }
-
 
   /* -------------------------------------------------------------------------- */
   /*                                   Actions                                  */
@@ -50,5 +50,5 @@ export const useTutorialStore = defineStore('tutorial', () => {
   /*                                  Interface                                 */
   /* -------------------------------------------------------------------------- */
 
-  return { currentStep, completeStep, isEnabled, isCompleted, isStarted, invalidAction, lastInvalidActionAt, atStep }
+  return { currentStep, completeStep, isEnabled, inProgress, invalidAction, lastInvalidActionAt, atStep }
 })
