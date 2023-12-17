@@ -61,6 +61,7 @@
 
     <TutorialPlayer
       v-if="tutorialEnabled && (isTutorialInProgress || isTutorialNotStartedYet)"
+      data-testid="tutorial-overlay"
     />
   </ion-page>
 </template>

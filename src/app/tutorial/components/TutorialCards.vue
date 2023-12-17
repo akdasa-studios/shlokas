@@ -2,6 +2,7 @@
   <div class="tutorial-cards">
     <TutorialCard
       v-if="activeCard && activeCard.text"
+      :data-testid="testId('tutorial-card', activeCard.id.toString())"
       :visible="activeCardVisible"
       :buttons="activeCard.buttons"
       :progress="activeCardProgress"
@@ -10,13 +11,17 @@
       @button-clicked="onButtonClicked"
     >
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <span v-html="$t(activeCard.text)" />
+      <span
+        data-testid="tutorial-card-text"
+        v-html="$t(activeCard.text)"
+      />
     </TutorialCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, toRefs, watch, onMounted } from 'vue'
+import { testId } from '@/app/shared'
 import { TutorialStep } from '../models/TutorialStep'
 import TutorialCard from './TutorialCard.vue'
 

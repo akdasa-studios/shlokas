@@ -15,6 +15,7 @@
         :key="button.id"
         :color="button.color"
         class="button"
+        :data-testid="testId('tutorial-card-button', button.id)"
         @click.stop="onClicked(button.id)"
       >
         {{ $t(button.text) }}
@@ -27,6 +28,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import { IonButton } from '@ionic/vue'
+import { testId } from '@/app/shared'
 
 /* -------------------------------------------------------------------------- */
 /*                                  Interface                                 */

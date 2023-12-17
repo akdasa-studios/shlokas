@@ -10,6 +10,7 @@ export async function initParams(
   const shlokas = get<Application>('app')
   const params = new URLSearchParams(window.location.search)
   const tutorialEnabled = params.get('tutorialEnabled')
+  const tutorialStep = params.get('tutorialStep')
   const libraryLastSyncDate = params.get('libraryLastSyncDate')
   const autoSyncOnLogin = params.get('autoSyncOnLogin')
   const reviewCardsInRandomOrder = params.get('reviewCardsInRandomOrder')
@@ -21,6 +22,11 @@ export async function initParams(
   if (tutorialEnabled) {
     console.debug('[params] tutorialEnabled', tutorialEnabled)
     tutorialStore.isEnabled = ['true', '1'].includes(tutorialEnabled)
+  }
+
+  if (tutorialStep) {
+    console.debug('[params] tutorialStep', tutorialStep)
+    tutorialStore.currentStep = parseInt(tutorialStep)
   }
 
   if (libraryLastSyncDate) {
