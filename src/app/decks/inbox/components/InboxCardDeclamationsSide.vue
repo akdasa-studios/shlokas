@@ -8,6 +8,7 @@
     }"
   >
     <CircleProgress
+      data-testid="declamation-player"
       :progress="porgress"
       :current="repeatCurrent+1"
       :total="repeatsPerLine"
