@@ -33,7 +33,7 @@ export async function initSentry({ get }: InitArgs) {
       }),
       new Replay({
         maskAllText: false,
-        blockAllMedia: true,
+        blockAllMedia: false,
       }),
     ]
   })
