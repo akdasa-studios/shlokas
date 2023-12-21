@@ -33,7 +33,7 @@ export function useScreenOrientation() {
     return (await ScreenOrientation.orientation()).type
   }
 
-  async function lock(orientation: OrientationLockType) {
+  async function lock(orientation: OrientationType) {
     type.value = orientation
     isLocked.value = true
     try {
