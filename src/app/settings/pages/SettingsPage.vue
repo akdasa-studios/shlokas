@@ -293,6 +293,7 @@ async function onSendEmail() {
 
 function onHeaderClicked() {
   devModeClicks.value += 1
+  throw new Error('This is a test')
 }
 
 function onNextDay() {
