@@ -1,14 +1,15 @@
 import { Capacitor } from '@capacitor/core'
-import * as Sentry from '@sentry/capacitor'
+import * as Sentry from '@sentry/vue'
 import { Replay } from '@sentry/replay'
-import * as SentrySibling from '@sentry/vue'
+import { App as VueApp } from 'vue'
 import { useAppVersion, useEnv } from '@/app/shared'
+import { InitArgs } from '../initialization'
 
 
 /**
  * Initialize the sentry plugin to track errors
  */
-export async function initSentry() {
+export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
 
   // Do not initialize sentry on web or dev mode
@@ -17,6 +18,7 @@ export async function initSentry() {
 
   // Initialize sentry plugin
   Sentry.init({
+    app: get<VueApp>('vue'),
     dsn: 'https://e09ab355192945fb87bc01882eb62578@o257342.ingest.sentry.io/4504486578225152',
     release: await useAppVersion(),
     dist: '1',
@@ -29,5 +31,5 @@ export async function initSentry() {
         blockAllMedia: true,
       }),
     ]
-  }, SentrySibling.init)
+  })
 }
