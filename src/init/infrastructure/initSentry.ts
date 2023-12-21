@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core'
 import * as Sentry from '@sentry/vue'
 import { Replay } from '@sentry/replay'
 import { App as VueApp } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAppVersion, useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
 
@@ -11,6 +12,7 @@ import { InitArgs } from '../initialization'
  */
 export async function initSentry({ get }: InitArgs) {
   const env = useEnv()
+  const router = useRouter()
 
   // Do not initialize sentry on web or dev mode
   const isNotCompatible = Capacitor.getPlatform() === 'web' || env.getMode() === 'dev'
@@ -26,6 +28,9 @@ export async function initSentry({ get }: InitArgs) {
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
     integrations: [
+      new Sentry.BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      }),
       new Replay({
         maskAllText: false,
         blockAllMedia: true,
