@@ -203,7 +203,7 @@ class QueryConverter {
   getValue(object: unknown) {
     if (object instanceof Identity) {
       return object.value
-    } else if (object instanceof Array<AnyIdentity>) {
+    } else if (object instanceof Array) {
       return object.map(x => x.value)
     } else if (object instanceof Date) {
       return object.getTime()

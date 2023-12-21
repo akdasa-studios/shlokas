@@ -1,7 +1,6 @@
 import { Capacitor } from '@capacitor/core'
-import * as Sentry from '@sentry/capacitor'
+import * as Sentry from '@sentry/vue'
 import { Replay } from '@sentry/replay'
-import * as SentrySibling from '@sentry/vue'
 import { App as VueApp } from 'vue'
 import { useAppVersion, useEnv } from '@/app/shared'
 import { InitArgs } from '../initialization'
@@ -26,11 +25,15 @@ export async function initSentry({ get }: InitArgs) {
     tracesSampleRate: 1.0,
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
+    tracePropagationTargets: ['localhost'],
     integrations: [
+      // new Sentry.BrowserTracing({
+      //   routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      // }),
       new Replay({
         maskAllText: false,
-        blockAllMedia: true,
+        blockAllMedia: false,
       }),
     ]
-  }, SentrySibling.init)
+  })
 }

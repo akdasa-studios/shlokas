@@ -9,3 +9,5 @@ coverage/
 resources/ios/**/*
 content/
 .DS_Store
+# Sentry Config File
+.env.sentry-build-plugin
