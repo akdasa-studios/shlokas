@@ -47,7 +47,7 @@
     "@ionic/vue-router": "^7.6.2",
     "@sentry/capacitor": "^0.15.0",
     "@sentry/vite-plugin": "^2.10.2",
-    "@sentry/vue": "7.81.1",
+    "@sentry/vue": "7.93.0",
     "@trapezedev/configure": "^7.0.10",
     "@vueuse/core": "^10.7.0",
     "capacitor-blob-writer": "^1.1.14",
