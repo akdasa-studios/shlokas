@@ -36,7 +36,7 @@
     "@capacitor/ios": "^5.6.0",
     "@capacitor/keyboard": "^5.0.7",
     "@capacitor/local-notifications": "^5.0.6",
-    "@capacitor/screen-orientation": "^5.0.6",
+    "@capacitor/screen-orientation": "^5.0.7",
     "@capacitor/splash-screen": "^5.0.6",
     "@capacitor/status-bar": "^5.0.6",
     "@capawesome/capacitor-badge": "^5.0.0",
